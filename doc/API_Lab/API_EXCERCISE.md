@@ -20,5 +20,9 @@ Hannah Fuchshuber hpf3
 
 Current strategy is to seperate and develop APIs and come back after fall break to determine external APIs
 
+![George and Kayla's API sheet](https://git.cs.duke.edu/CompSci308_2016Fall/slogo_team15/blob/master/doc/Front_End_API_Sheet.jpg)
+
 ## Write Code to solve some example Use Cases
 Was not possible due to time constraints. Focused on general design of project.
+
+![GUI Design]:(https://git.cs.duke.edu/CompSci308_2016Fall/slogo_team15/blob/master/doc/GUI_Design.jpg)
