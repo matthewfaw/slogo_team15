@@ -8,7 +8,23 @@
 
 # Introduction
 
+The problem we are trying to solve with this program is to create a SLogo IDE.  Our initial goal is to make our design flexible so that new features can be easily added to both the frontend and backend, while maintaining an external API that should not change significantly over the course of the project.
+
+We plan to keep our design flexible in the type of data that is passed back and forth between frontend and backend.  We also aim at allowing new commands to be easily added, and to have new, more sophisticated code outputs without significantly changing our architecture.
+
+Our overall application architecture is Model View Controller.  We plan to use the Observer/Observable design pattern to keep data on frontend and backend consistent.  Primary features such as Commands will be closed for modification by mandating a strict API to which they all conform.  New features will thus be added by implementing these interfaces in different ways.
+
 # Design Overview
+
+The overall goal of our design is to keep the application state in the backend, leaving the frontend to deal with displays and registering interactions with the IDE.
+
+We plan on triggering events in the code primarily using EventHandlers.  We plan to pass data through custom objects so that our main communication APIs do not have to change significantly over the course of the project.  The backend internal APIs will primarily deal with how Environment Variables are updated, how Commands are evaluated, how custom methods are created and saved, and how the robots are manipulated.
+
+The frontend APIs... TODO--fill in info here****
+
+Add pictures here, TODO
+
+
 
 # User Interface
 
@@ -22,6 +38,37 @@
     * Finally, the toolbar will contain many of the buttons that allow the user to interact with the program. This will include the run, step, clear, language (combo box), help, and compile buttons.
 
 # API Details
+
+![alt text](data/slogo_BACKEND_UML.JPG "Our slogo Backend/Controller overview Architecture")
+
+Backend Internal API:
+
+TODO
+
+Backend External API:
+```
+    public interface CodeEvaluator {
+    	void buildAST(Code aCodeToEvaluate) throws SyntaxError
+    	void evaluateNextLine() throws MissingImplementationError
+    	boolean hasNextLine()
+    	void setLangauge(Language aLanguage)
+    }
+
+    public interface ViewableRobot {
+	    int getAngle()
+	    int getCurrentPosition()
+	    PenMark getPenMark()
+	    int getVisibilityValue()
+    }
+
+	public interface ViewableEnvironmentInfo {
+		Collection<Variable> getEnvironmentVariables()
+		Collection<SLogoFunction> getCustomInstructions()
+	}
+```
+
+
+
 
 # API Example Code
 
@@ -94,6 +141,28 @@ public class TextEditor {
     }
 }
 ```
+
+
+When the Run code button is pressed:
+```
+AppController.onRunButtonPressed(String aCode) is triggered
+CodeEvaluationController.evaluateCode(Code aCodeToEvaluate)
+CodeEvaluator.buildAST(Code aCodeToEvaluate)
+Collection<SyntaxObjects> syntaxObjs = TextParser.parseCode(Code aCodeToEvaluate)
+AbstractSyntaxTree.buildTree(syntaxObjs)
+
+CodeEvaluator.evaluateNextLine() // until no more instructions to execute
+AbstractSyntaxTree.evaluateNextNode()
+Node.evaluateMethod()
+//private
+Collection<MethodInput> inputs = Node.getMethodInputs()
+//for each input child, get the value of the node, and add that value to the method inputs collection
+// use the command field of the node to produce the return value of the method
+Node.fCommand.evaluate(inputs)
+
+```
+
+TODO: How to handle custom methods
 
 # Design Considerations
 * Before the team can come to a complete design solution, we need to reach a consensus on what specific information will be passed between the front-end and the back-end. We have discussed passing one object back and forth through the controller, allowing for flexibility in what is included in the object and later extension.
