@@ -31,4 +31,4 @@
 # Team Responsibilities
 * We split the team into two parts as recommended: front-end and back-end. Matthew and Hannah will be responsible for the back-end while George and Kayla will be responsible for the front-end. 
 In splitting up front-end, George and Kayla will do some pair programming to begin the creation of the sub-components of the view. In terms of individual responsibilities
-though, George will handle more of the controller implementation and the communication between the front-end and the back-end. Kayla will work on more of the visual
+though, George will handle more of the controller implementation and the communication between the front-end and the back-end. Kayla will work on more of the visual components and the overall appScene class that combines all sub-components of the view into one synchronized window.
