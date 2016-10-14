@@ -11,6 +11,8 @@
 # Design Overview
 
 # User Interface
+
+![alt text](data/slogo_UI.JPG "Our slogo UI")
 * Our User Interface will consist of six boxes or areas.
 * The first is the animation or turtle box, that will show the output of the commands input by the user. Inside of the turtle box, the user has a combo box with the option to change the background color. 
 * The text editor will contain the code input by the user. This can be from either the user manually typing the commands, or also from choosing an option from the command box (we will go into further detail on the command box later). If the user is stepping through the program, the last executed line will be highlighted. Additionally, if an error at compile time due to something in the text editor, the line will be highlighted in red. 
