@@ -25,6 +25,35 @@
 
 # API Example Code
 
+* Front-end Internal API:
+* TurtleBox:
+
+```java
+public class TurtleBox {
+
+/**
+* Returns the root with all components of turtle box
+* @return root of the turtlebox
+*/
+    public Group getRoot() {
+        return new Group();
+    }
+    
+   /**
+    * Draw the moves from robot over all turtles
+    * @param Robot from back-end (this will later be of type robot)
+    */
+   public void addRobot(Object robot) {
+   }
+    
+   /**
+    * Clears the turtle box to its initial settings
+    */
+   public void clear() {
+   }
+}
+```
+
 # Design Considerations
 * Before the team can come to a complete design solution, we need to reach a consensus on what specific information will be passed between the front-end and the back-end. We have discussed passing one object back and forth through the controller, allowing for flexibility in what is included in the object and later extension.
 
