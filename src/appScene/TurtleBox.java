@@ -1,7 +1,6 @@
 package appScene;
 
 import javafx.scene.Group;
-import javafx.scene.shape.Path;
 
 public class TurtleBox {
 
@@ -14,17 +13,15 @@ public class TurtleBox {
     }
     
     /**
-     * Display the animation after it has been parsed and interpreted from
-     * the back-end
-     * @param Path received from the model
+     * Draw the moves from robot over all turtles
+     * @param Robot from back-end (this will later be of type robot)
      */
-    public void displayPath(Path x) {
+    public void addRobot(Object robot) {
     }
     
     /**
      * Clears the turtle box to its initial settings
      */
     public void clear() {
-        
     }
 }
