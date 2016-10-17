@@ -3,6 +3,7 @@ package appScene;
 import java.awt.List;
 import javafx.scene.paint.Color;
 
+    
 public interface ITextEditor {
     /**
      * Clear the text editor to its original, empty state
