@@ -1,5 +1,6 @@
-package appScene;
+package appScene.turtleBox;
 
+import appScene.IViewer;
 import javafx.scene.Group;
 
 public interface ITurtleBox extends IViewer {

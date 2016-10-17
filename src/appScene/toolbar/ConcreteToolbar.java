@@ -2,7 +2,6 @@ package appScene.toolbar;
 
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.control.Slider;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.event.EventHandler;
@@ -21,7 +20,6 @@ public class ConcreteToolbar implements IToolbar {
      * 
      * @param height
      * @param width
-     * @return TODO
      */
     public Node getToolbarAsNode (int height, int width) {
         myToolbar = new HBox(0);
