@@ -1,25 +1,20 @@
-package appScene.scriptViewer;
+package appScene.variableViewer;
 
+import java.util.Map;
 import javafx.scene.Node;
 
-public class ConcreteScriptViewer implements IScriptViewer {
+public class ConcreteVariableViewer implements IVariableViewer {
 
     @Override
     public void clear () {
         // TODO Auto-generated method stub
-        
+
     }
 
     @Override
-    public void giveScriptStructure () {
+    public void showVariables (Map<String, ? extends Number> varMap) {
         // TODO Auto-generated method stub
-        
-    }
 
-    @Override
-    public void onScriptPress () {
-        // TODO Auto-generated method stub
-        
     }
 
     @Override

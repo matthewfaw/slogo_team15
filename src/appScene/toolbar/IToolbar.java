@@ -1,5 +1,6 @@
 package appScene.toolbar;
 
+import appScene.IViewer;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 
@@ -9,7 +10,7 @@ import javafx.scene.input.MouseEvent;
  * Mediator listens to many (but not all) of these buttons.
  *
  */
-public interface IToolbar {
+public interface IToolbar extends IViewer {
 
 	public void onCompilePress(EventHandler<MouseEvent> event);
 	

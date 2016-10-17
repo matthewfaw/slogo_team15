@@ -8,12 +8,7 @@ package appScene;
  * And then updates any line by line or syntax errors.
  *
  */
-public interface IErrorViewer {
-
-	 /**
-     * Clear the text editor to its original, empty state
-     */
-    public void clear();
+public interface IErrorViewer extends IViewer {
     
     public void giveErrorStructure(Object ErrorStructure);
     

@@ -2,7 +2,7 @@ package appScene;
 
 import javafx.scene.Group;
 
-public interface ITurtleBox {
+public interface ITurtleBox extends IViewer {
 
     /**
      * Returns the root with all components of turtle box

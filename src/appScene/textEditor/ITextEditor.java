@@ -1,14 +1,11 @@
 package appScene.textEditor;
 
 import java.util.List;
+import appScene.IViewer;
 import javafx.scene.paint.Color;
 
     
-public interface ITextEditor {
-    /**
-     * Clear the text editor to its original, empty state
-     */
-    public void clear();
+public interface ITextEditor extends IViewer {
     
     /**
      * Highlight a line in the text editor - will be used by either

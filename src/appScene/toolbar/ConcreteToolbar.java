@@ -83,5 +83,21 @@ public class ConcreteToolbar implements IToolbar {
         // TODO Auto-generated method stub
         
     }
+
+
+
+    @Override
+    public void clear () {
+        // TODO Auto-generated method stub
+        
+    }
+
+
+
+    @Override
+    public Node getInstanceAsNode () {
+        // TODO Auto-generated method stub
+        return null;
+    }
     
 }
