@@ -8,13 +8,12 @@
 
 # Introduction
 
-<<<<<<< HEAD:doc/DESIGN.md
 The problem statement of this design is that of implementing a simplified Logo based coding environment. The primary goals are to implement a wide variety of commands and customization by the user. Another focus of this project is to hone our ability to write API's. Ideally, the API's we write now would be crystallized and then we could extend key pieces or objects passed through those set API's. The primary architecture of the design uses Model-View-Adapter to fully seperate concerns of the front end visualizer and development environment with the syntax and code parsing in the back end. 
 
 # Design Overview
 
 The user interacts directly with a GUI (IDE-like) environment. Upon a compile/code-step interaction, the GUI pings the mediator, which in turn pings a model, which among other updates, builds syntax tree for the instruction. This model, once the directive is completed, updates the mediator, which updates the GUI with the relevant variables, errors, or change in turtle position. The model is composed of multiple controllers which would send a relevant update to the mediator, to better delegate.
-=======
+
 The problem we are trying to solve with this program is to create a SLogo IDE.  Our initial goal is to make our design flexible so that new features can be easily added to both the frontend and backend, while maintaining an external API that should not change significantly over the course of the project.
 
 We plan to keep our design flexible in the type of data that is passed back and forth between frontend and backend.  We also aim at allowing new commands to be easily added, and to have new, more sophisticated code outputs without significantly changing our architecture.
@@ -26,13 +25,6 @@ Our overall application architecture is Model View Controller.  We plan to use t
 The overall goal of our design is to keep the application state in the backend, leaving the frontend to deal with displays and registering interactions with the IDE.
 
 We plan on triggering events in the code primarily using EventHandlers.  We plan to pass data through custom objects so that our main communication APIs do not have to change significantly over the course of the project.  The backend internal APIs will primarily deal with how Environment Variables are updated, how Commands are evaluated, how custom methods are created and saved, and how the robots are manipulated.
-
-The frontend APIs... TODO--fill in info here****
-
-Add pictures here, TODO
-
-
->>>>>>> 0eccad62be5685ea0e76f1229c8663e5ce3f63d9:DESIGN.md
 
 # User Interface
 
@@ -47,10 +39,8 @@ Add pictures here, TODO
     * Finally, the toolbar will contain many of the buttons that allow the user to interact with the program. This will include the run, step, clear, language (combo box), help, and compile buttons.
 
 # API Details
-
-<<<<<<< HEAD:doc/DESIGN.md
 API details are covered sufficiently in the design overview and in the documentation in each interface.
-=======
+
 ![alt text](data/slogo_BACKEND_UML.JPG "Our slogo Backend/Controller overview Architecture")
 
 Backend Internal API:
@@ -78,10 +68,6 @@ Backend External API:
 		Collection<SLogoFunction> getCustomInstructions()
 	}
 ```
-
-
-
->>>>>>> 0eccad62be5685ea0e76f1229c8663e5ce3f63d9:DESIGN.md
 
 # API Example Code
 
