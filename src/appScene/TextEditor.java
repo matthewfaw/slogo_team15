@@ -4,6 +4,9 @@ import java.awt.List;
 import javafx.scene.paint.Color;
 
 public class TextEditor {
+    
+    private Group root;
+    
     /**
      * Clear the text editor to its original, empty state
      */
