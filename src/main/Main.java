@@ -13,15 +13,16 @@ public class Main extends Application {
 
     private ApplicationController myApplicationController;
     private final int SIZE = 600;
+    
     /**
-     * Sets the Game up at the beginning.
+     * Starts initializing the stage and scene
      * 
      * @return nothing
      */
     @Override
     public void start (Stage s) {
         myApplicationController = new ApplicationController();
-        //s.setTitle(myApplicationController.getTitle());
+        s.setTitle(myApplicationController.getTitle());
 
         Scene scene = myApplicationController.init(SIZE, SIZE);
 

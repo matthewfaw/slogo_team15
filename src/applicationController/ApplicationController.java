@@ -10,6 +10,7 @@ public class ApplicationController {
    private BorderPane myApplicationView;
    private Scene myScene;
    private Group myRoot;
+   private String TITLE = "SLOGO";
    
    public ApplicationController() {
        myApplicationView = new BorderPane();
@@ -20,5 +21,9 @@ public class ApplicationController {
        myRoot.getChildren().addAll(myApplicationView);
        myScene = new Scene(myRoot, width, height, Color.WHITE);
        return myScene;
+   }
+   
+   public String getTitle() {
+       return TITLE;
    }
 }
