@@ -1,13 +1,11 @@
-package appScene;
+package appScene.textEditor;
 
-import java.awt.List;
+import java.util.List;
+import appScene.IViewer;
 import javafx.scene.paint.Color;
 
-public interface ITextEditor {
-    /**
-     * Clear the text editor to its original, empty state
-     */
-    public void clear();
+    
+public interface ITextEditor extends IViewer {
     
     /**
      * Highlight a line in the text editor - will be used by either
@@ -22,12 +20,12 @@ public interface ITextEditor {
      * This will occur on run clicked
      * @return instruction list
      */
-    public List getInstructionList();
+    public List<String> getInstructionList();
     
     /**
      * Set the instructions inside of the text editor
      * This will receive its input from the command box
      * @param list of instructions
      */
-    public void setInstructionList(List instructions);
+    public void setInstructionList(List<String> instructions);
 }

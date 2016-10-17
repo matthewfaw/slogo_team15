@@ -1,4 +1,6 @@
-package appScene;
+package appScene.scriptViewer;
+
+import appScene.IViewer;
 
 /**
  * @author George Bernard
@@ -7,12 +9,7 @@ package appScene;
  * and updates if any changes have been made.
  *
  */
-public interface IScriptViewer {
-	
-	 /**
-     * Clear the text editor to its original, empty state
-     */
-    public void clear();
+public interface IScriptViewer extends IViewer {
     
     public void giveScriptStructure();
     
