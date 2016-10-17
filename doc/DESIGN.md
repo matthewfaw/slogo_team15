@@ -20,6 +20,12 @@ We plan to keep our design flexible in the type of data that is passed back and 
 
 Our overall application architecture is Model View Controller.  We plan to use the Observer/Observable design pattern to keep data on frontend and backend consistent.  Primary features such as Commands will be closed for modification by mandating a strict API to which they all conform.  New features will thus be added by implementing these interfaces in different ways.
 
+# Design Overview
+
+The overall goal of our design is to keep the application state in the backend, leaving the frontend to deal with displays and registering interactions with the IDE.
+
+We plan on triggering events in the code primarily using EventHandlers.  We plan to pass data through custom objects so that our main communication APIs do not have to change significantly over the course of the project.  The backend internal APIs will primarily deal with how Environment Variables are updated, how Commands are evaluated, how custom methods are created and saved, and how the robots are manipulated.
+
 # User Interface
 
 <img src="../data/slogo_UI.JPG" width="750" height="500" \>
@@ -33,14 +39,13 @@ Our overall application architecture is Model View Controller.  We plan to use t
     * Finally, the toolbar will contain many of the buttons that allow the user to interact with the program. This will include the run, step, clear, language (combo box), help, and compile buttons.
 
 # API Details
-
 API details are covered sufficiently in the design overview and in the documentation in each interface.
 
 ![alt text](data/slogo_BACKEND_UML.JPG "Our slogo Backend/Controller overview Architecture")
 
 Backend Internal API:
 
-
+TODO
 
 Backend External API:
 ```
