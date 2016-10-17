@@ -1,4 +1,4 @@
-package appScene;
+package appScene.scriptViewer;
 
 /**
  * @author George Bernard

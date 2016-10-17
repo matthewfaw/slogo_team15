@@ -36,7 +36,7 @@ public class ConcreteToolbar implements IToolbar {
     }
     
     
-
+    
     @Override
     public void onCompilePress (EventHandler<MouseEvent> event) {
         // TODO Auto-generated method stub

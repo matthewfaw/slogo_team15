@@ -1,6 +1,6 @@
-package appScene;
+package appScene.textEditor;
 
-import java.awt.List;
+import java.util.List;
 import javafx.scene.paint.Color;
 
     
@@ -23,12 +23,12 @@ public interface ITextEditor {
      * This will occur on run clicked
      * @return instruction list
      */
-    public List getInstructionList();
+    public List<String> getInstructionList();
     
     /**
      * Set the instructions inside of the text editor
      * This will receive its input from the command box
      * @param list of instructions
      */
-    public void setInstructionList(List instructions);
+    public void setInstructionList(List<String> instructions);
 }
