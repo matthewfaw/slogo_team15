@@ -1,7 +1,6 @@
 package appScene;
 
 import java.awt.List;
-import javafx.scene.Group;
 import javafx.scene.paint.Color;
 
     
