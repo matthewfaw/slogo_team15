@@ -8,6 +8,13 @@
 
 # Introduction
 
+<<<<<<< HEAD:doc/DESIGN.md
+The problem statement of this design is that of implementing a simplified Logo based coding environment. The primary goals are to implement a wide variety of commands and customization by the user. Another focus of this project is to hone our ability to write API's. Ideally, the API's we write now would be crystallized and then we could extend key pieces or objects passed through those set API's. The primary architecture of the design uses Model-View-Adapter to fully seperate concerns of the front end visualizer and development environment with the syntax and code parsing in the back end. 
+
+# Design Overview
+
+The user interacts directly with a GUI (IDE-like) environment. Upon a compile/code-step interaction, the GUI pings the mediator, which in turn pings a model, which among other updates, builds syntax tree for the instruction. This model, once the directive is completed, updates the mediator, which updates the GUI with the relevant variables, errors, or change in turtle position. The model is composed of multiple controllers which would send a relevant update to the mediator, to better delegate.
+=======
 The problem we are trying to solve with this program is to create a SLogo IDE.  Our initial goal is to make our design flexible so that new features can be easily added to both the frontend and backend, while maintaining an external API that should not change significantly over the course of the project.
 
 We plan to keep our design flexible in the type of data that is passed back and forth between frontend and backend.  We also aim at allowing new commands to be easily added, and to have new, more sophisticated code outputs without significantly changing our architecture.
@@ -25,10 +32,12 @@ The frontend APIs... TODO--fill in info here****
 Add pictures here, TODO
 
 
+>>>>>>> 0eccad62be5685ea0e76f1229c8663e5ce3f63d9:DESIGN.md
 
 # User Interface
 
-![alt text](data/slogo_UI.JPG "Our slogo UI")
+<img src="../data/slogo_UI.JPG" width="750" height="500" \>
+
 * Our User Interface will consist of six boxes or areas:
     * The first is the animation or turtle box, that will show the output of the commands input by the user. Inside of the turtle box, the user has a combo box with the option to change the background color. 
     * The text editor will contain the code input by the user. This can be from either the user manually typing the commands, or also from choosing an option from the command box (we will go into further detail on the command box later). If the user is stepping through the program, the last executed line will be highlighted. Additionally, if an error at compile time due to something in the text editor, the line will be highlighted in red. 
@@ -39,6 +48,9 @@ Add pictures here, TODO
 
 # API Details
 
+<<<<<<< HEAD:doc/DESIGN.md
+API details are covered sufficiently in the design overview and in the documentation in each interface.
+=======
 ![alt text](data/slogo_BACKEND_UML.JPG "Our slogo Backend/Controller overview Architecture")
 
 Backend Internal API:
@@ -69,6 +81,7 @@ Backend External API:
 
 
 
+>>>>>>> 0eccad62be5685ea0e76f1229c8663e5ce3f63d9:DESIGN.md
 
 # API Example Code
 
