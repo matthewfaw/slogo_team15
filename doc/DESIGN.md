@@ -8,11 +8,16 @@
 
 # Introduction
 
+The problem statement of this design is that of implementing a simplified Logo based coding environment. The primary goals are to implement a wide variety of commands and customization by the user. Another focus of this project is to hone our ability to write API's. Ideally, the API's we write now would be crystallized and then we could extend key pieces or objects passed through those set API's. The primary architecture of the design uses Model-View-Adapter to fully seperate concerns of the front end visualizer and development environment with the syntax and code parsing in the back end. 
+
 # Design Overview
+
+The user interacts directly with a GUI (IDE-like) environment. Upon a compile/code-step interaction, the GUI pings the mediator, which in turn pings a model, which among other updates, builds syntax tree for the instruction. This model, once the directive is completed, updates the mediator, which updates the GUI with the relevant variables, errors, or change in turtle position. The model is composed of multiple controllers which would send a relevant update to the mediator, to better delegate.
 
 # User Interface
 
-![alt text](data/slogo_UI.JPG "Our slogo UI")
+<img src="../data/slogo_UI.JPG" width="750" height="500" \>
+
 * Our User Interface will consist of six boxes or areas:
     * The first is the animation or turtle box, that will show the output of the commands input by the user. Inside of the turtle box, the user has a combo box with the option to change the background color. 
     * The text editor will contain the code input by the user. This can be from either the user manually typing the commands, or also from choosing an option from the command box (we will go into further detail on the command box later). If the user is stepping through the program, the last executed line will be highlighted. Additionally, if an error at compile time due to something in the text editor, the line will be highlighted in red. 
@@ -22,6 +27,8 @@
     * Finally, the toolbar will contain many of the buttons that allow the user to interact with the program. This will include the run, step, clear, language (combo box), help, and compile buttons.
 
 # API Details
+
+API details are covered sufficiently in the design overview and in the documentation in each interface.
 
 # API Example Code
 
