@@ -1,6 +1,7 @@
 package applicationController;
 
 import appScene.errorViewer.ConcreteErrorViewer;
+import appScene.scriptViewer.ConcreteScriptViewer;
 import appScene.textEditor.ConcreteTextEditor;
 import appScene.toolbar.ConcreteToolbar;
 import appScene.turtleBox.ConcreteTurtleBox;
@@ -22,6 +23,7 @@ public class ApplicationController {
     private ConcreteErrorViewer myErrorViewer;
     private ConcreteTurtleBox myTurtleBox;
     private ConcreteVariableViewer myVariableViewer;
+    private ConcreteScriptViewer myScriptViewer;
 
     public ApplicationController () {
         myApplicationView = new GridPane();
@@ -33,6 +35,7 @@ public class ApplicationController {
         myErrorViewer = new ConcreteErrorViewer(size / 2, height / 2);
         myTurtleBox = new ConcreteTurtleBox(size, size);
         myVariableViewer = new ConcreteVariableViewer(size / 2, size / 2);
+        myScriptViewer = new ConcreteScriptViewer(size/2, size/2); // double check these values
 
         myRoot = new Group();
         myRoot.getChildren().addAll(myApplicationView);

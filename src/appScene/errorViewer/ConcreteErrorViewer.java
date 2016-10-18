@@ -20,17 +20,17 @@ public class ConcreteErrorViewer implements IErrorViewer {
 	private static final int ErrorRowHeight = 30;
 	
 	
-	public ConcreteErrorViewer(int width, int height){
+	public ConcreteErrorViewer(int aWidth, int aHeight){
 		errorList = new ArrayList<Object>();
 		
 		myErrorViewer = new ScrollPane();
 		myErrorViewer.setHbarPolicy(ScrollBarPolicy.NEVER);
 		myErrorViewer.setVbarPolicy(ScrollBarPolicy.ALWAYS);
-		myErrorViewer.setPrefSize(width - 10, height - 10);
+		myErrorViewer.setPrefSize(aWidth - 10, aHeight - 10);
 		
 		VBox columnBox = initErrorColumn();
 		for(int i=0; i < 20; i++){
-			HBox currRowBox = createErrorRow(width - 10, "Error: " + Integer.toString(i+1));
+			HBox currRowBox = createErrorRow(aWidth - 10, "Error: " + Integer.toString(i+1));
 			columnBox.getChildren().add(currRowBox);
 		}
 		

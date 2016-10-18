@@ -15,7 +15,7 @@ public class ConcreteTextEditor implements ITextEditor{
 
     private ScrollPane myTextEditor;
     
-    public ConcreteTextEditor(int width, int height){
+    public ConcreteTextEditor(int aWidth, int aHeight){
     	myTextEditor = new ScrollPane();
         myTextEditor.setHbarPolicy(ScrollBarPolicy.NEVER);
         myTextEditor.setVbarPolicy(ScrollBarPolicy.ALWAYS);
@@ -24,8 +24,8 @@ public class ConcreteTextEditor implements ITextEditor{
         
         for (int i = 0; i < 29; i++) {
             TextField curTextField = new TextField();
-            curTextField.setMinWidth(width-50);
-            curTextField.setMaxWidth(width-50);
+            curTextField.setMinWidth(aWidth-50);
+            curTextField.setMaxWidth(aWidth-50);
             HBox hBox = new HBox(20);
             HBox labelBox = new HBox(20);
             Label curLabel = new Label(Integer.toString(i+1));
@@ -35,7 +35,7 @@ public class ConcreteTextEditor implements ITextEditor{
             myTextFields.add(curTextField);
             vBox.getChildren().add(hBox);
         }
-        myTextEditor.setPrefSize(width+5, height+5);
+        myTextEditor.setPrefSize(aWidth+5, aHeight+5);
         myTextEditor.setContent(vBox);
     }
    

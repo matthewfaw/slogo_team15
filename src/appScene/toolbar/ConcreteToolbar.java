@@ -20,9 +20,9 @@ public class ConcreteToolbar implements IToolbar {
 
     private static final int SPACING = 5;
 
-    public ConcreteToolbar (int width, int height) {
+    public ConcreteToolbar (int aWidth, int aHeight) {
         myToolbar = new HBox(SPACING);
-        myToolbar.setPrefSize(width, height);
+        myToolbar.setPrefSize(aWidth, aHeight);
         myToolbar.setPadding(new Insets(SPACING, SPACING, SPACING, SPACING));
         myToolbar.setStyle("-fx-background-color: #336699;");
         myRun = new Button("Run");

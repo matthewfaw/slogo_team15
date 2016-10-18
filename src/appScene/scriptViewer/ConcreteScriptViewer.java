@@ -1,12 +1,23 @@
 package appScene.scriptViewer;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.Node;
+import javafx.scene.control.ListView;
+import javafx.scene.layout.Pane;
 
 
 public class ConcreteScriptViewer implements IScriptViewer {
 
-    public ConcreteScriptViewer (int width, int height) {
-
+    private Pane myScriptViewer;
+    
+    public ConcreteScriptViewer (int aWidth, int aHeight) {
+        myScriptViewer = new Pane();
+        ListView<String> myFunctionList = new ListView<String>();
+        ObservableList<String> items =FXCollections.observableArrayList (
+                                                                         "Function 1", "Function 2");
+        myFunctionList.setItems(items);
+        myScriptViewer.getChildren().add(myFunctionList);
     }
 
     @Override
@@ -30,7 +41,7 @@ public class ConcreteScriptViewer implements IScriptViewer {
     @Override
     public Node getInstanceAsNode () {
         // TODO Auto-generated method stub
-        return null;
+        return myScriptViewer;
     }
 
 }
