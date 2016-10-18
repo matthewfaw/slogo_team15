@@ -17,7 +17,7 @@ public class ConcreteErrorViewer implements IErrorViewer {
 	private List<Object> errorList;
 	private List<Button> errorButtonList;
 	
-	private static final int ErrorRowWidth = 100;
+	private static final int ErrorRowHeight = 30;
 	
 	
 	public ConcreteErrorViewer(int width, int height){
@@ -26,12 +26,11 @@ public class ConcreteErrorViewer implements IErrorViewer {
 		myErrorViewer = new ScrollPane();
 		myErrorViewer.setHbarPolicy(ScrollBarPolicy.NEVER);
 		myErrorViewer.setVbarPolicy(ScrollBarPolicy.ALWAYS);
-		myErrorViewer.setMaxSize(ErrorRowWidth, height/5);
-		myErrorViewer.setMinSize(ErrorRowWidth, height/5);
+		myErrorViewer.setPrefSize(width - 10, height - 10);
 		
 		VBox columnBox = initErrorColumn();
 		for(int i=0; i < 20; i++){
-			HBox currRowBox = createErrorRow("Error: " + Integer.toString(i+1));
+			HBox currRowBox = createErrorRow(width - 10, "Error: " + Integer.toString(i+1));
 			columnBox.getChildren().add(currRowBox);
 		}
 		
@@ -63,20 +62,20 @@ public class ConcreteErrorViewer implements IErrorViewer {
 		
 	}
 
-	private HBox createErrorRow(String errorMsg){
+	private HBox createErrorRow(int width, String errorMsg){
 		HBox currRowBox = new HBox(0);
-		currRowBox.setStyle("-fx-background-color: #FFFF00");
+		currRowBox.setPrefSize(width , ErrorRowHeight);
+		currRowBox.setStyle("-fx-background-color: #a0a099");
 		Label label = new Label(errorMsg);
-		label.setMinWidth(ErrorRowWidth/2);
 		Button goToButton = new Button("Go To");
-		goToButton.setMinWidth(ErrorRowWidth/2);
+		label.setMinWidth(width/2);
 		currRowBox.getChildren().addAll(label, goToButton);
 		return currRowBox;
 	}
 	
 	private VBox initErrorColumn(){
 		VBox columnBox = new VBox(3);
-		columnBox.setStyle("-fx-background-color: #FF6699");	
+		columnBox.setStyle("-fx-background-color: #000000");	
 		return columnBox;
 	}
 	
