@@ -9,7 +9,6 @@ public interface IViewer {
      */
     public void clear();
     
-    
     public Node getInstanceAsNode();
     
 }

@@ -15,8 +15,8 @@ public class ConcreteTextEditor implements ITextEditor{
 
     private ScrollPane myTextEditor;
     
-    public Node initTextEditor(int width, int height) {
-        myTextEditor = new ScrollPane();
+    public ConcreteTextEditor(int width, int height){
+    	myTextEditor = new ScrollPane();
         myTextEditor.setHbarPolicy(ScrollBarPolicy.NEVER);
         myTextEditor.setVbarPolicy(ScrollBarPolicy.ALWAYS);
         VBox vBox = new VBox(0);
@@ -24,8 +24,8 @@ public class ConcreteTextEditor implements ITextEditor{
         
         for (int i = 0; i < 29; i++) {
             TextField curTextField = new TextField();
-            curTextField.setMinWidth(width/2-40);
-            curTextField.setMaxWidth(width/2-40);
+            curTextField.setMinWidth(width-50);
+            curTextField.setMaxWidth(width-50);
             HBox hBox = new HBox(20);
             HBox labelBox = new HBox(20);
             Label curLabel = new Label(Integer.toString(i+1));
@@ -35,14 +35,13 @@ public class ConcreteTextEditor implements ITextEditor{
             myTextFields.add(curTextField);
             vBox.getChildren().add(hBox);
         }
-        myTextEditor.setPrefSize(width/2, height);
+        myTextEditor.setPrefSize(width+5, height+5);
         myTextEditor.setContent(vBox);
-        return myTextEditor;
     }
-    
+   
     @Override
     public Node getInstanceAsNode(){
-        return null;
+        return myTextEditor;
     }
     
     @Override

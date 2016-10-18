@@ -5,6 +5,7 @@ import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 
 public class ConcreteToolbar implements IToolbar {
 
@@ -15,14 +16,14 @@ public class ConcreteToolbar implements IToolbar {
     private Button myLanguage;
     private Button myStep;
     private Button myClear;
-    /**
-     *
-     * 
-     * @param height
-     * @param width
-     */
-    public Node getToolbarAsNode (int height, int width) {
-        myToolbar = new HBox(0);
+    
+    private static final int SPACING = 5;
+    
+    public ConcreteToolbar(int width, int height){
+    	myToolbar = new HBox(SPACING);
+        myToolbar.setPrefSize(width, height);
+        myToolbar.setPadding(new Insets(SPACING, SPACING, SPACING, SPACING));
+        myToolbar.setStyle("-fx-background-color: #336699;");
         myRun = new Button("Run");
         myHelp = new Button("Help");
         myCompile = new Button("Compile");
@@ -30,10 +31,7 @@ public class ConcreteToolbar implements IToolbar {
         myStep = new Button("Step");
         myClear = new Button("Clear");
         myToolbar.getChildren().addAll(myHelp, myRun, myStep, myCompile, myClear, myLanguage);
-        return myToolbar;
-    }
-    
-    
+    }  
     
     @Override
     public void onCompilePress (EventHandler<MouseEvent> event) {
@@ -94,8 +92,7 @@ public class ConcreteToolbar implements IToolbar {
 
     @Override
     public Node getInstanceAsNode () {
-        // TODO Auto-generated method stub
-        return null;
+        return myToolbar;
     }
     
 }
