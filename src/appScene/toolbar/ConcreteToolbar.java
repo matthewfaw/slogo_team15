@@ -29,7 +29,7 @@ public class ConcreteToolbar implements IToolbar {
         myLanguage = new Button("Language");
         myStep = new Button("Step");
         myClear = new Button("Clear");
-        myToolbar.getChildren().addAll(myHelp, myRun, myStep, myCompile, myClear, myLanguage);
+        myToolbar.getChildren().addAll(myRun, myHelp, myStep, myCompile, myClear, myLanguage);
         return myToolbar;
     }
     
