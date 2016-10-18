@@ -2,22 +2,23 @@ package appScene.variableViewer;
 
 import java.util.Map;
 import javafx.scene.Node;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.layout.Pane;
 
 public class ConcreteVariableViewer implements IVariableViewer {
 
-    private BorderPane myVariableViewer;
-    
+    private Pane myVariableViewer;
+   
     public ConcreteVariableViewer(int width, int height) {
-        myVariableViewer = new BorderPane();
-        VBox varNames = new VBox(width/2);
-        VBox varValues = new VBox(width/2);
-        myVariableViewer.setLeft(varNames);
-        myVariableViewer.setRight(varValues);
-        TextField curTextField = new TextField();
-        varNames.getChildren().add(curTextField);
+        TableView table = new TableView();
+        myVariableViewer = new Pane();
+        table.setEditable(true);
+        TableColumn nameCol = new TableColumn("Name");
+        TableColumn valueCol = new TableColumn("Variable");
+        table.getColumns().addAll(nameCol, valueCol);
+        table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        myVariableViewer.getChildren().add(table);
     }
     
     @Override
