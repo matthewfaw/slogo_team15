@@ -1,11 +1,14 @@
 package model.textParser;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
 import java.util.Stack;
 
 import javafx.scene.Node;
+import model.NodeFactory;
 
 
 
@@ -33,12 +36,37 @@ public class TextParser implements Iterable<Node> {
 	/**
 	 * This method will create the stack that then can be iteratored through
 	 */
-	public void createNodes() {
-		//TODO
+	public void createNodes(String text) {
+		ArrayList<String> wordList = (ArrayList<String>) makeExecutableList(text);
+		for (int i = 0; i < wordList.size(); i++) {
+			myNodes.add(getNode(wordList.get(i)));
+		}
 	}
 	
-	private void checkValidCommand() {
-		//TODO
+	/**
+	 * This method generates the Node appropriate for the word parsed in
+	 * @param word
+	 * @return
+	 */
+	private Node getNode(String word) {
+		NodeFactory factory = new NodeFactory(word); 
+		return factory.makeNode();
+	}
+	
+	/**
+	 * Check and remove comments
+	 * @param text
+	 * @return
+	 */
+	private Collection<String> makeExecutableList(String text) {
+		String[] wordList = text.split(myResources.getString("Space"));
+		ArrayList<String> executableList = new ArrayList<String>();
+		for (int i = 0; i < wordList.length; i++) {
+			if (wordList[i].charAt(0) != myResources.getString("Comment").charAt(0)) {
+				executableList.add(wordList[i]);
+			}
+		}
+		return executableList; 
 	}
 	
 	
