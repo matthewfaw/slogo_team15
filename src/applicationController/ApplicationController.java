@@ -12,7 +12,8 @@ import appScene.textEditor.TextEditorFactory;
 import appScene.toolbar.IToolbar;
 import appScene.toolbar.ToolbarFactory;
 
-import appScene.turtleBox.ConcreteTurtleBox;
+import appScene.turtleBox.ITurtleBox;
+import appScene.turtleBox.TurtleBoxFactory;
 
 import appScene.variableViewer.ConcreteVariableViewer;
 import javafx.scene.Group;
@@ -30,7 +31,7 @@ public class ApplicationController {
     private IToolbar myToolbar;
     private ITextEditor myTextEditor;
     private IErrorViewer myErrorViewer;
-    private ConcreteTurtleBox myTurtleBox;
+    private ITurtleBox myTurtleBox;
     private ConcreteVariableViewer myVariableViewer;
     private IScriptViewer myScriptViewer;
 
@@ -40,7 +41,7 @@ public class ApplicationController {
 
     public Scene init ( int aWidth, int aHeight) {
         myToolbar = ToolbarFactory.buildToolbar(aWidth, aHeight / 20);
-        myTurtleBox = new ConcreteTurtleBox(2*aWidth/3, 2*aHeight/3);
+        myTurtleBox = TurtleBoxFactory.buildTurtleBox(2*aWidth/3, 2*aHeight/3);
         myTextEditor = TextEditorFactory.buildTextEditor( 2*aWidth/3, aHeight / 3);
         myErrorViewer = ErrorViewerFactory.buildErrorViewer( aWidth/3, aHeight / 3);
         myVariableViewer = new ConcreteVariableViewer( aWidth / 6, aHeight / 3);

@@ -9,13 +9,13 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Pane;
 
-public class ConcreteTurtleBox implements ITurtleBox {
+class ConcreteTurtleBox implements ITurtleBox {
 
 	ScrollPane myScroller;
 	Pane mySandbox;
 	ColorPicker myBackgroundColorPicker;
 	
-	public ConcreteTurtleBox(int width, int height){
+	ConcreteTurtleBox(int width, int height){
 		myScroller = new ScrollPane();
 		myScroller.setPrefSize(width, height);
 		myScroller.setMinSize(width, height);
