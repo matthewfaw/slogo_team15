@@ -1,74 +1,36 @@
 package model.robot;
 
-public class Robot implements IModifiableRobot, IViewRobot {
+/**
+ * Allows for the model to set the values of the robot
+ * 
+ * @author Hannah Fuchshuber
+ *
+ */
+
+public interface Robot {
+
+	/**SETTERS**/
 	
-	private double Xpos;
-	private double Ypos;
-	private double rotation;
-	private boolean penDown;
-	private boolean visible;
+	public void setX(double x);
 	
-	public Robot() {
-		//TODO
-	}
-
-	/** SETTERS **/
+	public void setY(double y);
 	
-	@Override
-	public void setX(double x) {
-		Xpos = x;
-		
-	}
-
-	@Override
-	public void setY(double y) {
-		Ypos = y;
-		
-	}
+	public void setRotation(double r);
 	
-	@Override
-	public void setRotation(double r) {
-		rotation = r; 
-	}
-
-	@Override
-	public void setPenDown(boolean t) {
-		penDown = t;
-		
-	}
-
-	@Override
-	public void setVisible(boolean t) {
-		visible = t;
-	}
+	public void setPenDown(boolean t);
 	
+	public void setVisible(boolean t);
 	
+	/**GETTERS**/
 	
-	/** GETTERS **/
-
-	@Override
-	public double getX() {
-		return Xpos;
-	}
-
-	@Override
-	public double getY() {
-		return Ypos;
-	}
-
-	@Override
-	public double getRotation() {
-		return rotation;
-	}
-
-	@Override
-	public boolean isPenDown() {
-		return penDown;
-	}
-
-	@Override
-	public boolean isVisible() {
-		return visible;
-	}
-
+	public double getX();
+	
+	public double getY();
+	
+	public double getRotation();
+	
+	public boolean isPenDown();
+	
+	public boolean isVisible();
+	
 }

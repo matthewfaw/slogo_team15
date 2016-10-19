@@ -49,21 +49,24 @@ public class TextParser implements Iterable<Node> {
 	 * @return
 	 */
 	private Node getNode(String word) {
-		NodeFactory factory = new NodeFactory(word); 
+		NodeFactory factory = new NodeFactory(word, myResources); 
 		return factory.makeNode();
 	}
 	
 	/**
-	 * Check and remove comments
+	 * Check for whitespace lines and remove comments
 	 * @param text
 	 * @return
 	 */
 	private Collection<String> makeExecutableList(String text) {
-		String[] wordList = text.split(myResources.getString("Space"));
+		String[] wordList = text.split(myResources.getString("Line"));
 		ArrayList<String> executableList = new ArrayList<String>();
 		for (int i = 0; i < wordList.length; i++) {
-			if (wordList[i].charAt(0) != myResources.getString("Comment").charAt(0)) {
-				executableList.add(wordList[i]);
+			if (wordList[i].charAt(0) != myResources.getString("Comment").charAt(0) && wordList[i].length() > 1) {
+				String[] temp = wordList[i].split(myResources.getString("Space"));
+				for (int j = 0; j < temp.length; j++) {
+					executableList.add(temp[j]);
+				}
 			}
 		}
 		return executableList; 

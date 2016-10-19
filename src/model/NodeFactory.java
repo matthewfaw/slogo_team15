@@ -1,6 +1,13 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.PropertyResourceBundle;
+import java.util.ResourceBundle;
+import java.util.regex.Pattern;
+
 import javafx.scene.Node;
+import model.textParser.ProgramParser;
 
 /**
  * Generates Nodes for the TextParser Stack
@@ -9,17 +16,42 @@ import javafx.scene.Node;
  *
  */
 public class NodeFactory {
+	
+	private static final String PACKAGE = "resource.languages/";
+	private static final String LANGUAGE = "English";
+	private static final String SYNTAX = "Syntax";
 
 	private String myWord;
+	private ResourceBundle myResources;
 	
-	public NodeFactory(String word) {
+	public NodeFactory(String aWord, ResourceBundle aResource) {
 		//TODO
-		myWord = word;
+		myWord = aWord;
+		myResources = aResource; 
 	}
 	
 	public Node makeNode() {
-		return null;
-		//TODO
+		Node node;
+		if (Pattern.matches(myWord, myResources.getString("Variable"))) {
+			node = new VariableNode(translateToVariable(myWord)); 
+		}
+		if (Pattern.matches(myWord, myResources.getString("Command"))) {
+			node = new CommandNode(translateToCommand(myWord));
+		}
+		if (Pattern.matches(myWord, myResources.getString("Constant"))) {
+			node = new ConstantNode(myWord);
+		}
+		return node;
+	}
+	
+	private String translateToVariable(String aWord) {
+		return aWord.substring(1);
+	}
+	
+	private String translateToCommand(String aWord) { 
+		ProgramParser parse = new ProgramParser();
+		parse.addPatterns(PACKAGE + LANGUAGE);
+		return parse.getSymbol(aWord);
 	}
 	
 	
