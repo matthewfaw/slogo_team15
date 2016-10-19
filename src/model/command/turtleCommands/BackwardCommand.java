@@ -1,13 +1,14 @@
-package model.command;
+package model.command.turtleCommands;
 
 import java.awt.Point;
 
 import model.exception.ArgumentException;
+import model.robot.Robot;
 import model.robot.Turtle;
 
 public class BackwardCommand extends MovementCommand {
 	
-	public BackwardCommand(Turtle aRobot) {
+	public BackwardCommand(Robot aRobot) {
 		super(aRobot);
 	}
 

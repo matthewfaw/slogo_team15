@@ -1,18 +1,18 @@
-package model.command;
+package model.command.turtleCommands;
 
 import model.exception.ArgumentException;
-import model.robot.Turtle;
+import model.robot.Robot;
 
-public class RightCommand extends RotationCommand {
+public class LeftCommand extends RotationCommand {
 	
-	public RightCommand(Turtle aRobot) {
+	public LeftCommand(Robot aRobot) {
 		super(aRobot);
 	}
 
 	@Override
 	public double eval(String... aList) throws ArgumentException {
 		double rotation = getRotation(aList);
-		getRobot().setRotation(getRobot().getRotation() - rotation);
+		getRobot().setRotation(getRobot().getRotation() + rotation);
 		return Double.parseDouble(aList[0]);
 	}
 

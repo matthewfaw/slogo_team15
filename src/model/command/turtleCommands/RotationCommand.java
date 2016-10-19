@@ -1,14 +1,14 @@
-package model.command;
+package model.command.turtleCommands;
 
 
+import model.command.ICommand;
 import model.exception.ArgumentException;
 import model.robot.Robot;
-import model.robot.Turtle;
 
 public abstract class RotationCommand implements ICommand {
 	private Robot myRobot;
 	
-	public RotationCommand(Turtle aRobot) {
+	public RotationCommand(Robot aRobot) {
 		myRobot = aRobot;
 	}
 

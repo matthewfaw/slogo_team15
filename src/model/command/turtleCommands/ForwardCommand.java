@@ -1,13 +1,13 @@
-package model.command;
+package model.command.turtleCommands;
 
 import java.awt.Point;
 
 import model.exception.ArgumentException;
-import model.robot.Turtle;
+import model.robot.Robot;
 
 public class ForwardCommand extends MovementCommand {
 	
-	public ForwardCommand(Turtle aRobot) {
+	public ForwardCommand(Robot aRobot) {
 		super(aRobot);
 	}
 

@@ -1,7 +1,8 @@
-package model.command;
+package model.command.turtleCommands;
 
 import java.awt.Point;
 
+import model.command.ICommand;
 import model.exception.ArgumentException;
 import model.robot.Robot;
 import model.robot.Turtle;
@@ -10,7 +11,7 @@ public abstract class MovementCommand implements ICommand {
 	
 	private Robot myRobot;
 	
-	public MovementCommand(Turtle aRobot) {
+	public MovementCommand(Robot aRobot) {
 		myRobot = aRobot;
 	}
 
