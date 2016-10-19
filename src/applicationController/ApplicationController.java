@@ -2,7 +2,8 @@ package applicationController;
 
 import appScene.errorViewer.ConcreteErrorViewer;
 import appScene.scriptViewer.ConcreteScriptViewer;
-import appScene.textEditor.ConcreteTextEditor;
+import appScene.textEditor.ITextEditor;
+import appScene.textEditor.TextEditorFactory;
 import appScene.toolbar.ConcreteToolbar;
 import appScene.turtleBox.ConcreteTurtleBox;
 import appScene.variableViewer.ConcreteVariableViewer;
@@ -19,7 +20,7 @@ public class ApplicationController {
     private Group myRoot;
     private String TITLE = "SLOGO";
     private ConcreteToolbar myToolbar;
-    private ConcreteTextEditor myTextEditor;
+    private ITextEditor myTextEditor;
     private ConcreteErrorViewer myErrorViewer;
     private ConcreteTurtleBox myTurtleBox;
     private ConcreteVariableViewer myVariableViewer;
@@ -32,7 +33,7 @@ public class ApplicationController {
     public Scene init ( int aWidth, int aHeight) {
         myToolbar = new ConcreteToolbar(aWidth, aHeight / 20);
         myTurtleBox = new ConcreteTurtleBox(2*aWidth/3, 2*aHeight/3);
-        myTextEditor = new ConcreteTextEditor( 2*aWidth/3, aHeight / 3);
+        myTextEditor = TextEditorFactory.createTextEditor( 2*aWidth/3, aHeight / 3);
         myErrorViewer = new ConcreteErrorViewer( aWidth/3, aHeight / 3);
         myVariableViewer = new ConcreteVariableViewer( aWidth / 6, aHeight / 3);
         myScriptViewer = new ConcreteScriptViewer( aWidth / 6, aHeight / 3); // double check these values
