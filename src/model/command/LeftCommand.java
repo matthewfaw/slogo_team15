@@ -10,9 +10,10 @@ public class LeftCommand extends RotationCommand {
 	}
 
 	@Override
-	public void eval(String... aList) throws ArgumentException {
+	public double eval(String... aList) throws ArgumentException {
 		double rotation = getRotation(aList);
 		getRobot().setRotation(getRobot().getRotation() + rotation);
+		return Double.parseDouble(aList[0]);
 	}
 
 }

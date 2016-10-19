@@ -12,10 +12,11 @@ public class BackwardCommand extends MovementCommand {
 	}
 
 	@Override
-	public void eval(String... aList) throws ArgumentException {
+	public double eval(String... aList) throws ArgumentException {
 		Point p = getXYCoordinate(aList);
 		getRobot().setX(getRobot().getX() - p.getX());
 		getRobot().setY(getRobot().getY() - p.getY());
+		return Double.parseDouble(aList[0]);
 	}
 
 }

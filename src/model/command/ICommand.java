@@ -5,6 +5,6 @@ import model.exception.ArgumentException;
 public interface ICommand {
 	
 
-	public void eval(String...aList) throws ArgumentException;
+	public double eval(String...aList) throws ArgumentException;
 	
 }

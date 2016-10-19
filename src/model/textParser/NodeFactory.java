@@ -1,4 +1,4 @@
-package model;
+package model.textParser;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -7,7 +7,6 @@ import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
 import javafx.scene.Node;
-import model.textParser.ProgramParser;
 
 /**
  * Generates Nodes for the TextParser Stack
@@ -49,7 +48,7 @@ public class NodeFactory {
 	}
 	
 	private String translateToCommand(String aWord) { 
-		ProgramParser parse = new ProgramParser();
+		CommandTranslator parse = new CommandTranslator();
 		parse.addPatterns(PACKAGE + LANGUAGE);
 		return parse.getSymbol(aWord);
 	}

@@ -15,13 +15,13 @@ import java.util.regex.Pattern;
  */
 
 
-public class ProgramParser {
+public class CommandTranslator {
     // "types" and the regular expression patterns that recognize those types
     // note, it is a list because order matters (some patterns may be more generic)
     private List<Entry<String, Pattern>> mySymbols;
 
 
-    public ProgramParser () {
+    public CommandTranslator () {
         mySymbols = new ArrayList<>();
     }
 

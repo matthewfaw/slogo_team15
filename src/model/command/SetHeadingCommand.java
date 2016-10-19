@@ -10,9 +10,10 @@ public class SetHeadingCommand extends RotationCommand {
 	}
 
 	@Override
-	public void eval(String... aList) throws ArgumentException {
+	public double eval(String... aList) throws ArgumentException {
 		double rotation = getRotation(aList);
 		getRobot().setRotation(rotation);
+		return Double.parseDouble(aList[0]);
 	}
 
 }
