@@ -1,5 +1,6 @@
-package appScene;
+package appScene.errorViewer;
 
+import appScene.IViewer;
 
 /**
  * @author George Bernard
