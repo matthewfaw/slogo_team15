@@ -17,8 +17,16 @@ public class ConcreteTurtleBox implements ITurtleBox {
 	
 	public ConcreteTurtleBox(int width, int height){
 		myScroller = new ScrollPane();
+		myScroller.setPrefSize(width, height);
+		myScroller.setMinSize(width, height);
+		myScroller.setMaxSize(width, height);
+		
+		
 		mySandbox = new Pane();
 		mySandbox.setPrefSize(width, height);
+		mySandbox.setMinSize(width, height);
+		mySandbox.setMaxSize(width, height);
+		
 		myScroller.setContent(mySandbox);
 	
 		initColorPicker();

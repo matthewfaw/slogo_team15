@@ -12,8 +12,8 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
     private ApplicationController myApplicationController;
-    private final int SIZE = 500;
-    private final int WIDTH = 2 * SIZE;
+    private final int SIZE = 600;
+    private final int WIDTH  = 2 * SIZE;
     private final int HEIGHT = SIZE;
 
     /**
@@ -26,7 +26,7 @@ public class Main extends Application {
         myApplicationController = new ApplicationController();
         s.setTitle(myApplicationController.getTitle());
 
-        Scene scene = myApplicationController.init(WIDTH, HEIGHT, SIZE);
+        Scene scene = myApplicationController.init(WIDTH, HEIGHT);
 
         s.setScene(scene);
         s.show();

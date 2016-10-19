@@ -29,17 +29,17 @@ public class ApplicationController {
         myApplicationView = new GridPane();
     }
 
-    public Scene init (int width, int height, int size) {
-        myToolbar = new ConcreteToolbar(width, height / 20);
-        myTextEditor = new ConcreteTextEditor(width / 4, height);
-        myErrorViewer = new ConcreteErrorViewer(size / 2, height / 2);
-        myTurtleBox = new ConcreteTurtleBox(size, size);
-        myVariableViewer = new ConcreteVariableViewer(size / 2, size / 2);
-        myScriptViewer = new ConcreteScriptViewer(size/2, size/2); // double check these values
+    public Scene init ( int aWidth, int aHeight) {
+        myToolbar = new ConcreteToolbar(aWidth, aHeight / 20);
+        myTurtleBox = new ConcreteTurtleBox(2*aWidth/3, 2*aHeight/3);
+        myTextEditor = new ConcreteTextEditor( 2*aWidth/3, aHeight / 3);
+        myErrorViewer = new ConcreteErrorViewer( aWidth/3, aHeight / 3);
+        myVariableViewer = new ConcreteVariableViewer( aWidth / 6, aHeight / 3);
+        myScriptViewer = new ConcreteScriptViewer( aWidth / 6, aHeight / 3); // double check these values
 
         myRoot = new Group();
         myRoot.getChildren().addAll(myApplicationView);
-        myScene = new Scene(myRoot, width, height, Color.WHITE);
+        myScene = new Scene(myRoot, aWidth + aWidth/20, aHeight + aHeight/20, Color.WHITE);
         /*
          * myApplicationView.add( myToolbar.getInstanceAsNode(), 0, 0, GridPane.REMAINING, 1);
          * myApplicationView.add( myTextEditor.getInstanceAsNode(), 0, 2, 1, 2);
@@ -47,12 +47,15 @@ public class ApplicationController {
          * myApplicationView.add( myErrorViewer.getInstanceAsNode(), 1, 1, 1, 1);
          * myApplicationView.add(myVariableViewer.getInstanceAsNode(), 3, 2, 1, 1);
          */
-        myApplicationView.add(myToolbar.getInstanceAsNode(), 0, 0, GridPane.REMAINING, 1);
-        myApplicationView.add(myTextEditor.getInstanceAsNode(), 0, 1, 1, 2);
-        myApplicationView.add(myTurtleBox.getInstanceAsNode(), 1, 1, 2, 2);
-        myApplicationView.add(myErrorViewer.getInstanceAsNode(), 3, 1, 1, 1);
-        myApplicationView.add(myVariableViewer.getInstanceAsNode(), 3, 2);
-
+        myApplicationView.add(myToolbar.getInstanceAsNode(), 		0, 0, GridPane.REMAINING, 1);
+        myApplicationView.add(myTurtleBox.getInstanceAsNode(), 		0, 1, 1, 1);
+        myApplicationView.add(myTextEditor.getInstanceAsNode(), 	0, 2, 1, 1);
+        
+        myApplicationView.add(myVariableViewer.getInstanceAsNode(), 1, 1, 1, 1);
+        myApplicationView.add(myScriptViewer.getInstanceAsNode(),   2, 1, 1, 1);
+        
+        myApplicationView.add(myErrorViewer.getInstanceAsNode(), 	1, 2, 2, 1);
+        
         return myScene;
     }
 

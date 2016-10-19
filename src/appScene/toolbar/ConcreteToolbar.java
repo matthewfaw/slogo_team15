@@ -2,9 +2,13 @@ package appScene.toolbar;
 
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.MenuButton;
+import javafx.scene.control.MenuItem;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+
 import javafx.event.EventHandler;
+
 import javafx.geometry.Insets;
 
 
@@ -14,7 +18,7 @@ public class ConcreteToolbar implements IToolbar {
     private Button myRun;
     private Button myHelp;
     private Button myBuild;
-    private Button myLanguage;
+    private MenuButton myLanguage;
     private Button myStep;
     private Button myClear;
 
@@ -28,7 +32,7 @@ public class ConcreteToolbar implements IToolbar {
         myRun = new Button("Run");
         myHelp = new Button("Help");
         myBuild = new Button("Build");
-        myLanguage = new Button("Language");
+        myLanguage = initLanguageButton();
         myStep = new Button("Step");
         myClear = new Button("Clear");
         myToolbar.getChildren().addAll(myRun, myHelp, myStep, myBuild, myClear, myLanguage);
@@ -82,4 +86,16 @@ public class ConcreteToolbar implements IToolbar {
         return myToolbar;
     }
 
+    private MenuButton initLanguageButton(){
+    	MenuButton languageSelection = new MenuButton("Languages");
+    	
+    	MenuItem language1 = new MenuItem("English");
+    	MenuItem language2 = new MenuItem("French");
+    	MenuItem language3 = new MenuItem("Spanish");
+    	
+    	languageSelection.getItems().addAll(language1, language2, language3);
+    	
+    	return languageSelection;
+    }
+    
 }

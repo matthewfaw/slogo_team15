@@ -13,6 +13,7 @@ public class ConcreteScriptViewer implements IScriptViewer {
     
     public ConcreteScriptViewer (int aWidth, int aHeight) {
         myScriptViewer = new Pane();
+        myScriptViewer.setPrefSize(aWidth, aHeight);
         ListView<String> myFunctionList = new ListView<String>();
         ObservableList<String> items =FXCollections.observableArrayList (
                                                                          "Function 1", "Function 2");
