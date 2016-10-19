@@ -1,18 +1,19 @@
 package appScene.textEditor;
 
 import java.util.List;
-
 import java.util.ArrayList;
 
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -22,6 +23,7 @@ public class ConcreteTextEditor implements ITextEditor{
     private ScrollPane myTextEditor;
     private VBox myTextColumn;
     private List<TextField> myTextFields;
+    private List<HBox> myRows;
     
     private int myWidth;
     private int myHeight;
@@ -39,6 +41,7 @@ public class ConcreteTextEditor implements ITextEditor{
     	
         myTextColumn = new VBox(0);
         myTextFields = new ArrayList<TextField>();
+        myRows = new ArrayList<HBox>();
         
         initTextColumn();
         initTextScroller(myTextColumn);
@@ -59,8 +62,13 @@ public class ConcreteTextEditor implements ITextEditor{
 
     @Override
     public void highlightLine (Color color, int line) {
-        // TODO Auto-generated method stub
-        
+    	if(line >= myLastIndex) return;
+    	
+    	myRows.get(line).setBackground(new Background( new BackgroundFill(
+    			color,
+    			CornerRadii.EMPTY,
+    			Insets.EMPTY
+    			)));
     }
 
     @Override
@@ -87,6 +95,7 @@ public class ConcreteTextEditor implements ITextEditor{
         curTextField.setMinWidth(myWidth-50);
         curTextField.setMaxWidth(myWidth-50);
         myTextFields.add(myLastIndex, curTextField);
+        
     	curTextField.setOnMouseClicked(e -> {
     		if(curTextField.equals(myTextFields.get(myLastIndex - 1))){
     			myRowsAdded = true;
@@ -101,6 +110,7 @@ public class ConcreteTextEditor implements ITextEditor{
         labelBox.getChildren().add(curLabel);
         
         rowBox.getChildren().addAll(labelBox, curTextField);
+        myRows.add(myLastIndex, rowBox);
                 
         myTextColumn.getChildren().add(rowBox);
         
