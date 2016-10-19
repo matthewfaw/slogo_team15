@@ -12,7 +12,7 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 
 
-public class ConcreteToolbar implements IToolbar {
+class ConcreteToolbar implements IToolbar {
 
     private HBox myToolbar;
     private Button myRun;
@@ -24,7 +24,7 @@ public class ConcreteToolbar implements IToolbar {
 
     private static final int SPACING = 5;
 
-    public ConcreteToolbar (int aWidth, int aHeight) {
+    ConcreteToolbar (int aWidth, int aHeight) {
         myToolbar = new HBox(SPACING);
         myToolbar.setPrefSize(aWidth, aHeight);
         myToolbar.setPadding(new Insets(SPACING, SPACING, SPACING, SPACING));

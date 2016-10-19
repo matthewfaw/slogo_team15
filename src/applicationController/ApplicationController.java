@@ -2,12 +2,18 @@ package applicationController;
 
 import appScene.errorViewer.ErrorViewerFactory;
 import appScene.errorViewer.IErrorViewer;
+
 import appScene.scriptViewer.IScriptViewer;
 import appScene.scriptViewer.ScriptViewerFactory;
+
 import appScene.textEditor.ITextEditor;
 import appScene.textEditor.TextEditorFactory;
-import appScene.toolbar.ConcreteToolbar;
+
+import appScene.toolbar.IToolbar;
+import appScene.toolbar.ToolbarFactory;
+
 import appScene.turtleBox.ConcreteTurtleBox;
+
 import appScene.variableViewer.ConcreteVariableViewer;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -21,7 +27,7 @@ public class ApplicationController {
     private Scene myScene;
     private Group myRoot;
     private String TITLE = "SLOGO";
-    private ConcreteToolbar myToolbar;
+    private IToolbar myToolbar;
     private ITextEditor myTextEditor;
     private IErrorViewer myErrorViewer;
     private ConcreteTurtleBox myTurtleBox;
@@ -33,9 +39,9 @@ public class ApplicationController {
     }
 
     public Scene init ( int aWidth, int aHeight) {
-        myToolbar = new ConcreteToolbar(aWidth, aHeight / 20);
+        myToolbar = ToolbarFactory.buildToolbar(aWidth, aHeight / 20);
         myTurtleBox = new ConcreteTurtleBox(2*aWidth/3, 2*aHeight/3);
-        myTextEditor = TextEditorFactory.createTextEditor( 2*aWidth/3, aHeight / 3);
+        myTextEditor = TextEditorFactory.buildTextEditor( 2*aWidth/3, aHeight / 3);
         myErrorViewer = ErrorViewerFactory.buildErrorViewer( aWidth/3, aHeight / 3);
         myVariableViewer = new ConcreteVariableViewer( aWidth / 6, aHeight / 3);
         myScriptViewer = ScriptViewerFactory.buildViewerFactory( aWidth / 6, aHeight / 3); // double check these values
