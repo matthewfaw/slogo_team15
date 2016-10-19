@@ -2,20 +2,17 @@ package applicationController;
 
 import appScene.errorViewer.ErrorViewerFactory;
 import appScene.errorViewer.IErrorViewer;
-
 import appScene.scriptViewer.IScriptViewer;
 import appScene.scriptViewer.ScriptViewerFactory;
-
 import appScene.textEditor.ITextEditor;
 import appScene.textEditor.TextEditorFactory;
-
 import appScene.toolbar.IToolbar;
 import appScene.toolbar.ToolbarFactory;
-
 import appScene.turtleBox.ITurtleBox;
 import appScene.turtleBox.TurtleBoxFactory;
+import appScene.variableViewer.IVariableViewer;
+import appScene.variableViewer.VariableViewerFactory;
 
-import appScene.variableViewer.ConcreteVariableViewer;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
@@ -32,7 +29,7 @@ public class ApplicationController {
     private ITextEditor myTextEditor;
     private IErrorViewer myErrorViewer;
     private ITurtleBox myTurtleBox;
-    private ConcreteVariableViewer myVariableViewer;
+    private IVariableViewer myVariableViewer;
     private IScriptViewer myScriptViewer;
 
     public ApplicationController () {
@@ -44,7 +41,7 @@ public class ApplicationController {
         myTurtleBox = TurtleBoxFactory.buildTurtleBox(2*aWidth/3, 2*aHeight/3);
         myTextEditor = TextEditorFactory.buildTextEditor( 2*aWidth/3, aHeight / 3);
         myErrorViewer = ErrorViewerFactory.buildErrorViewer( aWidth/3, aHeight / 3);
-        myVariableViewer = new ConcreteVariableViewer( aWidth / 6, aHeight / 3);
+        myVariableViewer = VariableViewerFactory.buildVariableViewer( aWidth / 6, aHeight / 3);
         myScriptViewer = ScriptViewerFactory.buildViewerFactory( aWidth / 6, aHeight / 3); // double check these values
 
         myRoot = new Group();

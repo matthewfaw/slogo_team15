@@ -6,11 +6,11 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.Pane;
 
-public class ConcreteVariableViewer implements IVariableViewer {
+class ConcreteVariableViewer implements IVariableViewer {
 
     private Pane myVariableViewer;
    
-    public ConcreteVariableViewer(int width, int height) {
+    ConcreteVariableViewer(int width, int height) {
         TableView table = new TableView();
         myVariableViewer = new Pane();
         table.setEditable(true);
