@@ -39,7 +39,7 @@ public class ApplicationController {
 
         myRoot = new Group();
         myRoot.getChildren().addAll(myApplicationView);
-        myScene = new Scene(myRoot, aWidth + aWidth/20, aHeight + aHeight/20, Color.WHITE);
+        myScene = new Scene(myRoot, aWidth, aHeight + aHeight/20 + 10, Color.WHITE);
         /*
          * myApplicationView.add( myToolbar.getInstanceAsNode(), 0, 0, GridPane.REMAINING, 1);
          * myApplicationView.add( myTextEditor.getInstanceAsNode(), 0, 2, 1, 2);
