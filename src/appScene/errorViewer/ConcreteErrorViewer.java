@@ -11,7 +11,7 @@ import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-public class ConcreteErrorViewer implements IErrorViewer {
+class ConcreteErrorViewer implements IErrorViewer {
 
 	private ScrollPane myErrorViewer;
 	private List<Object> errorList;
@@ -19,8 +19,7 @@ public class ConcreteErrorViewer implements IErrorViewer {
 	
 	private static final int ErrorRowHeight = 30;
 	
-	
-	public ConcreteErrorViewer(int aWidth, int aHeight){
+	ConcreteErrorViewer(int aWidth, int aHeight){
 		errorList = new ArrayList<Object>();
 		
 		myErrorViewer = new ScrollPane();

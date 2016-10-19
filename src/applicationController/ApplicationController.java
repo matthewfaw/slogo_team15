@@ -1,6 +1,7 @@
 package applicationController;
 
-import appScene.errorViewer.ConcreteErrorViewer;
+import appScene.errorViewer.ErrorViewerFactory;
+import appScene.errorViewer.IErrorViewer;
 import appScene.scriptViewer.ConcreteScriptViewer;
 import appScene.textEditor.ITextEditor;
 import appScene.textEditor.TextEditorFactory;
@@ -21,7 +22,7 @@ public class ApplicationController {
     private String TITLE = "SLOGO";
     private ConcreteToolbar myToolbar;
     private ITextEditor myTextEditor;
-    private ConcreteErrorViewer myErrorViewer;
+    private IErrorViewer myErrorViewer;
     private ConcreteTurtleBox myTurtleBox;
     private ConcreteVariableViewer myVariableViewer;
     private ConcreteScriptViewer myScriptViewer;
@@ -34,7 +35,7 @@ public class ApplicationController {
         myToolbar = new ConcreteToolbar(aWidth, aHeight / 20);
         myTurtleBox = new ConcreteTurtleBox(2*aWidth/3, 2*aHeight/3);
         myTextEditor = TextEditorFactory.createTextEditor( 2*aWidth/3, aHeight / 3);
-        myErrorViewer = new ConcreteErrorViewer( aWidth/3, aHeight / 3);
+        myErrorViewer = ErrorViewerFactory.buildErrorViewer( aWidth/3, aHeight / 3);
         myVariableViewer = new ConcreteVariableViewer( aWidth / 6, aHeight / 3);
         myScriptViewer = new ConcreteScriptViewer( aWidth / 6, aHeight / 3); // double check these values
 
