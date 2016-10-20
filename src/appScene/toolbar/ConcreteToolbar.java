@@ -38,9 +38,9 @@ class ConcreteToolbar implements IToolbar {
         myClear = new Button("Clear");
         myToolbar.getChildren().addAll(myRun, myHelp, myStep, myBuild, myClear, myLanguage);
         
-        String initFile = "resources";
-        String fileName = "/EnglishToolbar";
-        myGUIResources = ResourceBundle.getBundle(initFile + fileName);
+        //String initFile = "resources";
+        //String fileName = "/EnglishToolbar";
+        //myGUIResources = ResourceBundle.getBundle(initFile + fileName);
     }
 
     @Override
