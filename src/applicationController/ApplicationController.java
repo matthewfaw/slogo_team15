@@ -38,9 +38,11 @@ public class ApplicationController {
 
     public Scene init ( int aWidth, int aHeight) {
         myToolbar = ToolbarFactory.buildToolbar(aWidth, aHeight / 20);
+        configureToolbar();
+        
         myTurtleBox = TurtleBoxFactory.buildTurtleBox(2*aWidth/3, 2*aHeight/3);
         myTextEditor = TextEditorFactory.buildTextEditor( 2*aWidth/3, aHeight / 3);
-        myErrorViewer = ErrorViewerFactory.buildErrorViewer( aWidth/3, aHeight / 3);
+        myErrorViewer = ErrorViewerFactory.buildErrorViewer( aWidth/3, aHeight / 3, myTextEditor);
         myVariableViewer = VariableViewerFactory.buildVariableViewer( aWidth / 6, aHeight / 3);
         myScriptViewer = ScriptViewerFactory.buildViewerFactory( aWidth / 6, aHeight / 3); // double check these values
 
@@ -68,5 +70,19 @@ public class ApplicationController {
 
     public String getTitle () {
         return TITLE;
+    }
+    
+    private void configureToolbar(){
+    	myToolbar.onResetPress(e -> {
+    		
+    		myTextEditor.reset();
+    		myErrorViewer.reset();
+    		myTurtleBox.reset();
+    		myVariableViewer.reset();
+    		myScriptViewer.reset();
+    	
+    	});
+    	
+    	//TODO: Implement events for other toolbar buttons
     }
 }

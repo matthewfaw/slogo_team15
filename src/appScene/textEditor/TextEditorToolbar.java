@@ -22,7 +22,7 @@ class TextEditorToolbar {
 		initResetButton();
 		initClearTextButton();
 		initLoadTextButton();
-		initLoadTextButton();
+		initSaveTextButton();
 	}
 	
 	private void initResetButton(){

@@ -20,7 +20,7 @@ class ConcreteToolbar implements IToolbar {
     private Button myBuild;
     private MenuButton myLanguage;
     private Button myStep;
-    private Button myClear;
+    private Button myReset;
 
     private static final int SPACING = 5;
 
@@ -34,44 +34,39 @@ class ConcreteToolbar implements IToolbar {
         myBuild = new Button("Build");
         myLanguage = initLanguageButton();
         myStep = new Button("Step");
-        myClear = new Button("Clear");
-        myToolbar.getChildren().addAll(myRun, myHelp, myStep, myBuild, myClear, myLanguage);
+        myReset = new Button("Reset");
+        myToolbar.getChildren().addAll(myRun, myHelp, myStep, myBuild, myReset, myLanguage);
     }
 
     @Override
-    public void onCompilePress (EventHandler<MouseEvent> event) {
-        // TODO Auto-generated method stub
+    public void onBuildPress (EventHandler<MouseEvent> event) {
         myBuild.setOnMouseClicked(event);
-
     }
 
     @Override
     public void onRunPress (EventHandler<MouseEvent> event) {
-        // TODO Auto-generated method stub
+        myRun.setOnMouseClicked(event);
 
     }
 
     @Override
     public void onStepPress (EventHandler<MouseEvent> event) {
-        // TODO Auto-generated method stub
-
+        myStep.setOnMouseClicked(event);
     }
 
     @Override
     public void onHelpPress (EventHandler<MouseEvent> event) {
-        // TODO Auto-generated method stub
-
+    	myHelp.setOnMouseClicked(event);
     }
 
     @Override
     public void onLanguagePress (EventHandler<MouseEvent> event) {
-        // TODO Auto-generated method stub
-
+    	// TODO Make into onLanguageSelect, AND implement this
     }
 
     @Override
-    public void onClearPress (EventHandler<MouseEvent> event) {
-        // TODO Auto-generated method stub
+    public void onResetPress (EventHandler<MouseEvent> event) {
+        myReset.setOnMouseClicked(event);
 
     }
 
@@ -86,6 +81,8 @@ class ConcreteToolbar implements IToolbar {
         return myToolbar;
     }
 
+    /************ Private Helper Methods ************/
+        
     private MenuButton initLanguageButton(){
     	MenuButton languageSelection = new MenuButton("Languages");
     	

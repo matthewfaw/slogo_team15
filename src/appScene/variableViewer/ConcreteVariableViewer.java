@@ -38,4 +38,10 @@ class ConcreteVariableViewer implements IVariableViewer {
         return myVariableViewer;
     }
 
+	@Override
+	public void reset() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

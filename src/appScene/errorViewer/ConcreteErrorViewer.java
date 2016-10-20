@@ -3,6 +3,7 @@ package appScene.errorViewer;
 import java.util.ArrayList;
 import java.util.List;
 
+import appScene.textEditor.ITextEditor;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -10,30 +11,38 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 
 class ConcreteErrorViewer implements IErrorViewer {
 
-	private ScrollPane myErrorViewer;
-	private List<Object> errorList;
-	private List<Button> errorButtonList;
+	private ScrollPane myErrorScroller;
+	private ITextEditor myTextEditor;
+	private List<Object> myErrorList;
+	private List<Button> myErrorButtonList;
 	
 	private static final int ErrorRowHeight = 30;
 	
-	ConcreteErrorViewer(int aWidth, int aHeight){
-		errorList = new ArrayList<Object>();
+	ConcreteErrorViewer(int aWidth, int aHeight, ITextEditor aTextEditor){
+		myTextEditor = aTextEditor;
 		
-		myErrorViewer = new ScrollPane();
-		myErrorViewer.setHbarPolicy(ScrollBarPolicy.NEVER);
-		myErrorViewer.setVbarPolicy(ScrollBarPolicy.ALWAYS);
-		myErrorViewer.setPrefSize(aWidth - 10, aHeight - 10);
+		myErrorList = new ArrayList<Object>();
+		myErrorButtonList = new ArrayList<Button>();
+		
+		myErrorScroller = new ScrollPane();		
+		myErrorScroller.setHbarPolicy(ScrollBarPolicy.NEVER);
+		myErrorScroller.setVbarPolicy(ScrollBarPolicy.ALWAYS);
+		myErrorScroller.setMinSize(aWidth, aHeight);
+		myErrorScroller.setMaxSize(aWidth, aHeight);
 		
 		VBox columnBox = initErrorColumn();
-		for(int i=0; i < 20; i++){
-			HBox currRowBox = createErrorRow(aWidth - 10, "Error: " + Integer.toString(i+1));
+		for(int i=0; i < 3; i++){
+			HBox currRowBox = createErrorRow(aWidth - 10, "Error: " + Integer.toString(i+1) + " | Highlights row 5");
 			columnBox.getChildren().add(currRowBox);
 		}
 		
-		myErrorViewer.setContent(columnBox);
+		setErrorButtonEvents();
+		
+		myErrorScroller.setContent(columnBox);
 		
 	}
 	
@@ -46,7 +55,7 @@ class ConcreteErrorViewer implements IErrorViewer {
 	@Override
 	public Node getInstanceAsNode() {
 		// TODO Auto-generated method stub
-		return myErrorViewer;
+		return myErrorScroller;
 	}
 
 	@Override
@@ -61,12 +70,23 @@ class ConcreteErrorViewer implements IErrorViewer {
 		
 	}
 
+	private void setErrorButtonEvents(){
+		for(Integer i = 0; i < myErrorButtonList.size(); i++){
+			
+			myErrorButtonList.get(i).setOnMouseClicked( event -> {  
+				myTextEditor.highlightLine(Color.RED, 4); });
+		}
+	}
+
 	private HBox createErrorRow(int width, String errorMsg){
 		HBox currRowBox = new HBox(0);
 		currRowBox.setPrefSize(width , ErrorRowHeight);
-		currRowBox.setStyle("-fx-background-color: #a0a099");
+		
 		Label label = new Label(errorMsg);
+		
 		Button goToButton = new Button("Go To");
+		myErrorButtonList.add(goToButton);
+		
 		label.setMinWidth(width/2);
 		currRowBox.getChildren().addAll(label, goToButton);
 		return currRowBox;
@@ -74,7 +94,6 @@ class ConcreteErrorViewer implements IErrorViewer {
 	
 	private VBox initErrorColumn(){
 		VBox columnBox = new VBox(3);
-		columnBox.setStyle("-fx-background-color: #000000");	
 		return columnBox;
 	}
 	

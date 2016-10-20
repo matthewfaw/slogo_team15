@@ -1,9 +1,11 @@
 package appScene.variableViewer;
 
 import java.util.Map;
+
+import appScene.IViewer;
 import javafx.scene.Node;
 
-public interface IVariableViewer {
+public interface IVariableViewer extends IViewer {
 
     /**
      * Clear the variable box to its original, empty state
