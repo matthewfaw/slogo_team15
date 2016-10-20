@@ -6,7 +6,7 @@ import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
-
+import java.util.ResourceBundle;
 import javafx.event.EventHandler;
 
 import javafx.geometry.Insets;
@@ -21,6 +21,7 @@ class ConcreteToolbar implements IToolbar {
     private MenuButton myLanguage;
     private Button myStep;
     private Button myClear;
+    private ResourceBundle myGUIResources;
 
     private static final int SPACING = 5;
 
@@ -36,6 +37,10 @@ class ConcreteToolbar implements IToolbar {
         myStep = new Button("Step");
         myClear = new Button("Clear");
         myToolbar.getChildren().addAll(myRun, myHelp, myStep, myBuild, myClear, myLanguage);
+        
+        String initFile = "resources";
+        String fileName = "/EnglishToolbar";
+        myGUIResources = ResourceBundle.getBundle(initFile + fileName);
     }
 
     @Override
