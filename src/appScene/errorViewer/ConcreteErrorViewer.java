@@ -38,7 +38,7 @@ class ConcreteErrorViewer implements IErrorViewer {
 	}
 	
 	@Override
-	public void clear() {
+	public void reset() {
 		// TODO Auto-generated method stub
 		
 	}

@@ -21,7 +21,7 @@ class ConcreteScriptViewer implements IScriptViewer {
     }
 
     @Override
-    public void clear () {
+    public void reset () {
         // TODO Auto-generated method stub
 
     }

@@ -33,7 +33,7 @@ class ConcreteTurtleBox implements ITurtleBox {
 	}
 	
 	@Override
-	public void clear() {
+	public void reset() {
 		// TODO Auto-generated method stub
 
 	}

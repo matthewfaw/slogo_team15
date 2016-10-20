@@ -43,15 +43,10 @@ class ConcreteTextEditor implements ITextEditor{
     }
     
     @Override
-    public void clear () {
+    public void reset() {
          configureStartParameters(myWidth, myHeight);
          initTextColumn();
          initTextScroller(myTextColumn);
-         
-         myTextFields.get(0).setText("Press Here to Clear!");
-         myTextFields.get(0).setOnMouseClicked(e -> {
-         	clear();
- 			});
          
          myTextFields.get(1).setText("Press Here to Make Me RED");
          myTextFields.get(1).setOnMouseClicked( e-> {
@@ -90,18 +85,21 @@ class ConcreteTextEditor implements ITextEditor{
         
     }
 
-    /******** Private Helper Methods *********/
+    /******** Package Visible Methods *********/
     
     ConcreteTextEditor(int aWidth, int aHeight){
     	configureStartParameters(aWidth, aHeight);
         initTextColumn();
         initTextScroller(myTextColumn);
-        
-        myTextFields.get(3).setText("Press Here to Clear!");
-        myTextFields.get(3).setOnMouseClicked(e -> {
-        	clear();
-		});
     }
+    
+    void clearTextFields(){
+    	for(TextField tf: myTextFields){
+    		tf.clear();
+    	}
+    }
+    
+    /******** Private Helper Methods *********/
     
     private void configureStartParameters(int aWidth, int aHeight){
     	myWidth = aWidth;
@@ -115,9 +113,14 @@ class ConcreteTextEditor implements ITextEditor{
     
     private void initTextColumn(){
    	 myTextColumn = new VBox(0);
+   	 initTextToolbar();
     	 while(myLastIndex < NUM_START_ROWS) newLine();   	
     }
 
+    private void initTextToolbar(){
+    	myTextColumn.getChildren().add(new TextEditorToolbar(this).getBar());
+    }
+    
     private void newLine(){
     	 HBox rowBox = new HBox(SPACING);
     	

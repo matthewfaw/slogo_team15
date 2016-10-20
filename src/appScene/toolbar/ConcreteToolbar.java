@@ -76,7 +76,7 @@ class ConcreteToolbar implements IToolbar {
     }
 
     @Override
-    public void clear () {
+    public void reset () {
         // TODO Auto-generated method stub
 
     }
