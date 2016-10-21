@@ -26,22 +26,25 @@ class ConcreteToolbar implements IToolbar {
     private static final int SPACING = 5;
 
     ConcreteToolbar (int aWidth, int aHeight) {
-        String initFile = "resources.languages";
+        String initFile = "resources.frontend";
         String fileName = "/EnglishToolbar";
         myGUIResources = ResourceBundle.getBundle(initFile + fileName);
-        
+        setButtonText();
         myToolbar = new HBox(SPACING);
         myToolbar.setPrefSize(aWidth, aHeight);
         myToolbar.setPadding(new Insets(SPACING, SPACING, SPACING, SPACING));
         myToolbar.setStyle("-fx-background-color: #336699;");
+        myToolbar.getChildren().addAll(myRun, myHelp, myStep, myBuild, myClear, myLanguage);
+
+    }
+    
+    private void setButtonText() {
         myRun = new Button(myGUIResources.getString("RunButton"));
         myHelp = new Button(myGUIResources.getString("HelpButton"));
         myBuild = new Button(myGUIResources.getString("BuildButton"));
         myLanguage = initLanguageButton();
         myStep = new Button(myGUIResources.getString("StepButton"));
         myClear = new Button(myGUIResources.getString("ClearButton"));
-        myToolbar.getChildren().addAll(myRun, myHelp, myStep, myBuild, myClear, myLanguage);
-
     }
 
     @Override
