@@ -18,27 +18,31 @@ public class NodeFactory {
 	
 	private static final String PACKAGE = "resource.languages/";
 	private static final String LANGUAGE = "English";
-	private static final String SYNTAX = "Syntax";
 
 	private String myWord;
-	private ResourceBundle myResources;
+	private ResourceBundle mySyntaxResources;
 	
 	public NodeFactory(String aWord, ResourceBundle aResource) {
-		//TODO
 		myWord = aWord;
-		myResources = aResource; 
+		mySyntaxResources = aResource; 
 	}
 	
 	public Node makeNode() {
 		Node node;
-		if (Pattern.matches(myWord, myResources.getString("Variable"))) {
+		if (Pattern.matches(myWord, mySyntaxResources.getString("Variable"))) {
 			node = new VariableNode(translateToVariable(myWord)); 
 		}
-		if (Pattern.matches(myWord, myResources.getString("Command"))) {
-			node = new CommandNode(translateToCommand(myWord));
+		if (Pattern.matches(myWord, mySyntaxResources.getString("Command"))) {
+			String command = translateToCommand(myWord);
+			int inputNumber = Integer.parseInt(mySyntaxResources.getString(command));
+			if (inputNumber < 0) {
+				node = new BranchNode(command);
+			} else {
+				node = new CommandNode(command, inputNumber);
+			}
 		}
-		if (Pattern.matches(myWord, myResources.getString("Constant"))) {
-			node = new ConstantNode(myWord);
+		if (Pattern.matches(myWord, mySyntaxResources.getString("Constant"))) {
+			node = new ConstantNode(Double.parseDouble(myWord));
 		}
 		return node;
 	}

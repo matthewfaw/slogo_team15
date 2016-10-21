@@ -24,12 +24,12 @@ public class TextParser implements Iterable<Node> {
 	private static final String LANGUAGE = "Syntax";
 	
 	private Stack<Node> myNodes;
-	private ResourceBundle myResources;
+	private ResourceBundle mySyntaxResources;
 
 	public TextParser(){
 		//TODO 
 		myNodes = new Stack<Node>();
-		myResources = PropertyResourceBundle.getBundle(PACKAGE + LANGUAGE);
+		mySyntaxResources = PropertyResourceBundle.getBundle(PACKAGE + LANGUAGE);
 	}
 	
 	/**
@@ -37,7 +37,7 @@ public class TextParser implements Iterable<Node> {
 	 */
 	public void createNodes(String text) {
 		ArrayList<String> wordList = (ArrayList<String>) makeExecutableList(text);
-		for (int i = 0; i < wordList.size(); i++) {
+		for (int i = (wordList.size() - 1); i < 0; i--) {
 			myNodes.add(getNode(wordList.get(i)));
 		}
 	}
@@ -48,7 +48,7 @@ public class TextParser implements Iterable<Node> {
 	 * @return
 	 */
 	private Node getNode(String word) {
-		NodeFactory factory = new NodeFactory(word, myResources); 
+		NodeFactory factory = new NodeFactory(word, mySyntaxResources); 
 		return factory.makeNode();
 	}
 	
@@ -58,11 +58,11 @@ public class TextParser implements Iterable<Node> {
 	 * @return
 	 */
 	private Collection<String> makeExecutableList(String text) {
-		String[] wordList = text.split(myResources.getString("Line"));
+		String[] wordList = text.split(mySyntaxResources.getString("Line"));
 		ArrayList<String> executableList = new ArrayList<String>();
 		for (int i = 0; i < wordList.length; i++) {
-			if (wordList[i].charAt(0) != myResources.getString("Comment").charAt(0) && wordList[i].length() > 1) {
-				String[] temp = wordList[i].split(myResources.getString("Space"));
+			if (wordList[i].charAt(0) != mySyntaxResources.getString("Comment").charAt(0) && wordList[i].length() > 1) {
+				String[] temp = wordList[i].split(mySyntaxResources.getString("Space"));
 				for (int j = 0; j < temp.length; j++) {
 					executableList.add(temp[j]);
 				}
