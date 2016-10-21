@@ -1,6 +1,8 @@
 package appScene.textEditor;
 
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import java.util.ArrayList;
 
 import javafx.beans.value.ChangeListener;
@@ -62,19 +64,19 @@ class ConcreteTextEditor implements ITextEditor{
 
 	@Override
 	public List<String> getInstructionList () {
-		List<String> outputList = new ArrayList<>();
-
-		for (int i = 0; i < myTextFields.size(); i++) {
-			outputList.add(i, myTextFields.get(i).getText());
-		}
+		
+		List<String> outputList = myTextFields.stream()
+				.map(TextField::getText)
+				.collect(Collectors.toList());
 
 		return outputList;
 	}
 
 	@Override
-	public void setInstructionList (List<String> instructions) {
-		// TODO Auto-generated method stub
-
+	public void setInstructionList (List<String> aInstructions) {
+		for(int i = 0; ( i < myTextFields.size() ) && ( i < aInstructions.size()); i++ ){
+			myTextFields.get(i).setText(aInstructions.get(i));			
+		}
 	}
 
 	/******** Package Visible Methods *********/
