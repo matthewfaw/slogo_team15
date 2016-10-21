@@ -26,21 +26,22 @@ class ConcreteToolbar implements IToolbar {
     private static final int SPACING = 5;
 
     ConcreteToolbar (int aWidth, int aHeight) {
+        String initFile = "resources.languages";
+        String fileName = "/EnglishToolbar";
+        myGUIResources = ResourceBundle.getBundle(initFile + fileName);
+        
         myToolbar = new HBox(SPACING);
         myToolbar.setPrefSize(aWidth, aHeight);
         myToolbar.setPadding(new Insets(SPACING, SPACING, SPACING, SPACING));
         myToolbar.setStyle("-fx-background-color: #336699;");
-        myRun = new Button("Run");
-        myHelp = new Button("Help");
-        myBuild = new Button("Build");
+        myRun = new Button(myGUIResources.getString("RunButton"));
+        myHelp = new Button(myGUIResources.getString("HelpButton"));
+        myBuild = new Button(myGUIResources.getString("BuildButton"));
         myLanguage = initLanguageButton();
-        myStep = new Button("Step");
-        myClear = new Button("Clear");
+        myStep = new Button(myGUIResources.getString("StepButton"));
+        myClear = new Button(myGUIResources.getString("ClearButton"));
         myToolbar.getChildren().addAll(myRun, myHelp, myStep, myBuild, myClear, myLanguage);
-        
-        //String initFile = "resources";
-        //String fileName = "/EnglishToolbar";
-        //myGUIResources = ResourceBundle.getBundle(initFile + fileName);
+
     }
 
     @Override
@@ -92,7 +93,7 @@ class ConcreteToolbar implements IToolbar {
     }
 
     private MenuButton initLanguageButton(){
-    	MenuButton languageSelection = new MenuButton("Languages");
+    	MenuButton languageSelection = new MenuButton(myGUIResources.getString("LanguageDropDown"));
     	
     	MenuItem language1 = new MenuItem("English");
     	MenuItem language2 = new MenuItem("French");
