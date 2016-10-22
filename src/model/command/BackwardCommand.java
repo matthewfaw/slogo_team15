@@ -6,15 +6,18 @@ import model.robot.Robot;
 
 public class BackwardCommand extends MovementCommand {
 	
+	private Robot myRobot;
+	
 	public BackwardCommand(Robot aRobot) {
 		super(aRobot);
+		myRobot = aRobot;
 	}
 
 	@Override
 	public double eval(String... aList) {
 		Point p = getXYCoordinate(aList);
-		getRobot().setX(getRobot().getX() - p.getX());
-		getRobot().setY(getRobot().getY() - p.getY());
+		myRobot.setX(myRobot.getX() - p.getX());
+		myRobot.setY(myRobot.getY() - p.getY());
 		return Double.parseDouble(aList[0]);
 	}
 

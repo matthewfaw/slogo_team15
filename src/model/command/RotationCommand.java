@@ -15,7 +15,6 @@ public abstract class RotationCommand implements ICommand {
 		if (rotationValue < 0) {
 			rotationValue = 360 + rotationValue;
 		}
-		myRobot.notifyObservers();
 		return rotationValue;
 		
 	}

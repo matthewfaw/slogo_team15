@@ -14,7 +14,6 @@ public class PenDownCommand implements ICommand {
 	@Override
 	public double eval(String... aList) {
 		myRobot.setPenDown(true);
-		myRobot.notifyObservers();
 		return 1;
 	}
 

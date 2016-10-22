@@ -17,7 +17,6 @@ public class SetPositionCommand implements ICommand {
 		double returnVal = Math.sqrt(Math.pow(posX, 2) + Math.pow(posY, 2));
 		myRobot.setX(Double.parseDouble(aList[0]));
 		myRobot.setY(Double.parseDouble(aList[1]));
-		myRobot.notifyObservers();
 		return returnVal;
 	}
 	

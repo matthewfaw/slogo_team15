@@ -14,7 +14,6 @@ public class HideTurtleCommand implements ICommand {
 	@Override
 	public double eval(String... aList) {
 		myRobot.setVisible(false);
-		myRobot.notifyObservers();
 		return 0;
 	}
 

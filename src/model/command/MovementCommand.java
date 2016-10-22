@@ -23,9 +23,6 @@ public abstract class MovementCommand implements ICommand {
 		p.setLocation(XPos, YPos);
 		return p;	
 	}
-	
-	public Robot getRobot() {
-		return myRobot;
-	}
+
 
 }

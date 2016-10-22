@@ -15,7 +15,6 @@ public class ForwardCommand extends MovementCommand {
 		Point p = getXYCoordinate(aList);
 		getRobot().setX(getRobot().getX() + p.getX());
 		getRobot().setY(getRobot().getY() + p.getY());
-		getRobot().notifyObservers();
 		return Double.parseDouble(aList[0]);
 	}
 

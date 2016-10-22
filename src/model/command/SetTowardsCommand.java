@@ -19,7 +19,6 @@ public class SetTowardsCommand implements ICommand {
 		} else {
 			myRobot.setRotation(myRobot.getRotation() + returnVal);
 		}
-		myRobot.notifyObservers();
 		return returnVal;
 	}
 }

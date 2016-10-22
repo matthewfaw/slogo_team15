@@ -16,7 +16,6 @@ public class SetHeadingCommand extends RotationCommand {
 		double rotation = getRotation(aList);
 		double returnVal = Math.abs(myRobot.getRotation() - rotation);
 		myRobot.setRotation(rotation);
-		myRobot.notifyObservers();
 		return returnVal;
 	}
 

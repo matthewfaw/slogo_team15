@@ -21,18 +21,21 @@ public class Turtle implements Robot, IViewRobot, Observable {
 	
 	@Override
 	public void setX(double x) {
+		notifyObservers();
 		myXpos = x;
 		
 	}
 
 	@Override
 	public void setY(double y) {
+		notifyObservers();
 		myYpos = y;
 		
 	}
 	
 	@Override
 	public void setRotation(double r) {
+		notifyObservers();
 		myRotation = r; 
 	}
 
@@ -44,6 +47,7 @@ public class Turtle implements Robot, IViewRobot, Observable {
 
 	@Override
 	public void setVisible(boolean t) {
+		notifyObservers();
 		myVisibility = t;
 	}
 	
@@ -94,7 +98,7 @@ public class Turtle implements Robot, IViewRobot, Observable {
 	}
 
 	@Override
-	public void notifyObservers() {
+	private void notifyObservers() {
 		for (Observer o : myObservers) {
 			o.update(myXpos, myYpos, myRotation, myPenDown, myVisibility);
 		}
