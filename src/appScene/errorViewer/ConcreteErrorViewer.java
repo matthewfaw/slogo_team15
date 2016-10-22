@@ -69,15 +69,16 @@ class ConcreteErrorViewer implements IErrorViewer {
 		// TODO Auto-generated method stub
 		
 	}
-
+	
 	private void setErrorButtonEvents(){
 		for(Integer i = 0; i < myErrorButtonList.size(); i++){
-			
 			myErrorButtonList.get(i).setOnMouseClicked( event -> {  
 				myTextEditor.highlightLine(Color.RED, 4); });
 		}
 	}
 
+	
+	
 	private HBox createErrorRow(int width, String errorMsg){
 		HBox currRowBox = new HBox(0);
 		currRowBox.setPrefSize(width , ErrorRowHeight);
