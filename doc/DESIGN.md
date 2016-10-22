@@ -8,7 +8,7 @@
 
 # Introduction
 
-The problem statement of this design is that of implementing a simplified Logo based coding environment. The primary goals are to implement a wide variety of commands and customization by the user. Another focus of this project is to hone our ability to write API's. Ideally, the API's we write now would be crystallized and then we could extend key pieces or objects passed through those set API's. The primary architecture of the design uses Model-View-Adapter to fully seperate concerns of the front end visualizer and development environment with the syntax and code parsing in the back end. 
+The problem statement of this design is that of implementing a simplified Logo based coding environment. The primary goals are to implement a wide variety of commands and customization by the user. Another focus of this project is to hone our ability to write API's. Ideally, the API's we write now would be crystallized and then we could extend key pieces or objects passed through those set API's. The primary architecture of the design uses Model-View-Adapter to fully separate concerns of the front end visualizer and development environment with the syntax and code parsing in the back end. 
 
 # Design Overview
 
