@@ -33,4 +33,8 @@ public interface Robot {
 	
 	public boolean isVisible();
 	
+	/**OBSERVABLE**/
+
+	public void notifyObservers();
+	
 }

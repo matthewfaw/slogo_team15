@@ -1,12 +1,15 @@
 package model.robot;
 
-public class Turtle implements Robot, IViewRobot {
+import java.util.ArrayList;
+
+public class Turtle implements Robot, IViewRobot, ObservableTurtle {
 	
-	private double Xpos;
-	private double Ypos;
-	private double rotation;
-	private boolean penDown;
-	private boolean visible;
+	private double myXpos;
+	private double myYpos;
+	private double myRotation;
+	private boolean myPenDown;
+	private boolean myVisibility;
+	private ArrayList<Observer> myObservers;
 	
 	public Turtle() {
 		//TODO
@@ -16,30 +19,30 @@ public class Turtle implements Robot, IViewRobot {
 	
 	@Override
 	public void setX(double x) {
-		Xpos = x;
+		myXpos = x;
 		
 	}
 
 	@Override
 	public void setY(double y) {
-		Ypos = y;
+		myYpos = y;
 		
 	}
 	
 	@Override
 	public void setRotation(double r) {
-		rotation = r; 
+		myRotation = r; 
 	}
 
 	@Override
 	public void setPenDown(boolean t) {
-		penDown = t;
+		myPenDown = t;
 		
 	}
 
 	@Override
 	public void setVisible(boolean t) {
-		visible = t;
+		myVisibility = t;
 	}
 	
 	
@@ -48,27 +51,52 @@ public class Turtle implements Robot, IViewRobot {
 
 	@Override
 	public double getX() {
-		return Xpos;
+		return myXpos;
 	}
 
 	@Override
 	public double getY() {
-		return Ypos;
+		return myYpos;
 	}
 
 	@Override
 	public double getRotation() {
-		return rotation;
+		return myRotation;
 	}
 
 	@Override
 	public boolean isPenDown() {
-		return penDown;
+		return myPenDown;
 	}
 
 	@Override
 	public boolean isVisible() {
-		return visible;
+		return myVisibility;
+	}
+
+	/** OBSERVERABLE **/
+	
+	@Override
+	public void registerObserver(Observer o) {
+		myObservers.add(o);
+		
+	}
+
+	@Override
+	public void removeObserver(Observer o) {
+		int i = myObservers.indexof(o);
+		if (i > 0) {
+			myObservers.remove(i);
+		}
+		
+	}
+
+	@Override
+	public void notifyObservers() {
+		for (Observer o : myObservers) {
+			o.update(myXpos, myYpos, myRotation, myPenDown, myVisibility);
+		}
+		
 	}
 
 }

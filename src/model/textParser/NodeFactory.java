@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
 import javafx.scene.Node;
+import model.command.ICommand;
 
 /**
  * Generates Nodes for the TextParser Stack
@@ -16,7 +17,8 @@ import javafx.scene.Node;
  */
 public class NodeFactory {
 	
-	private static final String PACKAGE = "resource.languages/";
+	private static final String PACKAGE_COMMAND = "model.command.";
+	private static final String PACKAGE_RESOURCE = "resource.languages.";
 	private static final String LANGUAGE = "English";
 
 	private String myWord;
@@ -38,11 +40,15 @@ public class NodeFactory {
 			if (inputNumber < 0) {
 				node = new BranchNode(command);
 			} else {
-				node = new CommandNode(command, inputNumber);
+				ICommand commandClass = (ICommand) Class.forName(PACKAGE_COMMAND + command + "Command").getConstructor().newInstance();
+				node = new CommandNode(commandClass, inputNumber);
 			}
 		}
 		if (Pattern.matches(myWord, mySyntaxResources.getString("Constant"))) {
 			node = new ConstantNode(Double.parseDouble(myWord));
+		}
+		if (Pattern.matches(myWord, mySyntaxResources.getString("ListStart")) || Pattern.matches(myWord, mySyntaxResources.getString("ListEnd"))) {
+			node = new BranchNode(myWord);
 		}
 		return node;
 	}
@@ -53,7 +59,7 @@ public class NodeFactory {
 	
 	private String translateToCommand(String aWord) { 
 		CommandTranslator parse = new CommandTranslator();
-		parse.addPatterns(PACKAGE + LANGUAGE);
+		parse.addPatterns(PACKAGE_RESOURCE + LANGUAGE);
 		return parse.getSymbol(aWord);
 	}
 	
