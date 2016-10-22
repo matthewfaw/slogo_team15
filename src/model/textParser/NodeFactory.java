@@ -7,7 +7,9 @@ import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
 import model.command.ICommand;
+import model.node.BeginBraceNode;
 import model.node.ConstantNode;
+import model.node.EndBraceNode;
 import model.node.INode;
 import model.node.VariableNode;
 import model.states.VariableState;
@@ -35,7 +37,7 @@ public class NodeFactory {
 		myVariableStates = new VariableState();
 	}
 	
-	public INode makeNode(String aWord) {
+	public INode makeNode(String aWord) throws UnexpectedCharacterException {
 		INode node = null;
 		if (Pattern.matches(aWord, mySyntaxResources.getString("Variable"))) {
 			node = new VariableNode(translateToVariable(aWord), myVariableStates); 
@@ -58,10 +60,13 @@ public class NodeFactory {
 		if (Pattern.matches(aWord, mySyntaxResources.getString("Constant"))) {
 			node = new ConstantNode(Double.parseDouble(aWord));
 		}
-		/*if (Pattern.matches(aWord, mySyntaxResources.getString("ListStart")) || Pattern.matches(aWord, mySyntaxResources.getString("ListEnd"))) {
-			node = new BeginBraceNode(aWord);
-		}*/
-		return node;
+		if (Pattern.matches(aWord, mySyntaxResources.getString("ListStart"))) {
+			node = new BeginBraceNode();
+		}
+		if (Pattern.matches(aWord, mySyntaxResources.getString("ListEnd"))) {
+			node = new EndBraceNode();
+		}
+		throw new UnexpectedCharacterException();
 	}
 	
 	private String translateToVariable(String aWord) {
