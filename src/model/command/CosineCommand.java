@@ -1,6 +1,5 @@
 package model.command;
 
-import model.exception.ArgumentException;
 
 public class CosineCommand implements ICommand {
 	
@@ -8,10 +7,7 @@ public class CosineCommand implements ICommand {
 	}
 
 	@Override
-	public double eval(String... aList) throws ArgumentException {
-		if (aList.length != 1) {
-			throw new ArgumentException("Method Evaluation needs one argument");
-		}
+	public double eval(String... aList) {
 		return Math.cos(Double.parseDouble(aList[0]));
 	}
 

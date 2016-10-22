@@ -1,6 +1,5 @@
 package model.command;
 
-import model.exception.ArgumentException;
 import model.robot.Robot;
 
 public class SetPositionCommand implements ICommand {
@@ -12,10 +11,7 @@ public class SetPositionCommand implements ICommand {
 	}
 
 	@Override
-	public double eval(String... aList) throws ArgumentException {
-		if (aList.length != 2) {
-			throw new ArgumentException("Method Evaluation needs two argument");
-		}
+	public double eval(String... aList) {
 		double posX = Math.abs(myRobot.getX() - Double.parseDouble(aList[0]));
 		double posY = Math.abs(myRobot.getY() - Double.parseDouble(aList[1]));
 		double returnVal = Math.sqrt(Math.pow(posX, 2) + Math.pow(posY, 2));

@@ -2,9 +2,7 @@ package model.command;
 
 import java.awt.Point;
 
-import model.exception.ArgumentException;
 import model.robot.Robot;
-import model.robot.Turtle;
 
 public class BackwardCommand extends MovementCommand {
 	
@@ -13,7 +11,7 @@ public class BackwardCommand extends MovementCommand {
 	}
 
 	@Override
-	public double eval(String... aList) throws ArgumentException {
+	public double eval(String... aList) {
 		Point p = getXYCoordinate(aList);
 		getRobot().setX(getRobot().getX() - p.getX());
 		getRobot().setY(getRobot().getY() - p.getY());

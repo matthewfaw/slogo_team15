@@ -1,9 +1,8 @@
 package model.command;
 
-import model.exception.ArgumentException;
 import model.robot.Robot;
 
-public class HideTurtleCommand extends BooleanTurtleCommand {
+public class HideTurtleCommand implements ICommand {
 	
 	private Robot myRobot;
 	
@@ -13,8 +12,7 @@ public class HideTurtleCommand extends BooleanTurtleCommand {
 	}
 
 	@Override
-	public double eval(String... aList) throws ArgumentException {
-		errorCheck(aList);
+	public double eval(String... aList) {
 		myRobot.setVisible(false);
 		myRobot.notifyObservers();
 		return 0;

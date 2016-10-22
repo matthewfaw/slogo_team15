@@ -1,9 +1,8 @@
 package model.command;
 
-import model.exception.ArgumentException;
 import model.robot.Robot;
 
-public class IsShowingCommand extends QueryCommand {
+public class IsShowingCommand implements ICommand {
 	
 	private Robot myRobot;
 	
@@ -12,8 +11,7 @@ public class IsShowingCommand extends QueryCommand {
 	}
 
 	@Override
-	public double eval(String... aList) throws ArgumentException {
-		errorCheck();
+	public double eval(String... aList) {
 		double returnVal = (myRobot.isVisible()) ? 1 : 0;
 		return returnVal;
 	}

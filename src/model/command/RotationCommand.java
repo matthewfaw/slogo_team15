@@ -1,7 +1,6 @@
 package model.command;
 
 
-import model.exception.ArgumentException;
 import model.robot.Robot;
 
 public abstract class RotationCommand implements ICommand {
@@ -11,10 +10,7 @@ public abstract class RotationCommand implements ICommand {
 		myRobot = aRobot;
 	}
 
-	public double getRotation(String... aList) throws ArgumentException {
-		if (aList.length != 1) {
-			throw new ArgumentException("Method Evaluation needs one argument");
-		}
+	public double getRotation(String... aList) {
 		double rotationValue = Double.parseDouble(aList[0]) % 360;
 		if (rotationValue < 0) {
 			rotationValue = 360 + rotationValue;
@@ -24,7 +20,4 @@ public abstract class RotationCommand implements ICommand {
 		
 	}
 	
-	public Robot getRobot() {
-		return myRobot;
-	}
 }

@@ -2,9 +2,7 @@ package model.command;
 
 import java.awt.Point;
 
-import model.exception.ArgumentException;
 import model.robot.Robot;
-import model.robot.Turtle;
 
 public abstract class MovementCommand implements ICommand {
 	
@@ -14,10 +12,7 @@ public abstract class MovementCommand implements ICommand {
 		myRobot = aRobot;
 	}
 
-	public Point getXYCoordinate(String... aList) throws ArgumentException {
-		if (aList.length != 1) {
-			throw new ArgumentException("Method Evaluation needs one argument");
-		}
+	public Point getXYCoordinate(String... aList) {
 		double XPos = Math.sin(myRobot.getRotation()) * Double.parseDouble(aList[0]);
 		double YPos = Math.cos(myRobot.getRotation()) * Double.parseDouble(aList[0]);
 		if (myRobot.getRotation() > 90 && myRobot.getRotation() < 360) {

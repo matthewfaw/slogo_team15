@@ -1,17 +1,12 @@
 package model.command;
 
-import model.exception.ArgumentException;
-
 public class PiCommand implements ICommand {
 	
 	public PiCommand() {
 	}
 
 	@Override
-	public double eval(String... aList) throws ArgumentException {
-		if (aList.length != 0) {
-			throw new ArgumentException("Method Evaluation needs zero arguments");
-		}
+	public double eval(String... aList) {
 		return Math.PI;
 	}
 

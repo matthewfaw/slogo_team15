@@ -1,10 +1,8 @@
 package model.command;
 
-import model.exception.ArgumentException;
 import model.robot.Robot;
-import model.robot.Turtle;
 
-public class PenUpCommand extends BooleanTurtleCommand {
+public class PenUpCommand implements ICommand {
 	
 	private Robot myRobot;
 	
@@ -14,8 +12,7 @@ public class PenUpCommand extends BooleanTurtleCommand {
 	}
 
 	@Override
-	public double eval(String... aList) throws ArgumentException {
-		errorCheck(aList);
+	public double eval(String... aList) {
 		myRobot.setPenDown(false);
 		myRobot.notifyObservers();
 		return 0;

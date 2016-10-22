@@ -1,9 +1,8 @@
 package model.command;
 
-import model.exception.ArgumentException;
 import model.robot.Robot;
 
-public class HeadingCommand extends QueryCommand {
+public class HeadingCommand implements ICommand {
 	
 	private Robot myRobot;
 	
@@ -12,8 +11,7 @@ public class HeadingCommand extends QueryCommand {
 	}
 
 	@Override
-	public double eval(String... aList) throws ArgumentException {
-		errorCheck();
+	public double eval(String... aList) {
 		return myRobot.getRotation();
 	}
 
