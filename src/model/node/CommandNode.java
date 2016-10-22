@@ -2,13 +2,14 @@ package model.node;
 
 import model.command.ICommand;
 import model.exception.ArgumentException;
+import model.states.VariableState;
 
-public class MethodNode implements INode {
+public class CommandNode implements INode {
 	
 	private ICommand myCommand;
 	private int myNumberOfInputs;
 	
-	public MethodNode(ICommand aCommand, int aNumberOfInputs) {
+	public CommandNode(ICommand aCommand, int aNumberOfInputs, VariableState aVariableStates) {
 		myCommand = aCommand;
 		myNumberOfInputs = aNumberOfInputs;
 	}

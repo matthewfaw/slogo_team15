@@ -6,8 +6,7 @@ import java.util.Iterator;
 import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
 import java.util.Stack;
-
-import javafx.scene.Node;
+import model.node.INode;
 
 
 
@@ -18,18 +17,20 @@ import javafx.scene.Node;
  *
  */
 
-public class TextParser implements Iterable<Node> {
+public class TextParser implements Iterable<INode> {
 	
 	private static final String PACKAGE = "resource.languages/";
 	private static final String LANGUAGE = "Syntax";
 	
-	private Stack<Node> myNodes;
+	private Stack<INode> myNodes;
 	private ResourceBundle mySyntaxResources;
+	private NodeFactory myFactory;
 
 	public TextParser(){
 		//TODO 
-		myNodes = new Stack<Node>();
+		myNodes = new Stack<INode>();
 		mySyntaxResources = PropertyResourceBundle.getBundle(PACKAGE + LANGUAGE);
+		myFactory = new NodeFactory(mySyntaxResources); 
 	}
 	
 	/**
@@ -47,9 +48,8 @@ public class TextParser implements Iterable<Node> {
 	 * @param word
 	 * @return
 	 */
-	private Node getNode(String word) {
-		NodeFactory factory = new NodeFactory(word, mySyntaxResources); 
-		return factory.makeNode();
+	private INode getNode(String word) {
+		return myFactory.makeNode(word);
 	}
 	
 	/**
@@ -75,8 +75,8 @@ public class TextParser implements Iterable<Node> {
 	/**
 	 * This iterator destroys the stack
 	 */
-	public Iterator<Node> iterator() {
-        Iterator<Node> iterator = new Iterator<Node>() {
+	public Iterator<INode> iterator() {
+        Iterator<INode> iterator = new Iterator<INode>() {
 
         	private int currentIndex = 0;
 
@@ -86,7 +86,7 @@ public class TextParser implements Iterable<Node> {
             }
 
             @Override
-            public Node next() {
+            public INode next() {
                 return myNodes.pop();
             }
 

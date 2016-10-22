@@ -1,5 +1,6 @@
 package model.node;
 
+
 public class ConstantNode implements INode {
 	
 	private double myValue;

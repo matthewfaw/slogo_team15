@@ -2,7 +2,9 @@ package model.robot;
 
 import java.util.ArrayList;
 
-public class Turtle implements Robot, IViewRobot, ObservableTurtle {
+import model.Observable;
+
+public class Turtle implements Robot, IViewRobot, Observable {
 	
 	private double myXpos;
 	private double myYpos;

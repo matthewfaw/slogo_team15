@@ -10,7 +10,9 @@ public class MakeVariableCommand implements ICommand {
 
 	@Override
 	public double eval(String... aList) throws ArgumentException {
-		// TODO Auto-generated method stub
+		if (aList.length != 2) {
+			throw new ArgumentException("Method Evaluation needs two arguments");
+		}
 		return 0;
 	}
 

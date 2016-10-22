@@ -17,6 +17,7 @@ public class PenUpCommand extends BooleanTurtleCommand {
 	public double eval(String... aList) throws ArgumentException {
 		errorCheck(aList);
 		myRobot.setPenDown(false);
+		myRobot.notifyObservers();
 		return 0;
 	}
 

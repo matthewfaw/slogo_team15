@@ -1,6 +1,6 @@
-package model.robot;
+package model;
 
-public interface ObservableRobot {
+public interface Observable {
 	
 	public void registerObserver(Observer o);
 	

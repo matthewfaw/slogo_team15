@@ -5,17 +5,21 @@ import model.states.VariableState;
 public class VariableNode implements INode {
 	
 	private String myName;
-	private double myValue;
 	private int myNumberOfInputs = 0;
+	private VariableState myVariableState;
 	
-	public VariableNode(String aVariable, VariableState aState) {
+	public VariableNode(String aVariable, VariableState aVariableState) {
 		myName = aVariable;
-		myValue = -1; 
+		myVariableState = aVariableState;
 	}
 
 	@Override
 	public double eval(String...aList) {
-		return myValue;
+		return myVariableState.getValue(myName);
+	}
+	
+	public String getName() {
+		return myName;
 	}
 	
 	public int getNumberOfInputs() {
