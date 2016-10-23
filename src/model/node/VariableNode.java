@@ -1,29 +1,42 @@
 package model.node;
 
-import model.states.VariableState;
+import java.util.List;
 
-public class VariableNode implements INode {
+import model.exception.ArgumentException;
+import model.states.Scope;
+
+public class VariableNode extends ValueNode {
 	
 	private String myName;
 	private int myNumberOfInputs = 0;
-	private VariableState myVariableState;
+	private Scope myScope;
+	private double myValue;
 	
-	public VariableNode(String aVariable, VariableState aVariableState) {
+	public VariableNode(String aVariable, Scope aScope) {
+		super();
+
 		myName = aVariable;
-		myVariableState = aVariableState;
+		myScope = aScope;
+		myValue = myScope.getValue(myName);
 	}
 
 	@Override
-	public double eval(String...aList) {
-		return myVariableState.getValue(myName);
-	}
-	
-	public String getName() {
-		return myName;
+	public double eval(List<Node> aList) throws ArgumentException {
+		// TODO Auto-generated method stub
+		return myValue;
 	}
 	
 	public int getNumberOfInputs() {
 		return myNumberOfInputs;
 	}
+	
+	@Override
+	public String getName() {
+		return myName;
+	}
 
+	@Override
+	public double getValue() {
+		return myValue;
+	}
 }

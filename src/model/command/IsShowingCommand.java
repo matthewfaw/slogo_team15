@@ -1,5 +1,6 @@
 package model.command;
 
+import model.node.IReadableInput;
 import model.robot.Robot;
 
 public class IsShowingCommand implements ICommand {
@@ -11,7 +12,7 @@ public class IsShowingCommand implements ICommand {
 	}
 
 	@Override
-	public double eval(String... aList) {
+	public double eval(IReadableInput... aList) {
 		double returnVal = (myRobot.isVisible()) ? 1 : 0;
 		return returnVal;
 	}

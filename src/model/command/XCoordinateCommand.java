@@ -1,5 +1,6 @@
 package model.command;
 
+import model.node.IReadableInput;
 import model.robot.Robot;
 
 public class XCoordinateCommand implements ICommand {
@@ -11,7 +12,7 @@ public class XCoordinateCommand implements ICommand {
 	}
 
 	@Override
-	public double eval(String... aList) {
+	public double eval(IReadableInput... aList) {
 		return myRobot.getX();
 	}
 

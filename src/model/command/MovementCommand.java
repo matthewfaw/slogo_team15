@@ -2,6 +2,7 @@ package model.command;
 
 import java.awt.Point;
 
+import model.node.IReadableInput;
 import model.robot.Robot;
 
 public abstract class MovementCommand implements ICommand {
@@ -12,9 +13,9 @@ public abstract class MovementCommand implements ICommand {
 		myRobot = aRobot;
 	}
 
-	public Point getXYCoordinate(String... aList) {
-		double XPos = Math.sin(myRobot.getRotation()) * Double.parseDouble(aList[0]);
-		double YPos = Math.cos(myRobot.getRotation()) * Double.parseDouble(aList[0]);
+	public Point getXYCoordinate(IReadableInput... aList) {
+		double XPos = Math.sin(myRobot.getRotation()) * aList[0].getValue();
+		double YPos = Math.cos(myRobot.getRotation()) * aList[0].getValue();
 		if (myRobot.getRotation() > 90 && myRobot.getRotation() < 360) {
 			XPos = 0 - XPos;
 			YPos = 0 - YPos;

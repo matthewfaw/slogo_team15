@@ -39,4 +39,9 @@ public class Scope {
 		return myScopeMap.get(currentScope).keySet();
 	}
 
+	public void assignVariable(String aName, double aValue) {
+		myScopeMap.get(currentScope).assignVariable(aName, aValue);
+		
+	}
+
 }

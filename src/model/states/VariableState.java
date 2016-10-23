@@ -17,6 +17,7 @@ public class VariableState {
 	}
 	
 	public double getValue(String aVariable) {
+		if (!myVariableMap.containsKey(aVariable)) myVariableMap.put(aVariable, (double) 0);
 		return myVariableMap.get(aVariable);
 	}
 

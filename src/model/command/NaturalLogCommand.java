@@ -1,5 +1,6 @@
 package model.command;
 
+import model.node.IReadableInput;
 
 public class NaturalLogCommand implements ICommand {
 	
@@ -7,8 +8,8 @@ public class NaturalLogCommand implements ICommand {
 	}
 
 	@Override
-	public double eval(String... aList) {
-		return Math.log(Double.parseDouble(aList[0]));
+	public double eval(IReadableInput... aList) {
+		return Math.log(aList[0].getValue());
 	}
 
 }

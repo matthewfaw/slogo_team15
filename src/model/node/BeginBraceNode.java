@@ -1,10 +1,29 @@
 package model.node;
 
-public class BeginBraceNode implements INode {
+import java.util.List;
 
+import model.exception.ArgumentException;
+
+public class BeginBraceNode extends Node {
+
+	public BeginBraceNode()
+	{
+		super();
+	}
 	@Override
-	public double eval(String... aList) {
+	public double eval(List<Node> aList) throws ArgumentException {
+		// TODO Auto-generated method stub
 		return 0;
 	}
-	
+
+	@Override
+	public String getName() {
+		return null;
+	}
+
+	@Override
+	public double getValue() {
+		return 0;
+	}
+
 }

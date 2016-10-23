@@ -1,12 +1,15 @@
 package model.textParser;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
+
 import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
 import java.util.Stack;
-import model.node.INode;
+
+import model.exception.UnexpectedCharacterException;
+import model.node.Node;
+import model.robot.Robot;
+import model.states.Scope;
 
 
 
@@ -17,30 +20,39 @@ import model.node.INode;
  *
  */
 
-public class TextParser implements Iterable<INode> {
+public class TextParser {
 	
-	private static final String PACKAGE = "resource.languages/";
+	private static final String PACKAGE = "resources.languages.";
 	private static final String LANGUAGE = "Syntax";
 	
-	private Stack<INode> myNodes;
+	private Stack<Node> myNodes;
 	private ResourceBundle mySyntaxResources;
 	private NodeFactory myFactory;
 
-	public TextParser(){
-		//TODO 
-		myNodes = new Stack<INode>();
+	public TextParser(Scope aScope, Robot aRobot){
+		myNodes = new Stack<Node>();
 		mySyntaxResources = PropertyResourceBundle.getBundle(PACKAGE + LANGUAGE);
-		myFactory = new NodeFactory(mySyntaxResources); 
+		myFactory = new NodeFactory(mySyntaxResources, aScope, aRobot); 
 	}
 	
 	/**
-	 * This method will create the stack that then can be iteratored through
+	 * Getter for getting the stack of parsed nodes
+	 * @return
 	 */
-	public void createNodes(String text) {
-		ArrayList<String> wordList = (ArrayList<String>) makeExecutableList(text);
-		for (int i = (wordList.size() - 1); i < 0; i--) {
-			myNodes.add(getNode(wordList.get(i)));
+	public Stack<Node> getNodeStack(String aString) {
+		createNodes(aString);
+		return myNodes;
+	}
+	
+	/**
+	 * This method will create the stack containing the Nodes needed to create the tree
+	 */
+	private void createNodes(String aText) {
+		ArrayList<String> wordList = makeExecutableList(aText);
+		for (String word: wordList) {
+			myNodes.push(getNode(word));
 		}
+//		Collections.reverse(myNodes);
 	}
 	
 	/**
@@ -48,8 +60,13 @@ public class TextParser implements Iterable<INode> {
 	 * @param word
 	 * @return
 	 */
-	private INode getNode(String word) {
-		return myFactory.makeNode(word);
+	private Node getNode(String aWord) {
+		try {
+			return myFactory.makeNode(aWord);
+		} catch (UnexpectedCharacterException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	/**
@@ -57,11 +74,11 @@ public class TextParser implements Iterable<INode> {
 	 * @param text
 	 * @return
 	 */
-	private Collection<String> makeExecutableList(String text) {
-		String[] wordList = text.split(mySyntaxResources.getString("Line"));
+	private ArrayList<String> makeExecutableList(String aText) {
+		String[] wordList = aText.split(mySyntaxResources.getString("Line"));
 		ArrayList<String> executableList = new ArrayList<String>();
 		for (int i = 0; i < wordList.length; i++) {
-			if (wordList[i].charAt(0) != mySyntaxResources.getString("Comment").charAt(0) && wordList[i].length() > 1) {
+			if (wordList[i].charAt(0) != mySyntaxResources.getString("Comment").charAt(0) && wordList[i].length() > 0) {
 				String[] temp = wordList[i].split(mySyntaxResources.getString("Space"));
 				for (int j = 0; j < temp.length; j++) {
 					executableList.add(temp[j]);
@@ -69,41 +86,6 @@ public class TextParser implements Iterable<INode> {
 			}
 		}
 		return executableList; 
-	}
-	
-	
-	/**
-	 * This iterator destroys the stack
-	 */
-	public Iterator<INode> iterator() {
-        Iterator<INode> iterator = new Iterator<INode>() {
-
-        	private int currentIndex = 0;
-
-            @Override
-            public boolean hasNext() {
-            	return currentIndex < commandSize() && myNodes.peek() != null;
-            }
-
-            @Override
-            public INode next() {
-                return myNodes.pop();
-            }
-
-            @Override
-            public void remove() {
-                throw new UnsupportedOperationException();
-            }
-        };
-        return iterator;
-    }
-	
-	/**
-	 * This method returns the size of the stack
-	 * @return int
-	 */
-	private int commandSize() {
-		return myNodes.size();
 	}
 	
 	

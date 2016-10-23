@@ -1,13 +1,15 @@
 package model.command;
 
+import model.node.IReadableInput;
+
 public class PowerCommand implements ICommand {
 	
 	public PowerCommand() {
 	}
 
 	@Override
-	public double eval(String... aList) {
-		return Math.pow(Double.parseDouble(aList[0]), Double.parseDouble(aList[1]));
+	public double eval(IReadableInput... aList) {
+		return Math.pow(aList[0].getValue(), aList[1].getValue());
 	}
 
 }

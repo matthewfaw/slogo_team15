@@ -1,5 +1,6 @@
 package model.command;
 
+import model.node.IReadableInput;
 
 public class EqualCommand implements ICommand {
 	
@@ -7,8 +8,8 @@ public class EqualCommand implements ICommand {
 	}
 
 	@Override
-	public double eval(String... aList) {
-		double returnVal = (Double.parseDouble(aList[0]) == Double.parseDouble(aList[1])) ? 1 : 0;
+	public double eval(IReadableInput... aList) {
+		double returnVal = (aList[0].getValue() == aList[1].getValue()) ? 1 : 0;
 		return returnVal;
 	}
 
