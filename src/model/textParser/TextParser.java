@@ -1,8 +1,7 @@
 package model.textParser;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
+
 import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
 import java.util.Stack;
