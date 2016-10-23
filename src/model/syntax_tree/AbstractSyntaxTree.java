@@ -4,21 +4,25 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
-import com.sun.corba.se.impl.orbutil.graph.Node;
-
+import model.node.BeginBraceNode;
+import model.node.BranchNode;
+import model.node.CommandNode;
+import model.node.EndBraceNode;
+import model.node.Node;
+import model.node.ListNode;
 import model.node.NodeState;
+import model.node.NullNode;
 
 public class AbstractSyntaxTree {
 	private Node myRoot;
 	
 	//XXX: These should be moved to another class. Visitor pattern might work here?
-	private Stack<Node> myExpressionStack;
-//	private Stack<Node> myInputStack;
+	private Stack<CommandNode> myExpressionStack;
+//	private Stack<INode> myInputStack;
 	
 	public AbstractSyntaxTree(Stack<Node> aNodeStack)
 	{
-		// Build the tree
-		myExpressionStack = new Stack<Node>();
+		myExpressionStack = new Stack<CommandNode>();
 		
 		myRoot = constructTree(aNodeStack);
 	}
@@ -48,19 +52,19 @@ public class AbstractSyntaxTree {
 
 		return root;
 	}
-	private void updateList(MethodNode aNode, Stack<Node> aOriginalNodeStack, Stack<Node> aCurrentInputStack)
+	private void updateList(CommandNode aNode, Stack<Node> aOriginalNodeStack, Stack<Node> aCurrentInputStack)
 	{
-		for (int i=0; i<aNode.getNumberOfInputArguments(); ++i) {
+		for (int i=0; i<aNode.getNumberOfInputs(); ++i) {
 			Node inputNode = aCurrentInputStack.pop();
 			aNode.addChild(inputNode);
 			aCurrentInputStack.push(inputNode);
 		}
 	}
-	private void updateList(LeftBraceNode aNode, Stack<Node> aOriginalNodeStack, Stack<Node> aCurrentInputStack)
+	private void updateList(BeginBraceNode aNode, Stack<Node> aOriginalNodeStack, Stack<Node> aCurrentInputStack)
 	{
 		ListNode listNode = new ListNode();
 		Node inputNode = aCurrentInputStack.pop();
-		while (!(inputNode instanceof RightBraceNode)) {
+		while (!(inputNode instanceof EndBraceNode)) {
 			listNode.addChild(inputNode);
 			inputNode = aCurrentInputStack.pop();
 		}
@@ -77,7 +81,7 @@ public class AbstractSyntaxTree {
 		Node currentTopLevelNode = getNextUnvisitedChild(myRoot);
 		buildCallStackForNextInstruction(currentTopLevelNode);
 
-		MethodNode nextInstruction = myExpressionStack.peek();
+		CommandNode nextInstruction = myExpressionStack.peek();
 		if (nextInstruction == null) {
 			// Do nothing
 			return;
@@ -87,16 +91,17 @@ public class AbstractSyntaxTree {
 			performEvaluation(nextInstruction);
 		}
 	}
-	private void performEvaluation(MethodNode aNextInstruction)
+	private void performEvaluation(CommandNode aNextInstruction)
 	{
 		// Call the next instruction
-		aNextInstruction.evaluate(aNextInstruction.getChildren());
+//		aNextInstruction.eval(aNextInstruction.getChildren());
+		aNextInstruction.eval(new ArrayList<Node>());
 		// Mark nodes as visited
 		aNextInstruction.setState(NodeState.VISITED);
 		// Update the stack
 		myExpressionStack.pop();
 	}
-	private void performEvaluation(BranchingNode aCondition)
+	private void performEvaluation(BranchNode aCondition)
 	{
 		if (aCondition.getEvaluationState() == NodeState.EVALUATING_CONDITION) {
 			aCondition.evaluateCondition(aCondition.getChildConditions());
@@ -107,7 +112,7 @@ public class AbstractSyntaxTree {
 			aCondition.evaluate(aCondition.getCurrentBranch().getChildren());
 		}
 	}
-	private boolean allInputsAreReadyToBeUsed(MethodNode aParentNode)
+	private boolean allInputsAreReadyToBeUsed(CommandNode aParentNode)
 	{
 		return allInputsAreReadyToBeUsed(aParentNode.getChildren());
 	}
@@ -140,7 +145,7 @@ public class AbstractSyntaxTree {
 			aNode.setState(NodeState.VISITED);
 		}
 	}
-	private void buildCallStackForNextInstruction(MethodNode aNode)
+	private void buildCallStackForNextInstruction(CommandNode aNode)
 	{
 		if (isAvailableForTraversal(aNode)) {
 			myExpressionStack.push(aNode);
@@ -152,7 +157,7 @@ public class AbstractSyntaxTree {
 	{
 		return getNextUnvisitedChild(aParentNode.getChildren());
 	}
-	private Node getNextUnvisitedChild(BranchingNode aParentNode)
+	private Node getNextUnvisitedChild(BranchNode aParentNode)
 	{
 		if (aParentNode.getEvaluationState() == NodeState.EVALUATING_CONDITION) {
 			return getNextUnvisitedChild(aParentNode.getChildConditions());

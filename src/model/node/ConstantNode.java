@@ -1,7 +1,7 @@
 package model.node;
 
 
-public class ConstantNode implements INode {
+public class ConstantNode implements Node {
 	
 	private double myValue;
 	private int myNumberOfInputs = 0;

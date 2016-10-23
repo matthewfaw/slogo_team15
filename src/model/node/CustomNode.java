@@ -2,7 +2,7 @@ package model.node;
 
 import model.exception.ArgumentException;
 
-public class CustomNode implements INode, IReadableInput {
+public class CustomNode implements Node, IReadableInput {
 
 	@Override
 	public double eval(IReadableInput... aList) throws ArgumentException {

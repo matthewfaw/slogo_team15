@@ -1,37 +1,43 @@
 package model.node;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import model.command.ICommand;
 import model.exception.ArgumentException;
 import model.states.Scope;
 
-public class CommandNode implements INode, IReadableInput {
+public class CommandNode extends Node {
 	
 	private ICommand myCommand;
 	private int myNumberOfInputs;
-	private ArrayList<INode> myChildren;
+	private ArrayList<Node> myChildren;
 	private double myOutput;
 	
 	public CommandNode(ICommand aCommand, int aNumberOfInputs, Scope aScope) {
 		myCommand = aCommand;
 		myNumberOfInputs = aNumberOfInputs;
-		myChildren = new ArrayList<INode>(); 
+		myChildren = new ArrayList<Node>(); 
 	}
 
 	@Override
-	public double eval(IReadableInput...aList) throws ArgumentException {
-		if (aList.length != myNumberOfInputs) {
+	public double eval(List<IReadableInput> aList) throws ArgumentException {
+		if (aList.size() != myNumberOfInputs) {
 			throw new ArgumentException("Invalid number of arguments"); 
 		}
 		myOutput = myCommand.eval(aList);
 		return myOutput;
 	}
 	
-	public void addChildren(INode...aList) {
-		for (int i = 0; i < aList.length; i++) {
-			myChildren.add(aList[i]);
-		}
+	@Override
+	public void addChild(Node aNode) {
+		myChildren.add(aNode);
+	}
+
+	@Override
+	public List<Node> getChildren() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	public int getNumberOfInputs() {
@@ -47,5 +53,6 @@ public class CommandNode implements INode, IReadableInput {
 	public double getValue() {
 		return myOutput;
 	}
+
 
 }

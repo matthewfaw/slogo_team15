@@ -1,6 +1,6 @@
 package model.node;
 
-public class AssignmentNode implements INode, IReadableInput {
+public class AssignmentNode implements Node, IReadableInput {
 	
 	public AssignmentNode() {
 		

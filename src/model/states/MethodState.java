@@ -2,20 +2,20 @@ package model.states;
 
 import java.util.HashMap;
 import java.util.Map;
-import model.node.INode;
+import model.node.Node;
 
 import javafx.util.Pair;
 
 public class MethodState {
 	
-	private Map<String, Pair<Integer, INode>> myMethodMap;
+	private Map<String, Pair<Integer, Node>> myMethodMap;
 	
 	public MethodState() {
-		myMethodMap = new HashMap<String, Pair<Integer, INode>>();
+		myMethodMap = new HashMap<String, Pair<Integer, Node>>();
 	}
 	
-	public void assignMethod(String aMethodName, int aNumberOfInputs, INode aNode) {
-		Pair<Integer, INode> tuple = new Pair<Integer, INode>(aNumberOfInputs, aNode);
+	public void assignMethod(String aMethodName, int aNumberOfInputs, Node aNode) {
+		Pair<Integer, Node> tuple = new Pair<Integer, Node>(aNumberOfInputs, aNode);
 		myMethodMap.put(aMethodName, tuple);
 	}
 	
@@ -23,7 +23,7 @@ public class MethodState {
 		return myMethodMap.get(aMethodName).getKey();
 	}
 	
-	public INode getFunction(String aMethodName) {
+	public Node getFunction(String aMethodName) {
 		return myMethodMap.get(aMethodName).getValue();
 	}
 

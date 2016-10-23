@@ -1,6 +1,6 @@
 package model.node;
 
-public class EndBraceNode implements INode, IReadableInput {
+public class EndBraceNode implements Node, IReadableInput {
 
 	@Override
 	public double eval(IReadableInput... aList) {

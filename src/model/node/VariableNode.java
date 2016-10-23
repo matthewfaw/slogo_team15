@@ -2,7 +2,7 @@ package model.node;
 
 import model.states.Scope;
 
-public class VariableNode implements INode, IReadableInput {
+public class VariableNode implements Node, IReadableInput {
 	
 	private String myName;
 	private int myNumberOfInputs = 0;

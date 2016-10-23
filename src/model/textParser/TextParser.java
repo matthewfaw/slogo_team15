@@ -8,7 +8,7 @@ import java.util.ResourceBundle;
 import java.util.Stack;
 
 import model.exception.UnexpectedCharacterException;
-import model.node.INode;
+import model.node.Node;
 import model.robot.Robot;
 import model.states.Scope;
 
@@ -21,18 +21,18 @@ import model.states.Scope;
  *
  */
 
-public class TextParser implements Iterable<INode> {
+public class TextParser implements Iterable<Node> {
 	
 	private static final String PACKAGE = "resource.languages/";
 	private static final String LANGUAGE = "Syntax";
 	
-	private Stack<INode> myNodes;
+	private Stack<Node> myNodes;
 	private ResourceBundle mySyntaxResources;
 	private NodeFactory myFactory;
 
 	public TextParser(Scope aScope, Robot aRobot){
 		//TODO 
-		myNodes = new Stack<INode>();
+		myNodes = new Stack<Node>();
 		mySyntaxResources = PropertyResourceBundle.getBundle(PACKAGE + LANGUAGE);
 		myFactory = new NodeFactory(mySyntaxResources, aScope, aRobot); 
 	}
@@ -52,7 +52,7 @@ public class TextParser implements Iterable<INode> {
 	 * @param word
 	 * @return
 	 */
-	private INode getNode(String word) {
+	private Node getNode(String word) {
 		try {
 			return myFactory.makeNode(word);
 		} catch (UnexpectedCharacterException e) {
@@ -84,8 +84,8 @@ public class TextParser implements Iterable<INode> {
 	/**
 	 * This iterator destroys the stack
 	 */
-	public Iterator<INode> iterator() {
-        Iterator<INode> iterator = new Iterator<INode>() {
+	public Iterator<Node> iterator() {
+        Iterator<Node> iterator = new Iterator<Node>() {
 
         	private int currentIndex = 0;
 
@@ -95,7 +95,7 @@ public class TextParser implements Iterable<INode> {
             }
 
             @Override
-            public INode next() {
+            public Node next() {
                 return myNodes.pop();
             }
 

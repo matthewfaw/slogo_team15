@@ -11,7 +11,7 @@ import model.exception.UnexpectedCharacterException;
 import model.node.BeginBraceNode;
 import model.node.ConstantNode;
 import model.node.EndBraceNode;
-import model.node.INode;
+import model.node.Node;
 import model.node.VariableNode;
 import model.robot.Robot;
 import model.states.Scope;
@@ -42,8 +42,8 @@ public class NodeFactory {
 		myScope = aScope;
 	}
 	
-	public INode makeNode(String aWord) throws UnexpectedCharacterException {
-		INode node = null;
+	public Node makeNode(String aWord) throws UnexpectedCharacterException {
+		Node node = null;
 		if (Pattern.matches(aWord, mySyntaxResources.getString("Variable"))) {
 			node = new VariableNode(translateToVariable(aWord), myScope); 
 		}
@@ -56,7 +56,7 @@ public class NodeFactory {
 			int inputNumber = Integer.parseInt(mySyntaxResources.getString(command));
 			try {
 				ICommand commandClass = myCommandFactory.makeCommand(translateToCommand(command));
-				node = (INode) Class.forName(PACKAGE_NODE + type + "Node").getConstructor(ICommand.class, int.class, Scope.class).
+				node = (Node) Class.forName(PACKAGE_NODE + type + "Node").getConstructor(ICommand.class, int.class, Scope.class).
 						newInstance(commandClass, inputNumber, myScope);
 			} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
 					| InvocationTargetException | NoSuchMethodException | SecurityException
