@@ -94,8 +94,7 @@ public class AbstractSyntaxTree {
 	private void performEvaluation(CommandNode aNextInstruction)
 	{
 		// Call the next instruction
-//		aNextInstruction.eval(aNextInstruction.getChildren());
-		aNextInstruction.eval(new ArrayList<Node>());
+		aNextInstruction.eval(aNextInstruction.getChildren());
 		// Mark nodes as visited
 		aNextInstruction.setState(NodeState.VISITED);
 		// Update the stack

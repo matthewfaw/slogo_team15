@@ -21,11 +21,12 @@ public class CommandNode extends Node {
 	}
 
 	@Override
-	public double eval(List<IReadableInput> aList) throws ArgumentException {
+	public double eval(List<Node> aList) throws ArgumentException {
 		if (aList.size() != myNumberOfInputs) {
 			throw new ArgumentException("Invalid number of arguments"); 
 		}
-		myOutput = myCommand.eval(aList);
+		Node[] inputList = aList.toArray(new Node[aList.size()]);
+		myOutput = myCommand.eval(inputList);
 		return myOutput;
 	}
 	

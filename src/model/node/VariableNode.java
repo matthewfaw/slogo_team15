@@ -19,7 +19,7 @@ public class VariableNode extends Node {
 	}
 
 	@Override
-	public double eval(List<IReadableInput> aList) throws ArgumentException {
+	public double eval(List<Node> aList) throws ArgumentException {
 		// TODO Auto-generated method stub
 		return myValue;
 	}

@@ -7,6 +7,6 @@ import model.node.IReadableInput;
 public interface ICommand {
 	
 
-	public double eval(List<IReadableInput> aList);
+	public double eval(IReadableInput... aList);
 	
 }
