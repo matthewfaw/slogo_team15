@@ -26,7 +26,9 @@ public class ModelController {
 		TextParser parser = new TextParser(myScope, myRobot);
 		AbstractSyntaxTree ast = new AbstractSyntaxTree(parser.getNodeStack(aString));
 		try {
-			ast.executeNextInstruction();
+			while (ast.hasNextInstruction()) {
+				ast.executeNextInstruction();
+			}
 		} catch (ArgumentException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
