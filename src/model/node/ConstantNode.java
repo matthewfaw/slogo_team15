@@ -4,7 +4,7 @@ import java.util.List;
 
 import model.exception.ArgumentException;
 
-public class ConstantNode extends Node implements IReadableInput {
+public class ConstantNode extends Node {
 	
 	private double myValue;
 	private int myNumberOfInputs = 0;

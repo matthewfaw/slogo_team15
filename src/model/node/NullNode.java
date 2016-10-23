@@ -4,7 +4,7 @@ import java.util.List;
 
 import model.exception.ArgumentException;
 
-public class NullNode extends Node implements IReadableInput {
+public class NullNode extends Node {
 
 	@Override
 	public String getName() {

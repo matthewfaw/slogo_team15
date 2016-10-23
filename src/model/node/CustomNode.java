@@ -4,7 +4,7 @@ import java.util.List;
 
 import model.exception.ArgumentException;
 
-public class CustomNode extends Node implements IReadableInput {
+public class CustomNode extends Node {
 
 	@Override
 	public double eval(List<IReadableInput> aList) throws ArgumentException {

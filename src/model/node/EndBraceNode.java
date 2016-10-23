@@ -4,7 +4,7 @@ import java.util.List;
 
 import model.exception.ArgumentException;
 
-public class EndBraceNode extends Node implements IReadableInput {
+public class EndBraceNode extends Node {
 
 	@Override
 	public double eval(List<IReadableInput> aList) throws ArgumentException {

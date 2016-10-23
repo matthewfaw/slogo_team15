@@ -4,7 +4,7 @@ import java.util.List;
 
 import model.exception.ArgumentException;
 
-public class AssignmentNode extends Node implements IReadableInput {
+public class AssignmentNode extends Node {
 	
 	public AssignmentNode() {
 		

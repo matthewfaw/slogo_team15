@@ -6,7 +6,7 @@ import model.command.ICommand;
 import model.exception.ArgumentException;
 import model.states.Scope;
 
-public class BranchNode extends Node implements IReadableInput {
+public class BranchNode extends Node {
 
 	public BranchNode(ICommand aCommand, int aNumberOfInputs, Scope aScope) {
 		

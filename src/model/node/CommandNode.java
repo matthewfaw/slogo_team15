@@ -7,7 +7,7 @@ import model.command.ICommand;
 import model.exception.ArgumentException;
 import model.states.Scope;
 
-public class CommandNode extends Node implements IReadableInput {
+public class CommandNode extends Node {
 	
 	private ICommand myCommand;
 	private int myNumberOfInputs;

@@ -5,7 +5,7 @@ import java.util.List;
 import model.exception.ArgumentException;
 
 //XXX: Add stuff
-public class ListNode extends Node implements IReadableInput {
+public class ListNode extends Node {
 
 	@Override
 	public String getName() {
