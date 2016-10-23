@@ -69,8 +69,8 @@ public class AbstractSyntaxTree {
 		for (int i=0; i<aNode.getNumberOfInputs(); ++i) {
 			Node inputNode = aCurrentInputStack.pop();
 			aNode.addChild(inputNode);
-			aCurrentInputStack.push(inputNode);
 		}
+		aCurrentInputStack.push(aNode);
 	}
 	private void updateList(BeginBraceNode aNode, Stack<Node> aOriginalNodeStack, Stack<Node> aCurrentInputStack)
 	{
@@ -80,7 +80,7 @@ public class AbstractSyntaxTree {
 			listNode.addChild(inputNode);
 			inputNode = aCurrentInputStack.pop();
 		}
-		aCurrentInputStack.pop();
+//		aCurrentInputStack.pop();
 		aCurrentInputStack.push(listNode);
 	}
 	public void executeNextInstruction() throws ArgumentException

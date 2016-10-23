@@ -29,16 +29,4 @@ public class ValueNode extends Node {
 		return 0;
 	}
 
-	@Override
-	public NodeState getState() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setState(NodeState aNodeState) {
-		// TODO Auto-generated method stub
-		
-	}
-
 }
