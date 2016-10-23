@@ -1,4 +1,4 @@
-package models.syntax_tree;
+package model.syntax_tree;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,7 +6,7 @@ import java.util.Stack;
 
 import com.sun.corba.se.impl.orbutil.graph.Node;
 
-import models.syntax_tree.node.NodeState;
+import model.node.NodeState;
 
 public class AbstractSyntaxTree {
 	private Node myRoot;

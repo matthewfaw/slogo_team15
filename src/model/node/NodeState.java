@@ -1,4 +1,4 @@
-package models.syntax_tree.node;
+package model.node;
 
 public enum NodeState {
 	VISITED,
