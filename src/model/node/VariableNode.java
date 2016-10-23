@@ -1,8 +1,11 @@
 package model.node;
 
+import java.util.List;
+
+import model.exception.ArgumentException;
 import model.states.Scope;
 
-public class VariableNode implements Node, IReadableInput {
+public class VariableNode extends Node implements IReadableInput {
 	
 	private String myName;
 	private int myNumberOfInputs = 0;
@@ -16,7 +19,8 @@ public class VariableNode implements Node, IReadableInput {
 	}
 
 	@Override
-	public double eval(IReadableInput...aList) {
+	public double eval(List<IReadableInput> aList) throws ArgumentException {
+		// TODO Auto-generated method stub
 		return myValue;
 	}
 	
@@ -32,6 +36,30 @@ public class VariableNode implements Node, IReadableInput {
 	@Override
 	public double getValue() {
 		return myValue;
+	}
+
+	@Override
+	public List<Node> getChildren() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void addChild(Node aNode) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public NodeState getState() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setState(NodeState aNodeState) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

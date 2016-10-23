@@ -7,7 +7,7 @@ import model.command.ICommand;
 import model.exception.ArgumentException;
 import model.states.Scope;
 
-public class CommandNode extends Node {
+public class CommandNode extends Node implements IReadableInput {
 	
 	private ICommand myCommand;
 	private int myNumberOfInputs;
@@ -52,6 +52,18 @@ public class CommandNode extends Node {
 	@Override
 	public double getValue() {
 		return myOutput;
+	}
+
+	@Override
+	public NodeState getState() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setState(NodeState aNodeState) {
+		// TODO Auto-generated method stub
+		
 	}
 
 

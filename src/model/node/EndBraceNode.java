@@ -1,9 +1,14 @@
 package model.node;
 
-public class EndBraceNode implements Node, IReadableInput {
+import java.util.List;
+
+import model.exception.ArgumentException;
+
+public class EndBraceNode extends Node implements IReadableInput {
 
 	@Override
-	public double eval(IReadableInput... aList) {
+	public double eval(List<IReadableInput> aList) throws ArgumentException {
+		// TODO Auto-generated method stub
 		return 0;
 	}
 
@@ -17,6 +22,30 @@ public class EndBraceNode implements Node, IReadableInput {
 	public double getValue() {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public List<Node> getChildren() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void addChild(Node aNode) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public NodeState getState() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setState(NodeState aNodeState) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	

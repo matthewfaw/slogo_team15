@@ -1,7 +1,10 @@
 package model.node;
 
+import java.util.List;
 
-public class ConstantNode implements Node {
+import model.exception.ArgumentException;
+
+public class ConstantNode extends Node implements IReadableInput {
 	
 	private double myValue;
 	private int myNumberOfInputs = 0;
@@ -11,12 +14,49 @@ public class ConstantNode implements Node {
 	}
 	
 	@Override
-	public double eval(IReadableInput...aList) {
+	public double eval(List<IReadableInput> aList) throws ArgumentException {
+		// TODO Auto-generated method stub
 		return myValue;
-	} 
-	
+	}
+
 	public int getNumberOfInputs() {
 		return myNumberOfInputs;
+	}
+
+	@Override
+	public String getName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public double getValue() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public List<Node> getChildren() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void addChild(Node aNode) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public NodeState getState() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setState(NodeState aNodeState) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
