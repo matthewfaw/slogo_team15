@@ -86,7 +86,7 @@ public class ApplicationScene {
     		try {
         		myModel.userInputToModel(sb.toString());
 			} catch (Exception e2) {
-				
+				//TODO: Implement error viewing
 			} 
     		
   

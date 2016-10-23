@@ -14,7 +14,7 @@ public class Turtle implements Robot, IViewRobot, Observable {
 	private ArrayList<IRobotObserver> myObservers;
 	
 	public Turtle() {
-		//TODO
+		myObservers = new ArrayList<IRobotObserver>();
 	}
 
 	/** SETTERS **/

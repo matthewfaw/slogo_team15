@@ -55,7 +55,7 @@ class ConcreteTurtleBox implements ITurtleBox {
 	public void update() {
 		if(myRobot == null) return;
 		
-		// TODO Auto-generated method stub
+		System.out.println(myRobot.getY());
 		
 	}
 	
