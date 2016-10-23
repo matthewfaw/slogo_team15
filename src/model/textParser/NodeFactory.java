@@ -24,7 +24,7 @@ import model.states.Scope;
  */
 public class NodeFactory {
 	
-	private static final String PACKAGE_RESOURCE = "resource.languages.";
+	private static final String PACKAGE_RESOURCE = "resources.languages.";
 	private static final String PACKAGE_NODE = "model.node.";
 	private static final String LANGUAGE = "English";
 	private static final String TYPE = "CommandTypes";
@@ -42,11 +42,10 @@ public class NodeFactory {
 	}
 	
 	public Node makeNode(String aWord) throws UnexpectedCharacterException {
-		Node node = null;
-		if (Pattern.matches(aWord, mySyntaxResources.getString("Variable"))) {
-			node = new VariableNode(translateToVariable(aWord), myScope); 
+		if (Pattern.matches(mySyntaxResources.getString("Variable"), aWord)) {
+			return new VariableNode(translateToVariable(aWord), myScope); 
 		}
-		if (Pattern.matches(aWord, mySyntaxResources.getString("Command"))) {
+		else if (Pattern.matches(mySyntaxResources.getString("Command"), aWord)) {
 			String command = translateToCommand(aWord);
 			String type = myCommandTypeResources.getString(command);
 			if (type != "Branch" || type != "Assignment" || type != "Custom") {
@@ -55,7 +54,7 @@ public class NodeFactory {
 			int inputNumber = Integer.parseInt(mySyntaxResources.getString(command));
 			try {
 				ICommand commandClass = myCommandFactory.makeCommand(translateToCommand(command));
-				node = (Node) Class.forName(PACKAGE_NODE + type + "Node").getConstructor(ICommand.class, int.class, Scope.class).
+				return (Node) Class.forName(PACKAGE_NODE + type + "Node").getConstructor(ICommand.class, int.class, Scope.class).
 						newInstance(commandClass, inputNumber, myScope);
 			} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
 					| InvocationTargetException | NoSuchMethodException | SecurityException
@@ -63,14 +62,14 @@ public class NodeFactory {
 				e.printStackTrace();
 			}
 		}
-		if (Pattern.matches(aWord, mySyntaxResources.getString("Constant"))) {
-			node = new ConstantNode(Double.parseDouble(aWord));
+		else if (Pattern.matches(mySyntaxResources.getString("Constant"), aWord)) {
+			return new ConstantNode(Double.parseDouble(aWord));
 		}
-		if (Pattern.matches(aWord, mySyntaxResources.getString("ListStart"))) {
-			node = new BeginBraceNode();
+		else if (Pattern.matches(mySyntaxResources.getString("ListStart"), aWord)) {
+			return new BeginBraceNode();
 		}
-		if (Pattern.matches(aWord, mySyntaxResources.getString("ListEnd"))) {
-			node = new EndBraceNode();
+		else if (Pattern.matches(mySyntaxResources.getString("ListEnd"), aWord)) {
+			return new EndBraceNode();
 		}
 		throw new UnexpectedCharacterException();
 	}

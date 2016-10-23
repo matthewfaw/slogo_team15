@@ -22,7 +22,7 @@ import model.states.Scope;
 
 public class TextParser {
 	
-	private static final String PACKAGE = "resource.languages/";
+	private static final String PACKAGE = "resources.languages.";
 	private static final String LANGUAGE = "Syntax";
 	
 	private Stack<Node> myNodes;
@@ -39,9 +39,9 @@ public class TextParser {
 	 * This method will create the stack containing the Nodes needed to create the tree
 	 */
 	public void createNodes(String text) {
-		ArrayList<String> wordList = (ArrayList<String>) makeExecutableList(text);
-		for (int i = (wordList.size() - 1); i < 0; i--) {
-			myNodes.add(getNode(wordList.get(i)));
+		ArrayList<String> wordList = makeExecutableList(text);
+		for (String word: wordList) {
+			myNodes.add(getNode(word));
 		}
 	}
 	
@@ -72,11 +72,11 @@ public class TextParser {
 	 * @param text
 	 * @return
 	 */
-	private Collection<String> makeExecutableList(String text) {
+	private ArrayList<String> makeExecutableList(String text) {
 		String[] wordList = text.split(mySyntaxResources.getString("Line"));
 		ArrayList<String> executableList = new ArrayList<String>();
 		for (int i = 0; i < wordList.length; i++) {
-			if (wordList[i].charAt(0) != mySyntaxResources.getString("Comment").charAt(0) && wordList[i].length() > 1) {
+			if (wordList[i].charAt(0) != mySyntaxResources.getString("Comment").charAt(0) && wordList[i].length() > 0) {
 				String[] temp = wordList[i].split(mySyntaxResources.getString("Space"));
 				for (int j = 0; j < temp.length; j++) {
 					executableList.add(temp[j]);
