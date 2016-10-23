@@ -2,7 +2,6 @@ package model.textParser;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
 import java.util.Stack;
@@ -21,7 +20,7 @@ import model.states.Scope;
  *
  */
 
-public class TextParser implements Iterable<Node> {
+public class TextParser {
 	
 	private static final String PACKAGE = "resource.languages/";
 	private static final String LANGUAGE = "Syntax";
@@ -31,20 +30,27 @@ public class TextParser implements Iterable<Node> {
 	private NodeFactory myFactory;
 
 	public TextParser(Scope aScope, Robot aRobot){
-		//TODO 
 		myNodes = new Stack<Node>();
 		mySyntaxResources = PropertyResourceBundle.getBundle(PACKAGE + LANGUAGE);
 		myFactory = new NodeFactory(mySyntaxResources, aScope, aRobot); 
 	}
 	
 	/**
-	 * This method will create the stack that then can be iteratored through
+	 * This method will create the stack containing the Nodes needed to create the tree
 	 */
 	public void createNodes(String text) {
 		ArrayList<String> wordList = (ArrayList<String>) makeExecutableList(text);
 		for (int i = (wordList.size() - 1); i < 0; i--) {
 			myNodes.add(getNode(wordList.get(i)));
 		}
+	}
+	
+	/**
+	 * Getter for getting the stack of parsed nodes
+	 * @return
+	 */
+	public Collection<Node> getNodeStack() {
+		return myNodes;
 	}
 	
 	/**
@@ -78,41 +84,6 @@ public class TextParser implements Iterable<Node> {
 			}
 		}
 		return executableList; 
-	}
-	
-	
-	/**
-	 * This iterator destroys the stack
-	 */
-	public Iterator<Node> iterator() {
-        Iterator<Node> iterator = new Iterator<Node>() {
-
-        	private int currentIndex = 0;
-
-            @Override
-            public boolean hasNext() {
-            	return currentIndex < commandSize() && myNodes.peek() != null;
-            }
-
-            @Override
-            public Node next() {
-                return myNodes.pop();
-            }
-
-            @Override
-            public void remove() {
-                throw new UnsupportedOperationException();
-            }
-        };
-        return iterator;
-    }
-	
-	/**
-	 * This method returns the size of the stack
-	 * @return int
-	 */
-	private int commandSize() {
-		return myNodes.size();
 	}
 	
 	

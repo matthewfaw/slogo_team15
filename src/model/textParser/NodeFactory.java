@@ -15,7 +15,6 @@ import model.node.Node;
 import model.node.VariableNode;
 import model.robot.Robot;
 import model.states.Scope;
-import model.states.VariableState;
 
 /**
  * Generates Nodes for the TextParser Stack
