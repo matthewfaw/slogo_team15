@@ -13,6 +13,8 @@ public class VariableNode extends ValueNode {
 	private double myValue;
 	
 	public VariableNode(String aVariable, Scope aScope) {
+		super();
+
 		myName = aVariable;
 		myScope = aScope;
 		myValue = myScope.getValue(myName);
@@ -36,18 +38,6 @@ public class VariableNode extends ValueNode {
 	@Override
 	public double getValue() {
 		return myValue;
-	}
-
-	@Override
-	public List<Node> getChildren() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void addChild(Node aNode) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override

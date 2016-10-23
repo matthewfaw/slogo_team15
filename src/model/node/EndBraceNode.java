@@ -5,6 +5,11 @@ import java.util.List;
 import model.exception.ArgumentException;
 
 public class EndBraceNode extends Node {
+	
+	public EndBraceNode()
+	{
+		super();
+	}
 
 	@Override
 	public double eval(List<Node> aList) throws ArgumentException {
@@ -22,18 +27,6 @@ public class EndBraceNode extends Node {
 	public double getValue() {
 		// TODO Auto-generated method stub
 		return 0;
-	}
-
-	@Override
-	public List<Node> getChildren() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void addChild(Node aNode) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override

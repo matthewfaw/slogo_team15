@@ -11,13 +11,13 @@ public class CommandNode extends Node {
 	
 	private ICommand myCommand;
 	private int myNumberOfInputs;
-	private ArrayList<Node> myChildren;
 	private double myOutput;
 	
 	public CommandNode(ICommand aCommand, int aNumberOfInputs, Scope aScope) {
+		super();
+		
 		myCommand = aCommand;
 		myNumberOfInputs = aNumberOfInputs;
-		myChildren = new ArrayList<Node>(); 
 	}
 
 	@Override
@@ -28,17 +28,6 @@ public class CommandNode extends Node {
 		Node[] inputList = aList.toArray(new Node[aList.size()]);
 		myOutput = myCommand.eval(inputList);
 		return myOutput;
-	}
-	
-	@Override
-	public void addChild(Node aNode) {
-		myChildren.add(aNode);
-	}
-
-	@Override
-	public List<Node> getChildren() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 	
 	public int getNumberOfInputs() {

@@ -5,6 +5,11 @@ import java.util.List;
 import model.exception.ArgumentException;
 
 public class NullNode extends Node {
+	
+	public NullNode()
+	{
+		super();
+	}
 
 	@Override
 	public String getName() {
@@ -20,18 +25,6 @@ public class NullNode extends Node {
 	public double eval(List<Node> aList) throws ArgumentException {
 		// TODO Auto-generated method stub
 		return 0;
-	}
-
-	@Override
-	public List<Node> getChildren() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void addChild(Node aNode) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override

@@ -60,7 +60,7 @@ public class AbstractSyntaxTree {
 		} else if (aNode instanceof BeginBraceNode) {
 			updateList((BeginBraceNode) aNode, aOriginalNodeStack, aCurrentInputStack);
 		} else {
-			aCurrentInputStack.push(aOriginalNodeStack.pop());
+			aCurrentInputStack.push(aNode);
 		}
 	}
 
