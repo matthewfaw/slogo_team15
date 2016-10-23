@@ -5,7 +5,7 @@ import java.util.List;
 import model.exception.ArgumentException;
 import model.states.Scope;
 
-public class VariableNode extends Node {
+public class VariableNode extends ValueNode {
 	
 	private String myName;
 	private int myNumberOfInputs = 0;

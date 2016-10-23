@@ -4,24 +4,7 @@ import java.util.List;
 
 import model.exception.ArgumentException;
 
-public class ConstantNode extends ValueNode {
-	
-	private double myValue;
-	private int myNumberOfInputs = 0;
-
-	public ConstantNode(double aValue) {
-		myValue = aValue;
-	}
-	
-	@Override
-	public double eval(List<Node> aList) throws ArgumentException {
-		// TODO Auto-generated method stub
-		return myValue;
-	}
-
-	public int getNumberOfInputs() {
-		return myNumberOfInputs;
-	}
+public class ValueNode extends Node {
 
 	@Override
 	public String getName() {
@@ -31,6 +14,12 @@ public class ConstantNode extends ValueNode {
 
 	@Override
 	public double getValue() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public double eval(List<Node> aList) throws ArgumentException {
 		// TODO Auto-generated method stub
 		return 0;
 	}
