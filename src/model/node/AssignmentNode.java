@@ -7,7 +7,7 @@ import model.exception.ArgumentException;
 public class AssignmentNode extends Node {
 	
 	public AssignmentNode() {
-		
+		super();
 	}
 
 	@Override
@@ -25,18 +25,6 @@ public class AssignmentNode extends Node {
 	public double getValue() {
 		// TODO Auto-generated method stub
 		return 0;
-	}
-
-	@Override
-	public List<Node> getChildren() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void addChild(Node aNode) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override

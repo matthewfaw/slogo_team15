@@ -20,6 +20,8 @@ public class BranchNode extends Node {
 	private boolean myConditionReturnValue;
 
 	public BranchNode(ICommand aCommand, int aNumberOfInputs, Scope aScope) {
+		super();
+
 		myEvaluationState = NodeState.EVALUATING_CONDITION;
 		
 		myChildConditions = new ArrayList<Node>();
@@ -72,6 +74,7 @@ public class BranchNode extends Node {
 	@Override
 	public void addChild(Node aNode) {
 		//XXX: probably remove this
+		throw new RuntimeException();
 	}
 	public void addCondition(Node aConditionNode)
 	{

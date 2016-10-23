@@ -7,10 +7,13 @@ import model.exception.ArgumentException;
 public class ConstantNode extends ValueNode {
 	
 	private double myValue;
-	private int myNumberOfInputs = 0;
+	private int myNumberOfInputs;
 
 	public ConstantNode(double aValue) {
+		super();
+
 		myValue = aValue;
+		myNumberOfInputs = 0;
 	}
 	
 	@Override
@@ -33,18 +36,6 @@ public class ConstantNode extends ValueNode {
 	public double getValue() {
 		// TODO Auto-generated method stub
 		return 0;
-	}
-
-	@Override
-	public List<Node> getChildren() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void addChild(Node aNode) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override

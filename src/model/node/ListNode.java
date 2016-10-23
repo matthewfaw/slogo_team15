@@ -6,6 +6,11 @@ import model.exception.ArgumentException;
 
 //XXX: Add stuff
 public class ListNode extends Node {
+	
+	public ListNode()
+	{
+		super();
+	}
 
 	@Override
 	public String getName() {
@@ -25,18 +30,6 @@ public class ListNode extends Node {
 		return 0;
 	}
 
-
-	@Override
-	public List<Node> getChildren() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void addChild(Node aNode) {
-		// TODO Auto-generated method stub
-		
-	}
 
 	@Override
 	public NodeState getState() {

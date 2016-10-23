@@ -6,6 +6,10 @@ import model.exception.ArgumentException;
 
 public class BeginBraceNode extends Node {
 
+	public BeginBraceNode()
+	{
+		super();
+	}
 	@Override
 	public double eval(List<Node> aList) throws ArgumentException {
 		// TODO Auto-generated method stub
@@ -20,18 +24,6 @@ public class BeginBraceNode extends Node {
 	@Override
 	public double getValue() {
 		return 0;
-	}
-
-	@Override
-	public List<Node> getChildren() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void addChild(Node aNode) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
