@@ -36,16 +36,6 @@ public class TextParser {
 	}
 	
 	/**
-	 * This method will create the stack containing the Nodes needed to create the tree
-	 */
-	private void createNodes(String text) {
-		ArrayList<String> wordList = makeExecutableList(text);
-		for (String word: wordList) {
-			myNodes.add(getNode(word));
-		}
-	}
-	
-	/**
 	 * Getter for getting the stack of parsed nodes
 	 * @return
 	 */
@@ -55,13 +45,23 @@ public class TextParser {
 	}
 	
 	/**
+	 * This method will create the stack containing the Nodes needed to create the tree
+	 */
+	private void createNodes(String aText) {
+		ArrayList<String> wordList = makeExecutableList(aText);
+		for (int i = (wordList.size() - 1); i >= 0; i--) {
+			myNodes.add(getNode(wordList.get(i)));
+		}
+	}
+	
+	/**
 	 * This method generates the Node appropriate for the word parsed in
 	 * @param word
 	 * @return
 	 */
-	private Node getNode(String word) {
+	private Node getNode(String aWord) {
 		try {
-			return myFactory.makeNode(word);
+			return myFactory.makeNode(aWord);
 		} catch (UnexpectedCharacterException e) {
 			e.printStackTrace();
 		}
@@ -73,8 +73,8 @@ public class TextParser {
 	 * @param text
 	 * @return
 	 */
-	private ArrayList<String> makeExecutableList(String text) {
-		String[] wordList = text.split(mySyntaxResources.getString("Line"));
+	private ArrayList<String> makeExecutableList(String aText) {
+		String[] wordList = aText.split(mySyntaxResources.getString("Line"));
 		ArrayList<String> executableList = new ArrayList<String>();
 		for (int i = 0; i < wordList.length; i++) {
 			if (wordList[i].charAt(0) != mySyntaxResources.getString("Comment").charAt(0) && wordList[i].length() > 0) {
