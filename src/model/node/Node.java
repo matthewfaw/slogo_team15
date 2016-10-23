@@ -7,10 +7,13 @@ import model.exception.ArgumentException;
 
 public abstract class Node implements IReadableInput {
 	private ArrayList<Node> myChildren;
+	private NodeState myState;
 	
 	protected Node()
 	{
 		myChildren = new ArrayList<Node>();
+		
+		myState = NodeState.AVAILABLE;
 	}
 	public List<Node> getChildren()
 	{
@@ -21,12 +24,18 @@ public abstract class Node implements IReadableInput {
 		myChildren.add(aNode);
 	}
 	
+	public NodeState getState()
+	{
+		return myState;
+	}
+	public void setState(NodeState aNodeState)
+	{
+		myState = aNodeState;
+	}
+
 	public abstract double eval(List<Node> aList) throws ArgumentException;
 	
 //	public abstract List<Node> getChildren();
 //	public abstract void addChild(Node aNode);
 	
-	public abstract NodeState getState();
-	public abstract void setState(NodeState aNodeState);
-
 }

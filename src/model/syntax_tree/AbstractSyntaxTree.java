@@ -80,7 +80,7 @@ public class AbstractSyntaxTree {
 			listNode.addChild(inputNode);
 			inputNode = aCurrentInputStack.pop();
 		}
-		aCurrentInputStack.pop();
+//		aCurrentInputStack.pop();
 		aCurrentInputStack.push(listNode);
 	}
 	public void executeNextInstruction() throws ArgumentException

@@ -39,17 +39,4 @@ public class VariableNode extends ValueNode {
 	public double getValue() {
 		return myValue;
 	}
-
-	@Override
-	public NodeState getState() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setState(NodeState aNodeState) {
-		// TODO Auto-generated method stub
-		
-	}
-
 }

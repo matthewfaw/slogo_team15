@@ -2,6 +2,7 @@ package model.textParser;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
 import java.util.Stack;
@@ -49,9 +50,10 @@ public class TextParser {
 	 */
 	private void createNodes(String aText) {
 		ArrayList<String> wordList = makeExecutableList(aText);
-		for (int i = (wordList.size() - 1); i >= 0; i--) {
-			myNodes.add(getNode(wordList.get(i)));
+		for (String word: wordList) {
+			myNodes.push(getNode(word));
 		}
+//		Collections.reverse(myNodes);
 	}
 	
 	/**
