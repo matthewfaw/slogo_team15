@@ -69,8 +69,8 @@ public class AbstractSyntaxTree {
 		for (int i=0; i<aNode.getNumberOfInputs(); ++i) {
 			Node inputNode = aCurrentInputStack.pop();
 			aNode.addChild(inputNode);
-			aCurrentInputStack.push(inputNode);
 		}
+		aCurrentInputStack.push(aNode);
 	}
 	private void updateList(BeginBraceNode aNode, Stack<Node> aOriginalNodeStack, Stack<Node> aCurrentInputStack)
 	{
