@@ -38,7 +38,7 @@ public class TextParser {
 	/**
 	 * This method will create the stack containing the Nodes needed to create the tree
 	 */
-	public void createNodes(String text) {
+	private void createNodes(String text) {
 		ArrayList<String> wordList = makeExecutableList(text);
 		for (String word: wordList) {
 			myNodes.add(getNode(word));
@@ -49,7 +49,8 @@ public class TextParser {
 	 * Getter for getting the stack of parsed nodes
 	 * @return
 	 */
-	public Collection<Node> getNodeStack() {
+	public Stack<Node> getNodeStack(String aString) {
+		createNodes(aString);
 		return myNodes;
 	}
 	

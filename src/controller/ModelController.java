@@ -1,8 +1,10 @@
 package controller;
 
+import model.exception.ArgumentException;
 import model.robot.Robot;
 import model.robot.Turtle;
 import model.states.Scope;
+import model.syntax_tree.AbstractSyntaxTree;
 import model.textParser.TextParser;
 
 public class ModelController {
@@ -22,7 +24,13 @@ public class ModelController {
 	
 	public void userInputToModel(String aString) {
 		TextParser parser = new TextParser(myScope, myRobot);
-		parser.createNodes(aString);
+		AbstractSyntaxTree ast = new AbstractSyntaxTree(parser.getNodeStack(aString));
+		try {
+			ast.executeNextInstruction();
+		} catch (ArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }
