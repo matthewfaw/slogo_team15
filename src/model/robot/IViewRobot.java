@@ -1,5 +1,7 @@
 package model.robot;
 
+import integration.IRobotObserver;
+
 /**
  * Allows for the view to get the values set by the back-end
  * 
@@ -20,5 +22,6 @@ public interface IViewRobot {
 	public boolean isPenDown();
 	
 	public boolean isVisible();
+
 	
 }

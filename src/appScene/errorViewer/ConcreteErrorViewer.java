@@ -17,7 +17,7 @@ class ConcreteErrorViewer implements IErrorViewer {
 
 	private ScrollPane myErrorScroller;
 	private ITextEditor myTextEditor;
-	private List<Object> myErrorList;
+	private List<Exception> myErrorList;
 	private List<Button> myErrorButtonList;
 	
 	private static final int ErrorRowHeight = 30;
@@ -25,8 +25,8 @@ class ConcreteErrorViewer implements IErrorViewer {
 	ConcreteErrorViewer(int aWidth, int aHeight, ITextEditor aTextEditor){
 		myTextEditor = aTextEditor;
 		
-		myErrorList = new ArrayList<Object>();
-		myErrorButtonList = new ArrayList<Button>();
+		myErrorList = new ArrayList<>();
+		myErrorButtonList = new ArrayList<>();
 		
 		myErrorScroller = new ScrollPane();		
 		myErrorScroller.setHbarPolicy(ScrollBarPolicy.NEVER);
@@ -59,9 +59,9 @@ class ConcreteErrorViewer implements IErrorViewer {
 	}
 
 	@Override
-	public void giveErrorStructure(Object ErrorStructure) {
-		// TODO Auto-generated method stub
-		
+	public void giveErrorStructure(Exception aError) {
+		myErrorList.add(0, aError);
+		// TODO: implement error viewing
 	}
 
 	@Override

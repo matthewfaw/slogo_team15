@@ -8,12 +8,14 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Pane;
+import model.robot.IViewRobot;
 
 class ConcreteTurtleBox implements ITurtleBox {
 
 	ScrollPane myScroller;
 	Pane mySandbox;
 	ColorPicker myBackgroundColorPicker;
+	IViewRobot myRobot;
 	
 	ConcreteTurtleBox(int width, int height){
 		myScroller = new ScrollPane();
@@ -28,7 +30,7 @@ class ConcreteTurtleBox implements ITurtleBox {
 		mySandbox.setMaxSize(width, height);
 		
 		myScroller.setContent(mySandbox);
-	
+
 		initColorPicker();
 	}
 	
@@ -44,9 +46,17 @@ class ConcreteTurtleBox implements ITurtleBox {
 	}
 
 	@Override
-	public void addRobot(Object robot) {
-		// TODO Auto-generated method stub
+	public void addRobot(IViewRobot aRobot) {
+		myRobot = aRobot;
 
+	}
+	
+	@Override
+	public void update() {
+		if(myRobot == null) return;
+		
+		// TODO Auto-generated method stub
+		
 	}
 	
 	private void initColorPicker(){
@@ -59,5 +69,6 @@ class ConcreteTurtleBox implements ITurtleBox {
 										))));
 		mySandbox.getChildren().add(myBackgroundColorPicker);
 	}
+
 
 }
