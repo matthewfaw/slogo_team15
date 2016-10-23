@@ -1,7 +1,7 @@
 package model.command;
 
-import java.util.Arrays;
-
+import model.node.ConstantNode;
+import model.node.IReadableInput;
 import model.robot.Robot;
 
 public class HomeCommand extends SetPositionCommand {
@@ -11,9 +11,8 @@ public class HomeCommand extends SetPositionCommand {
 	}
 	
 	@Override
-	public double eval(String... aList) {
-		String[] zeroList = new String[2]; 
-		Arrays.fill(zeroList, "0");
+	public double eval(IReadableInput... aList) {
+		IReadableInput[] zeroList = {(IReadableInput) new ConstantNode(0), (IReadableInput) new ConstantNode(0)}; 
 		return super.eval(zeroList);
 	}
 

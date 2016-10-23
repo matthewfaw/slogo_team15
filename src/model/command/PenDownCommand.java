@@ -1,5 +1,6 @@
 package model.command;
 
+import model.node.IReadableInput;
 import model.robot.Robot;
 
 public class PenDownCommand implements ICommand {
@@ -12,7 +13,7 @@ public class PenDownCommand implements ICommand {
 	}
 
 	@Override
-	public double eval(String... aList) {
+	public double eval(IReadableInput... aList) {
 		myRobot.setPenDown(true);
 		return 1;
 	}

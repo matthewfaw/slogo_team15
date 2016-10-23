@@ -1,16 +1,27 @@
 package model.node;
 
 import model.command.ICommand;
-import model.states.VariableState;
+import model.states.Scope;
 
-public class BranchNode implements INode {
+public class BranchNode implements INode, IReadableInput {
 
-	public BranchNode(ICommand aCommand, int aNumberOfInputs, VariableState aVariableStates) {
+	public BranchNode(ICommand aCommand, int aNumberOfInputs, Scope aScope) {
 		
 	}
 	
 	@Override
-	public double eval(String... aList) {
+	public double eval(IReadableInput... aList) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public String getName() {
+		return null;
+	}
+
+	@Override
+	public double getValue() {
 		// TODO Auto-generated method stub
 		return 0;
 	}

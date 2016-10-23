@@ -1,5 +1,6 @@
 package model.command;
 
+import model.node.IReadableInput;
 import model.robot.Robot;
 
 public class SetHeadingCommand extends RotationCommand {
@@ -12,7 +13,7 @@ public class SetHeadingCommand extends RotationCommand {
 	}
 
 	@Override
-	public double eval(String... aList) {
+	public double eval(IReadableInput... aList) {
 		double rotation = getRotation(aList);
 		double returnVal = Math.abs(myRobot.getRotation() - rotation);
 		myRobot.setRotation(rotation);

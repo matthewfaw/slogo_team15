@@ -1,13 +1,15 @@
 package model.command;
 
+import model.node.IReadableInput;
+
 public class ArcTangentCommand implements ICommand {
 	
 	public ArcTangentCommand() {
 	}
 
 	@Override
-	public double eval(String... aList) {
-		return Math.atan(Double.parseDouble(aList[0]));
+	public double eval(IReadableInput... aList) {
+		return Math.atan(aList[0].getValue());
 	}
 
 }

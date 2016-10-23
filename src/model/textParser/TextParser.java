@@ -6,7 +6,11 @@ import java.util.Iterator;
 import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
 import java.util.Stack;
+
+import model.exception.UnexpectedCharacterException;
 import model.node.INode;
+import model.robot.Robot;
+import model.states.Scope;
 
 
 
@@ -26,11 +30,11 @@ public class TextParser implements Iterable<INode> {
 	private ResourceBundle mySyntaxResources;
 	private NodeFactory myFactory;
 
-	public TextParser(){
+	public TextParser(Scope aScope, Robot aRobot){
 		//TODO 
 		myNodes = new Stack<INode>();
 		mySyntaxResources = PropertyResourceBundle.getBundle(PACKAGE + LANGUAGE);
-		myFactory = new NodeFactory(mySyntaxResources); 
+		myFactory = new NodeFactory(mySyntaxResources, aScope, aRobot); 
 	}
 	
 	/**
@@ -49,7 +53,12 @@ public class TextParser implements Iterable<INode> {
 	 * @return
 	 */
 	private INode getNode(String word) {
-		return myFactory.makeNode(word);
+		try {
+			return myFactory.makeNode(word);
+		} catch (UnexpectedCharacterException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	/**

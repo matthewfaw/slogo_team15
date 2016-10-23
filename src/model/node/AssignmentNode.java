@@ -1,15 +1,19 @@
 package model.node;
 
-public class EndBraceNode implements INode, IReadableInput {
+public class AssignmentNode implements INode, IReadableInput {
+	
+	public AssignmentNode() {
+		
+	}
 
 	@Override
 	public double eval(IReadableInput... aList) {
+		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
 	public String getName() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -19,5 +23,4 @@ public class EndBraceNode implements INode, IReadableInput {
 		return 0;
 	}
 
-	
 }

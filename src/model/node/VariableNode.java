@@ -1,29 +1,37 @@
 package model.node;
 
-import model.states.VariableState;
+import model.states.Scope;
 
-public class VariableNode implements INode {
+public class VariableNode implements INode, IReadableInput {
 	
 	private String myName;
 	private int myNumberOfInputs = 0;
-	private VariableState myVariableState;
+	private Scope myScope;
+	private double myValue;
 	
-	public VariableNode(String aVariable, VariableState aVariableState) {
+	public VariableNode(String aVariable, Scope aScope) {
 		myName = aVariable;
-		myVariableState = aVariableState;
+		myScope = aScope;
+		myValue = myScope.getValue(myName);
 	}
 
 	@Override
-	public double eval(String...aList) {
-		return myVariableState.getValue(myName);
-	}
-	
-	public String getName() {
-		return myName;
+	public double eval(IReadableInput...aList) {
+		return myValue;
 	}
 	
 	public int getNumberOfInputs() {
 		return myNumberOfInputs;
+	}
+	
+	@Override
+	public String getName() {
+		return myName;
+	}
+
+	@Override
+	public double getValue() {
+		return myValue;
 	}
 
 }

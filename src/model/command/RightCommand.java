@@ -1,5 +1,6 @@
 package model.command;
 
+import model.node.IReadableInput;
 import model.robot.Robot;
 
 public class RightCommand extends RotationCommand {
@@ -12,10 +13,10 @@ public class RightCommand extends RotationCommand {
 	}
 
 	@Override
-	public double eval(String... aList) {
+	public double eval(IReadableInput... aList) {
 		double rotation = getRotation(aList);
 		myRobot.setRotation(myRobot.getRotation() - rotation);
-		return Double.parseDouble(aList[0]);
+		return aList[0].getValue();
 	}
 
 }

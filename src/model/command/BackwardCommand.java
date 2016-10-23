@@ -2,6 +2,7 @@ package model.command;
 
 import java.awt.Point;
 
+import model.node.IReadableInput;
 import model.robot.Robot;
 
 public class BackwardCommand extends MovementCommand {
@@ -14,11 +15,11 @@ public class BackwardCommand extends MovementCommand {
 	}
 
 	@Override
-	public double eval(String... aList) {
+	public double eval(IReadableInput... aList) {
 		Point p = getXYCoordinate(aList);
 		myRobot.setX(myRobot.getX() - p.getX());
 		myRobot.setY(myRobot.getY() - p.getY());
-		return Double.parseDouble(aList[0]);
+		return aList[0].getValue();
 	}
 
 }

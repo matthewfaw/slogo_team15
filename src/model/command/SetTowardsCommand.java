@@ -1,5 +1,6 @@
 package model.command;
 
+import model.node.IReadableInput;
 import model.robot.Robot;
 
 public class SetTowardsCommand implements ICommand {
@@ -10,11 +11,11 @@ public class SetTowardsCommand implements ICommand {
 	}
 
 	@Override
-	public double eval(String... aList) {
-		double adj = Double.parseDouble(aList[0]) - myRobot.getX();
-		double opp = Double.parseDouble(aList[1]) - myRobot.getY();
+	public double eval(IReadableInput... aList) {
+		double adj = aList[0].getValue() - myRobot.getX();
+		double opp = aList[1].getValue() - myRobot.getY();
 		double returnVal = 180 - Math.abs(myRobot.getRotation() - Math.atan(opp / adj));
-		if (Double.parseDouble(aList[0]) > myRobot.getX()) {
+		if (aList[0].getValue() > myRobot.getX()) {
 			myRobot.setRotation(myRobot.getRotation() - returnVal);
 		} else {
 			myRobot.setRotation(myRobot.getRotation() + returnVal);

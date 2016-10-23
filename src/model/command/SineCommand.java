@@ -1,5 +1,6 @@
 package model.command;
 
+import model.node.IReadableInput;
 
 public class SineCommand implements ICommand {
 	
@@ -7,8 +8,8 @@ public class SineCommand implements ICommand {
 	}
 
 	@Override
-	public double eval(String... aList) {
-		return Math.sin(Double.parseDouble(aList[0]));
+	public double eval(IReadableInput... aList) {
+		return Math.sin(aList[0].getValue());
 	}
 
 }

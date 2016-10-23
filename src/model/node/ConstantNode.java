@@ -11,7 +11,7 @@ public class ConstantNode implements INode {
 	}
 	
 	@Override
-	public double eval(String...aList) {
+	public double eval(IReadableInput...aList) {
 		return myValue;
 	} 
 	

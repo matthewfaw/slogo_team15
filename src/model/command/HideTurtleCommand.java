@@ -1,5 +1,6 @@
 package model.command;
 
+import model.node.IReadableInput;
 import model.robot.Robot;
 
 public class HideTurtleCommand implements ICommand {
@@ -12,7 +13,7 @@ public class HideTurtleCommand implements ICommand {
 	}
 
 	@Override
-	public double eval(String... aList) {
+	public double eval(IReadableInput... aList) {
 		myRobot.setVisible(false);
 		return 0;
 	}
