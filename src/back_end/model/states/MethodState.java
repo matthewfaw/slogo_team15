@@ -9,14 +9,17 @@ import javafx.util.Pair;
 public class MethodState {
 	
 	private Map<String, Pair<Integer, Node>> myMethodMap;
+	private Scope myScope;
 	
-	public MethodState() {
+	public MethodState(Scope aScope) {
 		myMethodMap = new HashMap<String, Pair<Integer, Node>>();
+		myScope = aScope;
 	}
 	
 	public void assignMethod(String aMethodName, int aNumberOfInputs, Node aNode) {
 		Pair<Integer, Node> tuple = new Pair<Integer, Node>(aNumberOfInputs, aNode);
 		myMethodMap.put(aMethodName, tuple);
+		myScope.swapScope(aMethodName);
 	}
 	
 	public int getNumberOfInputs(String aMethodName) {

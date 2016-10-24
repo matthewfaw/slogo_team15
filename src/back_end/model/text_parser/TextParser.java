@@ -7,6 +7,7 @@ import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
 import java.util.Stack;
 
+import back_end.model.exception.EmptyInputException;
 import back_end.model.exception.UnexpectedCharacterException;
 import back_end.model.exception.UnexpectedCommandException;
 import back_end.model.node.Node;
@@ -52,10 +53,12 @@ public class TextParser {
 	 * @throws IllegalArgumentException 
 	 * @throws IllegalAccessException 
 	 * @throws InstantiationException 
+	 * @throws EmptyInputException 
 	 */
-	public Stack<Node> getNodeStack(String aString) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException, UnexpectedCharacterException, UnexpectedCommandException {
+	public Stack<Node> getNodeStack(String aString) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException, UnexpectedCharacterException, UnexpectedCommandException, EmptyInputException {
 		myNodes = new Stack<Node>();
 		createNodes(aString);
+		if (myNodes.isEmpty()) throw new EmptyInputException("No input!");
 		return myNodes;
 	}
 	

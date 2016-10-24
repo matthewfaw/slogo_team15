@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import back_end.controller.ModelController;
+import back_end.model.exception.EmptyInputException;
 import back_end.model.exception.UnexpectedCharacterException;
 import back_end.model.exception.UnexpectedCommandException;
 import front_end.appScene.errorViewer.ErrorViewerFactory;
@@ -95,7 +96,7 @@ public class ApplicationScene {
 			myModel.userInputToModel(sb.toString());
 		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
 				| NoSuchMethodException | SecurityException | ClassNotFoundException | UnexpectedCharacterException
-				| UnexpectedCommandException e) {
+				| UnexpectedCommandException | EmptyInputException e) {
 			myErrorViewer.giveErrorStructure(e);
 		}
 		
