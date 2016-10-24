@@ -48,7 +48,7 @@ public class NodeFactory {
 		else if (Pattern.matches(mySyntaxResources.getString("Command"), aWord)) {
 			String command = translateToCommand(aWord);
 			String type = myCommandTypeResources.getString(command);
-			if (type != "Branch" || type != "Assignment" || type != "Custom") {
+			if (!type.equals("Branch") && !type.equals("Assignment") && !type.equals("Custom")) {
 				type = "Command";
 			}
 			int inputNumber = Integer.parseInt(mySyntaxResources.getString(command));
