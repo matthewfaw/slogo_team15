@@ -20,10 +20,15 @@ public class CustomCommand implements ICommandBranch {
 
 	@Override
 	public int evalCondition(IReadableInput... aList) {
-		IReadableInput[] variableList = myScope.getVariablesInMethod();
-		for (int i = 0; i < variableList.length; i++) {
-			myScope.assignVariable(variableList[i].getName(), aList[i].getValue());
+		int counter = 0;
+		for (String variable: myScope.getVariablesInMethod(myName)) {
+			myScope.assignVariable(variable, aList[counter].getValue());
+			++counter;
 		}
+//		IReadableInput[] variableList = myScope.getVariablesInMethod(myName);
+//		for (int i = 0; i < variableList.length; i++) {
+//			myScope.assignVariable(variableList[i].getName(), aList[i].getValue());
+//		}
 		return 1;
 	}
 	
@@ -36,7 +41,7 @@ public class CustomCommand implements ICommandBranch {
 	}
 	
 	public IReadableInput getFunction() {
-		return myScope.getMethodToEvaluate();
+		return myScope.getMethodToEvaluate(myName);
 	}
 	
 

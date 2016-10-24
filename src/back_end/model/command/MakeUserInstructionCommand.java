@@ -11,16 +11,16 @@ public class MakeUserInstructionCommand implements ICommand {
 	
 	public MakeUserInstructionCommand(Scope aScope, String aName) {
 		myScope = aScope;
-		myScope.assignMethod(aName, null, null);
+//		myScope.assignMethod(aName, null, null);
 	}
 
 	@Override
 	public double eval(IReadableInput... aList) {
-		IReadableInput[] variableList = Arrays.copyOfRange(aList, 2, aList.length - 1);
+		IReadableInput[] variableList = Arrays.copyOfRange(aList, 2, aList.length);
 		for (IReadableInput variable : variableList) {
-			if (!myScope.containsVariable(variable.getName())) {
-				return 0;
-			}
+//			if (!myScope.containsVariable(variable.getName())) {
+//				return 0;
+//			}
 		}
 		myScope.assignMethod(aList[0].getName(), aList[1], variableList);
 		return 1;

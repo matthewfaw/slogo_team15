@@ -216,6 +216,8 @@ public class AbstractSyntaxTree {
 	}
 	private boolean allInputsAreReadyToBeUsed(Node aParentNode)
 	{
+		//XXX: Note that for some cases--ToNode, for instance--this works by chance. we should probably come up with
+		// a more robust solution
 		return allInputsAreReadyToBeUsed(aParentNode.getChildren());
 	}
 //	private boolean allInputsAreReadyToBeUsed(BranchNode aParentNode)

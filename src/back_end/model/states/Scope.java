@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import back_end.model.node.IReadableInput;
+import back_end.model.node.ListNode;
 import integration.observe.IObservable;
 import integration.observe.IObserver;
 
@@ -16,12 +17,17 @@ public class Scope implements IObservable {
 	private static final String DEFAULT = "DEFAULT";
 	
 	private Map<String, VariableState> myScopeMap;
+	private Map<String, List<String>> myInputVariableMap;
+	private Map<String, IReadableInput> myFunctionMap;
 	private String currentScope;
 	private List<IObserver> myObservers;
+	
 	private MethodState myMethod;
 	
 	public Scope() {
 		myScopeMap = new HashMap<String, VariableState>();
+		myInputVariableMap = new HashMap<String, List<String>>();
+		myFunctionMap = new HashMap<String, IReadableInput>();
 		myMethod = new MethodState();
 		myScopeMap.put(DEFAULT,  new VariableState());
 		currentScope = DEFAULT;
@@ -59,16 +65,20 @@ public class Scope implements IObservable {
 		notifyObservers();
 	}
 	
-	public int getNumberOfInputs() {
-		return myMethod.getNumberOfInputs(currentScope);
+//	public int getNumberOfInputs() {
+//		return myMethod.getNumberOfInputs(currentScope);
+//	}
+	
+//	public IReadableInput[] getVariablesInMethod(String aMethodName) {
+//		return myMethod.getVariablesInMethod(aMethodName);
+//	}
+	public List<String> getVariablesInMethod(String aMethodName) {
+		return myInputVariableMap.get(aMethodName);
 	}
 	
-	public IReadableInput[] getVariablesInMethod() {
-		return myMethod.getVariablesInMethod(currentScope);
-	}
-	
-	public IReadableInput getMethodToEvaluate() {
-		return myMethod.getFunction(currentScope);
+	public IReadableInput getMethodToEvaluate(String aMethodName) {
+		return myFunctionMap.get(aMethodName);
+//		return myMethod.getFunction(aMethodName);
 	}
 	
 	public boolean containsMethod(String aMethod) {
@@ -76,6 +86,13 @@ public class Scope implements IObservable {
 	}
 	
 	public void assignMethod(String aMethod, IReadableInput aNode, IReadableInput...aVariableInputs) {
+		myFunctionMap.put(aMethod, aNode);
+		for (IReadableInput input: aVariableInputs) {
+			if (!myInputVariableMap.containsKey(aMethod)) {
+				myInputVariableMap.put(aMethod, new ArrayList<String>());
+			}
+			myInputVariableMap.get(aMethod).add(input.getName());
+		}
 		myMethod.assignMethod(aMethod, aNode, aVariableInputs);
 	}
 	

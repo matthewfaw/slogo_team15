@@ -46,7 +46,7 @@ public class CustomNode extends Node {
 		myMethod.setScope();
 
 		Node[] myInputList = myInputs.toArray(new Node[myInputs.size()]);
-		myMethod.eval(myInputList);
+		myMethod.evalCondition(myInputList);
 		
 		myFunction = ((Node) myMethod.getFunction()).getChildren();
 	}
@@ -59,6 +59,19 @@ public class CustomNode extends Node {
 	@Override
 	public double getValue() {
 		return myReturnValue;
+	}
+	
+	@Override
+	public List<Node> getChildren()
+	{
+		if (myEvaluationState == NodeState.EVALUATING_INPUTS) {
+			return myInputs;
+		} else if (myEvaluationState == NodeState.EVALUATING_BRANCH) {
+			return myFunction;
+		} else {
+			//XXX: Change this to throw error
+			return null;
+		}
 	}
 	
 	public void addChildInputs(ListNode aInputs)
