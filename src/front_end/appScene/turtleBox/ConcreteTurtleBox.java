@@ -29,13 +29,14 @@ class ConcreteTurtleBox implements ITurtleBox {
 	GraphicsContext gc;
 	private int myWidth;
 	private int myHeight;
-	TurtleMovement myTurtMove = new TurtleMovement(this, myWidth, myHeight);
+	TurtleMovement myTurtMove;
 
 	private final int CHARACTER_SIZE = 50;
 	
 	ConcreteTurtleBox(int width, int height){
 	        myWidth = width;
 	        myHeight = height;
+	        myTurtMove = new TurtleMovement(this, myWidth, myHeight);
 	        root = new Group();
 	        drawingCanvas = new Canvas(width, height);
 	        gc = drawingCanvas.getGraphicsContext2D();

@@ -16,8 +16,8 @@ public class TurtleMovement implements ITurtleMovement {
     private ImageView myTurtle;
     private int myWidth;
     private int myHeight;
-    private double curX = myWidth/2;
-    private double curY = myHeight/2;
+    private double curX = 200;
+    private double curY = 200;
 
     public static final int FRAMES_PER_SECOND = 60;
     private static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
@@ -28,8 +28,8 @@ public class TurtleMovement implements ITurtleMovement {
         myConTurtBox = myConTurt;
         myWidth = width;
         myHeight = height;
-        //curX = myRobot.getX();
-        //curY = myRobot.getY();
+        curX = myWidth/2;
+        curY = myHeight/2;
     }
 
     public void gameLoop () {
@@ -52,34 +52,39 @@ public class TurtleMovement implements ITurtleMovement {
         System.out.println("RobotY: " + myRobot.getY());
 
         if (curX != myRobot.getX()) {
-            System.out.println("HERE");
             moveTurtleX();
             if (myRobot.isPenDown()) {
                 gc.setStroke(Color.BLACK);
                 gc.setLineWidth(5);
-                gc.strokeLine(curX, myRobot.getX()-myWidth/2, myRobot.getY()-myHeight/2, myRobot.getY()-myHeight/2);
+                gc.strokeLine(curX, myRobot.getX()+myHeight/2, myRobot.getY()+myWidth/2, myRobot.getY()+myHeight/2);
             }
+            curX = myRobot.getX()+myWidth/2;
         }
         if (curY != myRobot.getY()) {
-            System.out.println("HERE");
             moveTurtleY();
             if (myRobot.isPenDown()) {
                 gc.setStroke(Color.BLACK);
                 gc.setLineWidth(5);
-                gc.strokeLine(myRobot.getX()-myWidth/2, myRobot.getX()-myWidth/2, curY, myRobot.getY()-myHeight/2);
+                gc.strokeLine(myRobot.getX()+myWidth/2, curY, myRobot.getX()+myWidth/2, myRobot.getY()+myHeight/2);
+                System.out.println("Check: " + myRobot.getX()+myWidth/2);
+                System.out.println("Check2: " + myRobot.getX());
             }
+            curY = myRobot.getY()+myHeight/2;
+            System.out.println("Updated y: " + curY);
         }
 
     }
 
     private void moveTurtleX () {
-        myTurtle.setX(myRobot.getX());
-        curX = myRobot.getX()-myWidth/2;
+        myTurtle.setX(myRobot.getX()+myWidth/2);
+        
+        System.out.println("Updated x: " + curX);
     }
 
     private void moveTurtleY () {
-        myTurtle.setY(myRobot.getY());
-        curY = myRobot.getY()-myHeight/2;
+        myTurtle.setY(myRobot.getY()+myHeight/2);
     }
+    
+    
 
 }
