@@ -6,27 +6,30 @@ import java.util.Map;
 
 
 public class VariableState implements IViewVariableState {
+	
+	private Map<String, Double> myVariableMap;
+	
+	public VariableState() {
+		myVariableMap = new HashMap<String, Double>();
+	}
+	
+	public void assignVariable(String aVariable, double aValue) {
+		myVariableMap.put(aVariable, aValue);
+	}
+	
+	@Override
+	public double getValue(String aVariable) {
+		if (!myVariableMap.containsKey(aVariable)) myVariableMap.put(aVariable, (double) 0);
+		return myVariableMap.get(aVariable);
+	}
+	
+	public boolean containsVariable(String aVariable) {
+		return myVariableMap.containsKey(aVariable);
+	}
 
-    private Map<String, Double> myVariableMap;
 
-    public VariableState () {
-        myVariableMap = new HashMap<String, Double>();
-    }
-
-    public void assignVariable (String aVariable, double aValue) {
-        myVariableMap.put(aVariable, aValue);
-    }
-
-    @Override
-    public double getValue (String aVariable) {
-        if (!myVariableMap.containsKey(aVariable))
-            myVariableMap.put(aVariable, (double) 0);
-        return myVariableMap.get(aVariable);
-    }
-
-    @Override
-    public Collection<String> getVariableKeySet () {
-        return myVariableMap.keySet();
-    }
-
+	@Override
+	public Collection<String> getVariableKeySet() {
+		return myVariableMap.keySet();
+	}
 }

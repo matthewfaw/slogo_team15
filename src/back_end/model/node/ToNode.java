@@ -1,24 +1,42 @@
 package back_end.model.node;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import back_end.model.command.ICommand;
 import back_end.model.exception.ArgumentException;
+import back_end.model.states.Scope;
 
 public class ToNode extends Node {
 	private ICommand myMethod;
 	private int myNumberOfInputs;
 	
 	private VariableNode myNameNode;
-	private	ArrayList<VariableNode> myInputVariables;
+	private	List<Node> myInputVariables;
 	private ListNode myCustomMethod;
 	
 	private double returnValue;
 	
-	public ToNode(ICommand aMethod, int aNumberOfInputs)
+	public ToNode(ICommand aMethod, int aNumberOfInputs, Scope aScope)
 	{
 		myMethod = aMethod;
 		myNumberOfInputs = aNumberOfInputs;
+	}
+	public int getNumberOfInputs()
+	{
+		return myNumberOfInputs;
+	}
+	public void addNameNode(VariableNode aNode)
+	{
+		myNameNode = aNode;
+	}
+	public void addInputVariables(ListNode aListNode)
+	{
+		myInputVariables = aListNode.getChildren();
+	}
+	public void addCustomMethod(ListNode aListNode)
+	{
+		myCustomMethod = aListNode;
 	}
 
 	@Override
@@ -29,7 +47,6 @@ public class ToNode extends Node {
 
 	@Override
 	public double getValue() {
-		// TODO Auto-generated method stub
 		return returnValue;
 	}
 

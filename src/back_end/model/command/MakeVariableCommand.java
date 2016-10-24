@@ -18,5 +18,4 @@ public class MakeVariableCommand implements ICommand {
         myScope.assignVariable(aList[0].getName(), aList[1].getValue());
         return aList[1].getValue();
     }
-
 }

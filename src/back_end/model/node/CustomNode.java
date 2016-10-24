@@ -1,27 +1,36 @@
 package back_end.model.node;
 
-import java.util.ArrayList;
 import java.util.List;
 import back_end.model.exception.ArgumentException;
-import back_end.model.command.ICommandBranch;
+import back_end.model.states.Scope;
+import back_end.model.command.CustomCommand;
 
 
 public class CustomNode extends Node {
-	private ICommandBranch myMethod;
+	private CustomCommand myMethod;
 	
-	private ArrayList<Node> myInputs;
-	private ArrayList<Node> myFunction;
+	private int myNumberOfInputs;
 	
-	private int myReturnValue;
+	private List<Node> myInputs;
+	private List<Node> myFunction;
+	
+	private double myReturnValue;
 	private NodeState myEvaluationState;
 
-	public CustomNode(ICommandBranch aCommand, int aNumberOfInputs)
+	public CustomNode(CustomCommand aCommand, int aNumberOfInputs, Scope aScope)
 	{
 		super();
+		
+		myNumberOfInputs = aNumberOfInputs;
 		
 		myEvaluationState = NodeState.EVALUATING_INPUTS;
 		
 		myMethod = aCommand;
+	}
+	
+	public int getNumberOfInputs()
+	{
+		return myNumberOfInputs;
 	}
 
 	@Override
@@ -37,9 +46,9 @@ public class CustomNode extends Node {
 		myMethod.setScope();
 
 		Node[] myInputList = myInputs.toArray(new Node[myInputs.size()]);
-		myMethod.eval(myInputList);
+		myMethod.evalCondition(myInputList);
 		
-		myFunction = myMethod.getFunction().getChildren();
+		myFunction = ((Node) myMethod.getFunction()).getChildren();
 	}
 
     @Override
@@ -52,9 +61,22 @@ public class CustomNode extends Node {
 		return myReturnValue;
 	}
 	
-	public void addChildInputs(List<Node> aInputs)
+	@Override
+	public List<Node> getChildren()
 	{
-		myInputs = aInputs;
+		if (myEvaluationState == NodeState.EVALUATING_INPUTS) {
+			return myInputs;
+		} else if (myEvaluationState == NodeState.EVALUATING_BRANCH) {
+			return myFunction;
+		} else {
+			//XXX: Change this to throw error
+			return null;
+		}
+	}
+	
+	public void addChildInputs(ListNode aInputs)
+	{
+		myInputs = aInputs.getChildren();
 	}
 	public List<Node> getChildInputs()
 	{
