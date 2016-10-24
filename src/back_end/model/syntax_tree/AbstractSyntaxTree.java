@@ -17,6 +17,7 @@ import back_end.model.node.NodeState;
 import back_end.model.node.NullNode;
 import back_end.model.node.ToNode;
 import back_end.model.node.ValueNode;
+import back_end.model.node.VariableNode;
 
 public class AbstractSyntaxTree {
 	private Node myRoot;
@@ -94,6 +95,10 @@ public class AbstractSyntaxTree {
 	{
 		if (aNode instanceof CommandNode) {
 			updateList((CommandNode) aNode, aOriginalNodeStack, aCurrentInputStack);
+		} else if (aNode instanceof ToNode) {
+			updateList((ToNode) aNode, aOriginalNodeStack, aCurrentInputStack);
+		} else if (aNode instanceof CustomNode) {
+			updateList((CustomNode) aNode, aOriginalNodeStack, aCurrentInputStack);
 		} else if (aNode instanceof BranchNode) {
 			updateList((BranchNode) aNode, aOriginalNodeStack, aCurrentInputStack);
 		} else if (aNode instanceof BeginBraceNode) {
@@ -109,6 +114,22 @@ public class AbstractSyntaxTree {
 			Node inputNode = aCurrentInputStack.pop();
 			aNode.addChild(inputNode);
 		}
+		aCurrentInputStack.push(aNode);
+	}
+	//XXX: This seems kinda hacky, since number of arguments is hard coded, consider changing to be more flexible
+	private void updateList(ToNode aNode, Stack<Node> aOriginalNodeStack, Stack<Node> aCurrentInputStack)
+	{
+		aNode.addNameNode((VariableNode) aCurrentInputStack.pop());
+		aNode.addInputVariables((ListNode) aCurrentInputStack.pop());
+		aNode.addCustomMethod((ListNode) aCurrentInputStack.pop());
+
+		aCurrentInputStack.push(aNode);
+	}
+	//XXX: This seems kinda hacky, since number of arguments is hard coded, consider changing to be more flexible
+	private void updateList(CustomNode aNode, Stack<Node> aOriginalNodeStack, Stack<Node> aCurrentInputStack)
+	{
+		aNode.addChildInputs((ListNode) aCurrentInputStack.pop());
+
 		aCurrentInputStack.push(aNode);
 	}
 	//TODO: add error throwing when the casting fails

@@ -7,6 +7,7 @@ import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
+import back_end.model.command.CustomCommand;
 import back_end.model.command.ICommand;
 import back_end.model.command.ICommandBranch;
 import back_end.model.exception.UnexpectedCharacterException;
@@ -70,9 +71,9 @@ public class NodeFactory {
 							newInstance(commandClass, inputNumber, myScope);
 				}
 			} catch (MissingResourceException e) {
-				if (!myScope.containsMethod(aWord)) {
-					ICommand commandClass = (ICommandBranch) myCommandFactory.makeCommand("Custom", aWord);
-					return (Node) Class.forName(PACKAGE_NODE + "CustomNode").getConstructor(ICommand.class, int.class, Scope.class).newInstance(commandClass, 1, myScope);
+				if (!myScope.getVariableMap().containsVariable(aWord)) {
+					CustomCommand commandClass = (CustomCommand) myCommandFactory.makeCommand("Custom", aWord);
+					return (Node) Class.forName(PACKAGE_NODE + "CustomNode").getConstructor(CustomCommand.class, int.class, Scope.class).newInstance(commandClass, 1, myScope);
 				} else {
 					e.addSuppressed(new UnexpectedCharacterException("The syntax expression: " + aWord + " is not associated to any known syntax in this language"));
 				}

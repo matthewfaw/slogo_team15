@@ -9,6 +9,8 @@ import back_end.model.command.CustomCommand;
 public class CustomNode extends Node {
 	private CustomCommand myMethod;
 	
+	private int myNumberOfInputs;
+	
 	private List<Node> myInputs;
 	private List<Node> myFunction;
 	
@@ -19,9 +21,16 @@ public class CustomNode extends Node {
 	{
 		super();
 		
+		myNumberOfInputs = aNumberOfInputs;
+		
 		myEvaluationState = NodeState.EVALUATING_INPUTS;
 		
 		myMethod = aCommand;
+	}
+	
+	public int getNumberOfInputs()
+	{
+		return myNumberOfInputs;
 	}
 
 	@Override
@@ -52,9 +61,9 @@ public class CustomNode extends Node {
 		return myReturnValue;
 	}
 	
-	public void addChildInputs(List<Node> aInputs)
+	public void addChildInputs(ListNode aInputs)
 	{
-		myInputs = aInputs;
+		myInputs = aInputs.getChildren();
 	}
 	public List<Node> getChildInputs()
 	{

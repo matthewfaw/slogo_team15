@@ -28,7 +28,7 @@ public class CommandFactory {
 	
 	public ICommand makeCommand(String aWord, String command) throws UnexpectedCommandException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException {
 		if (aWord.equals("Custom")) {
-			return (ICommand) Class.forName(PACKAGE_COMMAND + command + "Command").getConstructor(Scope.class, String.class).newInstance(myScope, command);
+			return (ICommand) Class.forName(PACKAGE_COMMAND + aWord + "Command").getConstructor(Scope.class, String.class).newInstance(myScope, command);
 		}
 		String type = myCommandTypeResources.getString(command);
 		if (type.equals("Function") ) {
