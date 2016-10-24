@@ -1,6 +1,6 @@
 
-import appScene.ApplicationScene;
-import applicationController.ApplicationController;
+import front_end.appScene.ApplicationScene;
+import front_end.applicationController.ApplicationController;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
