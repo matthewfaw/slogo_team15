@@ -27,10 +27,10 @@ class ConcreteTurtleBox implements ITurtleBox {
 	Group root;
 	Canvas drawingCanvas;
 	GraphicsContext gc;
-	TurtleMovement myTurtMove = new TurtleMovement(this);
-
 	private int myWidth;
 	private int myHeight;
+	TurtleMovement myTurtMove = new TurtleMovement(this, myWidth, myHeight);
+
 	private final int CHARACTER_SIZE = 50;
 	
 	ConcreteTurtleBox(int width, int height){
@@ -87,7 +87,6 @@ class ConcreteTurtleBox implements ITurtleBox {
 	
 	@Override
 	public void reset() {
-	    //TODO: Get magic numbers out of here
 	    mySandbox.getChildren().clear();
 	    initBox(myWidth, myHeight);
 	}
