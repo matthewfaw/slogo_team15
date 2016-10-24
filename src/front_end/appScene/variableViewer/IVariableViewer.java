@@ -1,8 +1,8 @@
 package front_end.appScene.variableViewer;
 
+import back_end.model.states.IViewVariableState;
 import front_end.appScene.IViewer;
 import javafx.scene.Node;
-import model.states.IViewVariableState;
 
 public interface IVariableViewer extends IViewer {
 

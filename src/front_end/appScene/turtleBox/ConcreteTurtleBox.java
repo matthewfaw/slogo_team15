@@ -1,5 +1,6 @@
 package front_end.appScene.turtleBox;
 
+import back_end.model.robot.IViewRobot;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.ColorPicker;
@@ -8,7 +9,6 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Pane;
-import model.robot.IViewRobot;
 
 class ConcreteTurtleBox implements ITurtleBox {
 

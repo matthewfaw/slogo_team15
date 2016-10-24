@@ -1,11 +1,12 @@
 package front_end.appScene.variableViewer;
 
 import java.util.Map;
+
+import back_end.model.states.IViewVariableState;
 import javafx.scene.Node;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.Pane;
-import model.states.IViewVariableState;
 
 class ConcreteVariableViewer implements IVariableViewer {
 

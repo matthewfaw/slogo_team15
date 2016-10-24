@@ -1,6 +1,6 @@
 package front_end.appScene;
 
-import controller.ModelController;
+import back_end.controller.ModelController;
 import front_end.appScene.errorViewer.ErrorViewerFactory;
 import front_end.appScene.errorViewer.IErrorViewer;
 import front_end.appScene.scriptViewer.IScriptViewer;
