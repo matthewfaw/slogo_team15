@@ -104,6 +104,7 @@ public class ApplicationScene {
     	
     	for (Languages lang : langSet) {
 			languageMap.put(lang, e -> { 
+				myModel.setLanguage(lang);
 				myToolbar.switchLanguage(lang);
 			});
 		}
