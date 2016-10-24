@@ -23,6 +23,10 @@ public class VariableState implements IViewVariableState {
 		if (!myVariableMap.containsKey(aVariable)) myVariableMap.put(aVariable, (double) 0);
 		return myVariableMap.get(aVariable);
 	}
+	
+	public boolean containsVariable(String aVariable) {
+		return myVariableMap.containsKey(aVariable);
+	}
 
 
 	@Override

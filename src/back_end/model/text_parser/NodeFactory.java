@@ -50,24 +50,28 @@ public class NodeFactory {
 			return new VariableNode(translateToVariable(aWord), myScope); 
 		}
 		else if (Pattern.matches(mySyntaxResources.getString("Command"), aWord)) {
-			String command = translateToCommand(aWord);
-			String type;
-			try {
-				type = myCommandTypeResources.getString(command);
-				int inputNumber = Integer.parseInt(mySyntaxResources.getString(command));
-				ICommand commandClass = null;
-				if (!type.equals("Branch") && !type.equals("Custom")) {
-					type = "Command";
-					commandClass = myCommandFactory.makeCommand(command);
-					return (Node) Class.forName(PACKAGE_NODE + type + "Node").getConstructor(ICommand.class, int.class, Scope.class).
+			if (myScope.containsMethod(aWord)) {
+				ICommand commandClass = (ICommandBranch) myCommandFactory.makeCommand("Custom", aWord);
+				return (Node) Class.forName(PACKAGE_NODE + "CustomNode").getConstructor(ICommand.class, Scope.class, String.class).newInstance(commandClass, myScope);
+			} else {
+				try {
+					String command = translateToCommand(aWord);
+					String type = myCommandTypeResources.getString(command);
+					int inputNumber = Integer.parseInt(mySyntaxResources.getString(command));
+					ICommand commandClass = null;
+					if (type.equals("Branch")) {
+						type = "Command";
+						commandClass = myCommandFactory.makeCommand(command, aWord);
+						return (Node) Class.forName(PACKAGE_NODE + type + "Node").getConstructor(ICommand.class, int.class, Scope.class).
 							newInstance(commandClass, inputNumber, myScope);
-				} else {
-					commandClass = (ICommandBranch) myCommandFactory.makeCommand(command);
-					return (Node) Class.forName(PACKAGE_NODE + type + "Node").getConstructor(ICommandBranch.class, int.class, Scope.class).
+					} else {
+						commandClass = (ICommandBranch) myCommandFactory.makeCommand(command, aWord);
+						return (Node) Class.forName(PACKAGE_NODE + type + "Node").getConstructor(ICommandBranch.class, int.class, Scope.class).
 							newInstance(commandClass, inputNumber, myScope);
+					}
+				} catch (MissingResourceException e) {
+					e.addSuppressed(new UnexpectedCharacterException("The syntax expression: " + aWord + " is not associated to any known syntax in this language"));
 				}
-			} catch (MissingResourceException e) {
-				e.addSuppressed(new UnexpectedCharacterException("The syntax expression: " + aWord + " is not associated to any known syntax in this language"));
 			}
 		}
 		else if (Pattern.matches(mySyntaxResources.getString("Constant"), aWord)) {

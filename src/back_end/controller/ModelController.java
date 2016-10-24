@@ -7,6 +7,7 @@ import back_end.model.exception.ArgumentException;
 import back_end.model.exception.EmptyInputException;
 import back_end.model.exception.UnexpectedCharacterException;
 import back_end.model.exception.UnexpectedCommandException;
+import back_end.model.robot.IViewRobot;
 import back_end.model.robot.Robot;
 import back_end.model.robot.Turtle;
 import back_end.model.states.IViewVariableState;
@@ -51,6 +52,10 @@ public class ModelController {
 	
 	public IViewVariableState getVariableMap() {
 		return myScope.getVariableMap();
+	}
+	
+	public IViewRobot giveRobotView() {
+		return (IViewRobot) myRobot;
 	}
 	
 	public void setLanguage(Languages aLanguage) {
