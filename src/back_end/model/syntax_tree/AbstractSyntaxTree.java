@@ -5,6 +5,7 @@ import java.util.Stack;
 
 
 import back_end.model.exception.ArgumentException;
+import back_end.model.node.AssignmentNode;
 import back_end.model.node.BeginBraceNode;
 import back_end.model.node.BranchNode;
 import back_end.model.node.CommandNode;
