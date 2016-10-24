@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import model.command.ICommand;
+import model.command.ICommandBranch;
 import model.exception.ArgumentException;
 import model.states.Scope;
 
@@ -51,11 +52,14 @@ public class BranchNode extends Node {
 	
 	@Override
 	public double eval() throws ArgumentException {
-		myReturnValue = myCommand.eval(myChildBranches.get(myActiveBranchIndex));
+		List<Node> currentBranch = myChildBranches.get(myActiveBranchIndex);
+		Node[] inputList = currentBranch.toArray(new Node[currentBranch.size()]);
+		myReturnValue = myCommand.eval(inputList);
 		return myReturnValue;
 	}
 	public int evalCondition() {
-		myConditionReturnValue = myCommand.evalCommand(myChildConditions);
+		Node[] inputList = myChildConditions.toArray(new Node[myChildConditions.size()]);
+		myConditionReturnValue = myCommand.evalCondition(inputList);
 //		myEvaluationState = NodeState.EVALUATING_BRANCH;
 		myActiveBranchIndex = myConditionReturnValue;
 		return myConditionReturnValue;

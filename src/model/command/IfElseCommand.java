@@ -9,8 +9,8 @@ public class IfElseCommand extends IfCommand {
 		super(aScope);
 	}
 	
-	public double evalCondition(IReadableInput...aList) {
-		double returnVal = (super.evalCondition(aList) == 0) ? 0 : 1;
+	public int evalCondition(IReadableInput...aList) {
+		int returnVal = (super.evalCondition(aList) == 0) ? 0 : 1;
 		return returnVal; 
 	}
 

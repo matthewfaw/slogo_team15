@@ -3,7 +3,7 @@ package model.command;
 import model.node.IReadableInput;
 import model.states.Scope;
 
-public class ForCommand implements ICommand {
+public class ForCommand implements ICommandBranch {
 	
 	private boolean myFirst;
 	private Scope myScope;
@@ -13,7 +13,8 @@ public class ForCommand implements ICommand {
 		myFirst = true;
 	}
 	
-	public double evalCondition(IReadableInput...aList) {
+	@Override
+	public int evalCondition(IReadableInput...aList) {
 		if (myFirst)  {
 			myFirst = false;
 			myScope.assignVariable(aList[0].getName(), aList[1].getValue());

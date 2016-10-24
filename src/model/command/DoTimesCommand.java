@@ -3,7 +3,7 @@ package model.command;
 import model.node.IReadableInput;
 import model.states.Scope;
 
-public class DoTimesCommand implements ICommand {
+public class DoTimesCommand implements ICommandBranch {
 	
 	private int myNumberTimesRun;
 	private Scope myScope;
@@ -13,7 +13,8 @@ public class DoTimesCommand implements ICommand {
 		myScope = aScope;
 	}
 	
-	public double evalCondition(IReadableInput...aList) {
+	@Override
+	public int evalCondition(IReadableInput...aList) {
 		myScope.assignVariable(aList[0].getName(), aList[1].getValue());
 		if (myNumberTimesRun < myScope.getValue(aList[0].getName())) {
 			myNumberTimesRun++;
