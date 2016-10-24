@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import integration.observe.IObservable;
-import integration.observe.IObserver;
+import integration.observe.IRobotObserver;
 
 
 public class Scope implements IObservable {
@@ -17,14 +17,14 @@ public class Scope implements IObservable {
 	private Map<String, VariableState> myScopeMap;
 	private VariableState currentVariableState;
 	private String currentScope;
-	private List<IObserver> myObservers;
+	private List<IRobotObserver> myObservers;
 	
 	public Scope() {
 		myScopeMap = new HashMap<String, VariableState>();
 		currentVariableState = new VariableState();
 		myScopeMap.put(DEFAULT, currentVariableState);
 		currentScope = DEFAULT;
-		myObservers = new ArrayList<IObserver>();
+		myObservers = new ArrayList<IRobotObserver>();
 	}
 	
 	public void swapScope(String aMethod) {
@@ -56,14 +56,14 @@ public class Scope implements IObservable {
 	}
 	
 	@Override
-	public void registerObserver(IObserver o) {
+	public void registerObserver(IRobotObserver o) {
 		myObservers.add(o);
 		
 	}
 
 
 	@Override
-	public void removeObserver(IObserver o) {
+	public void removeObserver(IRobotObserver o) {
 		int i = myObservers.indexOf(o);
 		if (i > 0) {
 			myObservers.remove(i);
@@ -72,7 +72,7 @@ public class Scope implements IObservable {
 
 	@Override
 	public void notifyObservers() {
-		for (IObserver observer : myObservers) {
+		for (IRobotObserver observer : myObservers) {
 			observer.update();
 		}
 		

@@ -3,7 +3,7 @@ package back_end.model.robot;
 import java.util.ArrayList;
 
 import integration.observe.IObservable;
-import integration.observe.IObserver;
+import integration.observe.IRobotObserver;
 
 public class Turtle implements Robot, IViewRobot, IObservable {
 	
@@ -12,10 +12,10 @@ public class Turtle implements Robot, IViewRobot, IObservable {
 	private double myRotation;
 	private boolean myPenDown;
 	private boolean myVisibility;
-	private ArrayList<IObserver> myObservers;
+	private ArrayList<IRobotObserver> myObservers;
 	
 	public Turtle() {
-		myObservers = new ArrayList<IObserver>();
+		myObservers = new ArrayList<IRobotObserver>();
 	}
 
 	/** SETTERS **/
@@ -84,12 +84,13 @@ public class Turtle implements Robot, IViewRobot, IObservable {
 	/** OBSERVERABLE **/
 	
 	@Override
-	public void registerObserver(IObserver o) {
+	public void registerObserver(IRobotObserver o) {
 		myObservers.add(o);
+		o.giveRobot(this);
 	}
 
 	@Override
-	public void removeObserver(IObserver o) {
+	public void removeObserver(IRobotObserver o) {
 		int i = myObservers.indexOf(o);
 		if (i > 0) {
 			myObservers.remove(i);
@@ -99,7 +100,7 @@ public class Turtle implements Robot, IViewRobot, IObservable {
 
 	@Override
 	public void notifyObservers() {
-		for (IObserver observer : myObservers) {
+		for (IRobotObserver observer : myObservers) {
 			observer.update();
 		}
 	}
