@@ -1,10 +1,10 @@
 package appScene.turtleBox;
 
 import appScene.IViewer;
-import integration.IRobotObserver;
+import integration.IObserver;
 import model.robot.IViewRobot;
 
-public interface ITurtleBox extends IViewer, IRobotObserver  {
+public interface ITurtleBox extends IViewer, IObserver  {
 
     /**
      * Draw the moves from robot over all turtles

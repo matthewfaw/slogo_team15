@@ -2,19 +2,20 @@ package model.robot;
 
 import java.util.ArrayList;
 
-import integration.IRobotObserver;
+import integration.IObservable;
+import integration.IObserver;
 
-public class Turtle implements Robot, IViewRobot, Observable {
+public class Turtle implements Robot, IViewRobot, IObservable {
 	
 	private double myXpos;
 	private double myYpos;
 	private double myRotation;
 	private boolean myPenDown;
 	private boolean myVisibility;
-	private ArrayList<IRobotObserver> myObservers;
+	private ArrayList<IObserver> myObservers;
 	
 	public Turtle() {
-		myObservers = new ArrayList<IRobotObserver>();
+		myObservers = new ArrayList<IObserver>();
 	}
 
 	/** SETTERS **/
@@ -81,13 +82,13 @@ public class Turtle implements Robot, IViewRobot, Observable {
 	}
 
 	@Override
-	public void registerObserver(IRobotObserver o) {
+	public void registerObserver(IObserver o) {
 		myObservers.add(o);
 		
 	}
 
 	@Override
-	public void removeObserver(IRobotObserver o) {
+	public void removeObserver(IObserver o) {
 		int i = myObservers.indexOf(o);
 		if (i > 0) {
 			myObservers.remove(i);
@@ -97,7 +98,7 @@ public class Turtle implements Robot, IViewRobot, Observable {
 
 	@Override
 	public void notifyObservers() {
-		for (IRobotObserver observer : myObservers) {
+		for (IObserver observer : myObservers) {
 			observer.update();
 		}
 		

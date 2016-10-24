@@ -2,6 +2,8 @@ package model.states;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import integration.IObservable;
 import model.node.Node;
 
 import javafx.util.Pair;

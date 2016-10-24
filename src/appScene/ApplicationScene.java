@@ -89,6 +89,7 @@ public class ApplicationScene {
 				//TODO: Implement error viewing
 			} 
     		
+    		myVariableViewer.showVariables(myModel.getVariableMap());
   
     	});
     	

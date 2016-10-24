@@ -1,6 +1,6 @@
 package model.robot;
 
-import integration.IRobotObserver;
+import integration.IObserver;
 
 /**
  * Allows for the model to set the values of the robot

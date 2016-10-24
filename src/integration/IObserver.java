@@ -1,6 +1,6 @@
 package integration;
 
-public interface IRobotObserver {
+public interface IObserver {
 	
 	/**
 	 * Every time update is called, the robot has changed state. 

@@ -1,9 +1,8 @@
 package appScene.variableViewer;
 
-import java.util.Map;
-
 import appScene.IViewer;
 import javafx.scene.Node;
+import model.states.IViewVariableState;
 
 public interface IVariableViewer extends IViewer {
 
@@ -22,6 +21,6 @@ public interface IVariableViewer extends IViewer {
      * Shows variables inside of variable box
      * @param varMap
      */
-    public void showVariables(Map<String, ? extends Number> varMap);
+    public void showVariables(IViewVariableState aVariableState);
     
 }

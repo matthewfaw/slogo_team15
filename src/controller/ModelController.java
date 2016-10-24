@@ -1,10 +1,12 @@
 package controller;
 
-import integration.IRobotObserver;
+
+import integration.IObservable;
+import integration.IObserver;
 import model.exception.ArgumentException;
-import model.robot.Observable;
 import model.robot.Robot;
 import model.robot.Turtle;
+import model.states.IViewVariableState;
 import model.states.Scope;
 import model.syntax_tree.AbstractSyntaxTree;
 import model.textParser.TextParser;
@@ -12,7 +14,7 @@ import model.textParser.TextParser;
 public class ModelController {
 	
 	private Scope myScope; 
-	private Observable myRobot; 
+	private IObservable myRobot; 
 	
 	public ModelController() {
 		myScope = new Scope();
@@ -30,8 +32,17 @@ public class ModelController {
 		}
 	}
 	
-	public void giveRobotObservers(IRobotObserver ro){
+	public void giveRobotObservers(IObserver ro){
 		myRobot.registerObserver(ro);
 	}
+	
+	public void giveVariableObservers(IObserver ro) {
+		myScope.registerObserver(ro);
+	}
+	
+	public IViewVariableState getVariableMap() {
+		return myScope.getVariableMap();
+	}
+	
 
 }

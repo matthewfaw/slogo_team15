@@ -1,6 +1,6 @@
 package model.robot;
 
-import integration.IRobotObserver;
+import integration.IObserver;
 
 /**
  * Allows for the view to get the values set by the back-end

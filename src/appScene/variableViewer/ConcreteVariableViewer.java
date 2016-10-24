@@ -5,30 +5,28 @@ import javafx.scene.Node;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.Pane;
+import model.states.IViewVariableState;
 
 class ConcreteVariableViewer implements IVariableViewer {
 
     private Pane myVariableViewer;
+    private TableView myVariableTable;
+    private TableColumn myNameColumn;
+    private TableColumn myValueColumn;
    
     ConcreteVariableViewer(int width, int height) {
-        TableView table = new TableView();
+        myVariableTable = new TableView<>();
         myVariableViewer = new Pane();
-        table.setEditable(true);
-        TableColumn nameCol = new TableColumn("Name");
-        TableColumn valueCol = new TableColumn("Variable");
-        table.getColumns().addAll(nameCol, valueCol);
-        table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-        myVariableViewer.getChildren().add(table);
+        myVariableTable.setEditable(true);
+        myNameColumn = new TableColumn("Name");
+        myValueColumn = new TableColumn("Variable");
+        myVariableTable.getColumns().addAll(myNameColumn, myValueColumn);
+        myVariableTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        myVariableViewer.getChildren().add(myVariableTable);
     }
     
     @Override
     public void clear () {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void showVariables (Map<String, ? extends Number> varMap) {
         // TODO Auto-generated method stub
 
     }
@@ -41,6 +39,15 @@ class ConcreteVariableViewer implements IVariableViewer {
 	@Override
 	public void reset() {
 		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void showVariables(IViewVariableState aVariableState) {
+		
+		for (String varName : aVariableState.getVariableKeySet()) {
+		}
+		
 		
 	}
 
