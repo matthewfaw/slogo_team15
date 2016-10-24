@@ -48,6 +48,19 @@ public class AbstractSyntaxTree {
 		if (allInputsAreReadyToBeUsed(nextInstruction)) {
 			performEvaluation(nextInstruction);
 		}
+		if (allInstructionsHaveBeenEvaluated()) {
+			myRoot.setState(NodeState.VISITED);
+		}
+	}
+	
+	private boolean allInstructionsHaveBeenEvaluated()
+	{
+		for (Node child: myRoot.getChildren()) {
+			if (child.getState() != NodeState.VISITED) {
+				return false;
+			}
+		}
+		return true;
 	}
 	
 	private Node constructTree(Stack<Node> aNodeStack)
@@ -100,7 +113,7 @@ public class AbstractSyntaxTree {
 	private void updateList(BranchNode aNode, Stack<Node> aOriginalNodeStack, Stack<Node> aCurrentInputStack)
 	{
 		// Set up conditions
-		aNode.addConditions((ListNode) aCurrentInputStack.pop());
+		aNode.addConditions(aCurrentInputStack.pop());
 		// Set up branches
 		for (int i=1; i<aNode.getNumberOfInputs(); ++i) {
 			ListNode inputNode = (ListNode) aCurrentInputStack.pop();
@@ -150,6 +163,9 @@ public class AbstractSyntaxTree {
 			}
 		} else if (aCondition.getEvaluationState() == NodeState.EVALUATING_BRANCH) {
 			aCondition.eval();
+			aCondition.setState(NodeState.EVALUATING_CONDITION);
+			//unmark all visited children
+			aCondition.unmarkAllChildren();
 		}
 	}
 	private boolean allInputsAreReadyToBeUsed(Node aParentNode)

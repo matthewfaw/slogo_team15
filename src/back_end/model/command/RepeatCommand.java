@@ -3,7 +3,7 @@ package back_end.model.command;
 import back_end.model.node.IReadableInput;
 import back_end.model.states.Scope;
 
-public class RepeatCommand implements ICommand {
+public class RepeatCommand implements ICommandBranch {
 	
 	private int myNumberTimesRun;
 	
@@ -11,7 +11,8 @@ public class RepeatCommand implements ICommand {
 		myNumberTimesRun = 0;
 	}
 	
-	public double evalCondition(IReadableInput...aList) {
+	@Override
+	public int evalCondition(IReadableInput...aList) {
 		if (myNumberTimesRun < aList[0].getValue()) {
 			myNumberTimesRun++;
 			return 0;

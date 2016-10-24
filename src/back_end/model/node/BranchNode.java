@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import back_end.model.command.ICommand;
 import back_end.model.command.ICommandBranch;
 import back_end.model.exception.ArgumentException;
 import back_end.model.states.Scope;
@@ -52,12 +51,18 @@ public class BranchNode extends Node {
 	
 	@Override
 	public double eval() throws ArgumentException {
-		myReturnValue = myCommand.eval(myChildBranches.get(myActiveBranchIndex));
+		List<Node> currentBranch = myChildBranches.get(myActiveBranchIndex);
+		Node[] inputList = currentBranch.toArray(new Node[currentBranch.size()]);
+		myReturnValue = myCommand.eval(inputList);
 		return myReturnValue;
 	}
 	
 	public int evalCondition() {
-		myConditionReturnValue = myCommand.evalCommand(myChildConditions);
+		Node[] inputList = myChildConditions.toArray(new Node[myChildConditions.size()]);
+		myConditionReturnValue = myCommand.evalCondition(inputList);
+		if (myConditionReturnValue == -1) {
+			myReturnValue = myConditionReturnValue;
+		}
 //		myEvaluationState = NodeState.EVALUATING_BRANCH;
 		myActiveBranchIndex = myConditionReturnValue;
 		return myConditionReturnValue;
@@ -96,12 +101,21 @@ public class BranchNode extends Node {
 		//XXX: remove this
 		throw new RuntimeException("Do not use this method");
 	}
-	public void addConditions(ListNode aList)
+	public void addConditions(Node aNode)
+	{
+		if (aNode instanceof ListNode) {
+			addConditions((ListNode) aNode);
+		} else {
+			myChildConditions.add(aNode);
+		}
+	}
+	private void addConditions(ListNode aList)
 	{
 		for (Node child: aList.getChildren()) {
 			myChildConditions.add(child);
 		}
 	}
+
 	public void addBranchChildren(int aBranchId, ListNode aListNode)
 	{
 		if(!myChildBranches.containsKey(aBranchId)) {
@@ -109,6 +123,35 @@ public class BranchNode extends Node {
 		}
 		for (Node child: aListNode.getChildren()) {
 			myChildBranches.get(aBranchId).add(child);
+		}
+	}
+	
+	public void unmarkAllChildren()
+	{
+		//Unmark all conditions
+		for (Node child: myChildConditions) {
+			child.setState(NodeState.AVAILABLE);
+			unmarkAllChildren(child);
+		}
+		
+		//Unmark all branches
+		for (int branchId: myChildBranches.keySet()) {
+			for (Node child: myChildBranches.get(branchId)) {
+				child.setState(NodeState.AVAILABLE);
+				unmarkAllChildren(child);
+			}
+		}
+	}
+	
+	private void unmarkAllChildren(Node aParent)
+	{
+		if (aParent instanceof BranchNode) {
+			((BranchNode) aParent).unmarkAllChildren();
+		} else {
+			for (Node child: aParent.getChildren()) {
+				child.setState(NodeState.AVAILABLE);
+				unmarkAllChildren(child);
+			}
 		}
 	}
 

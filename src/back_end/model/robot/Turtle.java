@@ -102,7 +102,6 @@ public class Turtle implements Robot, IViewRobot, IObservable {
 		for (IObserver observer : myObservers) {
 			observer.update();
 		}
-		
 	}
 
 
