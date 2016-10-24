@@ -1,5 +1,7 @@
 package model.robot;
 
+import integration.IRobotObserver;
+
 /**
  * Allows for the model to set the values of the robot
  * 
@@ -33,8 +35,5 @@ public interface Robot {
 	
 	public boolean isVisible();
 	
-	/**OBSERVABLE**/
-
-	public void notifyObservers();
 	
 }

@@ -12,7 +12,7 @@ import javafx.scene.input.MouseEvent;
  */
 public interface IToolbar extends IViewer {
 
-	public void onCompilePress(EventHandler<MouseEvent> event);
+	public void onBuildPress(EventHandler<MouseEvent> event);
 	
 	public void onRunPress(EventHandler<MouseEvent> event);
 	
@@ -22,5 +22,5 @@ public interface IToolbar extends IViewer {
 	
 	public void onLanguagePress(EventHandler<MouseEvent> event);
 	
-	public void onClearPress(EventHandler<MouseEvent> event);
+	public void onResetPress(EventHandler<MouseEvent> event);
 }

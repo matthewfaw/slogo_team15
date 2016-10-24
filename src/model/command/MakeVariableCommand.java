@@ -1,6 +1,5 @@
 package model.command;
 
-import java.util.List;
 
 import model.node.IReadableInput;
 import model.states.Scope;

@@ -11,7 +11,7 @@ import appScene.IViewer;
  */
 public interface IErrorViewer extends IViewer {
     
-    public void giveErrorStructure(Object ErrorStructure);
+    public void giveErrorStructure(Exception aError);
     
     public void onErrorPress();
 	

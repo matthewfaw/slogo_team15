@@ -1,6 +1,8 @@
 package appScene.textEditor;
 
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import java.util.ArrayList;
 
 import javafx.beans.value.ChangeListener;
@@ -18,112 +20,144 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
-public class ConcreteTextEditor implements ITextEditor{
+class ConcreteTextEditor implements ITextEditor{
 
-    private ScrollPane myTextEditor;
-    private VBox myTextColumn;
-    private List<TextField> myTextFields;
-    private List<HBox> myRows;
-    
-    private int myWidth;
-    private int myHeight;
-    
-    private int myLastIndex;
-    private boolean myRowsAdded;
-    
-    private static final int NUM_START_ROWS = 5;
-    private static final int NEW_ROW_BURST = 5;
-    
-    public ConcreteTextEditor(int aWidth, int aHeight){
-    	myWidth = aWidth;
-    	myHeight = aHeight;
-    	myLastIndex = 0;
-    	
-        myTextColumn = new VBox(0);
-        myTextFields = new ArrayList<TextField>();
-        myRows = new ArrayList<HBox>();
-        
-        initTextColumn();
-        initTextScroller(myTextColumn);
-    }
-   
-    @Override
-    public Node getInstanceAsNode(){
-        return myTextEditor;
-    }
-    
-    @Override
-    public void clear () {
-         myTextFields = new ArrayList<TextField>();
-         
-         initTextColumn();
-         initTextScroller(myTextColumn);
-    }
+	private ScrollPane myTextEditor;
+	private VBox myTextColumn;
+	private List<TextField> myTextFields;
+	private List<HBox> myRows;
 
-    @Override
-    public void highlightLine (Color color, int line) {
-    	if(line >= myLastIndex) return;
-    	
-    	myRows.get(line).setBackground(new Background( new BackgroundFill(
-    			color,
-    			CornerRadii.EMPTY,
-    			Insets.EMPTY
-    			)));
-    }
+	private int myWidth;
+	private int myHeight;
 
-    @Override
-    public List<String> getInstructionList () {
-        // TODO Auto-generated method stub
-        return null;
-    }
+	private int myLastIndex;
+	private boolean myRowsAdded;
 
-    @Override
-    public void setInstructionList (List<String> instructions) {
-        // TODO Auto-generated method stub
-        
-    }
+	private static final int NUM_START_ROWS = 5;
+	private static final int NEW_ROW_BURST = 5;
+	private static final int SPACING = 20;
 
-    private void initTextColumn(){
-   	 myTextColumn = new VBox(0);
-    	 while(myLastIndex < NUM_START_ROWS) newLine();   	
-    }
+	/******* API Defined Methods ********/
 
-    private void newLine(){
-    	 HBox rowBox = new HBox(20);
-    	
-    	TextField curTextField = new TextField();
-        curTextField.setMinWidth(myWidth-50);
-        curTextField.setMaxWidth(myWidth-50);
-        myTextFields.add(myLastIndex, curTextField);
-        
-    	curTextField.setOnMouseClicked(e -> {
-    		if(curTextField.equals(myTextFields.get(myLastIndex - 1))){
-    			myRowsAdded = true;
-    			for(int i = 0; i < NEW_ROW_BURST; i++) newLine();
-    		}
-    	});
-        
-        
-        HBox labelBox = new HBox(20);
-        Label curLabel = new Label(Integer.toString(myLastIndex + 1));
-        labelBox.setMinWidth(20);
-        labelBox.getChildren().add(curLabel);
-        
-        rowBox.getChildren().addAll(labelBox, curTextField);
-        myRows.add(myLastIndex, rowBox);
-                
-        myTextColumn.getChildren().add(rowBox);
-        
-        myLastIndex++;
-    }
-    
-    private void initTextScroller( Node aContent ){
-    	myTextEditor = new ScrollPane();
-        myTextEditor.setHbarPolicy(ScrollBarPolicy.NEVER);
-        myTextEditor.setVbarPolicy(ScrollBarPolicy.ALWAYS);
-        myTextEditor.setPrefSize(myWidth + 5, myHeight);
-        
-        myTextEditor.vvalueProperty().addListener(new ChangeListener<Number>() {
+	@Override
+	public Node getInstanceAsNode(){
+		return myTextEditor;
+	}
+
+	@Override
+	public void reset() {
+		buildInstance(myWidth, myHeight);
+	}
+
+	@Override
+	public void highlightLine (Color color, int line) {
+		if(line >= myLastIndex) return;
+
+		Background highlight = new Background( new BackgroundFill(
+				color,
+				CornerRadii.EMPTY,
+				Insets.EMPTY
+				));
+
+		myRows.get(line).setBackground(highlight);
+	}
+
+	@Override
+	public List<String> getInstructionList () {
+		
+		List<String> outputList = myTextFields.stream()
+				.map(TextField::getText)
+				.collect(Collectors.toList());
+
+		return outputList;
+	}
+
+	@Override
+	public void setInstructionList (List<String> aInstructions) {
+		for(int i = 0; ( i < myTextFields.size() ) && ( i < aInstructions.size()); i++ ){
+			myTextFields.get(i).setText(aInstructions.get(i));			
+		}
+	}
+
+	/******** Package Visible Methods *********/
+
+	ConcreteTextEditor(int aWidth, int aHeight){
+		buildInstance(aWidth, aHeight);
+	}
+
+	void clearTextFields(){
+		myTextFields.forEach( tf -> tf.clear() );
+	}
+
+	/******** Private Helper Methods *********/
+
+	private void buildInstance(int aWidth, int aHeight){
+		configureStartParameters(aWidth, aHeight);
+		initTextScroller( buildTextColumn() );
+	}
+	
+	private void configureStartParameters(int aWidth, int aHeight){
+		myWidth = aWidth;
+		myHeight = aHeight;
+		myLastIndex = 0;
+		myRowsAdded = false;
+
+		myTextFields = new ArrayList<TextField>();
+		myRows = new ArrayList<HBox>();
+	}
+
+	private VBox buildTextColumn(){
+		myTextColumn = new VBox(0);
+		initTextToolbar();
+		while(myLastIndex < NUM_START_ROWS) newLine();   	
+		return myTextColumn;
+	}
+
+	private void initTextToolbar(){
+		myTextColumn.getChildren().add(new TextEditorToolbar(this).getBar());
+	}
+
+	private void newLine(){
+		HBox rowBox = new HBox(SPACING);
+
+		HBox labelBox = new HBox(0);
+		Label curLabel = new Label(Integer.toString(myLastIndex + 1));
+		labelBox.setMinWidth(SPACING);
+		labelBox.setMaxWidth(SPACING);
+		labelBox.getChildren().add(curLabel);
+
+		TextField curTextField = new TextField();
+		curTextField.setMinWidth(myWidth - labelBox.getWidth() - curLabel.getWidth() - SPACING - 30);
+		curTextField.setMaxWidth(myWidth - labelBox.getWidth() - curLabel.getWidth() - SPACING - 30);
+		myTextFields.add(myLastIndex, curTextField);
+
+		curTextField.setOnMouseClicked(e -> {
+			if(curTextField.equals(myTextFields.get(myLastIndex - 1))){
+				myRowsAdded = true;
+				for(int i = 0; i < NEW_ROW_BURST; i++) newLine();
+			}    		
+		});
+
+		rowBox.getChildren().addAll(labelBox, curTextField);
+		myRows.add(myLastIndex, rowBox);       
+		myTextColumn.getChildren().add(rowBox);
+
+		myLastIndex++;
+	}
+
+	private void initTextScroller( Node aContent ){
+
+		if(myTextEditor == null)
+			myTextEditor = new ScrollPane();
+		else{
+			myTextEditor.setContent(aContent);
+		}
+
+		myTextEditor.setHbarPolicy(ScrollBarPolicy.NEVER);
+		myTextEditor.setVbarPolicy(ScrollBarPolicy.ALWAYS);
+		myTextEditor.setPrefSize(myWidth + 5, myHeight);
+
+		myTextEditor.vvalueProperty().addListener(new ChangeListener<Number>() {
 
 			@Override
 			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
@@ -131,8 +165,8 @@ public class ConcreteTextEditor implements ITextEditor{
 					myRowsAdded = false;
 					myTextEditor.setVvalue(myTextEditor.getVmax());
 				}
-				
+
 			}});
-        myTextEditor.setContent(aContent);
-    }
+		myTextEditor.setContent(aContent);
+	}
 }

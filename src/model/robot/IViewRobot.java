@@ -20,5 +20,6 @@ public interface IViewRobot {
 	public boolean isPenDown();
 	
 	public boolean isVisible();
+
 	
 }

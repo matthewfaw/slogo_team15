@@ -6,12 +6,11 @@ import javafx.scene.Node;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Pane;
 
-
-public class ConcreteScriptViewer implements IScriptViewer {
+class ConcreteScriptViewer implements IScriptViewer {
 
     private Pane myScriptViewer;
     
-    public ConcreteScriptViewer (int aWidth, int aHeight) {
+    ConcreteScriptViewer (int aWidth, int aHeight) {
         myScriptViewer = new Pane();
         myScriptViewer.setPrefSize(aWidth, aHeight);
         ListView<String> myFunctionList = new ListView<String>();
@@ -22,7 +21,7 @@ public class ConcreteScriptViewer implements IScriptViewer {
     }
 
     @Override
-    public void clear () {
+    public void reset () {
         // TODO Auto-generated method stub
 
     }
