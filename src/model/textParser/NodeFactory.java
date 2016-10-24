@@ -50,10 +50,12 @@ public class NodeFactory {
 		else if (Pattern.matches(mySyntaxResources.getString("Command"), aWord)) {
 			String command = translateToCommand(aWord);
 			String type = myCommandTypeResources.getString(command);
+			int inputNumber = Integer.parseInt(mySyntaxResources.getString(command));
+			ICommand commandClass = null;
 			if (type != "Branch" || type != "Assignment" || type != "Custom") {
 				type = "Command";
 				try {
-					ICommand commandClass = myCommandFactory.makeCommand(translateToCommand(command));
+					commandClass = myCommandFactory.makeCommand(translateToCommand(command));
 				} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
 						| InvocationTargetException | NoSuchMethodException | SecurityException | ClassNotFoundException
 						| UnexpectedCommandException e) {
@@ -62,7 +64,7 @@ public class NodeFactory {
 				}
 			} else {
 				try {
-					ICommandBranch commandClass = (ICommandBranch) myCommandFactory.makeCommand(translateToCommand(command));
+					commandClass = (ICommandBranch) myCommandFactory.makeCommand(translateToCommand(command));
 				} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
 						| InvocationTargetException | NoSuchMethodException | SecurityException | ClassNotFoundException
 						| UnexpectedCommandException e) {
@@ -70,16 +72,13 @@ public class NodeFactory {
 					e.printStackTrace();
 				}
 			}
-			int inputNumber = Integer.parseInt(mySyntaxResources.getString(command));
 			try {
 				return (Node) Class.forName(PACKAGE_NODE + type + "Node").getConstructor(ICommand.class, int.class, Scope.class).
 						newInstance(commandClass, inputNumber, myScope);
 			} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
-					| InvocationTargetException | NoSuchMethodException | SecurityException
-					| ClassNotFoundException e) {
-				e.printStackTrace();
-			} catch (UnexpectedCommandException e) {
-				e.printStackTrace();
+					| InvocationTargetException | NoSuchMethodException | SecurityException | ClassNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
 			}
 		}
 		else if (Pattern.matches(mySyntaxResources.getString("Constant"), aWord)) {
