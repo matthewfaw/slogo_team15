@@ -33,7 +33,7 @@ public abstract class Node implements IReadableInput {
 		myState = aNodeState;
 	}
 
-	public abstract double eval(List<Node> aList) throws ArgumentException;
+	public abstract double eval() throws ArgumentException;
 	
 //	public abstract List<Node> getChildren();
 //	public abstract void addChild(Node aNode);

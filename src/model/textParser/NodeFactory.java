@@ -52,7 +52,7 @@ public class NodeFactory {
 			String type = myCommandTypeResources.getString(command);
 			int inputNumber = Integer.parseInt(mySyntaxResources.getString(command));
 			ICommand commandClass = null;
-			if (type != "Branch" || type != "Assignment" || type != "Custom") {
+			if (!type.equals("Branch") && !type.equals("Assignment") && !type.equals("Custom")) {
 				type = "Command";
 				try {
 					commandClass = myCommandFactory.makeCommand(translateToCommand(command));

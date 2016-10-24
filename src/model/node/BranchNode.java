@@ -17,32 +17,50 @@ public class BranchNode extends Node {
 	private int myActiveBranchIndex;
 	
 	private double myReturnValue;
-	private boolean myConditionReturnValue;
+	private int myConditionReturnValue;
+	
+	private int myNumberOfInputs;
+	private ICommandBranch myCommand;
 
-	public BranchNode(ICommand aCommand, int aNumberOfInputs, Scope aScope) {
+
+	public BranchNode(ICommandBranch aCommand, int aNumberOfInputs, Scope aScope) {
 		super();
 
 		myEvaluationState = NodeState.EVALUATING_CONDITION;
 		
 		myChildConditions = new ArrayList<Node>();
 		myChildBranches = new HashMap<Integer, List<Node>>();
+		
+		myNumberOfInputs = aNumberOfInputs;
+		myCommand = aCommand;
+	}
+	
+	public int getNumberOfInputs()
+	{
+		return myNumberOfInputs;
 	}
 	
 	public NodeState getEvaluationState()
 	{
 		return myEvaluationState;
 	}
+	public void setEvaluationState(NodeState aNodeState)
+	{
+		myEvaluationState = aNodeState;
+	}
 	
 	@Override
-	public double eval(List<Node> aList) throws ArgumentException {
-		myReturnValue = 0;
+	public double eval() throws ArgumentException {
+		myReturnValue = myCommand.eval(myChildBranches.get(myActiveBranchIndex));
 		return myReturnValue;
 	}
-	public boolean evalCondition(List<Node> aList) {
-		myConditionReturnValue = false;
-		return myConditionReturnValue ;
+	public int evalCondition() {
+		myConditionReturnValue = myCommand.evalCommand(myChildConditions);
+//		myEvaluationState = NodeState.EVALUATING_BRANCH;
+		myActiveBranchIndex = myConditionReturnValue;
+		return myConditionReturnValue;
 	}
-	public boolean getConditionEvaluation()
+	public int getConditionEvaluation()
 	{
 		return myConditionReturnValue;
 	}
@@ -73,19 +91,23 @@ public class BranchNode extends Node {
 	
 	@Override
 	public void addChild(Node aNode) {
-		//XXX: probably remove this
-		throw new RuntimeException();
+		//XXX: remove this
+		throw new RuntimeException("Do not use this method");
 	}
-	public void addCondition(Node aConditionNode)
+	public void addConditions(ListNode aList)
 	{
-		myChildConditions.add(aConditionNode);
+		for (Node child: aList.getChildren()) {
+			myChildConditions.add(child);
+		}
 	}
-	public void addBranchChild(int aBranchId, Node aChild)
+	public void addBranchChildren(int aBranchId, ListNode aListNode)
 	{
 		if(!myChildBranches.containsKey(aBranchId)) {
 			myChildBranches.put(aBranchId, new ArrayList<Node>());
 		}
-		myChildBranches.get(aBranchId).add(aChild);
+		for (Node child: aListNode.getChildren()) {
+			myChildBranches.get(aBranchId).add(child);
+		}
 	}
 
 }

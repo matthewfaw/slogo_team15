@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Stack;
 
 import model.exception.ArgumentException;
+import model.node.AssignmentNode;
 import model.node.BeginBraceNode;
 import model.node.BranchNode;
 import model.node.CommandNode;
@@ -26,6 +27,26 @@ public class AbstractSyntaxTree {
 		myExpressionStack = new Stack<Node>();
 		
 		myRoot = constructTree(aNodeStack);
+	}
+	
+	public boolean hasNextInstruction()
+	{
+		return myRoot.getState() == NodeState.AVAILABLE; 
+	}
+	public void executeNextInstruction() throws ArgumentException
+	{
+		Node currentTopLevelNode = getNextUnvisitedChild(myRoot);
+		buildCallStackForNextInstruction(currentTopLevelNode);
+
+		Node nextInstruction = myExpressionStack.peek();
+		if (nextInstruction == null) {
+			// Do nothing
+			return;
+		}
+		
+		if (allInputsAreReadyToBeUsed(nextInstruction)) {
+			performEvaluation(nextInstruction);
+		}
 	}
 	
 	private Node constructTree(Stack<Node> aNodeStack)
@@ -57,6 +78,8 @@ public class AbstractSyntaxTree {
 	{
 		if (aNode instanceof CommandNode) {
 			updateList((CommandNode) aNode, aOriginalNodeStack, aCurrentInputStack);
+		} else if (aNode instanceof BranchNode) {
+			updateList((BranchNode) aNode, aOriginalNodeStack, aCurrentInputStack);
 		} else if (aNode instanceof BeginBraceNode) {
 			updateList((BeginBraceNode) aNode, aOriginalNodeStack, aCurrentInputStack);
 		} else {
@@ -72,6 +95,18 @@ public class AbstractSyntaxTree {
 		}
 		aCurrentInputStack.push(aNode);
 	}
+	//TODO: add error throwing when the casting fails
+	private void updateList(BranchNode aNode, Stack<Node> aOriginalNodeStack, Stack<Node> aCurrentInputStack)
+	{
+		// Set up conditions
+		aNode.addConditions((ListNode) aCurrentInputStack.pop());
+		// Set up branches
+		for (int i=1; i<aNode.getNumberOfInputs(); ++i) {
+			ListNode inputNode = (ListNode) aCurrentInputStack.pop();
+			aNode.addBranchChildren(i - 1, inputNode);
+		}
+		aCurrentInputStack.push(aNode);
+	}
 	private void updateList(BeginBraceNode aNode, Stack<Node> aOriginalNodeStack, Stack<Node> aCurrentInputStack)
 	{
 		ListNode listNode = new ListNode();
@@ -82,21 +117,6 @@ public class AbstractSyntaxTree {
 		}
 //		aCurrentInputStack.pop();
 		aCurrentInputStack.push(listNode);
-	}
-	public void executeNextInstruction() throws ArgumentException
-	{
-		Node currentTopLevelNode = getNextUnvisitedChild(myRoot);
-		buildCallStackForNextInstruction(currentTopLevelNode);
-
-		Node nextInstruction = myExpressionStack.peek();
-		if (nextInstruction == null) {
-			// Do nothing
-			return;
-		}
-		
-		if (allInputsAreReadyToBeUsed(nextInstruction)) {
-			performEvaluation(nextInstruction);
-		}
 	}
 	private void performEvaluation(Node aNode) throws ArgumentException
 	{
@@ -111,7 +131,7 @@ public class AbstractSyntaxTree {
 	private void performEvaluation(CommandNode aNextInstruction) throws ArgumentException
 	{
 		// Call the next instruction
-		aNextInstruction.eval(aNextInstruction.getChildren());
+		aNextInstruction.eval();
 		// Mark nodes as visited
 		aNextInstruction.setState(NodeState.VISITED);
 		// Update the stack
@@ -120,12 +140,15 @@ public class AbstractSyntaxTree {
 	private void performEvaluation(BranchNode aCondition) throws ArgumentException
 	{
 		if (aCondition.getEvaluationState() == NodeState.EVALUATING_CONDITION) {
-			aCondition.evalCondition(aCondition.getChildren());
-			if (aCondition.getConditionEvaluation()) {
+			aCondition.evalCondition();
+			if (aCondition.getConditionEvaluation() == -1) {
+				aCondition.setState(NodeState.VISITED);
 				myExpressionStack.pop();
+			} else {
+				aCondition.setEvaluationState(NodeState.EVALUATING_BRANCH);
 			}
 		} else if (aCondition.getEvaluationState() == NodeState.EVALUATING_BRANCH) {
-			aCondition.eval(aCondition.getChildren());
+			aCondition.eval();
 		}
 	}
 	private boolean allInputsAreReadyToBeUsed(Node aParentNode)
@@ -160,6 +183,12 @@ public class AbstractSyntaxTree {
 			buildCallStackForNextInstruction((ValueNode) aNode);
 		} else if (aNode instanceof CommandNode) {
 			buildCallStackForNextInstruction((CommandNode) aNode);
+		} else if (aNode instanceof BranchNode) {
+			buildCallStackForNextInstruction((BranchNode) aNode);
+		} else if (aNode instanceof AssignmentNode) {
+			buildCallStackForNextInstruction((AssignmentNode) aNode);
+		} else if (aNode instanceof ListNode) {
+			buildCallStackForNextInstruction((ListNode) aNode);
 		}
 	}
 	private void buildCallStackForNextInstruction(NullNode aNode)
@@ -176,9 +205,52 @@ public class AbstractSyntaxTree {
 	private void buildCallStackForNextInstruction(CommandNode aNode)
 	{
 		if (isAvailableForTraversal(aNode)) {
-			myExpressionStack.push(aNode);
+			if (!myExpressionStack.contains(aNode)) {
+				myExpressionStack.push(aNode);
+			}
 			buildCallStackForNextInstruction(getNextUnvisitedChild(aNode));
 		}
+	}
+	//XXX: Remove this method--same as the method for CommandNode
+	private void buildCallStackForNextInstruction(BranchNode aNode)
+	{
+		if (isAvailableForTraversal(aNode)) {
+			if (!myExpressionStack.contains(aNode)) {
+				myExpressionStack.push(aNode);
+			}
+			buildCallStackForNextInstruction(getNextUnvisitedChild(aNode));
+		}
+	}
+	//XXX: Remove this method--same as the method for CommandNode
+	private void buildCallStackForNextInstruction(AssignmentNode aNode)
+	{
+		if (isAvailableForTraversal(aNode)) {
+			if (!myExpressionStack.contains(aNode)) {
+				myExpressionStack.push(aNode);
+			}
+			buildCallStackForNextInstruction(getNextUnvisitedChild(aNode));
+		}
+	}
+	//XXX: Refactor this method to make it cleaner to read
+	private void buildCallStackForNextInstruction(ListNode aNode)
+	{
+		if (isAvailableForTraversal(aNode)) {
+			if (allChildrenAreVisited(aNode)) {
+				aNode.setState(NodeState.VISITED);
+			} else {
+				buildCallStackForNextInstruction(getNextUnvisitedChild(aNode));
+			}
+		}
+	}
+	
+	private boolean allChildrenAreVisited(Node aParentNode)
+	{
+		for (Node child: aParentNode.getChildren()) {
+			if (child.getState() != NodeState.VISITED) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 	private Node getNextUnvisitedChild(Node aParentNode)

@@ -20,11 +20,11 @@ public class CommandNode extends Node {
 	}
 
 	@Override
-	public double eval(List<Node> aList) throws ArgumentException {
-		if (aList.size() != myNumberOfInputs) {
+	public double eval() throws ArgumentException {
+		if (super.getChildren().size() != myNumberOfInputs) {
 			throw new ArgumentException("Invalid number of arguments"); 
 		}
-		Node[] inputList = aList.toArray(new Node[aList.size()]);
+		Node[] inputList = super.getChildren().toArray(new Node[super.getChildren().size()]);
 		myOutput = myCommand.eval(inputList);
 		return myOutput;
 	}
