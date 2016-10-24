@@ -12,6 +12,7 @@ import back_end.model.exception.UnexpectedCommandException;
 import back_end.model.node.Node;
 import back_end.model.robot.Robot;
 import back_end.model.states.Scope;
+import integration.languages.Languages;
 
 
 
@@ -25,16 +26,18 @@ import back_end.model.states.Scope;
 public class TextParser {
 	
 	private static final String PACKAGE = "resources.syntax.";
-	private static final String LANGUAGE = "Syntax";
+	private static final String SYNTAX = "Syntax";
 	
 	private Stack<Node> myNodes;
 	private ResourceBundle mySyntaxResources;
 	private NodeFactory myFactory;
+	private Languages myLanguage;
 
 	public TextParser(Scope aScope, Robot aRobot){
-		myNodes = new Stack<Node>();
-		mySyntaxResources = PropertyResourceBundle.getBundle(PACKAGE + LANGUAGE);
+		mySyntaxResources = PropertyResourceBundle.getBundle(PACKAGE + SYNTAX);
+		myLanguage = Languages.DEFAULT;
 		myFactory = new NodeFactory(mySyntaxResources, aScope, aRobot); 
+		setLanguage(myLanguage);
 	}
 	
 	/**
@@ -51,8 +54,13 @@ public class TextParser {
 	 * @throws InstantiationException 
 	 */
 	public Stack<Node> getNodeStack(String aString) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException, UnexpectedCharacterException, UnexpectedCommandException {
+		myNodes = new Stack<Node>();
 		createNodes(aString);
 		return myNodes;
+	}
+	
+	public void setLanguage(Languages aLanguage) {
+		myFactory.setLanguage(aLanguage);
 	}
 	
 	/**

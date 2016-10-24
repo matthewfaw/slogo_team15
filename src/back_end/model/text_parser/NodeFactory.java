@@ -17,6 +17,7 @@ import back_end.model.node.Node;
 import back_end.model.node.VariableNode;
 import back_end.model.robot.Robot;
 import back_end.model.states.Scope;
+import integration.languages.Languages;
 
 /**
  * Generates Nodes for the TextParser Stack
@@ -26,15 +27,15 @@ import back_end.model.states.Scope;
  */
 public class NodeFactory {
 	
-	private static final String PACKAGE_RESOURCE = "resources.languages.";
+	private static final String PACKAGE_RESOURCE = "resources.commandtypes.";
 	private static final String PACKAGE_NODE = "model.node.";
-	private static final String LANGUAGE = "English";
 	private static final String TYPE = "CommandTypes";
 
 	private ResourceBundle mySyntaxResources;
 	private ResourceBundle myCommandTypeResources;
 	private Scope myScope;
 	private CommandFactory myCommandFactory;
+	private Languages myLanguage;
 	
 	public NodeFactory(ResourceBundle aResource, Scope aScope, Robot aRobot) {
 		mySyntaxResources = aResource; 
@@ -79,9 +80,14 @@ public class NodeFactory {
 	
 	private String translateToCommand(String aWord) { 
 		CommandTranslator parse = new CommandTranslator();
-		parse.addPatterns(PACKAGE_RESOURCE + LANGUAGE);
+		parse.addPatterns(myLanguage.getFileLocation());
 		return parse.getSymbol(aWord);
 	}
+
+	public void setLanguage(Languages aLanguage) {
+		myLanguage = aLanguage;
+	}
+
 	
 	
 }

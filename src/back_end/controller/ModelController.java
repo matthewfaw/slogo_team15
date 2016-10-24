@@ -20,15 +20,16 @@ public class ModelController {
 	
 	private Scope myScope; 
 	private IObservable myRobot; 
+	private TextParser myParser;
 	
 	public ModelController() {
 		myScope = new Scope();
 		myRobot = new Turtle();
+		myParser = new TextParser(myScope, (Robot) myRobot);
 	}
 	
 	public void userInputToModel(String aString) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException, UnexpectedCharacterException, UnexpectedCommandException {
-		TextParser parser = new TextParser(myScope, (Robot) myRobot);
-		AbstractSyntaxTree ast = new AbstractSyntaxTree(parser.getNodeStack(aString));
+		AbstractSyntaxTree ast = new AbstractSyntaxTree(myParser.getNodeStack(aString));
 		try {
 			ast.executeNextInstruction();
 		} catch (ArgumentException e) {
@@ -50,7 +51,7 @@ public class ModelController {
 	}
 	
 	public void setLanguage(Languages aLanguage) {
-		//TODO
+		myParser.setLanguage(aLanguage);
 	}
 	
 
