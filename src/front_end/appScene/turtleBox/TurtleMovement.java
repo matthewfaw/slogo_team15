@@ -47,6 +47,32 @@ public class TurtleMovement implements ITurtleMovement {
         myTurtle = myConTurtBox.getTurtle();
         myRobot = myConTurtBox.getRobot();
 
+        checkVisibility();
+        
+        updateTurtlePosition();
+
+        updateTurtleRotation();
+
+    }
+
+    private void updateTurtleRotation () {
+        myTurtle.setRotate(myRobot.getRotation());
+        curRotate = myRobot.getRotation();
+    }
+
+    private void updateTurtlePosition () {
+        moveTurtleX();
+        moveTurtleY();
+        if (myRobot.isPenDown()) {
+            gc.setStroke(Color.BLACK);
+            gc.setLineWidth(5);
+            gc.strokeLine(curX, curY, translateX(), translateY());
+        }
+        curX = translateX();
+        curY = translateY();
+    }
+
+    private void checkVisibility () {
         if(!myRobot.isVisible()) {
             myConTurtBox.removeTurtle();
         }
@@ -54,20 +80,6 @@ public class TurtleMovement implements ITurtleMovement {
         if(myRobot.isVisible()) {
             myConTurtBox.showTurtle();
         }
-        
-            moveTurtleX();
-            if (myRobot.isPenDown()) {
-                gc.setStroke(Color.RED);
-                gc.setLineWidth(5);
-                gc.strokeLine(curX, curY, translateX(), translateY());
-            }
-            curX = translateX();
-            moveTurtleY();
-            curY = translateY();
-
-            myTurtle.setRotate(myRobot.getRotation());
-            curRotate = myRobot.getRotation();
-
     }
     
     private double translateX() {
