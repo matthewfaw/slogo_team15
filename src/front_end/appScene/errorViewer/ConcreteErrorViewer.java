@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import front_end.appScene.textEditor.ITextEditor;
+import integration.languages.Languages;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -96,6 +97,12 @@ class ConcreteErrorViewer implements IErrorViewer {
 	private VBox initErrorColumn(){
 		VBox columnBox = new VBox(3);
 		return columnBox;
+	}
+
+	@Override
+	public void switchLanguage(Languages aLanguage) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	

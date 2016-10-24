@@ -1,6 +1,7 @@
 package integration.languages;
 
 public enum Languages {
+	DEFAULT 	("English"),
 	CHINESE		("Chinese"),
 	ENGLISH		("English"),
 	FRENCH		("French"),

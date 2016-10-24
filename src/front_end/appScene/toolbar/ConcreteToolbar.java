@@ -2,12 +2,14 @@ package front_end.appScene.toolbar;
 
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 
-import java.util.Iterator;
 import java.util.Map;
 import java.util.ResourceBundle;
 
@@ -48,7 +50,7 @@ class ConcreteToolbar implements IToolbar {
         myRun = new Button(myGUIResources.getString("RunButton"));
         myHelp = new Button(myGUIResources.getString("HelpButton"));
         myBuild = new Button(myGUIResources.getString("BuildButton"));
-        myLanguage = new MenuButton(myGUIResources.getString("LanguageDropDown"));
+        myLanguage = new MenuButton(myGUIResources.getString("LanguageDropDown") + ": " + Languages.DEFAULT.getName());
         myStep = new Button(myGUIResources.getString("StepButton"));
         myReset = new Button(myGUIResources.getString("ClearButton"));
     }
@@ -75,11 +77,12 @@ class ConcreteToolbar implements IToolbar {
     }
 
     @Override
-    public void onLanguageSelect (Map<Languages, EventHandler<ActionEvent>> aLanguageEventMap) {
+    public void onLanguageSelect (Map<Languages, EventHandler<ActionEvent>> aLanguageEventMap) {  	
     	
     	for (Languages lang : aLanguageEventMap.keySet()) {
 			MenuItem languageItem = new MenuItem(lang.getName());
-			languageItem.setOnAction(aLanguageEventMap.get(lang));
+			languageItem.setOnAction(aLanguageEventMap.get(lang));			
+			myLanguage.getItems().add(languageItem);
 		}
     	
     }
@@ -100,5 +103,10 @@ class ConcreteToolbar implements IToolbar {
     public Node getInstanceAsNode () {
         return myToolbar;
     }
+
+	@Override
+	public void switchLanguage(Languages aLanguage) {
+		myLanguage.setText(myGUIResources.getString("LanguageDropDown") + ": " + aLanguage.getName());
+	}
 
 }
