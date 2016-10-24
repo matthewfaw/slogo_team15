@@ -1,6 +1,8 @@
 package controller;
 
+import integration.IRobotObserver;
 import model.exception.ArgumentException;
+import model.robot.Observable;
 import model.robot.Robot;
 import model.robot.Turtle;
 import model.states.Scope;
@@ -10,7 +12,7 @@ import model.textParser.TextParser;
 public class ModelController {
 	
 	private Scope myScope; 
-	private Robot myRobot; 
+	private Observable myRobot; 
 	
 	public ModelController() {
 		myScope = new Scope();
@@ -18,7 +20,7 @@ public class ModelController {
 	}
 	
 	public void userInputToModel(String aString) {
-		TextParser parser = new TextParser(myScope, myRobot);
+		TextParser parser = new TextParser(myScope, (Robot) myRobot);
 		AbstractSyntaxTree ast = new AbstractSyntaxTree(parser.getNodeStack(aString));
 		try {
 			ast.executeNextInstruction();
@@ -26,6 +28,10 @@ public class ModelController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	public void giveRobotObservers(IRobotObserver ro){
+		myRobot.registerObserver(ro);
 	}
 
 }

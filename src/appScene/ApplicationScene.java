@@ -12,6 +12,7 @@ import appScene.turtleBox.ITurtleBox;
 import appScene.turtleBox.TurtleBoxFactory;
 import appScene.variableViewer.IVariableViewer;
 import appScene.variableViewer.VariableViewerFactory;
+import controller.ModelController;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
@@ -29,8 +30,11 @@ public class ApplicationScene {
     private IVariableViewer myVariableViewer;
     private IScriptViewer myScriptViewer;
     
+    private ModelController myModel;
+    
     public ApplicationScene() {
         myApplicationView = new GridPane();
+        myModel = new ModelController();
     }
     
     public Scene initScene(int aWidth, int aHeight) {
@@ -51,6 +55,10 @@ public class ApplicationScene {
         myApplicationView.add(myScriptViewer.getInstanceAsNode(),   	2, 1, 1, 1);
         myApplicationView.add(myErrorViewer.getInstanceAsNode(),        1, 2, 2, 1);
         
+        myModel.giveRobotObservers(myTurtleBox);
+        
+        configureToolbar();
+        
         return myScene;
     }
     
@@ -64,6 +72,26 @@ public class ApplicationScene {
     		myScriptViewer.reset();
     	
     	});
+    	
+    	myToolbar.onRunPress( e -> {
+    		StringBuilder sb = new StringBuilder();
+    		
+    		String newLine = "\n";
+    		
+    		for (int i = 0; i < myTextEditor.getInstructionList().size(); i++) {
+				sb.append( myTextEditor.getInstructionList().get(i) );
+				sb.append( newLine );
+			}
+    		
+    		try {
+        		myModel.userInputToModel(sb.toString());
+			} catch (Exception e2) {
+				
+			} 
+    		
+  
+    	});
+    	
    }
     
 }
