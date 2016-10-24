@@ -24,10 +24,11 @@ class ConcreteTurtleBox implements ITurtleBox {
 	Pane mySandbox;
 	ColorPicker myBackgroundColorPicker;
 	IViewRobot myRobot;
-	ImageView myTurtle;
+	static ImageView myTurtle;
 	Group root;
 	Canvas drawingCanvas;
-	GraphicsContext gc;
+	static GraphicsContext gc;
+	TurtleMovement myTurtMove = new TurtleMovement();
 
 	
 	private final int CHARACTER_SIZE = 50;
@@ -59,15 +60,16 @@ class ConcreteTurtleBox implements ITurtleBox {
 	        mySandbox.getChildren().add(drawingCanvas);
 	}
 	
-	public GraphicsContext getGC() {
+	public static GraphicsContext getGC() {
 	    return gc;
 	}
 	
-	public ImageView getTurtle() {
+	public static ImageView getTurtle() {
 	    return myTurtle;
 	}
 	
 	public void initBox(int width, int height) {
+	           mySandbox.getChildren().clear();
 	           initColorPicker();
 	           loadDefaultTurtle(width, height);
 	}
@@ -103,6 +105,7 @@ class ConcreteTurtleBox implements ITurtleBox {
 	public void update() {
 		if(myRobot == null) return;
 		
+		myTurtMove.gameLoop();
 		System.out.println(myRobot.getY());
 		
 	}
