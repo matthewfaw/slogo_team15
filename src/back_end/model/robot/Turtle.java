@@ -81,10 +81,11 @@ public class Turtle implements Robot, IViewRobot, IObservable {
 		return myVisibility;
 	}
 
+	/** OBSERVERABLE **/
+	
 	@Override
 	public void registerObserver(IObserver o) {
 		myObservers.add(o);
-		
 	}
 
 	@Override
@@ -103,10 +104,6 @@ public class Turtle implements Robot, IViewRobot, IObservable {
 		}
 		
 	}
-	
-	/** OBSERVERABLE **/
-	
-
 
 
 }

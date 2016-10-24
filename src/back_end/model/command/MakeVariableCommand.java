@@ -1,6 +1,5 @@
 package back_end.model.command;
 
-import java.util.List;
 
 import back_end.model.node.IReadableInput;
 import back_end.model.states.Scope;

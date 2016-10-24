@@ -1,7 +1,11 @@
 package back_end.controller;
 
 
+import java.lang.reflect.InvocationTargetException;
+
 import back_end.model.exception.ArgumentException;
+import back_end.model.exception.UnexpectedCharacterException;
+import back_end.model.exception.UnexpectedCommandException;
 import back_end.model.robot.Robot;
 import back_end.model.robot.Turtle;
 import back_end.model.states.IViewVariableState;
@@ -21,7 +25,7 @@ public class ModelController {
 		myRobot = new Turtle();
 	}
 	
-	public void userInputToModel(String aString) {
+	public void userInputToModel(String aString) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException, UnexpectedCharacterException, UnexpectedCommandException {
 		TextParser parser = new TextParser(myScope, (Robot) myRobot);
 		AbstractSyntaxTree ast = new AbstractSyntaxTree(parser.getNodeStack(aString));
 		try {

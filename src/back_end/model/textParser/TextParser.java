@@ -1,5 +1,6 @@
 package back_end.model.textParser;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
 import java.util.PropertyResourceBundle;
@@ -7,6 +8,7 @@ import java.util.ResourceBundle;
 import java.util.Stack;
 
 import back_end.model.exception.UnexpectedCharacterException;
+import back_end.model.exception.UnexpectedCommandException;
 import back_end.model.node.Node;
 import back_end.model.robot.Robot;
 import back_end.model.states.Scope;
@@ -38,35 +40,56 @@ public class TextParser {
 	/**
 	 * Getter for getting the stack of parsed nodes
 	 * @return
+	 * @throws UnexpectedCommandException 
+	 * @throws UnexpectedCharacterException 
+	 * @throws ClassNotFoundException 
+	 * @throws SecurityException 
+	 * @throws NoSuchMethodException 
+	 * @throws InvocationTargetException 
+	 * @throws IllegalArgumentException 
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
 	 */
-	public Stack<Node> getNodeStack(String aString) {
+	public Stack<Node> getNodeStack(String aString) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException, UnexpectedCharacterException, UnexpectedCommandException {
 		createNodes(aString);
 		return myNodes;
 	}
 	
 	/**
 	 * This method will create the stack containing the Nodes needed to create the tree
+	 * @throws UnexpectedCommandException 
+	 * @throws UnexpectedCharacterException 
+	 * @throws ClassNotFoundException 
+	 * @throws SecurityException 
+	 * @throws NoSuchMethodException 
+	 * @throws InvocationTargetException 
+	 * @throws IllegalArgumentException 
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
 	 */
-	private void createNodes(String aText) {
+	private void createNodes(String aText) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException, UnexpectedCharacterException, UnexpectedCommandException {
 		ArrayList<String> wordList = makeExecutableList(aText);
 		for (String word: wordList) {
 			myNodes.push(getNode(word));
 		}
-//		Collections.reverse(myNodes);
 	}
 	
 	/**
 	 * This method generates the Node appropriate for the word parsed in
 	 * @param word
 	 * @return
+	 * @throws UnexpectedCommandException 
+	 * @throws UnexpectedCharacterException 
+	 * @throws ClassNotFoundException 
+	 * @throws SecurityException 
+	 * @throws NoSuchMethodException 
+	 * @throws InvocationTargetException 
+	 * @throws IllegalArgumentException 
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
 	 */
-	private Node getNode(String aWord) {
-		try {
-			return myFactory.makeNode(aWord);
-		} catch (UnexpectedCharacterException e) {
-			e.printStackTrace();
-		}
-		return null;
+	private Node getNode(String aWord) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException, UnexpectedCharacterException, UnexpectedCommandException {
+		return myFactory.makeNode(aWord);
 	}
 	
 	/**

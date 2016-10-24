@@ -1,6 +1,5 @@
 package back_end.model.node;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import back_end.model.command.ICommand;

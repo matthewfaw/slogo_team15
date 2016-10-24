@@ -7,7 +7,9 @@ import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
 import back_end.model.command.ICommand;
+import back_end.model.command.ICommandBranch;
 import back_end.model.exception.UnexpectedCharacterException;
+import back_end.model.exception.UnexpectedCommandException;
 import back_end.model.node.BeginBraceNode;
 import back_end.model.node.ConstantNode;
 import back_end.model.node.EndBraceNode;
@@ -41,26 +43,23 @@ public class NodeFactory {
 		myScope = aScope;
 	}
 	
-	public Node makeNode(String aWord) throws UnexpectedCharacterException {
+	public Node makeNode(String aWord) throws UnexpectedCharacterException, UnexpectedCommandException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException {
 		if (Pattern.matches(mySyntaxResources.getString("Variable"), aWord)) {
 			return new VariableNode(translateToVariable(aWord), myScope); 
 		}
 		else if (Pattern.matches(mySyntaxResources.getString("Command"), aWord)) {
 			String command = translateToCommand(aWord);
 			String type = myCommandTypeResources.getString(command);
+			int inputNumber = Integer.parseInt(mySyntaxResources.getString(command));
+			ICommand commandClass = null;
 			if (type != "Branch" || type != "Assignment" || type != "Custom") {
 				type = "Command";
+				commandClass = myCommandFactory.makeCommand(translateToCommand(command));
+			} else {
+				commandClass = (ICommandBranch) myCommandFactory.makeCommand(translateToCommand(command));
 			}
-			int inputNumber = Integer.parseInt(mySyntaxResources.getString(command));
-			try {
-				ICommand commandClass = myCommandFactory.makeCommand(translateToCommand(command));
-				return (Node) Class.forName(PACKAGE_NODE + type + "Node").getConstructor(ICommand.class, int.class, Scope.class).
-						newInstance(commandClass, inputNumber, myScope);
-			} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
-					| InvocationTargetException | NoSuchMethodException | SecurityException
-					| ClassNotFoundException e) {
-				e.printStackTrace();
-			}
+			return (Node) Class.forName(PACKAGE_NODE + type + "Node").getConstructor(ICommand.class, int.class, Scope.class).
+					newInstance(commandClass, inputNumber, myScope);
 		}
 		else if (Pattern.matches(mySyntaxResources.getString("Constant"), aWord)) {
 			return new ConstantNode(Double.parseDouble(aWord));
@@ -71,7 +70,7 @@ public class NodeFactory {
 		else if (Pattern.matches(mySyntaxResources.getString("ListEnd"), aWord)) {
 			return new EndBraceNode();
 		}
-		throw new UnexpectedCharacterException();
+		throw new UnexpectedCharacterException("The syntax expression: " + aWord + " is not associated to any known syntax in this language");
 	}
 	
 	private String translateToVariable(String aWord) {
