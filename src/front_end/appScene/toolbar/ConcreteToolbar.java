@@ -9,16 +9,13 @@ import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
-
 import java.util.Map;
 import java.util.ResourceBundle;
-
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-
 import javafx.geometry.Insets;
-
 import integration.languages.Languages;
+
 
 class ConcreteToolbar implements IToolbar {
 
@@ -45,12 +42,14 @@ class ConcreteToolbar implements IToolbar {
         myToolbar.getChildren().addAll(myRun, myHelp, myStep, myBuild, myReset, myLanguage);
 
     }
-    
-    private void setButtonText() {
+
+    private void setButtonText () {
         myRun = new Button(myGUIResources.getString("RunButton"));
         myHelp = new Button(myGUIResources.getString("HelpButton"));
         myBuild = new Button(myGUIResources.getString("BuildButton"));
-        myLanguage = new MenuButton(myGUIResources.getString("LanguageDropDown") + ": " + Languages.DEFAULT.getName());
+        myLanguage =
+                new MenuButton(myGUIResources.getString("LanguageDropDown") + ": " +
+                               Languages.DEFAULT.getName());
         myStep = new Button(myGUIResources.getString("StepButton"));
         myReset = new Button(myGUIResources.getString("ClearButton"));
     }
@@ -73,18 +72,18 @@ class ConcreteToolbar implements IToolbar {
 
     @Override
     public void onHelpPress (EventHandler<MouseEvent> event) {
-    	myHelp.setOnMouseClicked(event);
+        myHelp.setOnMouseClicked(event);
     }
 
     @Override
-    public void onLanguageSelect (Map<Languages, EventHandler<ActionEvent>> aLanguageEventMap) {  	
-    	
-    	for (Languages lang : aLanguageEventMap.keySet()) {
-			MenuItem languageItem = new MenuItem(lang.getName());
-			languageItem.setOnAction(aLanguageEventMap.get(lang));			
-			myLanguage.getItems().add(languageItem);
-		}
-    	
+    public void onLanguageSelect (Map<Languages, EventHandler<ActionEvent>> aLanguageEventMap) {
+
+        for (Languages lang : aLanguageEventMap.keySet()) {
+            MenuItem languageItem = new MenuItem(lang.getName());
+            languageItem.setOnAction(aLanguageEventMap.get(lang));
+            myLanguage.getItems().add(languageItem);
+        }
+
     }
 
     @Override
@@ -104,9 +103,10 @@ class ConcreteToolbar implements IToolbar {
         return myToolbar;
     }
 
-	@Override
-	public void switchLanguage(Languages aLanguage) {
-		myLanguage.setText(myGUIResources.getString("LanguageDropDown") + ": " + aLanguage.getName());
-	}
+    @Override
+    public void switchLanguage (Languages aLanguage) {
+        myLanguage
+                .setText(myGUIResources.getString("LanguageDropDown") + ": " + aLanguage.getName());
+    }
 
 }

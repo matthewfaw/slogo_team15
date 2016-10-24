@@ -29,8 +29,8 @@ public class TurtleMovement implements ITurtleMovement {
         myConTurtBox = myConTurt;
         myWidth = width;
         myHeight = height;
-        curX = myWidth/2;
-        curY = myHeight/2;
+        curX = myWidth / 2;
+        curY = myHeight / 2;
     }
 
     public void gameLoop () {
@@ -48,7 +48,7 @@ public class TurtleMovement implements ITurtleMovement {
         myRobot = myConTurtBox.getRobot();
 
         checkVisibility();
-        
+
         updateTurtlePosition();
 
         updateTurtleRotation();
@@ -73,21 +73,21 @@ public class TurtleMovement implements ITurtleMovement {
     }
 
     private void checkVisibility () {
-        if(!myRobot.isVisible()) {
+        if (!myRobot.isVisible()) {
             myConTurtBox.removeTurtle();
         }
-        
-        if(myRobot.isVisible()) {
+
+        if (myRobot.isVisible()) {
             myConTurtBox.showTurtle();
         }
     }
-    
-    private double translateX() {
-        return myRobot.getX()+myWidth/2;
+
+    private double translateX () {
+        return myRobot.getX() + myWidth / 2;
     }
-    
-    private double translateY() {
-        return -myRobot.getY()+myHeight/2;
+
+    private double translateY () {
+        return -myRobot.getY() + myHeight / 2;
     }
 
     private void moveTurtleX () {
@@ -97,7 +97,5 @@ public class TurtleMovement implements ITurtleMovement {
     private void moveTurtleY () {
         myTurtle.setY(translateY());
     }
-    
-    
 
 }
