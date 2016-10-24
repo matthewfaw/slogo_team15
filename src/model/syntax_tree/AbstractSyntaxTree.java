@@ -47,6 +47,19 @@ public class AbstractSyntaxTree {
 		if (allInputsAreReadyToBeUsed(nextInstruction)) {
 			performEvaluation(nextInstruction);
 		}
+		if (allInstructionsHaveBeenEvaluated()) {
+			myRoot.setState(NodeState.VISITED);
+		}
+	}
+	
+	private boolean allInstructionsHaveBeenEvaluated()
+	{
+		for (Node child: myRoot.getChildren()) {
+			if (child.getState() != NodeState.VISITED) {
+				return false;
+			}
+		}
+		return true;
 	}
 	
 	private Node constructTree(Stack<Node> aNodeStack)

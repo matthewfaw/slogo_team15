@@ -60,6 +60,9 @@ public class BranchNode extends Node {
 	public int evalCondition() {
 		Node[] inputList = myChildConditions.toArray(new Node[myChildConditions.size()]);
 		myConditionReturnValue = myCommand.evalCondition(inputList);
+		if (myConditionReturnValue == -1) {
+			myReturnValue = myConditionReturnValue;
+		}
 //		myEvaluationState = NodeState.EVALUATING_BRANCH;
 		myActiveBranchIndex = myConditionReturnValue;
 		return myConditionReturnValue;

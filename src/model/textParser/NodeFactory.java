@@ -56,6 +56,8 @@ public class NodeFactory {
 				type = "Command";
 				try {
 					commandClass = myCommandFactory.makeCommand(translateToCommand(command));
+					return (Node) Class.forName(PACKAGE_NODE + type + "Node").getConstructor(ICommand.class, int.class, Scope.class).
+							newInstance(commandClass, inputNumber, myScope);
 				} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
 						| InvocationTargetException | NoSuchMethodException | SecurityException | ClassNotFoundException
 						| UnexpectedCommandException e) {
@@ -65,20 +67,14 @@ public class NodeFactory {
 			} else {
 				try {
 					commandClass = (ICommandBranch) myCommandFactory.makeCommand(translateToCommand(command));
+					return (Node) Class.forName(PACKAGE_NODE + type + "Node").getConstructor(ICommandBranch.class, int.class, Scope.class).
+							newInstance(commandClass, inputNumber, myScope);
 				} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
 						| InvocationTargetException | NoSuchMethodException | SecurityException | ClassNotFoundException
 						| UnexpectedCommandException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-			}
-			try {
-				return (Node) Class.forName(PACKAGE_NODE + type + "Node").getConstructor(ICommand.class, int.class, Scope.class).
-						newInstance(commandClass, inputNumber, myScope);
-			} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
-					| InvocationTargetException | NoSuchMethodException | SecurityException | ClassNotFoundException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
 			}
 		}
 		else if (Pattern.matches(mySyntaxResources.getString("Constant"), aWord)) {

@@ -96,10 +96,10 @@ public class Turtle implements Robot, IViewRobot, Observable {
 
 	@Override
 	public void notifyObservers() {
-		for (IRobotObserver observer : myObservers) {
-			observer.update();
-		}
-		
+//		for (IRobotObserver observer : myObservers) {
+//			observer.update();
+//		}
+//		
 	}
 	
 	/** OBSERVERABLE **/
