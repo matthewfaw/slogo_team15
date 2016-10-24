@@ -107,6 +107,7 @@ public class BranchNode extends Node {
 			myChildConditions.add(child);
 		}
 	}
+
 	public void addBranchChildren(int aBranchId, ListNode aListNode)
 	{
 		if(!myChildBranches.containsKey(aBranchId)) {
@@ -114,6 +115,35 @@ public class BranchNode extends Node {
 		}
 		for (Node child: aListNode.getChildren()) {
 			myChildBranches.get(aBranchId).add(child);
+		}
+	}
+	
+	public void unmarkAllChildren()
+	{
+		//Unmark all conditions
+		for (Node child: myChildConditions) {
+			child.setState(NodeState.AVAILABLE);
+			unmarkAllChildren(child);
+		}
+		
+		//Unmark all branches
+		for (int branchId: myChildBranches.keySet()) {
+			for (Node child: myChildBranches.get(branchId)) {
+				child.setState(NodeState.AVAILABLE);
+				unmarkAllChildren(child);
+			}
+		}
+	}
+	
+	private void unmarkAllChildren(Node aParent)
+	{
+		if (aParent instanceof BranchNode) {
+			((BranchNode) aParent).unmarkAllChildren();
+		} else {
+			for (Node child: aParent.getChildren()) {
+				child.setState(NodeState.AVAILABLE);
+				unmarkAllChildren(child);
+			}
 		}
 	}
 

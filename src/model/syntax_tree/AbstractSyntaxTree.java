@@ -162,6 +162,9 @@ public class AbstractSyntaxTree {
 			}
 		} else if (aCondition.getEvaluationState() == NodeState.EVALUATING_BRANCH) {
 			aCondition.eval();
+			aCondition.setState(NodeState.EVALUATING_CONDITION);
+			//unmark all visited children
+			aCondition.unmarkAllChildren();
 		}
 	}
 	private boolean allInputsAreReadyToBeUsed(Node aParentNode)
