@@ -15,7 +15,7 @@ public class LeftCommand extends RotationCommand {
 	@Override
 	public double eval(IReadableInput... aList) {
 		double rotation = getRotation(aList);
-		myRobot.setRotation(myRobot.getRotation() + rotation);
+		myRobot.setRotation(myRobot.getRotation() - rotation);
 		return aList[0].getValue();
 	}
 

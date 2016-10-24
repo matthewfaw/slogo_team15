@@ -16,28 +16,37 @@ public class Turtle implements Robot, IViewRobot, IObservable {
 	
 	public Turtle() {
 		myObservers = new ArrayList<IRobotObserver>();
+		
+		//TODO: Move this to a resource file, and have the
+		// constructor initialize these vals
+		myVisibility = true;
+		myXpos = 0.0;
+		myYpos = 0.0;
+		myPenDown = true;
 	}
 
 	/** SETTERS **/
 	
 	@Override
 	public void setX(double x) {
-		notifyObservers();
 		myXpos = x;
+	              notifyObservers();
+
 		
 	}
 
 	@Override
 	public void setY(double y) {
-		notifyObservers();
 		myYpos = y;
+                notifyObservers();
 		
 	}
 	
 	@Override
 	public void setRotation(double r) {
-		notifyObservers();
-		myRotation = r; 
+		myRotation = r;
+	              notifyObservers();
+
 	}
 
 	@Override
@@ -48,8 +57,9 @@ public class Turtle implements Robot, IViewRobot, IObservable {
 
 	@Override
 	public void setVisible(boolean t) {
-		notifyObservers();
 		myVisibility = t;
+	              notifyObservers();
+
 	}
 	
 	

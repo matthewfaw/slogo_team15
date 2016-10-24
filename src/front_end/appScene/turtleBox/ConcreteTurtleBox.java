@@ -83,6 +83,7 @@ class ConcreteTurtleBox implements ITurtleBox {
 	@Override
 	public void reset() {
 	    gc.clearRect(0, 0, myWidth, myHeight);
+	    System.out.println("a");
 	    removeTurtle();
 	    initBox(myWidth, myHeight);
 	}
@@ -95,6 +96,7 @@ class ConcreteTurtleBox implements ITurtleBox {
 	}
 	
 	public void removeTurtle() {
+	    System.out.println("b");
 	    turtDisplayed = false;
 	    mySandbox.getChildren().remove(myTurtle);
 	}

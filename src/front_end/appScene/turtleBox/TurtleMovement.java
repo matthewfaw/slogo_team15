@@ -25,6 +25,7 @@ public class TurtleMovement implements ITurtleMovement {
     private ConcreteTurtleBox myConTurtBox;
 
     public TurtleMovement (ConcreteTurtleBox myConTurt, int width, int height) {
+        curRotate = 0;
         myConTurtBox = myConTurt;
         myWidth = width;
         myHeight = height;
@@ -54,29 +55,18 @@ public class TurtleMovement implements ITurtleMovement {
             myConTurtBox.showTurtle();
         }
         
-        if (curX != translateX()) {
             moveTurtleX();
             if (myRobot.isPenDown()) {
                 gc.setStroke(Color.RED);
                 gc.setLineWidth(5);
-                gc.strokeLine(curX, translateX(), translateY(), translateY());
+                gc.strokeLine(curX, curY, translateX(), translateY());
             }
             curX = translateX();
-            System.out.println("Houston we have a problem");
-        }
-        if (curY != translateY()) {
             moveTurtleY();
-            if (myRobot.isPenDown()) {
-                gc.setStroke(Color.BLACK);
-                gc.setLineWidth(5);
-                gc.strokeLine(translateX(), curY, translateX(), translateY());
-            }
             curY = translateY();
-            System.out.println("Updated y: " + curY);
-        }
-        if (curRotate != myRobot.getRotation()) {
+
             myTurtle.setRotate(myRobot.getRotation());
-        }
+            curRotate = myRobot.getRotation();
 
     }
     
@@ -85,7 +75,7 @@ public class TurtleMovement implements ITurtleMovement {
     }
     
     private double translateY() {
-        return myRobot.getY()+myHeight/2;
+        return -myRobot.getY()+myHeight/2;
     }
 
     private void moveTurtleX () {
