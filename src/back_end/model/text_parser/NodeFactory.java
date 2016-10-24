@@ -1,4 +1,4 @@
-package back_end.model.textParser;
+package back_end.model.text_parser;
 
 
 import java.lang.reflect.InvocationTargetException;

@@ -1,6 +1,5 @@
 package back_end.model.robot;
 
-import integration.observe.IObserver;
 
 /**
  * Allows for the model to set the values of the robot

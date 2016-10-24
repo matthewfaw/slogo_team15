@@ -1,4 +1,4 @@
-package back_end.model.textParser;
+package back_end.model.text_parser;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -24,7 +24,7 @@ import back_end.model.states.Scope;
 
 public class TextParser {
 	
-	private static final String PACKAGE = "resources.languages.";
+	private static final String PACKAGE = "resources.syntax.";
 	private static final String LANGUAGE = "Syntax";
 	
 	private Stack<Node> myNodes;

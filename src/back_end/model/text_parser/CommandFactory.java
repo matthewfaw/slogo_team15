@@ -1,4 +1,4 @@
-package back_end.model.textParser;
+package back_end.model.text_parser;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.PropertyResourceBundle;
@@ -13,7 +13,7 @@ import back_end.model.states.Scope;
 public class CommandFactory {
 	
 	private static final String PACKAGE_COMMAND = "model.command.";
-	private static final String PACKAGE_RESOURCE = "resources.languages.";
+	private static final String PACKAGE_RESOURCE = "resources.commandtypes.";
 	private static final String TYPE = "CommandTypes";
 	
 	private ResourceBundle myCommandTypeResources;

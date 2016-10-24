@@ -11,7 +11,8 @@ import back_end.model.robot.Turtle;
 import back_end.model.states.IViewVariableState;
 import back_end.model.states.Scope;
 import back_end.model.syntax_tree.AbstractSyntaxTree;
-import back_end.model.textParser.TextParser;
+import back_end.model.text_parser.TextParser;
+import integration.languages.Languages;
 import integration.observe.IObservable;
 import integration.observe.IObserver;
 
@@ -46,6 +47,10 @@ public class ModelController {
 	
 	public IViewVariableState getVariableMap() {
 		return myScope.getVariableMap();
+	}
+	
+	public void setLanguage(Languages aLanguage) {
+		//TODO
 	}
 	
 

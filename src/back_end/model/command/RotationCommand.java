@@ -5,10 +5,8 @@ import back_end.model.node.IReadableInput;
 import back_end.model.robot.Robot;
 
 public abstract class RotationCommand implements ICommand {
-	private Robot myRobot;
 	
 	public RotationCommand(Robot aRobot) {
-		myRobot = aRobot;
 	}
 
 	public double getRotation(IReadableInput... aList) {
