@@ -28,7 +28,7 @@ import integration.languages.Languages;
 public class NodeFactory {
 	
 	private static final String PACKAGE_RESOURCE = "resources.commandtypes.";
-	private static final String PACKAGE_NODE = "model.node.";
+	private static final String PACKAGE_NODE = "back_end.model.node.";
 	private static final String TYPE = "CommandTypes";
 
 	private ResourceBundle mySyntaxResources;

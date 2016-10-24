@@ -12,7 +12,7 @@ import back_end.model.states.Scope;
 
 public class CommandFactory {
 	
-	private static final String PACKAGE_COMMAND = "model.command.";
+	private static final String PACKAGE_COMMAND = "back_end.model.command.";
 	private static final String PACKAGE_RESOURCE = "resources.commandtypes.";
 	private static final String TYPE = "CommandTypes";
 	
