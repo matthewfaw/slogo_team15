@@ -7,7 +7,9 @@ import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
 import model.command.ICommand;
+import model.command.ICommandBranch;
 import model.exception.UnexpectedCharacterException;
+import model.exception.UnexpectedCommandException;
 import model.node.BeginBraceNode;
 import model.node.ConstantNode;
 import model.node.EndBraceNode;
@@ -50,15 +52,33 @@ public class NodeFactory {
 			String type = myCommandTypeResources.getString(command);
 			if (type != "Branch" || type != "Assignment" || type != "Custom") {
 				type = "Command";
+				try {
+					ICommand commandClass = myCommandFactory.makeCommand(translateToCommand(command));
+				} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
+						| InvocationTargetException | NoSuchMethodException | SecurityException | ClassNotFoundException
+						| UnexpectedCommandException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			} else {
+				try {
+					ICommandBranch commandClass = (ICommandBranch) myCommandFactory.makeCommand(translateToCommand(command));
+				} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
+						| InvocationTargetException | NoSuchMethodException | SecurityException | ClassNotFoundException
+						| UnexpectedCommandException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 			int inputNumber = Integer.parseInt(mySyntaxResources.getString(command));
 			try {
-				ICommand commandClass = myCommandFactory.makeCommand(translateToCommand(command));
 				return (Node) Class.forName(PACKAGE_NODE + type + "Node").getConstructor(ICommand.class, int.class, Scope.class).
 						newInstance(commandClass, inputNumber, myScope);
 			} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
 					| InvocationTargetException | NoSuchMethodException | SecurityException
 					| ClassNotFoundException e) {
+				e.printStackTrace();
+			} catch (UnexpectedCommandException e) {
 				e.printStackTrace();
 			}
 		}

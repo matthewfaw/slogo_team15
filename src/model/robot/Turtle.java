@@ -4,14 +4,14 @@ import java.util.ArrayList;
 
 import model.Observable;
 
-public class Turtle implements Robot, IViewRobot , Observable {
+public class Turtle implements Robot, IViewRobot, Observable {
 	
 	private double myXpos;
 	private double myYpos;
 	private double myRotation;
 	private boolean myPenDown;
 	private boolean myVisibility;
-	//private ArrayList<Observer> myObservers;
+	private ArrayList<RobotObserver> myObservers;
 	
 	public Turtle() {
 		//TODO
@@ -83,25 +83,25 @@ public class Turtle implements Robot, IViewRobot , Observable {
 	/** OBSERVERABLE **/
 	
 	@Override
-	public void registerObserver(){ //Observer o) {
-		//myObservers.add(o);
+	public void registerObserver(RobotObserver o) {
+		myObservers.add(o);
 		
 	}
 
 	@Override
-	public void removeObserver(){ //Observer o) {
-		//int i = myObservers.indexof(o);
-		//if (i > 0) {
-			//myObservers.remove(i);
-		//}
+	public void removeObserver(RobotObserver o) {
+		int i = myObservers.indexof(o);
+		if (i > 0) {
+			myObservers.remove(i);
+		}
 		
 	}
 
 	@Override
 	public void notifyObservers() {
-		//for (Observer o : myObservers) {
-			//o.update(myXpos, myYpos, myRotation, myPenDown, myVisibility);
-		//}
+		for (RobotObserver o : myObservers) {
+			o.update();
+		}
 		
 	}
 

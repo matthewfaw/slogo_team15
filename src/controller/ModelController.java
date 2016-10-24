@@ -17,11 +17,6 @@ public class ModelController {
 		myRobot = new Turtle();
 	}
 	
-	public static void main(String[] args) {
-		ModelController model = new ModelController();
-		model.userInputToModel("sum 3 if [ fd 4 ] [ sum 3 3 ]\nfd 3");
-	}
-	
 	public void userInputToModel(String aString) {
 		TextParser parser = new TextParser(myScope, myRobot);
 		AbstractSyntaxTree ast = new AbstractSyntaxTree(parser.getNodeStack(aString));
