@@ -60,7 +60,7 @@ class ConcreteErrorViewer implements IErrorViewer {
 	@Override
 	public void giveErrorStructure(Exception aError) {
 		myErrorList.add(0, aError);
-		myErrorLabel.setText(aError.toString());
+		myErrorLabel.setText(aError.getMessage());
 	}
 
 	@Override
