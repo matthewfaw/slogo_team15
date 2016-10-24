@@ -27,8 +27,8 @@ public class CommandFactory {
 	}
 	
 	public ICommand makeCommand(String aWord, String command) throws UnexpectedCommandException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException {
-		if (command.equals("Custom")) {
-			return (ICommand) Class.forName(PACKAGE_COMMAND + command + "Command").getConstructor(Scope.class, String.class).newInstance(myScope, aWord);
+		if (aWord.equals("Custom")) {
+			return (ICommand) Class.forName(PACKAGE_COMMAND + command + "Command").getConstructor(Scope.class, String.class).newInstance(myScope, command);
 		}
 		String type = myCommandTypeResources.getString(command);
 		if (type.equals("Function") ) {
@@ -41,7 +41,7 @@ public class CommandFactory {
 			return (ICommand) Class.forName(PACKAGE_COMMAND + command + "Command").getConstructor(Scope.class).newInstance(myScope);
 		}
 		if (type.equals("To")) {
-			return (ICommand) Class.forName(PACKAGE_COMMAND + command + "Command").getConstructor(Scope.class, String.class).newInstance(aWord);
+			return (ICommand) Class.forName(PACKAGE_COMMAND + command + "Command").getConstructor(Scope.class, String.class).newInstance(myScope, aWord);
 		}
 		throw new UnexpectedCommandException("Command " + command + " you entered was not found");
 	}

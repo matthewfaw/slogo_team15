@@ -50,30 +50,30 @@ public class NodeFactory {
 			return new VariableNode(translateToVariable(aWord), myScope); 
 		}
 		else if (Pattern.matches(mySyntaxResources.getString("Command"), aWord)) {
-			if (myScope.containsMethod(aWord)) {
-				ICommand commandClass = (ICommandBranch) myCommandFactory.makeCommand("Custom", aWord);
-				return (Node) Class.forName(PACKAGE_NODE + "CustomNode").getConstructor(ICommand.class, int.class, Scope.class).newInstance(commandClass, 1, myScope);
-			} else {
-				try {
-					String command = translateToCommand(aWord);
-					String type = myCommandTypeResources.getString(command);
-					int inputNumber = Integer.parseInt(mySyntaxResources.getString(command));
-					ICommand commandClass = null;
-					if (type.equals("Branch")) {
-						commandClass = (ICommandBranch) myCommandFactory.makeCommand(aWord, command);
-						return (Node) Class.forName(PACKAGE_NODE + type + "Node").getConstructor(ICommandBranch.class, int.class, Scope.class).
+			try {
+				String command = translateToCommand(aWord);
+				String type = myCommandTypeResources.getString(command);
+				int inputNumber = Integer.parseInt(mySyntaxResources.getString(command));
+				ICommand commandClass = null;
+				if (type.equals("Branch")) {
+					commandClass = (ICommandBranch) myCommandFactory.makeCommand(aWord, command);
+					return (Node) Class.forName(PACKAGE_NODE + type + "Node").getConstructor(ICommandBranch.class, int.class, Scope.class).
 							newInstance(commandClass, inputNumber, myScope);
-					} else if (type.equals("To")) {
-						commandClass = myCommandFactory.makeCommand(aWord, command);
-						return (Node) Class.forName(PACKAGE_NODE + type + "Node").getConstructor(ICommand.class, int.class, Scope.class).
-								newInstance(commandClass, inputNumber, myScope);
-					} else {
-						type = "Command";
-						commandClass = myCommandFactory.makeCommand(aWord, command);
-						return (Node) Class.forName(PACKAGE_NODE + type + "Node").getConstructor(ICommand.class, int.class, Scope.class).
+				} else if (type.equals("To")) {
+					commandClass = myCommandFactory.makeCommand(aWord, command);
+					return (Node) Class.forName(PACKAGE_NODE + type + "Node").getConstructor(ICommand.class, int.class, Scope.class).
 							newInstance(commandClass, inputNumber, myScope);
-					}
-				} catch (MissingResourceException e) {
+				} else {
+					type = "Command";
+					commandClass = myCommandFactory.makeCommand(aWord, command);
+					return (Node) Class.forName(PACKAGE_NODE + type + "Node").getConstructor(ICommand.class, int.class, Scope.class).
+							newInstance(commandClass, inputNumber, myScope);
+				}
+			} catch (MissingResourceException e) {
+				if (!myScope.containsMethod(aWord)) {
+					ICommand commandClass = (ICommandBranch) myCommandFactory.makeCommand("Custom", aWord);
+					return (Node) Class.forName(PACKAGE_NODE + "CustomNode").getConstructor(ICommand.class, int.class, Scope.class).newInstance(commandClass, 1, myScope);
+				} else {
 					e.addSuppressed(new UnexpectedCharacterException("The syntax expression: " + aWord + " is not associated to any known syntax in this language"));
 				}
 			}

@@ -1,21 +1,21 @@
 package back_end.model.node;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import back_end.model.exception.ArgumentException;
-import back_end.model.command.ICommandBranch;
+import back_end.model.states.Scope;
+import back_end.model.command.CustomCommand;
 
 public class CustomNode extends Node {
-	private ICommandBranch myMethod;
+	private CustomCommand myMethod;
 	
-	private ArrayList<Node> myInputs;
-	private ArrayList<Node> myFunction;
+	private List<Node> myInputs;
+	private List<Node> myFunction;
 	
-	private int myReturnValue;
+	private double myReturnValue;
 	private NodeState myEvaluationState;
 
-	public CustomNode(ICommandBranch aCommand, int aNumberOfInputs)
+	public CustomNode(CustomCommand aCommand, int aNumberOfInputs, Scope aScope)
 	{
 		super();
 		
@@ -39,7 +39,7 @@ public class CustomNode extends Node {
 		Node[] myInputList = myInputs.toArray(new Node[myInputs.size()]);
 		myMethod.eval(myInputList);
 		
-		myFunction = myMethod.getFunction().getChildren();
+		myFunction = ((Node) myMethod.getFunction()).getChildren();
 	}
 
 	@Override
