@@ -60,13 +60,17 @@ public class NodeFactory {
 					int inputNumber = Integer.parseInt(mySyntaxResources.getString(command));
 					ICommand commandClass = null;
 					if (type.equals("Branch")) {
-						type = "Command";
-						commandClass = myCommandFactory.makeCommand(command, aWord);
-						return (Node) Class.forName(PACKAGE_NODE + type + "Node").getConstructor(ICommand.class, int.class, Scope.class).
-							newInstance(commandClass, inputNumber, myScope);
-					} else {
-						commandClass = (ICommandBranch) myCommandFactory.makeCommand(command, aWord);
+						commandClass = (ICommandBranch) myCommandFactory.makeCommand(aWord, command);
 						return (Node) Class.forName(PACKAGE_NODE + type + "Node").getConstructor(ICommandBranch.class, int.class, Scope.class).
+							newInstance(commandClass, inputNumber, myScope);
+					} else if (type.equals("To")) {
+						commandClass = myCommandFactory.makeCommand(aWord, command);
+						return (Node) Class.forName(PACKAGE_NODE + "Command" + "Node").getConstructor(ICommand.class, int.class, Scope.class).
+								newInstance(commandClass, inputNumber, myScope);
+					} else {
+						type = "Command";
+						commandClass = myCommandFactory.makeCommand(aWord, command);
+						return (Node) Class.forName(PACKAGE_NODE + type + "Node").getConstructor(ICommand.class, int.class, Scope.class).
 							newInstance(commandClass, inputNumber, myScope);
 					}
 				} catch (MissingResourceException e) {
