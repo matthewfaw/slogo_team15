@@ -51,16 +51,9 @@ class ConcreteTurtleBox implements ITurtleBox {
                 mySandbox.setMaxSize(width, height);
 
 		myScroller.setContent(mySandbox);
-                testDraw(gc);
+		mySandbox.getChildren().add(drawingCanvas);
                 initBox(width, height);
 		
-	}
-	
-	private void testDraw(GraphicsContext gc) {
-	        gc.setStroke(Color.BLUE);
-	        gc.setLineWidth(5);
-	        gc.strokeLine(100, 120, 120, 240);
-	        mySandbox.getChildren().add(drawingCanvas);
 	}
 	
 	public GraphicsContext getGC() {

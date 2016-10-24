@@ -51,7 +51,7 @@ public class TurtleMovement implements ITurtleMovement {
         System.out.println("RobotX: " + myRobot.getX());
         System.out.println("RobotY: " + myRobot.getY());
 
-        if (curX != myRobot.getX()) {
+        if (curX != myRobot.getX()+myWidth/2) {
             moveTurtleX();
             if (myRobot.isPenDown()) {
                 gc.setStroke(Color.BLACK);
@@ -59,8 +59,9 @@ public class TurtleMovement implements ITurtleMovement {
                 gc.strokeLine(curX, myRobot.getX()+myHeight/2, myRobot.getY()+myWidth/2, myRobot.getY()+myHeight/2);
             }
             curX = myRobot.getX()+myWidth/2;
+            System.out.println("Houston we have a problem");
         }
-        if (curY != myRobot.getY()) {
+        if (curY != myRobot.getY()+myHeight/2) {
             moveTurtleY();
             if (myRobot.isPenDown()) {
                 gc.setStroke(Color.BLACK);
