@@ -4,6 +4,7 @@ package back_end.controller;
 import java.lang.reflect.InvocationTargetException;
 
 import back_end.model.exception.ArgumentException;
+import back_end.model.exception.EmptyInputException;
 import back_end.model.exception.UnexpectedCharacterException;
 import back_end.model.exception.UnexpectedCommandException;
 import back_end.model.robot.Robot;
@@ -28,7 +29,7 @@ public class ModelController {
 		myParser = new TextParser(myScope, (Robot) myRobot);
 	}
 	
-	public void userInputToModel(String aString) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException, UnexpectedCharacterException, UnexpectedCommandException {
+	public void userInputToModel(String aString) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException, UnexpectedCharacterException, UnexpectedCommandException, EmptyInputException {
 		AbstractSyntaxTree ast = new AbstractSyntaxTree(myParser.getNodeStack(aString));
 		try {
 			ast.executeNextInstruction();

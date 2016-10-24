@@ -2,6 +2,7 @@ package back_end.model.text_parser;
 
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.MissingResourceException;
 import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
@@ -50,18 +51,24 @@ public class NodeFactory {
 		}
 		else if (Pattern.matches(mySyntaxResources.getString("Command"), aWord)) {
 			String command = translateToCommand(aWord);
+			System.out.println(command);
 			String type = "";
-			type = myCommandTypeResources.getString(command);
-			int inputNumber = Integer.parseInt(mySyntaxResources.getString(command));
-			ICommand commandClass = null;
-			if (!type.equals("Branch") && !type.equals("Assignment") && !type.equals("Custom")) {
-				type = "Command";
-				commandClass = myCommandFactory.makeCommand(translateToCommand(command));
-			} else {
-				commandClass = (ICommandBranch) myCommandFactory.makeCommand(translateToCommand(command));
+			try {
+				type = myCommandTypeResources.getString(command);
+				int inputNumber = Integer.parseInt(mySyntaxResources.getString(command));
+				ICommand commandClass = null;
+				if (!type.equals("Branch") && !type.equals("Assignment") && !type.equals("Custom")) {
+					type = "Command";
+					commandClass = myCommandFactory.makeCommand(command);
+				} else {
+					commandClass = (ICommandBranch) myCommandFactory.makeCommand(command);
+				}
+
+				return (Node) Class.forName(PACKAGE_NODE + type + "Node").getConstructor(ICommand.class, int.class, Scope.class).
+						newInstance(commandClass, inputNumber, myScope);
+			} catch (MissingResourceException e) {
+				e.addSuppressed(new UnexpectedCharacterException("The syntax expression: " + aWord + " is not associated to any known syntax in this language"));
 			}
-			return (Node) Class.forName(PACKAGE_NODE + type + "Node").getConstructor(ICommand.class, int.class, Scope.class).
-					newInstance(commandClass, inputNumber, myScope);
 		}
 		else if (Pattern.matches(mySyntaxResources.getString("Constant"), aWord)) {
 			return new ConstantNode(Double.parseDouble(aWord));
