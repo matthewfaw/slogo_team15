@@ -6,6 +6,8 @@ import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
@@ -17,13 +19,15 @@ class ConcreteTurtleBox implements ITurtleBox {
 	Pane mySandbox;
 	ColorPicker myBackgroundColorPicker;
 	IViewRobot myRobot;
+	ImageView myTurtle;
+	
+	private final int CHARACTER_SIZE = 50;
 	
 	ConcreteTurtleBox(int width, int height){
 		myScroller = new ScrollPane();
 		myScroller.setPrefSize(width, height);
 		myScroller.setMinSize(width, height);
 		myScroller.setMaxSize(width, height);
-		
 		
 		mySandbox = new Pane();
 		mySandbox.setPrefSize(width, height);
@@ -32,13 +36,28 @@ class ConcreteTurtleBox implements ITurtleBox {
 		
 		myScroller.setContent(mySandbox);
 
-		initColorPicker();
+		initBox(width, height);
+	}
+	
+	public void initBox(int width, int height) {
+	           initColorPicker();
+	           loadDefaultTurtle(width, height);
+	}
+	
+	public void loadDefaultTurtle(int width, int height) {
+	    Image character = new Image(getClass().getClassLoader().getResourceAsStream("turtle.png"));
+	    myTurtle = new ImageView(character);
+	    myTurtle.setFitHeight(CHARACTER_SIZE);
+	    myTurtle.setFitWidth(CHARACTER_SIZE);
+	    myTurtle.setX(width/2);
+	    myTurtle.setY(height/2);
+	    mySandbox.getChildren().add(myTurtle);
 	}
 	
 	@Override
 	public void reset() {
-		// TODO Auto-generated method stub
-
+	    //TODO: Get magic numbers out of here
+	    initBox(500, 500);
 	}
 
 	@Override
