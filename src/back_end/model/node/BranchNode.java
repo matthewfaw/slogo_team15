@@ -26,7 +26,7 @@ public class BranchNode extends Node {
 	public BranchNode(ICommandBranch aCommand, int aNumberOfInputs, Scope aScope) {
 		super();
 
-		myEvaluationState = NodeState.EVALUATING_CONDITION;
+		myEvaluationState = NodeState.EVALUATING_INPUTS;
 		
 		myChildConditions = new ArrayList<Node>();
 		myChildBranches = new HashMap<Integer, List<Node>>();
@@ -86,7 +86,7 @@ public class BranchNode extends Node {
 	@Override
 	public List<Node> getChildren() {
 		switch (myEvaluationState) {
-		case EVALUATING_CONDITION:
+		case EVALUATING_INPUTS:
 			return myChildConditions;
 		case EVALUATING_BRANCH:
 			return myChildBranches.get(myActiveBranchIndex);

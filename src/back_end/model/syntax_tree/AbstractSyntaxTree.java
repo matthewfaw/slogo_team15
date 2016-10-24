@@ -9,11 +9,13 @@ import back_end.model.node.AssignmentNode;
 import back_end.model.node.BeginBraceNode;
 import back_end.model.node.BranchNode;
 import back_end.model.node.CommandNode;
+import back_end.model.node.CustomNode;
 import back_end.model.node.EndBraceNode;
 import back_end.model.node.ListNode;
 import back_end.model.node.Node;
 import back_end.model.node.NodeState;
 import back_end.model.node.NullNode;
+import back_end.model.node.ToNode;
 import back_end.model.node.ValueNode;
 
 public class AbstractSyntaxTree {
@@ -138,6 +140,10 @@ public class AbstractSyntaxTree {
 			performEvaluation((CommandNode) aNode);
 		} else if (aNode instanceof BranchNode) {
 			performEvaluation((BranchNode) aNode);
+		} else if (aNode instanceof ToNode) {
+			performEvaluation((ToNode) aNode); 
+		} else if (aNode instanceof CustomNode) {
+			performEvaluation((CustomNode) aNode);
 		} else {
 			//XXX: add error here
 		}
@@ -153,7 +159,7 @@ public class AbstractSyntaxTree {
 	}
 	private void performEvaluation(BranchNode aCondition) throws ArgumentException
 	{
-		if (aCondition.getEvaluationState() == NodeState.EVALUATING_CONDITION) {
+		if (aCondition.getEvaluationState() == NodeState.EVALUATING_INPUTS) {
 			aCondition.evalCondition();
 			if (aCondition.getConditionEvaluation() == -1) {
 				aCondition.setState(NodeState.VISITED);
@@ -163,9 +169,28 @@ public class AbstractSyntaxTree {
 			}
 		} else if (aCondition.getEvaluationState() == NodeState.EVALUATING_BRANCH) {
 			aCondition.eval();
-			aCondition.setEvaluationState(NodeState.EVALUATING_CONDITION);
+			aCondition.setEvaluationState(NodeState.EVALUATING_INPUTS);
 			//unmark all visited children
 			aCondition.unmarkAllChildren();
+		}
+	}
+	//XXX: change, since same as CommandNode
+	private void performEvaluation(ToNode aNode) throws ArgumentException
+	{
+		aNode.eval();
+		aNode.setState(NodeState.VISITED);
+		myExpressionStack.pop();
+	}
+	//XXX: change, since similar to BranchNode
+	private void performEvaluation(CustomNode aNode) throws ArgumentException
+	{
+		if (aNode.getEvaluationState() == NodeState.EVALUATING_INPUTS) {
+			aNode.evalInputs();
+			aNode.setEvaluationState(NodeState.EVALUATING_BRANCH);
+		} else if (aNode.getEvaluationState() == NodeState.EVALUATING_BRANCH) {
+			aNode.eval();
+			aNode.unmarkCustomChildren();
+			aNode.setState(NodeState.VISITED);
 		}
 	}
 	private boolean allInputsAreReadyToBeUsed(Node aParentNode)
@@ -202,8 +227,10 @@ public class AbstractSyntaxTree {
 			buildCallStackForNextInstruction((CommandNode) aNode);
 		} else if (aNode instanceof BranchNode) {
 			buildCallStackForNextInstruction((BranchNode) aNode);
-		} else if (aNode instanceof AssignmentNode) {
-			buildCallStackForNextInstruction((AssignmentNode) aNode);
+		} else if (aNode instanceof ToNode) {
+			buildCallStackForNextInstruction((ToNode) aNode);
+		} else if (aNode instanceof CustomNode) {
+			buildCallStackForNextInstruction((CustomNode) aNode);
 		} else if (aNode instanceof ListNode) {
 			buildCallStackForNextInstruction((ListNode) aNode);
 		}
@@ -238,16 +265,6 @@ public class AbstractSyntaxTree {
 			buildCallStackForNextInstruction(getNextUnvisitedChild(aNode));
 		}
 	}
-	//XXX: Remove this method--same as the method for CommandNode
-	private void buildCallStackForNextInstruction(AssignmentNode aNode)
-	{
-		if (isAvailableForTraversal(aNode)) {
-			if (!myExpressionStack.contains(aNode)) {
-				myExpressionStack.push(aNode);
-			}
-			buildCallStackForNextInstruction(getNextUnvisitedChild(aNode));
-		}
-	}
 	//XXX: Refactor this method to make it cleaner to read
 	private void buildCallStackForNextInstruction(ListNode aNode)
 	{
@@ -257,6 +274,26 @@ public class AbstractSyntaxTree {
 			} else {
 				buildCallStackForNextInstruction(getNextUnvisitedChild(aNode));
 			}
+		}
+	}
+	//XXX: add heirarchy to remove repeated code
+	private void buildCallStackForNextInstruction(ToNode aNode)
+	{
+		if (isAvailableForTraversal(aNode)) {
+			if (!myExpressionStack.contains(aNode)) {
+				myExpressionStack.push(aNode);
+			}
+			buildCallStackForNextInstruction(getNextUnvisitedChild(aNode));
+		}
+	}
+	//XXX: add heirarchy to remove repeated code
+	private void buildCallStackForNextInstruction(CustomNode aNode)
+	{
+		if (isAvailableForTraversal(aNode)) {
+			if (!myExpressionStack.contains(aNode)) {
+				myExpressionStack.push(aNode);
+			}
+			buildCallStackForNextInstruction(getNextUnvisitedChild(aNode));
 		}
 	}
 	
