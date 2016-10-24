@@ -9,7 +9,7 @@ import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
 public class TurtleMovement implements ITurtleMovement {
-
+    
     IViewRobot myRobot;
     private GraphicsContext gc;
     private ImageView myTurtle;
@@ -20,7 +20,11 @@ public class TurtleMovement implements ITurtleMovement {
     public static final int FRAMES_PER_SECOND = 60;
     private static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
     private static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
+    private ConcreteTurtleBox myConTurtBox;
     
+    public TurtleMovement(ConcreteTurtleBox myConTurt) {
+        myConTurtBox=myConTurt;
+    }
     public void gameLoop() {
         KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY),
                                       e -> updateTurtle());
@@ -31,8 +35,9 @@ public class TurtleMovement implements ITurtleMovement {
     }
     
     public void updateTurtle() {
-        gc = ConcreteTurtleBox.getGC();
-        myTurtle = ConcreteTurtleBox.getTurtle();
+        gc = myConTurtBox.getGC();
+        myTurtle = myConTurtBox.getTurtle();
+        myRobot = myConTurtBox.getRobot();
         if(curX != myRobot.getX()) {
             moveTurtleX(1);
             if(myRobot.isPenDown()) {

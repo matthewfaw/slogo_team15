@@ -15,7 +15,7 @@ import back_end.model.syntax_tree.AbstractSyntaxTree;
 import back_end.model.text_parser.TextParser;
 import integration.languages.Languages;
 import integration.observe.IObservable;
-import integration.observe.IObserver;
+import integration.observe.IRobotObserver;
 
 public class ModelController {
 	
@@ -41,11 +41,11 @@ public class ModelController {
 		}
 	}
 	
-	public void giveRobotObservers(IObserver ro){
+	public void giveRobotObservers(IRobotObserver ro){
 		myRobot.registerObserver(ro);
 	}
 	
-	public void giveVariableObservers(IObserver ro) {
+	public void giveVariableObservers(IRobotObserver ro) {
 		myScope.registerObserver(ro);
 	}
 	

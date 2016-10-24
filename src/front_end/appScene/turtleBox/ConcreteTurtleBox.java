@@ -23,16 +23,19 @@ class ConcreteTurtleBox implements ITurtleBox {
 	Pane mySandbox;
 	ColorPicker myBackgroundColorPicker;
 	IViewRobot myRobot;
-	static ImageView myTurtle;
+	ImageView myTurtle;
 	Group root;
 	Canvas drawingCanvas;
-	static GraphicsContext gc;
-	TurtleMovement myTurtMove = new TurtleMovement();
+	GraphicsContext gc;
+	TurtleMovement myTurtMove = new TurtleMovement(this);
 
-	
+	private int myWidth;
+	private int myHeight;
 	private final int CHARACTER_SIZE = 50;
 	
 	ConcreteTurtleBox(int width, int height){
+	        myWidth = width;
+	        myHeight = height;
 	        root = new Group();
 	        drawingCanvas = new Canvas(width, height);
 	        gc = drawingCanvas.getGraphicsContext2D();
@@ -59,16 +62,15 @@ class ConcreteTurtleBox implements ITurtleBox {
 	        mySandbox.getChildren().add(drawingCanvas);
 	}
 	
-	public static GraphicsContext getGC() {
+	public GraphicsContext getGC() {
 	    return gc;
 	}
 	
-	public static ImageView getTurtle() {
+	public ImageView getTurtle() {
 	    return myTurtle;
 	}
 	
 	public void initBox(int width, int height) {
-	           mySandbox.getChildren().clear();
 	           initColorPicker();
 	           loadDefaultTurtle(width, height);
 	}
@@ -86,7 +88,8 @@ class ConcreteTurtleBox implements ITurtleBox {
 	@Override
 	public void reset() {
 	    //TODO: Get magic numbers out of here
-	    initBox(500, 500);
+	    mySandbox.getChildren().clear();
+	    initBox(myWidth, myHeight);
 	}
 
 	@Override
@@ -95,16 +98,23 @@ class ConcreteTurtleBox implements ITurtleBox {
 	}
 
 	@Override
-	public void addRobot(IViewRobot aRobot) {
+	public void giveRobot(IViewRobot aRobot) {
 		myRobot = aRobot;
 
 	}
 	
+	public IViewRobot getRobot() {
+	    return myRobot;
+	}
+	
 	@Override
 	public void update() {
-		if(myRobot == null) return;
+		if(myRobot == null) {
+		    System.out.println("cats");
+		    return;
+		}
 		
-		myTurtMove.gameLoop();
+		myTurtMove.updateTurtle();
 		System.out.println(myRobot.getY());
 		
 	}
