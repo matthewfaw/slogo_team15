@@ -8,8 +8,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
+
 public class TurtleMovement implements ITurtleMovement {
-    
+
     IViewRobot myRobot;
     private GraphicsContext gc;
     private ImageView myTurtle;
@@ -17,18 +18,21 @@ public class TurtleMovement implements ITurtleMovement {
     private int myHeight;
     private double curX = myWidth/2;
     private double curY = myHeight/2;
-    
+
     public static final int FRAMES_PER_SECOND = 60;
     private static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
     private static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
     private ConcreteTurtleBox myConTurtBox;
-    
-    public TurtleMovement(ConcreteTurtleBox myConTurt, int width, int height) {
-        myConTurtBox=myConTurt;
+
+    public TurtleMovement (ConcreteTurtleBox myConTurt, int width, int height) {
+        myConTurtBox = myConTurt;
         myWidth = width;
         myHeight = height;
+        //curX = myRobot.getX();
+        //curY = myRobot.getY();
     }
-    public void gameLoop() {
+
+    public void gameLoop () {
         KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY),
                                       e -> updateTurtle());
         Timeline animation = new Timeline();
@@ -36,8 +40,8 @@ public class TurtleMovement implements ITurtleMovement {
         animation.getKeyFrames().add(frame);
         animation.play();
     }
-    
-    public void updateTurtle() {
+
+    public void updateTurtle () {
         gc = myConTurtBox.getGC();
         myTurtle = myConTurtBox.getTurtle();
         myRobot = myConTurtBox.getRobot();
@@ -47,35 +51,35 @@ public class TurtleMovement implements ITurtleMovement {
         System.out.println("RobotX: " + myRobot.getX());
         System.out.println("RobotY: " + myRobot.getY());
 
-        if(curX != myRobot.getX()) {
+        if (curX != myRobot.getX()) {
             System.out.println("HERE");
             moveTurtleX();
-            if(myRobot.isPenDown()) {
+            if (myRobot.isPenDown()) {
                 gc.setStroke(Color.BLACK);
                 gc.setLineWidth(5);
-                gc.strokeLine(curX, curX+1, myRobot.getY(), myRobot.getY());
+                gc.strokeLine(curX, myRobot.getX()-myWidth/2, myRobot.getY()-myHeight/2, myRobot.getY()-myHeight/2);
             }
         }
-        if(curY != myRobot.getY()) {
+        if (curY != myRobot.getY()) {
             System.out.println("HERE");
             moveTurtleY();
-            if(myRobot.isPenDown()) {
+            if (myRobot.isPenDown()) {
                 gc.setStroke(Color.BLACK);
                 gc.setLineWidth(5);
-                gc.strokeLine(myRobot.getX(), myRobot.getX(), curY, curY+1);
+                gc.strokeLine(myRobot.getX()-myWidth/2, myRobot.getX()-myWidth/2, curY, myRobot.getY()-myHeight/2);
             }
         }
-        
+
     }
-    
-    private void moveTurtleX() {
+
+    private void moveTurtleX () {
         myTurtle.setX(myRobot.getX());
-        curX = myRobot.getX();
+        curX = myRobot.getX()-myWidth/2;
     }
-    
-    private void moveTurtleY() {
+
+    private void moveTurtleY () {
         myTurtle.setY(myRobot.getY());
-        curY = myRobot.getY();
+        curY = myRobot.getY()-myHeight/2;
     }
-    
+
 }

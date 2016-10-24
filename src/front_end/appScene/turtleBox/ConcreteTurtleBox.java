@@ -87,7 +87,8 @@ class ConcreteTurtleBox implements ITurtleBox {
 	
 	@Override
 	public void reset() {
-	    mySandbox.getChildren().clear();
+	    gc.clearRect(0, 0, myWidth, myHeight);
+	    mySandbox.getChildren().remove(myTurtle);
 	    initBox(myWidth, myHeight);
 	}
 
