@@ -17,7 +17,7 @@ public class ConstantNode extends ValueNode {
 	}
 	
 	@Override
-	public double eval(List<Node> aList) throws ArgumentException {
+	public double eval() throws ArgumentException {
 		// TODO Auto-generated method stub
 		return myValue;
 	}
@@ -34,8 +34,7 @@ public class ConstantNode extends ValueNode {
 
 	@Override
 	public double getValue() {
-		// TODO Auto-generated method stub
-		return 0;
+		return myValue;
 	}
 
 }

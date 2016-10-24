@@ -51,21 +51,21 @@ public class NodeFactory {
 		}
 		else if (Pattern.matches(mySyntaxResources.getString("Command"), aWord)) {
 			String command = translateToCommand(aWord);
-			System.out.println(command);
-			String type = "";
+			String type;
 			try {
 				type = myCommandTypeResources.getString(command);
 				int inputNumber = Integer.parseInt(mySyntaxResources.getString(command));
 				ICommand commandClass = null;
-				if (!type.equals("Branch") && !type.equals("Assignment") && !type.equals("Custom")) {
+				if (!type.equals("Branch") && !type.equals("Custom")) {
 					type = "Command";
 					commandClass = myCommandFactory.makeCommand(command);
+					return (Node) Class.forName(PACKAGE_NODE + type + "Node").getConstructor(ICommand.class, int.class, Scope.class).
+							newInstance(commandClass, inputNumber, myScope);
 				} else {
 					commandClass = (ICommandBranch) myCommandFactory.makeCommand(command);
+					return (Node) Class.forName(PACKAGE_NODE + type + "Node").getConstructor(ICommandBranch.class, int.class, Scope.class).
+							newInstance(commandClass, inputNumber, myScope);
 				}
-
-				return (Node) Class.forName(PACKAGE_NODE + type + "Node").getConstructor(ICommand.class, int.class, Scope.class).
-						newInstance(commandClass, inputNumber, myScope);
 			} catch (MissingResourceException e) {
 				e.addSuppressed(new UnexpectedCharacterException("The syntax expression: " + aWord + " is not associated to any known syntax in this language"));
 			}

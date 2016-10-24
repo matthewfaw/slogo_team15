@@ -6,12 +6,13 @@ import back_end.model.exception.ArgumentException;
 
 public class AssignmentNode extends Node {
 	
+	//TODO
 	public AssignmentNode() {
 		super();
 	}
 
 	@Override
-	public double eval(List<Node> aList) throws ArgumentException {
+	public double eval() throws ArgumentException {
 		// TODO Auto-generated method stub
 		return 0;
 	}

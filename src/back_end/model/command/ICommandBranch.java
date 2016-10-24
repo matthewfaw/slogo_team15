@@ -7,5 +7,5 @@ public interface ICommandBranch extends ICommand {
 
 	public double eval(IReadableInput... aList);
 	
-	public double evalCondition(IReadableInput...aList);
+	public int evalCondition(IReadableInput...aList);
 }

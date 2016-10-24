@@ -10,7 +10,7 @@ import integration.observe.IObservable;
 import integration.observe.IObserver;
 
 
-public class Scope implements IObservable{
+public class Scope implements IObservable {
 	
 	private static final String DEFAULT = "DEFAULT";
 	
@@ -50,8 +50,8 @@ public class Scope implements IObservable{
 	}
 
 	public void assignVariable(String aName, double aValue) {
-		notifyObservers();
 		myScopeMap.get(currentScope).assignVariable(aName, aValue);
+		notifyObservers();
 		
 	}
 	

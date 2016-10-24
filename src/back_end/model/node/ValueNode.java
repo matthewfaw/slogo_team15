@@ -24,7 +24,7 @@ public class ValueNode extends Node {
 	}
 
 	@Override
-	public double eval(List<Node> aList) throws ArgumentException {
+	public double eval() throws ArgumentException {
 		// TODO Auto-generated method stub
 		return 0;
 	}

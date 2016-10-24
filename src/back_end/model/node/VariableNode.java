@@ -10,20 +10,18 @@ public class VariableNode extends ValueNode {
 	private String myName;
 	private int myNumberOfInputs = 0;
 	private Scope myScope;
-	private double myValue;
+	//private double myValue;
 	
 	public VariableNode(String aVariable, Scope aScope) {
 		super();
 
 		myName = aVariable;
 		myScope = aScope;
-		myValue = myScope.getValue(myName);
 	}
 
 	@Override
-	public double eval(List<Node> aList) throws ArgumentException {
-		// TODO Auto-generated method stub
-		return myValue;
+	public double eval() throws ArgumentException {
+		return myScope.getValue(myName);
 	}
 	
 	public int getNumberOfInputs() {
@@ -37,6 +35,6 @@ public class VariableNode extends ValueNode {
 
 	@Override
 	public double getValue() {
-		return myValue;
+		return myScope.getValue(myName);
 	}
 }
