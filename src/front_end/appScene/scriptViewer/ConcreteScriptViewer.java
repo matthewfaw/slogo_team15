@@ -1,5 +1,6 @@
 package front_end.appScene.scriptViewer;
 
+import integration.languages.Languages;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
@@ -43,5 +44,11 @@ class ConcreteScriptViewer implements IScriptViewer {
         // TODO Auto-generated method stub
         return myScriptViewer;
     }
+
+	@Override
+	public void switchLanguage(Languages aLanguage) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

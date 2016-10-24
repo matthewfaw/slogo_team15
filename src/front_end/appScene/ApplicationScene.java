@@ -1,5 +1,7 @@
 package front_end.appScene;
 
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -98,11 +100,15 @@ public class ApplicationScene {
     private Map<Languages, EventHandler<ActionEvent>> makeLanguageMap(){
     	Map<Languages, EventHandler<ActionEvent>> languageMap = new HashMap<>();
     	
-    	for (Languages lang : Languages.class.getEnumConstants()) {
-			languageMap.put(lang, e -> {System.out.println(lang.getName());});
+    	Collection<Languages> langSet = Arrays.asList(Languages.values());
+    	
+    	for (Languages lang : langSet) {
+			languageMap.put(lang, e -> { 
+				myToolbar.switchLanguage(lang);
+			});
 		}
     	
-    	return null;
+    	return languageMap;
     }
     
     private void configureToolbar(){
@@ -110,7 +116,7 @@ public class ApplicationScene {
     	
     	myToolbar.onRunPress( e -> runAll() );
     	
-    	//myToolbar.onLanguageSelect( makeLanguageMap() );
+    	myToolbar.onLanguageSelect( makeLanguageMap() );
     	
    }
     

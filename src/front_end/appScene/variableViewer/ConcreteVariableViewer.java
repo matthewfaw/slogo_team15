@@ -3,6 +3,7 @@ package front_end.appScene.variableViewer;
 import java.util.Map;
 
 import back_end.model.states.IViewVariableState;
+import integration.languages.Languages;
 import javafx.scene.Node;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -49,6 +50,12 @@ class ConcreteVariableViewer implements IVariableViewer {
 		for (String varName : aVariableState.getVariableKeySet()) {
 		}
 		
+		
+	}
+
+	@Override
+	public void switchLanguage(Languages aLanguage) {
+		// TODO Auto-generated method stub
 		
 	}
 

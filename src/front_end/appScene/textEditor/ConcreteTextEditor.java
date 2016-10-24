@@ -3,6 +3,9 @@ package front_end.appScene.textEditor;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import integration.languages.Languages;
+
 import java.util.ArrayList;
 
 import javafx.beans.value.ChangeListener;
@@ -168,5 +171,11 @@ class ConcreteTextEditor implements ITextEditor{
 
 			}});
 		myTextEditor.setContent(aContent);
+	}
+
+	@Override
+	public void switchLanguage(Languages aLanguage) {
+		// TODO Auto-generated method stub
+		
 	}
 }

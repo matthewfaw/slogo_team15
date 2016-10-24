@@ -1,6 +1,7 @@
 package front_end.appScene.turtleBox;
 
 import back_end.model.robot.IViewRobot;
+import integration.languages.Languages;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.ColorPicker;
@@ -68,6 +69,12 @@ class ConcreteTurtleBox implements ITurtleBox {
 										Insets.EMPTY
 										))));
 		mySandbox.getChildren().add(myBackgroundColorPicker);
+	}
+
+	@Override
+	public void switchLanguage(Languages aLanguage) {
+		// TODO Auto-generated method stub
+		
 	}
 
 
