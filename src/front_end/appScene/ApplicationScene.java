@@ -1,11 +1,14 @@
 package front_end.appScene;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
 import back_end.controller.ModelController;
+import back_end.model.exception.UnexpectedCharacterException;
+import back_end.model.exception.UnexpectedCommandException;
 import front_end.appScene.errorViewer.ErrorViewerFactory;
 import front_end.appScene.errorViewer.IErrorViewer;
 import front_end.appScene.scriptViewer.IScriptViewer;
@@ -89,10 +92,13 @@ public class ApplicationScene {
 		}
 		
 		try {
-    		myModel.userInputToModel(sb.toString());
-		} catch (Exception e2) {
-			//TODO: Implement error viewing
-		} 
+			myModel.userInputToModel(sb.toString());
+		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
+				| NoSuchMethodException | SecurityException | ClassNotFoundException | UnexpectedCharacterException
+				| UnexpectedCommandException e) {
+			myErrorViewer.giveErrorStructure(e);
+		}
+		
 		
 		myVariableViewer.showVariables(myModel.getVariableMap());
     }
