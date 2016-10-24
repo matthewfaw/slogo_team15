@@ -2,9 +2,9 @@ package back_end.model.node;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import back_end.model.exception.ArgumentException;
 import back_end.model.command.ICommandBranch;
+
 
 public class CustomNode extends Node {
 	private ICommandBranch myMethod;
@@ -42,10 +42,10 @@ public class CustomNode extends Node {
 		myFunction = myMethod.getFunction().getChildren();
 	}
 
-	@Override
-	public String getName() {
-		return null;
-	}
+    @Override
+    public String getName () {
+        return null;
+    }
 
 	@Override
 	public double getValue() {

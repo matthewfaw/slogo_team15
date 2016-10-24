@@ -1,108 +1,115 @@
 package back_end.model.robot;
 
 import java.util.ArrayList;
-
 import integration.observe.IObservable;
-import integration.observe.IObserver;
+import integration.observe.IRobotObserver;
+
 
 public class Turtle implements Robot, IViewRobot, IObservable {
-	
-	private double myXpos;
-	private double myYpos;
-	private double myRotation;
-	private boolean myPenDown;
-	private boolean myVisibility;
-	private ArrayList<IObserver> myObservers;
-	
-	public Turtle() {
-		myObservers = new ArrayList<IObserver>();
-	}
 
-	/** SETTERS **/
-	
-	@Override
-	public void setX(double x) {
-		notifyObservers();
-		myXpos = x;
-		
-	}
+    private double myXpos;
+    private double myYpos;
+    private double myRotation;
+    private boolean myPenDown;
+    private boolean myVisibility;
+    private ArrayList<IRobotObserver> myObservers;
 
-	@Override
-	public void setY(double y) {
-		notifyObservers();
-		myYpos = y;
-		
-	}
-	
-	@Override
-	public void setRotation(double r) {
-		notifyObservers();
-		myRotation = r; 
-	}
+    public Turtle () {
+        myObservers = new ArrayList<IRobotObserver>();
 
-	@Override
-	public void setPenDown(boolean t) {
-		myPenDown = t;
-		
-	}
+        // TODO: Move this to a resource file, and have the
+        // constructor initialize these vals
+        myVisibility = true;
+        myXpos = 0.0;
+        myYpos = 0.0;
+        myPenDown = false;
+    }
 
-	@Override
-	public void setVisible(boolean t) {
-		notifyObservers();
-		myVisibility = t;
-	}
-	
-	
-	
-	/** GETTERS **/
+    /** SETTERS **/
 
-	@Override
-	public double getX() {
-		return myXpos;
-	}
+    @Override
+    public void setX (double x) {
+        myXpos = x;
+        notifyObservers();
 
-	@Override
-	public double getY() {
-		return myYpos;
-	}
+    }
 
-	@Override
-	public double getRotation() {
-		return myRotation;
-	}
+    @Override
+    public void setY (double y) {
+        myYpos = y;
+        notifyObservers();
 
-	@Override
-	public boolean isPenDown() {
-		return myPenDown;
-	}
+    }
 
-	@Override
-	public boolean isVisible() {
-		return myVisibility;
-	}
+    @Override
+    public void setRotation (double r) {
+        myRotation = r;
+        notifyObservers();
 
-	/** OBSERVERABLE **/
-	
-	@Override
-	public void registerObserver(IObserver o) {
-		myObservers.add(o);
-	}
+    }
 
-	@Override
-	public void removeObserver(IObserver o) {
-		int i = myObservers.indexOf(o);
-		if (i > 0) {
-			myObservers.remove(i);
-		}
-		
-	}
+    @Override
+    public void setPenDown (boolean t) {
+        myPenDown = t;
 
-	@Override
-	public void notifyObservers() {
-		for (IObserver observer : myObservers) {
-			observer.update();
-		}
-	}
+    }
 
+    @Override
+    public void setVisible (boolean t) {
+        myVisibility = t;
+        notifyObservers();
+
+    }
+
+    /** GETTERS **/
+
+    @Override
+    public double getX () {
+        return myXpos;
+    }
+
+    @Override
+    public double getY () {
+        return myYpos;
+    }
+
+    @Override
+    public double getRotation () {
+        return myRotation;
+    }
+
+    @Override
+    public boolean isPenDown () {
+        return myPenDown;
+    }
+
+    @Override
+    public boolean isVisible () {
+        return myVisibility;
+    }
+
+    /** OBSERVERABLE **/
+
+    @Override
+    public void registerObserver (IRobotObserver o) {
+        myObservers.add(o);
+        o.giveRobot(this);
+    }
+
+    @Override
+    public void removeObserver (IRobotObserver o) {
+        int i = myObservers.indexOf(o);
+        if (i > 0) {
+            myObservers.remove(i);
+        }
+
+    }
+
+    @Override
+    public void notifyObservers () {
+        for (IRobotObserver observer : myObservers) {
+            observer.update();
+        }
+    }
 
 }

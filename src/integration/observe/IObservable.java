@@ -1,11 +1,11 @@
 package integration.observe;
 
 public interface IObservable {
-	
-	public void registerObserver(IObserver o);
-	
-	public void removeObserver(IObserver o);
-	
-	public void notifyObservers();
+
+    public void registerObserver (IRobotObserver o);
+
+    public void removeObserver (IRobotObserver o);
+
+    public void notifyObservers ();
 
 }
