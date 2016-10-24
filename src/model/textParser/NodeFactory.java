@@ -55,7 +55,7 @@ public class NodeFactory {
 			if (!type.equals("Branch") && !type.equals("Custom")) {
 				type = "Command";
 				try {
-					commandClass = myCommandFactory.makeCommand(translateToCommand(command));
+					commandClass = myCommandFactory.makeCommand(command);
 					return (Node) Class.forName(PACKAGE_NODE + type + "Node").getConstructor(ICommand.class, int.class, Scope.class).
 							newInstance(commandClass, inputNumber, myScope);
 				} catch (InstantiationException | IllegalAccessException | IllegalArgumentException

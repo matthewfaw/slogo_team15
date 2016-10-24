@@ -112,7 +112,7 @@ public class AbstractSyntaxTree {
 	private void updateList(BranchNode aNode, Stack<Node> aOriginalNodeStack, Stack<Node> aCurrentInputStack)
 	{
 		// Set up conditions
-		aNode.addConditions((ListNode) aCurrentInputStack.pop());
+		aNode.addConditions(aCurrentInputStack.pop());
 		// Set up branches
 		for (int i=1; i<aNode.getNumberOfInputs(); ++i) {
 			ListNode inputNode = (ListNode) aCurrentInputStack.pop();

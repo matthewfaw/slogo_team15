@@ -101,7 +101,15 @@ public class BranchNode extends Node {
 		//XXX: remove this
 		throw new RuntimeException("Do not use this method");
 	}
-	public void addConditions(ListNode aList)
+	public void addConditions(Node aNode)
+	{
+		if (aNode instanceof ListNode) {
+			addConditions((ListNode) aNode);
+		} else {
+			myChildConditions.add(aNode);
+		}
+	}
+	private void addConditions(ListNode aList)
 	{
 		for (Node child: aList.getChildren()) {
 			myChildConditions.add(child);

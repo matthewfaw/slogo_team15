@@ -22,7 +22,7 @@ public class ModelController {
 	public static void main(String[] args)
 	{
 		ModelController mc = new ModelController();
-		String command = "+ 3 repeat + 2 3 [ + 3 3 ] \nfd 3";
+		String command = "+ 3 repeat + 2 3 [ make :x 3 st ] \nfd 3";
 		mc.userInputToModel(command);
 	}
 	
