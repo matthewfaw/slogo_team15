@@ -17,11 +17,13 @@ public class BranchNode extends Node {
 	private int myActiveBranchIndex;
 	
 	private double myReturnValue;
-	private boolean myConditionReturnValue;
+	private int myConditionReturnValue;
 	
 	private int myNumberOfInputs;
+	private ICommandBranch myCommand;
 
-	public BranchNode(ICommand aCommand, int aNumberOfInputs, Scope aScope) {
+
+	public BranchNode(ICommandBranch aCommand, int aNumberOfInputs, Scope aScope) {
 		super();
 
 		myEvaluationState = NodeState.EVALUATING_CONDITION;
@@ -30,6 +32,7 @@ public class BranchNode extends Node {
 		myChildBranches = new HashMap<Integer, List<Node>>();
 		
 		myNumberOfInputs = aNumberOfInputs;
+		myCommand = aCommand;
 	}
 	
 	public int getNumberOfInputs()
@@ -41,17 +44,23 @@ public class BranchNode extends Node {
 	{
 		return myEvaluationState;
 	}
+	public void setEvaluationState(NodeState aNodeState)
+	{
+		myEvaluationState = aNodeState;
+	}
 	
 	@Override
-	public double eval(List<Node> aList) throws ArgumentException {
-		myReturnValue = 0;
+	public double eval() throws ArgumentException {
+		myReturnValue = myCommand.eval(myChildBranches.get(myActiveBranchIndex));
 		return myReturnValue;
 	}
-	public boolean evalCondition(List<Node> aList) {
-		myConditionReturnValue = false;
-		return myConditionReturnValue ;
+	public int evalCondition() {
+		myConditionReturnValue = myCommand.evalCommand(myChildConditions);
+//		myEvaluationState = NodeState.EVALUATING_BRANCH;
+		myActiveBranchIndex = myConditionReturnValue;
+		return myConditionReturnValue;
 	}
-	public boolean getConditionEvaluation()
+	public int getConditionEvaluation()
 	{
 		return myConditionReturnValue;
 	}

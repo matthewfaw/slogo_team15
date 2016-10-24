@@ -131,7 +131,7 @@ public class AbstractSyntaxTree {
 	private void performEvaluation(CommandNode aNextInstruction) throws ArgumentException
 	{
 		// Call the next instruction
-		aNextInstruction.eval(aNextInstruction.getChildren());
+		aNextInstruction.eval();
 		// Mark nodes as visited
 		aNextInstruction.setState(NodeState.VISITED);
 		// Update the stack
@@ -140,12 +140,15 @@ public class AbstractSyntaxTree {
 	private void performEvaluation(BranchNode aCondition) throws ArgumentException
 	{
 		if (aCondition.getEvaluationState() == NodeState.EVALUATING_CONDITION) {
-			aCondition.evalCondition(aCondition.getChildren());
-			if (aCondition.getConditionEvaluation()) {
+			aCondition.evalCondition();
+			if (aCondition.getConditionEvaluation() == -1) {
+				aCondition.setState(NodeState.VISITED);
 				myExpressionStack.pop();
+			} else {
+				aCondition.setEvaluationState(NodeState.EVALUATING_BRANCH);
 			}
 		} else if (aCondition.getEvaluationState() == NodeState.EVALUATING_BRANCH) {
-			aCondition.eval(aCondition.getChildren());
+			aCondition.eval();
 		}
 	}
 	private boolean allInputsAreReadyToBeUsed(Node aParentNode)
