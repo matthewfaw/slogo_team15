@@ -9,17 +9,16 @@ package back_end.model.robot;
 
 public interface IViewRobot {
 
-	/**GETTERS**/
-	
-	public double getX();
-	
-	public double getY();
-	
-	public double getRotation();
-	
-	public boolean isPenDown();
-	
-	public boolean isVisible();
+    /** GETTERS **/
 
-	
+    public double getX ();
+
+    public double getY ();
+
+    public double getRotation ();
+
+    public boolean isPenDown ();
+
+    public boolean isVisible ();
+
 }

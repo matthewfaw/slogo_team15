@@ -1,40 +1,40 @@
 package back_end.model.node;
 
 import java.util.List;
-
 import back_end.model.exception.ArgumentException;
 
+
 public class ConstantNode extends ValueNode {
-	
-	private double myValue;
-	private int myNumberOfInputs;
 
-	public ConstantNode(double aValue) {
-		super();
+    private double myValue;
+    private int myNumberOfInputs;
 
-		myValue = aValue;
-		myNumberOfInputs = 0;
-	}
-	
-	@Override
-	public double eval() throws ArgumentException {
-		// TODO Auto-generated method stub
-		return myValue;
-	}
+    public ConstantNode (double aValue) {
+        super();
 
-	public int getNumberOfInputs() {
-		return myNumberOfInputs;
-	}
+        myValue = aValue;
+        myNumberOfInputs = 0;
+    }
 
-	@Override
-	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public double eval () throws ArgumentException {
+        // TODO Auto-generated method stub
+        return myValue;
+    }
 
-	@Override
-	public double getValue() {
-		return myValue;
-	}
+    public int getNumberOfInputs () {
+        return myNumberOfInputs;
+    }
+
+    @Override
+    public String getName () {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public double getValue () {
+        return myValue;
+    }
 
 }

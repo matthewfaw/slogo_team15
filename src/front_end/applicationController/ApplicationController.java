@@ -1,6 +1,5 @@
 package front_end.applicationController;
 
-
 public class ApplicationController {
 
     private String TITLE = "SLOGO";
@@ -8,11 +7,11 @@ public class ApplicationController {
     public ApplicationController () {
     }
 
-    public void init ( int aWidth, int aHeight) {
+    public void init (int aWidth, int aHeight) {
     }
 
     public String getTitle () {
         return TITLE;
     }
-    
+
 }
