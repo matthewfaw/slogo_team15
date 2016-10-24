@@ -8,18 +8,17 @@ import java.util.Map.Entry;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
+
 /**
  * 
  * @author Robert Duvall
  *
  */
 
-
 public class CommandTranslator {
     // "types" and the regular expression patterns that recognize those types
     // note, it is a list because order matters (some patterns may be more generic)
     private List<Entry<String, Pattern>> mySymbols;
-
 
     public CommandTranslator () {
         mySymbols = new ArrayList<>();
@@ -36,7 +35,7 @@ public class CommandTranslator {
         }
     }
 
-    // returns the language's type associated with the given text if one exists 
+    // returns the language's type associated with the given text if one exists
     public String getSymbol (String text) {
         final String ERROR = "NO MATCH";
         for (Entry<String, Pattern> e : mySymbols) {
