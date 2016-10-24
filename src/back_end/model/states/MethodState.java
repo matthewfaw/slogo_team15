@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import back_end.model.node.Node;
-import integration.IObservable;
+import integration.observe.IObservable;
 import javafx.util.Pair;
 
 public class MethodState {

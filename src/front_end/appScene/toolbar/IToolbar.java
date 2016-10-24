@@ -1,6 +1,10 @@
 package front_end.appScene.toolbar;
 
+import java.util.Map;
+
 import front_end.appScene.IViewer;
+import integration.languages.Languages;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 
@@ -12,15 +16,15 @@ import javafx.scene.input.MouseEvent;
  */
 public interface IToolbar extends IViewer {
 
-	public void onBuildPress(EventHandler<MouseEvent> event);
+	public void onBuildPress(EventHandler<MouseEvent> aEvent);
 	
-	public void onRunPress(EventHandler<MouseEvent> event);
+	public void onRunPress(EventHandler<MouseEvent> aEvent);
 	
-	public void onStepPress(EventHandler<MouseEvent> event);
+	public void onStepPress(EventHandler<MouseEvent> aEvent);
 	
-	public void onHelpPress(EventHandler<MouseEvent> event);
+	public void onHelpPress(EventHandler<MouseEvent> aEvent);
 	
-	public void onLanguagePress(EventHandler<MouseEvent> event);
+	public void onLanguageSelect(Map<Languages,  EventHandler<ActionEvent>> aLanguageEvent);
 	
-	public void onResetPress(EventHandler<MouseEvent> event);
+	public void onResetPress(EventHandler<MouseEvent> aEvent);
 }

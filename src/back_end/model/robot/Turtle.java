@@ -2,8 +2,8 @@ package back_end.model.robot;
 
 import java.util.ArrayList;
 
-import integration.IObservable;
-import integration.IObserver;
+import integration.observe.IObservable;
+import integration.observe.IObserver;
 
 public class Turtle implements Robot, IViewRobot, IObservable {
 	

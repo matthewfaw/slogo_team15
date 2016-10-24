@@ -2,7 +2,7 @@ package front_end.appScene.turtleBox;
 
 import back_end.model.robot.IViewRobot;
 import front_end.appScene.IViewer;
-import integration.IObserver;
+import integration.observe.IObserver;
 
 public interface ITurtleBox extends IViewer, IObserver  {
 

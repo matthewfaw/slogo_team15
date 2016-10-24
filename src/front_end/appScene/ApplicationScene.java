@@ -1,5 +1,8 @@
 package front_end.appScene;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import back_end.controller.ModelController;
 import front_end.appScene.errorViewer.ErrorViewerFactory;
 import front_end.appScene.errorViewer.IErrorViewer;
@@ -13,6 +16,9 @@ import front_end.appScene.turtleBox.ITurtleBox;
 import front_end.appScene.turtleBox.TurtleBoxFactory;
 import front_end.appScene.variableViewer.IVariableViewer;
 import front_end.appScene.variableViewer.VariableViewerFactory;
+import integration.languages.Languages;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
@@ -62,36 +68,49 @@ public class ApplicationScene {
         return myScene;
     }
     
+    private void resetAll(){
+		myTextEditor.reset();
+		myErrorViewer.reset();
+		myTurtleBox.reset();
+		myVariableViewer.reset();
+		myScriptViewer.reset();
+    }
+    
+    private void runAll(){
+    	StringBuilder sb = new StringBuilder();
+		
+		String newLine = "\n";
+		
+		for (int i = 0; i < myTextEditor.getInstructionList().size(); i++) {
+			sb.append( myTextEditor.getInstructionList().get(i) );
+			sb.append( newLine );
+		}
+		
+		try {
+    		myModel.userInputToModel(sb.toString());
+		} catch (Exception e2) {
+			//TODO: Implement error viewing
+		} 
+		
+		myVariableViewer.showVariables(myModel.getVariableMap());
+    }
+    
+    private Map<Languages, EventHandler<ActionEvent>> makeLanguageMap(){
+    	Map<Languages, EventHandler<ActionEvent>> languageMap = new HashMap<>();
+    	
+    	for (Languages lang : Languages.class.getEnumConstants()) {
+			languageMap.put(lang, e -> {System.out.println(lang.getName());});
+		}
+    	
+    	return null;
+    }
+    
     private void configureToolbar(){
-    	myToolbar.onResetPress(e -> {
-    		
-    		myTextEditor.reset();
-    		myErrorViewer.reset();
-    		myTurtleBox.reset();
-    		myVariableViewer.reset();
-    		myScriptViewer.reset();
+    	myToolbar.onResetPress( e -> resetAll() );
     	
-    	});
+    	myToolbar.onRunPress( e -> runAll() );
     	
-    	myToolbar.onRunPress( e -> {
-    		StringBuilder sb = new StringBuilder();
-    		
-    		String newLine = "\n";
-    		
-    		for (int i = 0; i < myTextEditor.getInstructionList().size(); i++) {
-				sb.append( myTextEditor.getInstructionList().get(i) );
-				sb.append( newLine );
-			}
-    		
-    		try {
-        		myModel.userInputToModel(sb.toString());
-			} catch (Exception e2) {
-				//TODO: Implement error viewing
-			} 
-    		
-    		myVariableViewer.showVariables(myModel.getVariableMap());
-  
-    	});
+    	//myToolbar.onLanguageSelect( makeLanguageMap() );
     	
    }
     

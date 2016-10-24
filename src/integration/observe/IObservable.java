@@ -1,4 +1,4 @@
-package integration;
+package integration.observe;
 
 public interface IObservable {
 	

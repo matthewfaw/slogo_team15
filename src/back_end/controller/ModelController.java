@@ -8,8 +8,8 @@ import back_end.model.states.IViewVariableState;
 import back_end.model.states.Scope;
 import back_end.model.syntax_tree.AbstractSyntaxTree;
 import back_end.model.textParser.TextParser;
-import integration.IObservable;
-import integration.IObserver;
+import integration.observe.IObservable;
+import integration.observe.IObserver;
 
 public class ModelController {
 	

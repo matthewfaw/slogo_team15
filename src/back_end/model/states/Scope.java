@@ -6,8 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import integration.IObservable;
-import integration.IObserver;
+import integration.observe.IObservable;
+import integration.observe.IObserver;
 
 
 public class Scope implements IObservable{

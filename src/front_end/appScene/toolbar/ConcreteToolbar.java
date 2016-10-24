@@ -6,11 +6,17 @@ import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+
+import java.util.Iterator;
+import java.util.Map;
 import java.util.ResourceBundle;
+
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
 import javafx.geometry.Insets;
 
+import integration.languages.Languages;
 
 class ConcreteToolbar implements IToolbar {
 
@@ -42,7 +48,7 @@ class ConcreteToolbar implements IToolbar {
         myRun = new Button(myGUIResources.getString("RunButton"));
         myHelp = new Button(myGUIResources.getString("HelpButton"));
         myBuild = new Button(myGUIResources.getString("BuildButton"));
-        myLanguage = initLanguageButton();
+        myLanguage = new MenuButton(myGUIResources.getString("LanguageDropDown"));
         myStep = new Button(myGUIResources.getString("StepButton"));
         myReset = new Button(myGUIResources.getString("ClearButton"));
     }
@@ -69,8 +75,13 @@ class ConcreteToolbar implements IToolbar {
     }
 
     @Override
-    public void onLanguagePress (EventHandler<MouseEvent> event) {
-    	// TODO Make into onLanguageSelect, AND implement this
+    public void onLanguageSelect (Map<Languages, EventHandler<ActionEvent>> aLanguageEventMap) {
+    	
+    	for (Languages lang : aLanguageEventMap.keySet()) {
+			MenuItem languageItem = new MenuItem(lang.getName());
+			languageItem.setOnAction(aLanguageEventMap.get(lang));
+		}
+    	
     }
 
     @Override
@@ -90,18 +101,4 @@ class ConcreteToolbar implements IToolbar {
         return myToolbar;
     }
 
-    /************ Private Helper Methods ************/
-        
-    private MenuButton initLanguageButton(){
-    	MenuButton languageSelection = new MenuButton(myGUIResources.getString("LanguageDropDown"));
-    	
-    	MenuItem language1 = new MenuItem("English");
-    	MenuItem language2 = new MenuItem("French");
-    	MenuItem language3 = new MenuItem("Spanish");
-    	
-    	languageSelection.getItems().addAll(language1, language2, language3);
-    	
-    	return languageSelection;
-    }
-    
 }
