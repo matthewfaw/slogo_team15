@@ -50,10 +50,11 @@ public class NodeFactory {
 		}
 		else if (Pattern.matches(mySyntaxResources.getString("Command"), aWord)) {
 			String command = translateToCommand(aWord);
-			String type = myCommandTypeResources.getString(command);
+			String type = "";
+			type = myCommandTypeResources.getString(command);
 			int inputNumber = Integer.parseInt(mySyntaxResources.getString(command));
 			ICommand commandClass = null;
-			if (type != "Branch" || type != "Assignment" || type != "Custom") {
+			if (!type.equals("Branch") && !type.equals("Assignment") && !type.equals("Custom")) {
 				type = "Command";
 				commandClass = myCommandFactory.makeCommand(translateToCommand(command));
 			} else {
