@@ -20,6 +20,7 @@ class ConcreteErrorViewer implements IErrorViewer {
 	private ITextEditor myTextEditor;
 	private List<Exception> myErrorList;
 	private List<Button> myErrorButtonList;
+	private Label myErrorLabel;
 	
 	private static final int ErrorRowHeight = 30;
 	
@@ -35,13 +36,10 @@ class ConcreteErrorViewer implements IErrorViewer {
 		myErrorScroller.setMinSize(aWidth, aHeight);
 		myErrorScroller.setMaxSize(aWidth, aHeight);
 		
-		VBox columnBox = initErrorColumn();
-		for(int i=0; i < 3; i++){
-			HBox currRowBox = createErrorRow(aWidth - 10, "Error: " + Integer.toString(i+1) + " | Highlights row 5");
-			columnBox.getChildren().add(currRowBox);
-		}
+		myErrorLabel = new Label("No errors... yet!");
 		
-		setErrorButtonEvents();
+		VBox columnBox = initErrorColumn();
+		columnBox.getChildren().add(myErrorLabel);
 		
 		myErrorScroller.setContent(columnBox);
 		
@@ -62,7 +60,7 @@ class ConcreteErrorViewer implements IErrorViewer {
 	@Override
 	public void giveErrorStructure(Exception aError) {
 		myErrorList.add(0, aError);
-		// TODO: implement error viewing
+		myErrorLabel.setText(aError.toString());
 	}
 
 	@Override
@@ -77,8 +75,6 @@ class ConcreteErrorViewer implements IErrorViewer {
 				myTextEditor.highlightLine(Color.RED, 4); });
 		}
 	}
-
-	
 	
 	private HBox createErrorRow(int width, String errorMsg){
 		HBox currRowBox = new HBox(0);
@@ -95,7 +91,7 @@ class ConcreteErrorViewer implements IErrorViewer {
 	}
 	
 	private VBox initErrorColumn(){
-		VBox columnBox = new VBox(3);
+		VBox columnBox = new VBox(0);
 		return columnBox;
 	}
 

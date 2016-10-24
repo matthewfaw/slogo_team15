@@ -11,7 +11,7 @@ public enum Languages {
 	RUSSIAN	   	("Russian"),
 	SPANISH		("Spanish");
 
-	private static final String INIT_FILE = "resources.languages/";
+	private static final String INIT_FILE = "resources.languages.";
 	private final String myName;
 	
 	private Languages(String aFilename){

@@ -109,7 +109,7 @@ public class TextParser {
 		String[] wordList = aText.split(mySyntaxResources.getString("Line"));
 		ArrayList<String> executableList = new ArrayList<String>();
 		for (int i = 0; i < wordList.length; i++) {
-			if (wordList[i].charAt(0) != mySyntaxResources.getString("Comment").charAt(0) && wordList[i].length() > 0) {
+			if (wordList[i].length() > 0 && wordList[i].charAt(0) != mySyntaxResources.getString("Comment").charAt(0)) {
 				String[] temp = wordList[i].split(mySyntaxResources.getString("Space"));
 				for (int j = 0; j < temp.length; j++) {
 					executableList.add(temp[j]);
