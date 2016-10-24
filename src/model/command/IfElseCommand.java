@@ -5,13 +5,20 @@ import model.states.Scope;
 
 public class IfElseCommand extends IfCommand {
 	
+	private boolean myExecuteMethod; 
+	
 	public IfElseCommand(Scope aScope) {
 		super(aScope);
+		myExecuteMethod = true;
 	}
 	
 	public int evalCondition(IReadableInput...aList) {
-		int returnVal = (super.evalCondition(aList) == 0) ? 0 : 1;
-		return returnVal; 
+		if (myExecuteMethod) {
+			int returnVal = (super.evalCondition(aList) == 0) ? 0 : 1;
+			return returnVal; 
+		} else {
+			return -1;
+		}
 	}
 
 	@Override
