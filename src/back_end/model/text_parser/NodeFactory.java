@@ -52,7 +52,7 @@ public class NodeFactory {
 		else if (Pattern.matches(mySyntaxResources.getString("Command"), aWord)) {
 			if (myScope.containsMethod(aWord)) {
 				ICommand commandClass = (ICommandBranch) myCommandFactory.makeCommand("Custom", aWord);
-				return (Node) Class.forName(PACKAGE_NODE + "CustomNode").getConstructor(ICommand.class, Scope.class, String.class).newInstance(commandClass, myScope);
+				return (Node) Class.forName(PACKAGE_NODE + "CustomNode").getConstructor(ICommand.class, int.class, Scope.class).newInstance(commandClass, 1, myScope);
 			} else {
 				try {
 					String command = translateToCommand(aWord);
@@ -65,7 +65,7 @@ public class NodeFactory {
 							newInstance(commandClass, inputNumber, myScope);
 					} else if (type.equals("To")) {
 						commandClass = myCommandFactory.makeCommand(aWord, command);
-						return (Node) Class.forName(PACKAGE_NODE + "Command" + "Node").getConstructor(ICommand.class, int.class, Scope.class).
+						return (Node) Class.forName(PACKAGE_NODE + type + "Node").getConstructor(ICommand.class, int.class, Scope.class).
 								newInstance(commandClass, inputNumber, myScope);
 					} else {
 						type = "Command";
