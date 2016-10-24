@@ -15,7 +15,6 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 
 class ConcreteTurtleBox implements ITurtleBox {
 
@@ -30,6 +29,7 @@ class ConcreteTurtleBox implements ITurtleBox {
 	private int myWidth;
 	private int myHeight;
 	TurtleMovement myTurtMove;
+	private boolean turtDisplayed;
 
 	private final int CHARACTER_SIZE = 50;
 	
@@ -76,14 +76,27 @@ class ConcreteTurtleBox implements ITurtleBox {
 	    myTurtle.setFitWidth(CHARACTER_SIZE);
 	    myTurtle.setX(width/2);
 	    myTurtle.setY(height/2);
+	    turtDisplayed = true;
 	    mySandbox.getChildren().add(myTurtle);
 	}
 	
 	@Override
 	public void reset() {
 	    gc.clearRect(0, 0, myWidth, myHeight);
-	    mySandbox.getChildren().remove(myTurtle);
+	    removeTurtle();
 	    initBox(myWidth, myHeight);
+	}
+	
+	public void showTurtle() {
+	    if(!turtDisplayed) {
+	        mySandbox.getChildren().add(myTurtle);
+	    }
+	    turtDisplayed = true;
+	}
+	
+	public void removeTurtle() {
+	    turtDisplayed = false;
+	    mySandbox.getChildren().remove(myTurtle);
 	}
 
 	@Override
@@ -104,13 +117,10 @@ class ConcreteTurtleBox implements ITurtleBox {
 	@Override
 	public void update() {
 		if(myRobot == null) {
-		    System.out.println("cats");
 		    return;
 		}
 		
 		myTurtMove.updateTurtle();
-		System.out.println(myRobot.getY());
-		
 	}
 	
 	private void initColorPicker(){
