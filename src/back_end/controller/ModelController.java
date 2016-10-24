@@ -32,7 +32,9 @@ public class ModelController {
 	public void userInputToModel(String aString) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException, UnexpectedCharacterException, UnexpectedCommandException, EmptyInputException {
 		AbstractSyntaxTree ast = new AbstractSyntaxTree(myParser.getNodeStack(aString));
 		try {
-			ast.executeNextInstruction();
+			while (ast.hasNextInstruction()) {
+				ast.executeNextInstruction();
+			}
 		} catch (ArgumentException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

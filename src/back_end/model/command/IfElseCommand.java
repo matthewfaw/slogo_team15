@@ -15,6 +15,7 @@ public class IfElseCommand extends IfCommand {
 	public int evalCondition(IReadableInput...aList) {
 		if (myExecuteMethod) {
 			int returnVal = (super.evalCondition(aList) == 0) ? 0 : 1;
+			myExecuteMethod = false;
 			return returnVal; 
 		} else {
 			return -1;

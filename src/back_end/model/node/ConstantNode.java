@@ -34,8 +34,7 @@ public class ConstantNode extends ValueNode {
 
 	@Override
 	public double getValue() {
-		// TODO Auto-generated method stub
-		return 0;
+		return myValue;
 	}
 
 }

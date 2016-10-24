@@ -15,8 +15,8 @@ public class DoTimesCommand implements ICommandBranch {
 	
 	@Override
 	public int evalCondition(IReadableInput...aList) {
-		myScope.assignVariable(aList[0].getName(), aList[1].getValue());
-		if (myNumberTimesRun < myScope.getValue(aList[0].getName())) {
+		myScope.assignVariable(aList[0].getName(), myNumberTimesRun);
+		if (myNumberTimesRun < aList[1].getValue()) {
 			myNumberTimesRun++;
 			return 0;
 		} else {

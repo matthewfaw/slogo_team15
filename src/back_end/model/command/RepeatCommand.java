@@ -8,7 +8,7 @@ public class RepeatCommand implements ICommandBranch {
 	private int myNumberTimesRun;
 	
 	public RepeatCommand(Scope aScope) {
-		myNumberTimesRun = 0;
+		myNumberTimesRun = 1;
 	}
 	
 	@Override

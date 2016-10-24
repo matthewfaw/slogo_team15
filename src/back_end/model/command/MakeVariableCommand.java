@@ -14,6 +14,7 @@ public class MakeVariableCommand implements ICommand {
 
 	@Override
 	public double eval(IReadableInput...aList) {
+		System.out.println(aList[1].getValue());
 		myScope.assignVariable(aList[0].getName(), aList[1].getValue());
 		return aList[1].getValue();
 	}
