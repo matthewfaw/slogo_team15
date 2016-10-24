@@ -78,6 +78,8 @@ public class AbstractSyntaxTree {
 	{
 		if (aNode instanceof CommandNode) {
 			updateList((CommandNode) aNode, aOriginalNodeStack, aCurrentInputStack);
+		} else if (aNode instanceof BranchNode) {
+			updateList((BranchNode) aNode, aOriginalNodeStack, aCurrentInputStack);
 		} else if (aNode instanceof BeginBraceNode) {
 			updateList((BeginBraceNode) aNode, aOriginalNodeStack, aCurrentInputStack);
 		} else {
@@ -90,6 +92,18 @@ public class AbstractSyntaxTree {
 		for (int i=0; i<aNode.getNumberOfInputs(); ++i) {
 			Node inputNode = aCurrentInputStack.pop();
 			aNode.addChild(inputNode);
+		}
+		aCurrentInputStack.push(aNode);
+	}
+	//TODO: add error throwing when the casting fails
+	private void updateList(BranchNode aNode, Stack<Node> aOriginalNodeStack, Stack<Node> aCurrentInputStack)
+	{
+		// Set up conditions
+		aNode.addConditions((ListNode) aCurrentInputStack.pop());
+		// Set up branches
+		for (int i=1; i<aNode.getNumberOfInputs(); ++i) {
+			ListNode inputNode = (ListNode) aCurrentInputStack.pop();
+			aNode.addBranchChildren(i - 1, inputNode);
 		}
 		aCurrentInputStack.push(aNode);
 	}

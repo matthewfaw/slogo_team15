@@ -18,6 +18,8 @@ public class BranchNode extends Node {
 	
 	private double myReturnValue;
 	private boolean myConditionReturnValue;
+	
+	private int myNumberOfInputs;
 
 	public BranchNode(ICommand aCommand, int aNumberOfInputs, Scope aScope) {
 		super();
@@ -26,6 +28,13 @@ public class BranchNode extends Node {
 		
 		myChildConditions = new ArrayList<Node>();
 		myChildBranches = new HashMap<Integer, List<Node>>();
+		
+		myNumberOfInputs = aNumberOfInputs;
+	}
+	
+	public int getNumberOfInputs()
+	{
+		return myNumberOfInputs;
 	}
 	
 	public NodeState getEvaluationState()
@@ -73,19 +82,23 @@ public class BranchNode extends Node {
 	
 	@Override
 	public void addChild(Node aNode) {
-		//XXX: probably remove this
-		throw new RuntimeException();
+		//XXX: remove this
+		throw new RuntimeException("Do not use this method");
 	}
-	public void addCondition(Node aConditionNode)
+	public void addConditions(ListNode aList)
 	{
-		myChildConditions.add(aConditionNode);
+		for (Node child: aList.getChildren()) {
+			myChildConditions.add(child);
+		}
 	}
-	public void addBranchChild(int aBranchId, Node aChild)
+	public void addBranchChildren(int aBranchId, ListNode aListNode)
 	{
 		if(!myChildBranches.containsKey(aBranchId)) {
 			myChildBranches.put(aBranchId, new ArrayList<Node>());
 		}
-		myChildBranches.get(aBranchId).add(aChild);
+		for (Node child: aListNode.getChildren()) {
+			myChildBranches.get(aBranchId).add(child);
+		}
 	}
 
 }
