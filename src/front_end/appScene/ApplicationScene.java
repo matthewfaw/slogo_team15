@@ -28,6 +28,8 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
 
 
 public class ApplicationScene {
@@ -108,6 +110,14 @@ public class ApplicationScene {
 
         myVariableViewer.showVariables(myModel.getVariableMap());
     }
+    
+    private void loadHelp() {
+        WebView myView = new WebView();
+        WebEngine webEngine = myView.getEngine();
+        webEngine.load("file:///Users/kaylauser/Documents/workspace_fall16/slogo_team15/src/front_end/appScene/helpPage/help_page.html");
+        //TODO: Change this to reflect a back button or new scene
+        myRoot.getChildren().add(myView);
+    }
 
     private Map<Languages, EventHandler<ActionEvent>> makeLanguageMap () {
         Map<Languages, EventHandler<ActionEvent>> languageMap = new HashMap<>();
@@ -128,6 +138,8 @@ public class ApplicationScene {
         myToolbar.onResetPress(e -> resetAll());
 
         myToolbar.onRunPress(e -> runAll());
+        
+        myToolbar.onHelpPress(e -> loadHelp());
 
         myToolbar.onLanguageSelect(makeLanguageMap());
 

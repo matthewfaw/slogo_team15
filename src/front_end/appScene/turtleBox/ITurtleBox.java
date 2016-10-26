@@ -6,4 +6,5 @@ import integration.observe.IRobotObserver;
 
 public interface ITurtleBox extends IViewer, IRobotObserver {
 
+    public void initBox(int aWidth, int aHeight);
 }

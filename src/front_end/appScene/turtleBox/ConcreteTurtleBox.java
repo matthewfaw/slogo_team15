@@ -65,9 +65,10 @@ class ConcreteTurtleBox implements ITurtleBox {
         return myTurtle;
     }
 
-    public void initBox (int width, int height) {
+    @Override
+    public void initBox (int aWidth, int aHeight) {
         initColorPicker();
-        loadDefaultTurtle(width, height);
+        loadDefaultTurtle(aWidth, aHeight);
     }
 
     public void loadDefaultTurtle (int width, int height) {
@@ -89,6 +90,7 @@ class ConcreteTurtleBox implements ITurtleBox {
         initBox(myWidth, myHeight);
     }
 
+    //TODO: Change this to reflect multiple turtles
     public void showTurtle () {
         if (!turtDisplayed) {
             mySandbox.getChildren().add(myTurtle);
