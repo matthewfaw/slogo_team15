@@ -71,7 +71,7 @@ class ConcreteTurtleBox implements ITurtleBox {
     }
 
     public void loadDefaultTurtle (int width, int height) {
-        Image character = new Image(getClass().getClassLoader().getResourceAsStream("turtle.png"));
+        Image character = new Image("turtle.png");
         myTurtle = new ImageView(character);
         myTurtle.setFitHeight(CHARACTER_SIZE);
         myTurtle.setFitWidth(CHARACTER_SIZE);
