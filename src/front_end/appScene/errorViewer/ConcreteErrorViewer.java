@@ -53,7 +53,6 @@ class ConcreteErrorViewer implements IErrorViewer {
 
     @Override
     public Node getInstanceAsNode () {
-        // TODO Auto-generated method stub
         return myErrorScroller;
     }
 

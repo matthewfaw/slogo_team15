@@ -18,14 +18,12 @@ public class TurtleMovement implements ITurtleMovement {
     private int myHeight;
     private double curX;
     private double curY;
-    private double curRotate;
 
     public static final int FRAMES_PER_SECOND = 60;
     private static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
     private ConcreteTurtleBox myConTurtBox;
 
     public TurtleMovement (ConcreteTurtleBox myConTurt, int width, int height) {
-        curRotate = 0;
         myConTurtBox = myConTurt;
         myWidth = width;
         myHeight = height;
@@ -52,12 +50,10 @@ public class TurtleMovement implements ITurtleMovement {
         updateTurtlePosition();
 
         updateTurtleRotation();
-
     }
 
     private void updateTurtleRotation () {
         myTurtle.setRotate(myRobot.getRotation());
-        curRotate = myRobot.getRotation();
     }
 
     private void updateTurtlePosition () {
