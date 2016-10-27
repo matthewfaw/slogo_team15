@@ -27,4 +27,6 @@ public interface IToolbar extends IViewer {
     public void onLanguageSelect (Map<Languages, EventHandler<ActionEvent>> aLanguageEvent);
 
     public void onResetPress (EventHandler<MouseEvent> aEvent);
+    
+    public void onPenPress (EventHandler<MouseEvent> aEvent);
 }

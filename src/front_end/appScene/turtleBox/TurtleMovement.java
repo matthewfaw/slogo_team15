@@ -21,6 +21,7 @@ public class TurtleMovement implements ITurtleMovement {
 
     public static final int FRAMES_PER_SECOND = 60;
     private static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
+    //TODO: Change this concrete turtle box to turtle box interface
     private ConcreteTurtleBox myConTurtBox;
 
     public TurtleMovement (ConcreteTurtleBox myConTurt, int width, int height) {
@@ -40,6 +41,7 @@ public class TurtleMovement implements ITurtleMovement {
         animation.play();
     }
 
+    @Override
     public void updateTurtle () {
         gc = myConTurtBox.getGC();
         myTurtle = myConTurtBox.getTurtle();
@@ -62,36 +64,35 @@ public class TurtleMovement implements ITurtleMovement {
         if (myRobot.isPenDown()) {
             gc.setStroke(Color.BLACK);
             gc.setLineWidth(5);
-            gc.strokeLine(curX, curY, translateX(), translateY());
+            gc.strokeLine(curX, curY, translatedXCoordinate(), translatedYCoordinate());
         }
-        curX = translateX();
-        curY = translateY();
+        curX = translatedXCoordinate();
+        curY = translatedYCoordinate();
     }
 
     private void checkVisibility () {
         if (!myRobot.isVisible()) {
             myConTurtBox.removeTurtle();
         }
-
-        if (myRobot.isVisible()) {
+        else {
             myConTurtBox.showTurtle();
         }
     }
 
-    private double translateX () {
+    private double translatedXCoordinate () {
         return myRobot.getX() + myWidth / 2;
     }
 
-    private double translateY () {
+    private double translatedYCoordinate () {
         return -myRobot.getY() + myHeight / 2;
     }
 
     private void moveTurtleX () {
-        myTurtle.setX(translateX());
+        myTurtle.setX(translatedXCoordinate());
     }
 
     private void moveTurtleY () {
-        myTurtle.setY(translateY());
+        myTurtle.setY(translatedYCoordinate());
     }
 
 }

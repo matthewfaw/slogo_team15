@@ -12,7 +12,6 @@ import back_end.model.exception.UnexpectedCommandException;
 import front_end.appScene.errorViewer.ErrorViewerFactory;
 import front_end.appScene.errorViewer.IErrorViewer;
 import front_end.appScene.helpPage.HelpPage;
-import front_end.appScene.helpPage.IHelpPage;
 import front_end.appScene.scriptViewer.IScriptViewer;
 import front_end.appScene.scriptViewer.ScriptViewerFactory;
 import front_end.appScene.textEditor.ITextEditor;
@@ -30,8 +29,6 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
-import javafx.scene.web.WebEngine;
-import javafx.scene.web.WebView;
 
 
 public class ApplicationScene {
