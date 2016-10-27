@@ -1,5 +1,40 @@
 package front_end.appScene.helpPage;
 
-public class HelpPage {
+import integration.languages.Languages;
+import javafx.scene.Node;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
+
+public class HelpPage implements IHelpPage {
+    
+    private WebView myView;
+    
+    public WebView getMyView () {
+        return myView;
+    }
+
+    public void loadHelpPage() {
+        myView = new WebView();
+        WebEngine webEngine = myView.getEngine();
+        webEngine.load("file:///Users/kaylauser/Documents/workspace_fall16/slogo_team15/src/front_end/appScene/helpPage/help_page.html");
+    }
+
+    @Override
+    public void reset () {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public Node getInstanceAsNode () {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public void switchLanguage (Languages aLanguage) {
+        // TODO Auto-generated method stub
+        
+    }
 
 }

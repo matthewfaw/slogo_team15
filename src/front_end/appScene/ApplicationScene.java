@@ -11,6 +11,8 @@ import back_end.model.exception.UnexpectedCharacterException;
 import back_end.model.exception.UnexpectedCommandException;
 import front_end.appScene.errorViewer.ErrorViewerFactory;
 import front_end.appScene.errorViewer.IErrorViewer;
+import front_end.appScene.helpPage.HelpPage;
+import front_end.appScene.helpPage.IHelpPage;
 import front_end.appScene.scriptViewer.IScriptViewer;
 import front_end.appScene.scriptViewer.ScriptViewerFactory;
 import front_end.appScene.textEditor.ITextEditor;
@@ -43,6 +45,7 @@ public class ApplicationScene {
     private ITurtleBox myTurtleBox;
     private IVariableViewer myVariableViewer;
     private IScriptViewer myScriptViewer;
+    private HelpPage myHelpPage;
 
     private ModelController myModel;
 
@@ -57,9 +60,8 @@ public class ApplicationScene {
         myTextEditor = TextEditorFactory.buildTextEditor(2 * aWidth / 3, aHeight / 3);
         myErrorViewer = ErrorViewerFactory.buildErrorViewer(aWidth / 3, aHeight / 3, myTextEditor);
         myVariableViewer = VariableViewerFactory.buildVariableViewer(aWidth / 6, aHeight / 3);
-        myScriptViewer = ScriptViewerFactory.buildViewerFactory(aWidth / 6, aHeight / 3); // double
-                                                                                          // check
-                                                                                          // these
+        myScriptViewer = ScriptViewerFactory.buildViewerFactory(aWidth / 6, aHeight / 3); // double                                                                              // check
+        myHelpPage = new HelpPage();                                                                                  // these
                                                                                           // values
 
         myRoot = new Group();
@@ -112,11 +114,9 @@ public class ApplicationScene {
     }
     
     private void loadHelp() {
-        WebView myView = new WebView();
-        WebEngine webEngine = myView.getEngine();
-        webEngine.load("file:///Users/kaylauser/Documents/workspace_fall16/slogo_team15/src/front_end/appScene/helpPage/help_page.html");
-        //TODO: Change this to reflect a back button or new scene
-        myRoot.getChildren().add(myView);
+        myHelpPage.loadHelpPage();
+        //TODO: Kayla - Change this to reflect a back button or new scene
+        myRoot.getChildren().add(myHelpPage.getMyView());
     }
 
     private Map<Languages, EventHandler<ActionEvent>> makeLanguageMap () {
