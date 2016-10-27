@@ -1,6 +1,5 @@
 package front_end.appScene.variableViewer;
 
-import java.util.Map;
 import back_end.model.states.IViewVariableState;
 import integration.languages.Languages;
 import javafx.beans.value.ObservableValue;
@@ -16,6 +15,7 @@ import javafx.util.Callback;
 
 /**
  * @author George Bernard
+ * @author Kayla Schulz
  *
  *         Heavily References: http://docs.oracle.com/javafx/2/ui_controls/table-view.htm
  *
@@ -72,20 +72,13 @@ class ConcreteVariableViewer implements IVariableViewer {
     }
 
     @Override
-    public void clear () {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
     public Node getInstanceAsNode () {
         return myVariableViewer;
     }
 
     @Override
     public void reset () {
-        // TODO Auto-generated method stub
-
+        myVariables.clear();
     }
 
     @Override

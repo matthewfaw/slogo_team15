@@ -8,11 +8,6 @@ import javafx.scene.Node;
 public interface IVariableViewer extends IViewer {
 
     /**
-     * Clear the variable box to its original, empty state
-     */
-    public void clear ();
-
-    /**
      * 
      * @return instance as a JavaFX Node
      */

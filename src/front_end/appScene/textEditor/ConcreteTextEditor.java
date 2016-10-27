@@ -2,7 +2,6 @@ package front_end.appScene.textEditor;
 
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 import integration.languages.Languages;
 import java.util.ArrayList;
 import javafx.beans.value.ChangeListener;
@@ -20,6 +19,13 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
+
+/**
+ * 
+ * @author George Bernard
+ * @author Kayla Schulz
+ *
+ */
 
 class ConcreteTextEditor implements ITextEditor {
 
