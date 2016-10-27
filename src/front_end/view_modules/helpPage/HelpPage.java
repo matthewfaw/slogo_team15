@@ -17,7 +17,7 @@ public class HelpPage implements IHelpPage {
         myView = new WebView();
         WebEngine webEngine = myView.getEngine();
         //TODO: Change this file load to less hard coded approach
-        webEngine.load("file:///Users/kaylauser/Documents/workspace_fall16/slogo_team15/src/front_end/appScene/helpPage/help_page.html");
+        webEngine.load("file:///Users/kaylauser/Documents/workspace_fall16/slogo_team15/src/front_end/view_modules/helpPage/help_page.html");
     }
 
     @Override
