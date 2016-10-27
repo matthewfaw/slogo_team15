@@ -70,7 +70,7 @@ public class NodeFactory {
 							newInstance(commandClass, inputNumber, myScope);
 				}
 			} catch (MissingResourceException e) {
-				if (!myScope.getVariableMap().containsVariable(aWord)) {
+				if (myScope.getVariableMap().containsVariable(aWord)) {
 					CustomCommand commandClass = (CustomCommand) myCommandFactory.makeCommand("Custom", aWord);
 					return (Node) Class.forName(PACKAGE_NODE + "CustomNode").getConstructor(CustomCommand.class, int.class, Scope.class).newInstance(commandClass, 1, myScope);
 				} else {
