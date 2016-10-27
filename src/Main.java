@@ -1,5 +1,4 @@
 
-import front_end.appScene.ApplicationScene;
 import front_end.applicationController.ApplicationController;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -16,7 +15,6 @@ public class Main extends Application {
     private final int SIZE = 600;
     private final int WIDTH = 2 * SIZE;
     private final int HEIGHT = SIZE;
-    private ApplicationScene myApplicationScene;
 
     /**
      * Starts initializing the stage and scene
@@ -26,10 +24,9 @@ public class Main extends Application {
     @Override
     public void start (Stage s) {
         myApplicationController = new ApplicationController();
-        myApplicationScene = new ApplicationScene();
         s.setTitle(myApplicationController.getTitle());
 
-        Scene scene = myApplicationScene.initScene(WIDTH, HEIGHT);
+        Scene scene = myApplicationController.init(WIDTH, HEIGHT);
 
         s.setScene(scene);
         s.show();

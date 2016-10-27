@@ -10,4 +10,8 @@ public enum DefaultStates {
         this.myDefaults = s;
     }
 
+    public String getDefaults(){
+        return myDefaults;
+    }
+    
 }
