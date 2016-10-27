@@ -95,6 +95,10 @@ class ConcreteTextEditor implements ITextEditor {
     void clearTextFields () {
         myTextFields.forEach(tf -> tf.clear());
     }
+    
+    int getEditorSize(){
+		return myLastIndex;
+	}
 
     /******** Private Helper Methods *********/
 
