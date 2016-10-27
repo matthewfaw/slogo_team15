@@ -1,6 +1,7 @@
 package front_end.appScene.errorViewer;
 
-import front_end.appScene.IViewer;
+import front_end.ILanguageSwitcher;
+import front_end.appScene.IViewModule;
 
 
 /**
@@ -10,7 +11,7 @@ import front_end.appScene.IViewer;
  *         And then updates any line by line or syntax errors.
  *
  */
-public interface IErrorViewer extends IViewer {
+public interface IErrorViewer extends IViewModule, ILanguageSwitcher {
 
     public void giveErrorStructure (Exception aError);
 

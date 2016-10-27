@@ -2,13 +2,15 @@ package front_end.appScene.textEditor;
 
 import java.util.ResourceBundle;
 
+import front_end.ILanguageSwitcher;
+import integration.languages.Languages;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 
 
-class TextEditorToolbar {
+class TextEditorToolbar implements ILanguageSwitcher {
     HBox myBar;
     ConcreteTextEditor myTextEditor;
 	private ResourceBundle myTextToolbarResources;
@@ -80,4 +82,10 @@ class TextEditorToolbar {
         myBar.getChildren().add(saveText);
         // TODO: Implement Saving Text to TXT file
     }
+
+	@Override
+	public void switchLanguage(Languages aLanguage) {
+		// TODO Auto-generated method stub
+		
+	}
 }

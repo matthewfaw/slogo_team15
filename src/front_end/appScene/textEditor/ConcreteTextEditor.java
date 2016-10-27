@@ -190,7 +190,7 @@ class ConcreteTextEditor implements ITextEditor {
 
     @Override
     public void switchLanguage (Languages aLanguage) {
-        // TODO Auto-generated method stub
+        // TODO switch language of toolbar
 
     }
 }

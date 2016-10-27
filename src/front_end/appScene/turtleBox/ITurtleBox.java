@@ -1,13 +1,13 @@
 package front_end.appScene.turtleBox;
 
 import back_end.model.robot.IViewRobot;
-import front_end.appScene.IViewer;
+import front_end.appScene.IViewModule;
 import integration.observe.IRobotObserver;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.ImageView;
 
 
-public interface ITurtleBox extends IViewer, IRobotObserver {
+public interface ITurtleBox extends IViewModule, IRobotObserver {
 
     public void initBox(int aWidth, int aHeight);
     

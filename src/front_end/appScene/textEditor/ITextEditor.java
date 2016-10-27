@@ -1,11 +1,13 @@
 package front_end.appScene.textEditor;
 
 import java.util.List;
-import front_end.appScene.IViewer;
+
+import front_end.ILanguageSwitcher;
+import front_end.appScene.IViewModule;
 import javafx.scene.paint.Color;
 
 
-public interface ITextEditor extends IViewer {
+public interface ITextEditor extends IViewModule, ILanguageSwitcher {
 
     /**
      * Highlight a line in the text editor - will be used by either

@@ -1,11 +1,12 @@
 package front_end.appScene.variableViewer;
 
 import back_end.model.states.IViewVariableState;
-import front_end.appScene.IViewer;
+import front_end.ILanguageSwitcher;
+import front_end.appScene.IViewModule;
 import javafx.scene.Node;
 
 
-public interface IVariableViewer extends IViewer {
+public interface IVariableViewer extends IViewModule, ILanguageSwitcher {
 
     /**
      * 

@@ -1,10 +1,8 @@
 package front_end.appScene;
 
-import integration.languages.Languages;
 import javafx.scene.Node;
 
-
-public interface IViewer {
+public interface IViewModule {
 
     /**
      * Resets the viewer to the initial state,
@@ -19,5 +17,4 @@ public interface IViewer {
      */
     public Node getInstanceAsNode ();
 
-    public void switchLanguage (Languages aLanguage);
 }

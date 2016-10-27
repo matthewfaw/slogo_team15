@@ -1,6 +1,7 @@
 package front_end.appScene.scriptViewer;
 
-import front_end.appScene.IViewer;
+import front_end.ILanguageSwitcher;
+import front_end.appScene.IViewModule;
 
 
 /**
@@ -10,7 +11,7 @@ import front_end.appScene.IViewer;
  *         and updates if any changes have been made.
  *
  */
-public interface IScriptViewer extends IViewer {
+public interface IScriptViewer extends IViewModule, ILanguageSwitcher {
 
     public void giveScriptStructure ();
 

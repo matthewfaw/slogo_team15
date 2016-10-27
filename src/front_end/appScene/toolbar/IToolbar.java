@@ -1,7 +1,9 @@
 package front_end.appScene.toolbar;
 
 import java.util.Map;
-import front_end.appScene.IViewer;
+
+import front_end.ILanguageSwitcher;
+import front_end.appScene.IViewModule;
 import integration.languages.Languages;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -14,7 +16,7 @@ import javafx.scene.input.MouseEvent;
  *         Mediator listens to many (but not all) of these buttons.
  *
  */
-public interface IToolbar extends IViewer {
+public interface IToolbar extends IViewModule, ILanguageSwitcher {
 
     public void onBuildPress (EventHandler<MouseEvent> aEvent);
 

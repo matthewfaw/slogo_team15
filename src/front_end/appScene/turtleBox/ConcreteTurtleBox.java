@@ -148,11 +148,4 @@ class ConcreteTurtleBox implements ITurtleBox {
                                                                                                      Insets.EMPTY))));
         mySandbox.getChildren().add(myBackgroundColorPicker);
     }
-
-    @Override
-    public void switchLanguage (Languages aLanguage) {
-        // TODO Auto-generated method stub
-
-    }
-
 }
