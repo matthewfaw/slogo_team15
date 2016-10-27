@@ -1,6 +1,5 @@
 package back_end.model.node;
 
-import java.util.List;
 import back_end.model.exception.ArgumentException;
 import back_end.model.states.Scope;
 
