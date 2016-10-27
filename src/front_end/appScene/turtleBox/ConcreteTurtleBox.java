@@ -1,6 +1,7 @@
 package front_end.appScene.turtleBox;
 
 import back_end.model.robot.IViewRobot;
+import front_end.appScene.turtleBox.turtleMovement.TurtleMovement;
 import integration.languages.Languages;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
@@ -63,6 +64,14 @@ class ConcreteTurtleBox implements ITurtleBox {
 
     public ImageView getTurtle () {
         return myTurtle;
+    }
+    
+    public double getTurtleHeight() {
+        return myTurtle.getFitHeight();
+    }
+    
+    public double getTurtleWidth() {
+        return myTurtle.getFitWidth();
     }
 
     @Override

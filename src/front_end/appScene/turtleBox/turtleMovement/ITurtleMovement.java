@@ -1,4 +1,4 @@
-package front_end.appScene.turtleBox;
+package front_end.appScene.turtleBox.turtleMovement;
 
 public interface ITurtleMovement {
 

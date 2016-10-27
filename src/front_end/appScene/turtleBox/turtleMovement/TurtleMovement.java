@@ -1,6 +1,7 @@
-package front_end.appScene.turtleBox;
+package front_end.appScene.turtleBox.turtleMovement;
 
 import back_end.model.robot.IViewRobot;
+import front_end.appScene.turtleBox.ITurtleBox;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.canvas.GraphicsContext;
@@ -21,10 +22,10 @@ public class TurtleMovement implements ITurtleMovement {
 
     public static final int FRAMES_PER_SECOND = 60;
     private static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
-    //TODO: Change this concrete turtle box to turtle box interface
-    private ConcreteTurtleBox myConTurtBox;
+    // TODO: Change this concrete turtle box to turtle box interface
+    private ITurtleBox myConTurtBox;
 
-    public TurtleMovement (ConcreteTurtleBox myConTurt, int width, int height) {
+    public TurtleMovement (ITurtleBox myConTurt, int width, int height) {
         myConTurtBox = myConTurt;
         myWidth = width;
         myHeight = height;
