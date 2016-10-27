@@ -2,12 +2,9 @@ package front_end.appScene.turtleBox.turtleMovement;
 
 import back_end.model.robot.IViewRobot;
 import front_end.appScene.turtleBox.ITurtleBox;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
-import javafx.util.Duration;
 
 
 public class TurtleMovement implements ITurtleMovement {
@@ -21,7 +18,6 @@ public class TurtleMovement implements ITurtleMovement {
     private double curY;
 
     public static final int FRAMES_PER_SECOND = 60;
-    private static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
     private ITurtleBox myTurtleBox;
 
     public TurtleMovement (ITurtleBox myConTurt, int width, int height) {
@@ -30,15 +26,6 @@ public class TurtleMovement implements ITurtleMovement {
         myHeight = height;
         curX = myWidth / 2;
         curY = myHeight / 2;
-    }
-
-    public void gameLoop () {
-        KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY),
-                                      e -> updateTurtle());
-        Timeline animation = new Timeline();
-        animation.setCycleCount(Timeline.INDEFINITE);
-        animation.getKeyFrames().add(frame);
-        animation.play();
     }
 
     @Override

@@ -16,6 +16,7 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 
 
 class ConcreteTurtleBox implements ITurtleBox {
@@ -96,6 +97,7 @@ class ConcreteTurtleBox implements ITurtleBox {
         gc.clearRect(0, 0, myWidth, myHeight);
         System.out.println("a");
         removeTurtle();
+        mySandbox.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
         initBox(myWidth, myHeight);
     }
 
