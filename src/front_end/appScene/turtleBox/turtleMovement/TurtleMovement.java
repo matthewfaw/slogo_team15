@@ -22,11 +22,10 @@ public class TurtleMovement implements ITurtleMovement {
 
     public static final int FRAMES_PER_SECOND = 60;
     private static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
-    // TODO: Change this concrete turtle box to turtle box interface
-    private ITurtleBox myConTurtBox;
+    private ITurtleBox myTurtleBox;
 
     public TurtleMovement (ITurtleBox myConTurt, int width, int height) {
-        myConTurtBox = myConTurt;
+        myTurtleBox = myConTurt;
         myWidth = width;
         myHeight = height;
         curX = myWidth / 2;
@@ -44,9 +43,9 @@ public class TurtleMovement implements ITurtleMovement {
 
     @Override
     public void updateTurtle () {
-        gc = myConTurtBox.getGC();
-        myTurtle = myConTurtBox.getTurtle();
-        myRobot = myConTurtBox.getRobot();
+        gc = myTurtleBox.getGC();
+        myTurtle = myTurtleBox.getTurtle();
+        myRobot = myTurtleBox.getRobot();
 
         checkVisibility();
 
@@ -73,10 +72,10 @@ public class TurtleMovement implements ITurtleMovement {
 
     private void checkVisibility () {
         if (!myRobot.isVisible()) {
-            myConTurtBox.removeTurtle();
+            myTurtleBox.removeTurtle();
         }
         else {
-            myConTurtBox.showTurtle();
+            myTurtleBox.showTurtle();
         }
     }
 
