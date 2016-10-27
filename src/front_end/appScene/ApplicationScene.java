@@ -1,14 +1,5 @@
 package front_end.appScene;
 
-import java.lang.reflect.InvocationTargetException;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import back_end.controller.ModelController;
-import back_end.model.exception.EmptyInputException;
-import back_end.model.exception.UnexpectedCharacterException;
-import back_end.model.exception.UnexpectedCommandException;
 import front_end.appScene.errorViewer.ErrorViewerFactory;
 import front_end.appScene.errorViewer.IErrorViewer;
 import front_end.appScene.helpPage.HelpPage;
@@ -22,9 +13,6 @@ import front_end.appScene.turtleBox.ITurtleBox;
 import front_end.appScene.turtleBox.TurtleBoxFactory;
 import front_end.appScene.variableViewer.IVariableViewer;
 import front_end.appScene.variableViewer.VariableViewerFactory;
-import integration.languages.Languages;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
@@ -44,11 +32,8 @@ public class ApplicationScene {
     private IScriptViewer myScriptViewer;
     private HelpPage myHelpPage;
 
-    private ModelController myModel;
-
     public ApplicationScene () {
         myApplicationView = new GridPane();
-        myModel = new ModelController();
     }
 
     public Scene initScene (int aWidth, int aHeight) {
@@ -57,9 +42,10 @@ public class ApplicationScene {
         myTextEditor = TextEditorFactory.buildTextEditor(2 * aWidth / 3, aHeight / 3);
         myErrorViewer = ErrorViewerFactory.buildErrorViewer(aWidth / 3, aHeight / 3, myTextEditor);
         myVariableViewer = VariableViewerFactory.buildVariableViewer(aWidth / 6, aHeight / 3);
-        myScriptViewer = ScriptViewerFactory.buildViewerFactory(aWidth / 6, aHeight / 3); // double                                                                              // check
+        myScriptViewer = ScriptViewerFactory.buildViewerFactory(aWidth / 6, aHeight / 3); // double
+                                                                                          // //
+                                                                                          // check
         myHelpPage = new HelpPage();                                                                                  // these
-                                                                                          // values
 
         myRoot = new Group();
         myRoot.getChildren().addAll(myApplicationView);
@@ -71,75 +57,39 @@ public class ApplicationScene {
         myApplicationView.add(myScriptViewer.getInstanceAsNode(), 2, 1, 1, 1);
         myApplicationView.add(myErrorViewer.getInstanceAsNode(), 1, 2, 2, 1);
 
-        myModel.giveRobotObservers(myTurtleBox);
-
-        configureToolbar();
-
         return myScene;
     }
 
-    private void resetAll () {
-        myTextEditor.reset();
-        myErrorViewer.reset();
-        myTurtleBox.reset();
-        myVariableViewer.reset();
-        myScriptViewer.reset();
+    public Group getMyRoot () {
+        return myRoot;
     }
 
-    private void runAll () {
-        StringBuilder sb = new StringBuilder();
-
-        String newLine = "\n";
-
-        for (int i = 0; i < myTextEditor.getInstructionList().size(); i++) {
-            sb.append(myTextEditor.getInstructionList().get(i));
-            sb.append(newLine);
-        }
-
-        try {
-            myModel.userInputToModel(sb.toString());
-        }
-        catch (InstantiationException | IllegalAccessException | IllegalArgumentException
-                | InvocationTargetException
-                | NoSuchMethodException | SecurityException | ClassNotFoundException
-                | UnexpectedCharacterException
-                | UnexpectedCommandException | EmptyInputException e) {
-            myErrorViewer.giveErrorStructure(e);
-        }
-
-        myVariableViewer.showVariables(myModel.getVariableMap());
-    }
-    
-    private void loadHelp() {
-        myHelpPage.loadHelpPage();
-        //TODO: Kayla - Change this to reflect a back button or new scene
-        myRoot.getChildren().add(myHelpPage.getMyView());
+    public HelpPage getMyHelpPage () {
+        return myHelpPage;
     }
 
-    private Map<Languages, EventHandler<ActionEvent>> makeLanguageMap () {
-        Map<Languages, EventHandler<ActionEvent>> languageMap = new HashMap<>();
-
-        Collection<Languages> langSet = Arrays.asList(Languages.values());
-
-        for (Languages lang : langSet) {
-            languageMap.put(lang, e -> {
-                myModel.setLanguage(lang);
-                myToolbar.switchLanguage(lang);
-            });
-        }
-
-        return languageMap;
+    public ITurtleBox getMyTurtleBox () {
+        return myTurtleBox;
     }
 
-    private void configureToolbar () {
-        myToolbar.onResetPress(e -> resetAll());
+    public IScriptViewer getMyScriptViewer () {
+        return myScriptViewer;
+    }
 
-        myToolbar.onRunPress(e -> runAll());
-        
-        myToolbar.onHelpPress(e -> loadHelp());
+    public ITextEditor getMyTextEditor () {
+        return myTextEditor;
+    }
 
-        myToolbar.onLanguageSelect(makeLanguageMap());
+    public IErrorViewer getMyErrorViewer () {
+        return myErrorViewer;
+    }
 
+    public IVariableViewer getMyVariableViewer () {
+        return myVariableViewer;
+    }
+
+    public IToolbar getMyToolbar () {
+        return myToolbar;
     }
 
 }
