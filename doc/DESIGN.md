@@ -44,29 +44,54 @@ API details are covered sufficiently in the design overview and in the documenta
 ![alt text](data/slogo_BACKEND_UML.JPG "Our slogo Backend/Controller overview Architecture")
 
 Backend Internal API:
+```
+    public interface ICommand() {
+        double eval(String...aList);
+    }
+    
+    public interface Node() {
+        double eval(String...aList);
+    }
+    
+    public AbstractSyntaxTree() {
+    public createTree(Stack aNodeStack); 
+    }
+    
+    public CommandFactory() {
+    public createCommands(String aWord);
+    }
+    
+    public NodeFactory() {
+    public createNode(String aCommand);
+    }
+```
 
-TODO
 
 Backend External API:
 ```
     public interface CodeEvaluator {
-    	void buildAST(Code aCodeToEvaluate) throws SyntaxError
-    	void evaluateNextLine() throws MissingImplementationError
-    	boolean hasNextLine()
-    	void setLangauge(Language aLanguage)
+        void buildAST(Code aCodeToEvaluate) throws SyntaxError
+        void evaluateNextLine() throws MissingImplementationError
+        boolean hasNextLine()
+        void setLangauge(Language aLanguage)
     }
+    
+    public TextParser() {
+    }
+
 
     public interface ViewableRobot {
-	    int getAngle()
-	    int getCurrentPosition()
-	    PenMark getPenMark()
-	    int getVisibilityValue()
+        int getAngle()
+        int getCurrentPosition()
+        PenMark getPenMark()
+        int getVisibilityValue()
     }
 
-	public interface ViewableEnvironmentInfo {
-		Collection<Variable> getEnvironmentVariables()
-		Collection<SLogoFunction> getCustomInstructions()
-	}
+
+    public interface ViewableEnvironmentInfo {
+        Collection<Variable> getEnvironmentVariables()
+        Collection<SLogoFunction> getCustomInstructions()
+    }
 ```
 
 # API Example Code

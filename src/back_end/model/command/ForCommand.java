@@ -25,9 +25,7 @@ public class ForCommand implements ICommandBranch {
                                    (myScope.getValue(aList[0].getName()) + aList[3].getValue()));
             return 0;
         }
-        else {
-            return -1;
-        }
+        return -1;
     }
 
     @Override

@@ -16,12 +16,9 @@ public class IfCommand implements ICommandBranch {
     public int evalCondition (IReadableInput ... aList) {
         if (myFirstExecution) {
             myFirstExecution = false;
-            System.out.println("derp");
             return (aList[0].getValue() != 0) ? 0 : -1;
         }
-        else {
-            return -1;
-        }
+        return -1;
     }
 
     @Override

@@ -19,9 +19,7 @@ public class IfElseCommand extends IfCommand {
             myExecuteMethod = false;
             return returnVal;
         }
-        else {
-            return -1;
-        }
+        return -1;
     }
 
     @Override
