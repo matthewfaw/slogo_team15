@@ -53,7 +53,7 @@ public class PenPopup implements IPenPopup {
     private void setBorderPane () {
         layout.setTop(myRow);
         layout.setBottom(testBox);
-        layout.setCenter(createComboBox("hi", new ArrayList<String>()));
+        layout.setCenter(createComboBox("Pen thickness: ", new ArrayList<String>()));
     }
 
     private void makeColorPicker () {

@@ -9,19 +9,19 @@ import javafx.scene.image.ImageView;
 
 public interface ITurtleBox extends IViewModule, IRobotObserver {
 
-    public void initBox(int aWidth, int aHeight);
-    
+    public void initBox (int aWidth, int aHeight);
+
     public GraphicsContext getGC ();
-    
+
     public ImageView getTurtle ();
-    
-    public double getTurtleHeight();
-    
-    public double getTurtleWidth();
-    
+
+    public double getTurtleHeight ();
+
+    public double getTurtleWidth ();
+
     public IViewRobot getRobot ();
-    
-    public void removeTurtle();
-    
-    public void showTurtle();
+
+    public void removeTurtle ();
+
+    public void showTurtle ();
 }
