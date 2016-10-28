@@ -26,10 +26,18 @@ public class VariableState implements IViewVariableState {
 	public boolean containsVariable(String aVariable) {
 		return myVariableMap.containsKey(aVariable);
 	}
-
+	
+	public Map<String, Double> getVariableMap() {
+		return myVariableMap;
+	}
+	
+	public void combineVariableMap(Map<String, Double> aMap) {
+		myVariableMap.putAll(aMap);
+	}
 
 	@Override
 	public Collection<String> getVariableKeySet() {
 		return myVariableMap.keySet();
 	}
+	
 }

@@ -1,21 +1,13 @@
 package back_end.model.states;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
 
-import back_end.model.node.IReadableInput;
-import integration.observe.IObservable;
-import integration.observe.IRobotObserver;
 
-
-public class FunctionScope implements Iterable {
+public class FunctionScope {
 	
 	private Stack<VariableState> myNestedVariableStates;
 
@@ -25,11 +17,13 @@ public class FunctionScope implements Iterable {
 		myNestedVariableStates.push(new VariableState());
 	}
 	
+	//XXX: Very hacky, would be better if we used an iterable, need to talk to front-end.
 	public VariableState getVariableMap() {
 		VariableState returnVal = new VariableState(); 
 		for (VariableState variableState : myNestedVariableStates) {
-			
+			returnVal.combineVariableMap(variableState.getVariableMap());
 		}
+		return returnVal;
 	}
 	
 	public boolean containsVariable(String name) {
@@ -74,12 +68,6 @@ public class FunctionScope implements Iterable {
 	
 	public void removeNestedScope() {
 		myNestedVariableStates.pop();
-	}
-
-	@Override
-	public Iterator iterator() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 

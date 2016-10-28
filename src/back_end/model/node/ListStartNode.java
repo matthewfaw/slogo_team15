@@ -3,9 +3,9 @@ package back_end.model.node;
 import back_end.model.exception.ArgumentException;
 
 
-public class BeginBraceNode extends Node {
+public class ListStartNode extends Node {
 
-    public BeginBraceNode () {
+    public ListStartNode () {
         super();
     }
 

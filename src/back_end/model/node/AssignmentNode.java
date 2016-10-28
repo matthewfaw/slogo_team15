@@ -6,7 +6,7 @@ import back_end.model.exception.ArgumentException;
 public class AssignmentNode extends Node {
 
     // TODO
-    public AssignmentNode () {
+    public AssignmentNode (String aUserInput) {
         super();
     }
 
