@@ -109,8 +109,6 @@ public class ConcreteRobotStateBox implements IRobotStateBox {
 		build();
 	}
 
-
-
 	private void build(){
 		//if(noRobot()) return;
 		myIDLabel.setText("Turtle 1"); //myRobot.toString()); //TODO change this to robotID
