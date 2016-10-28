@@ -20,7 +20,7 @@ public class VariableNode extends ValueNode {
 
     @Override
     public double eval () throws ArgumentException {
-        return myScope.getValue(myName);
+        return myScope.getVariableValue(myName);
     }
 
     public int getNumberOfInputs () {
@@ -34,6 +34,6 @@ public class VariableNode extends ValueNode {
 
     @Override
     public double getValue () {
-        return myScope.getValue(myName);
+        return myScope.getVariableValue(myName);
     }
 }

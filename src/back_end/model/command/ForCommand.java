@@ -20,9 +20,9 @@ public class ForCommand implements ICommandBranch {
             myFirst = false;
             myScope.assignVariable(aList[0].getName(), aList[1].getValue());
         }
-        if (myScope.getValue(aList[0].getName()) < aList[2].getValue()) {
+        if (myScope.getVariableValue(aList[0].getName()) < aList[2].getValue()) {
             myScope.assignVariable(aList[0].getName(),
-                                   (myScope.getValue(aList[0].getName()) + aList[3].getValue()));
+                                   (myScope.getVariableValue(aList[0].getName()) + aList[3].getValue()));
             return 0;
         }
         return -1;
