@@ -5,6 +5,11 @@ import javafx.scene.Node;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 
+/**
+ * 
+ * @author Kayla Schulz
+ *
+ */
 public class HelpPage implements IHelpPage {
     
     private WebView myView;
@@ -28,8 +33,8 @@ public class HelpPage implements IHelpPage {
 
     @Override
     public Node getInstanceAsNode () {
-        // TODO Auto-generated method stub
-        return null;
+        //TODO: Kayla - check this
+        return myView;
     }
 
     @Override

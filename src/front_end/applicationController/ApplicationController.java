@@ -12,6 +12,8 @@ import back_end.model.exception.UnexpectedCommandException;
 import front_end.appScene.ApplicationScene;
 import front_end.view_modules.errorViewer.IErrorViewer;
 import front_end.view_modules.helpPage.HelpPage;
+import front_end.view_modules.penProperties.IPenPopup;
+import front_end.view_modules.penProperties.PenPopup;
 import front_end.view_modules.scriptViewer.IScriptViewer;
 import front_end.view_modules.shape_color_module.interfaces.IShapeColorModule;
 import front_end.view_modules.textEditor.ITextEditor;
@@ -24,15 +26,22 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.stage.Stage;
 
 
+/**
+ * 
+ * @author Kayla Schulz
+ * @author George Bernard
+ *
+ */
 public class ApplicationController {
 
     private ModelController myModel;
     private ApplicationScene myAppScene;
     private HelpPage myHelpPage;
     private Group myRoot;
-    
+
     private IToolbar myToolbar;
     private ITextEditor myTextEditor;
     private IErrorViewer myErrorViewer;
@@ -41,16 +50,16 @@ public class ApplicationController {
     private IScriptViewer myScriptViewer;
     private IShapeColorModule myShapeColorModule;
     private IAllRobotsStateBox myStatesBox;
+    private IPenPopup myPenPopup;
 
-    // TODO: This class needs A LOT of updating
     private String TITLE = "SLOGO";
 
     public ApplicationController () {
         myAppScene = new ApplicationScene();
         myModel = new ModelController();
     }
-    
-    private void initFromScene() {
+
+    private void initFromScene () {
         myToolbar = myAppScene.getMyToolbar();
         myTextEditor = myAppScene.getMyTextEditor();
         myErrorViewer = myAppScene.getMyErrorViewer();
@@ -61,7 +70,8 @@ public class ApplicationController {
         myScriptViewer = myAppScene.getMyScriptViewer();
         myShapeColorModule = myAppScene.getMyShapeColorModule();
         myStatesBox = myAppScene.getMyStatesBox();
-        
+        // TODO: Change this to interface - Kayla
+        myPenPopup = new PenPopup();
     }
 
     public Scene init (int aWidth, int aHeight) {
@@ -135,8 +145,43 @@ public class ApplicationController {
 
         myToolbar.onLanguageSelect(makeLanguageMap());
 
+        myToolbar.onPenPress(e -> popupPenSelector());
+
+        myToolbar.onBuildPress(e -> buildCommands());
+
     }
 
+    private void configurePenPopup () {
+        myPenPopup.onApplyPress(e -> collectPenInfo());
+        myPenPopup.onClearPress(e -> clearPenSettings());
+    }
+
+    private void clearPenSettings () {
+        myPenPopup.clear();
+    }
+
+    private void collectPenInfo () {
+
+    }
+
+    private void buildCommands () {
+        // TODO: Actually make this method
+    }
+
+    private void popupPenSelector () {
+        Stage stage = new Stage();
+        myPenPopup.initPopup();
+        Scene myScene = myPenPopup.getScene();
+        stage.setScene(myScene);
+        stage.show();
+        configurePenPopup();
+    }
+
+    /**
+     * Returns the title of the SLOGO project
+     * 
+     * @return Title of project
+     */
     public String getTitle () {
         return TITLE;
     }
