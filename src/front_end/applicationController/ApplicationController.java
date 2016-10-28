@@ -12,6 +12,7 @@ import back_end.model.exception.UnexpectedCommandException;
 import front_end.appScene.ApplicationScene;
 import front_end.view_modules.errorViewer.IErrorViewer;
 import front_end.view_modules.helpPage.HelpPage;
+import front_end.view_modules.penProperties.IPenPopup;
 import front_end.view_modules.penProperties.PenPopup;
 import front_end.view_modules.scriptViewer.IScriptViewer;
 import front_end.view_modules.shape_color_module.interfaces.IShapeColorModule;
@@ -39,7 +40,7 @@ public class ApplicationController {
     private ApplicationScene myAppScene;
     private HelpPage myHelpPage;
     private Group myRoot;
-    
+
     private IToolbar myToolbar;
     private ITextEditor myTextEditor;
     private IErrorViewer myErrorViewer;
@@ -47,7 +48,7 @@ public class ApplicationController {
     private ITurtleBox myTurtleBox;
     private IScriptViewer myScriptViewer;
     private IShapeColorModule myShapeColorModule;
-    private PenPopup myPenPopup;
+    private IPenPopup myPenPopup;
 
     private String TITLE = "SLOGO";
 
@@ -55,8 +56,8 @@ public class ApplicationController {
         myAppScene = new ApplicationScene();
         myModel = new ModelController();
     }
-    
-    private void initFromScene() {
+
+    private void initFromScene () {
         myToolbar = myAppScene.getMyToolbar();
         myTextEditor = myAppScene.getMyTextEditor();
         myErrorViewer = myAppScene.getMyErrorViewer();
@@ -66,7 +67,7 @@ public class ApplicationController {
         myTurtleBox = myAppScene.getMyTurtleBox();
         myScriptViewer = myAppScene.getMyScriptViewer();
         myShapeColorModule = myAppScene.getMyShapeColorModule();
-        //TODO: Change this to interface - Kayla
+        // TODO: Change this to interface - Kayla
         myPenPopup = new PenPopup();
     }
 
@@ -140,18 +141,44 @@ public class ApplicationController {
         myToolbar.onHelpPress(e -> loadHelp());
 
         myToolbar.onLanguageSelect(makeLanguageMap());
-        
+
         myToolbar.onPenPress(e -> popupPenSelector());
 
-    }
-    
-    private void popupPenSelector() {
-       Stage stage = new Stage();
-       Scene myScene = myPenPopup.initPopup();
-       stage.setScene(myScene);
-       stage.show();
+        myToolbar.onBuildPress(e -> buildCommands());
+
     }
 
+    private void configurePenPopup () {
+        myPenPopup.onApplyPress(e -> collectPenInfo());
+        myPenPopup.onClearPress(e -> clearPenSettings());
+    }
+
+    private void clearPenSettings () {
+        myPenPopup.clear();
+    }
+
+    private void collectPenInfo () {
+
+    }
+
+    private void buildCommands () {
+        // TODO: Actually make this method
+    }
+
+    private void popupPenSelector () {
+        Stage stage = new Stage();
+        myPenPopup.initPopup();
+        Scene myScene = myPenPopup.getScene();
+        stage.setScene(myScene);
+        stage.show();
+        configurePenPopup();
+    }
+
+    /**
+     * Returns the title of the SLOGO project
+     * 
+     * @return Title of project
+     */
     public String getTitle () {
         return TITLE;
     }

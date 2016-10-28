@@ -32,7 +32,7 @@ public class ApplicationScene {
     private ITurtleBox myTurtleBox;
     private IVariableViewer myVariableViewer;
     private IScriptViewer myScriptViewer;
-	private IShapeColorModule myShapeColorModule;
+    private IShapeColorModule myShapeColorModule;
     private HelpPage myHelpPage;
 
     public ApplicationScene () {
@@ -45,9 +45,8 @@ public class ApplicationScene {
         myTextEditor = TextEditorFactory.buildTextEditor(2 * aWidth / 3, aHeight / 3);
         myErrorViewer = ErrorViewerFactory.buildErrorViewer(aWidth / 3, aHeight / 3, myTextEditor);
         myVariableViewer = VariableViewerFactory.buildVariableViewer(aWidth / 6, aHeight / 3);
-        myScriptViewer = ScriptViewerFactory.buildViewerFactory(aWidth / 6, aHeight / 3); 
+        myScriptViewer = ScriptViewerFactory.buildViewerFactory(aWidth / 6, aHeight / 3);
         myShapeColorModule = ShapeColorModuleFactory.build();
-        
         myHelpPage = new HelpPage();
 
         myRoot = new Group();
@@ -97,7 +96,7 @@ public class ApplicationScene {
     }
 
     public IShapeColorModule getMyShapeColorModule () {
-		return myShapeColorModule;
+        return myShapeColorModule;
     }
-    
+
 }
