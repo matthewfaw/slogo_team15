@@ -5,6 +5,8 @@ import front_end.view_modules.errorViewer.IErrorViewer;
 import front_end.view_modules.helpPage.HelpPage;
 import front_end.view_modules.scriptViewer.IScriptViewer;
 import front_end.view_modules.scriptViewer.ScriptViewerFactory;
+import front_end.view_modules.shape_color_module.ShapeColorModuleFactory;
+import front_end.view_modules.shape_color_module.interfaces.IShapeColorModule;
 import front_end.view_modules.textEditor.ITextEditor;
 import front_end.view_modules.textEditor.TextEditorFactory;
 import front_end.view_modules.toolbar.IToolbar;
@@ -30,6 +32,7 @@ public class ApplicationScene {
     private ITurtleBox myTurtleBox;
     private IVariableViewer myVariableViewer;
     private IScriptViewer myScriptViewer;
+	private IShapeColorModule myShapeColorModule;
     private HelpPage myHelpPage;
 
     public ApplicationScene () {
@@ -42,10 +45,10 @@ public class ApplicationScene {
         myTextEditor = TextEditorFactory.buildTextEditor(2 * aWidth / 3, aHeight / 3);
         myErrorViewer = ErrorViewerFactory.buildErrorViewer(aWidth / 3, aHeight / 3, myTextEditor);
         myVariableViewer = VariableViewerFactory.buildVariableViewer(aWidth / 6, aHeight / 3);
-        myScriptViewer = ScriptViewerFactory.buildViewerFactory(aWidth / 6, aHeight / 3); // double
-                                                                                          // //
-                                                                                          // check
-        myHelpPage = new HelpPage();                                                                                  // these
+        myScriptViewer = ScriptViewerFactory.buildViewerFactory(aWidth / 6, aHeight / 3); 
+        myShapeColorModule = ShapeColorModuleFactory.build();
+        
+        myHelpPage = new HelpPage();
 
         myRoot = new Group();
         myRoot.getChildren().addAll(myApplicationView);
@@ -56,6 +59,7 @@ public class ApplicationScene {
         myApplicationView.add(myVariableViewer.getInstanceAsNode(), 1, 1, 1, 1);
         myApplicationView.add(myScriptViewer.getInstanceAsNode(), 2, 1, 1, 1);
         myApplicationView.add(myErrorViewer.getInstanceAsNode(), 1, 2, 2, 1);
+        myApplicationView.add(myShapeColorModule.getInstanceAsNode(), 2, 2);
 
         return myScene;
     }
@@ -92,4 +96,8 @@ public class ApplicationScene {
         return myToolbar;
     }
 
+    public IShapeColorModule getMyShapeColorModule () {
+		return myShapeColorModule;
+    }
+    
 }

@@ -13,6 +13,7 @@ import front_end.appScene.ApplicationScene;
 import front_end.view_modules.errorViewer.IErrorViewer;
 import front_end.view_modules.helpPage.HelpPage;
 import front_end.view_modules.scriptViewer.IScriptViewer;
+import front_end.view_modules.shape_color_module.interfaces.IShapeColorModule;
 import front_end.view_modules.textEditor.ITextEditor;
 import front_end.view_modules.toolbar.IToolbar;
 import front_end.view_modules.turtleBox.ITurtleBox;
@@ -28,14 +29,16 @@ public class ApplicationController {
 
     private ModelController myModel;
     private ApplicationScene myAppScene;
+    private HelpPage myHelpPage;
+    private Group myRoot;
+    
     private IToolbar myToolbar;
     private ITextEditor myTextEditor;
     private IErrorViewer myErrorViewer;
     private IVariableViewer myVariableViewer;
-    private HelpPage myHelpPage;
-    private Group myRoot;
     private ITurtleBox myTurtleBox;
     private IScriptViewer myScriptViewer;
+    private IShapeColorModule myShapeColorModule;
 
     // TODO: This class needs A LOT of updating
     private String TITLE = "SLOGO";
@@ -54,6 +57,7 @@ public class ApplicationController {
         myRoot = myAppScene.getMyRoot();
         myTurtleBox = myAppScene.getMyTurtleBox();
         myScriptViewer = myAppScene.getMyScriptViewer();
+        myShapeColorModule = myAppScene.getMyShapeColorModule();
     }
 
     public Scene init (int aWidth, int aHeight) {
@@ -100,6 +104,7 @@ public class ApplicationController {
         myTurtleBox.reset();
         myVariableViewer.reset();
         myScriptViewer.reset();
+        myShapeColorModule.reset();
     }
 
     private Map<Languages, EventHandler<ActionEvent>> makeLanguageMap () {

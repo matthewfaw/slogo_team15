@@ -18,10 +18,11 @@ class ColorRow {
 	private int myIndex;
 	private ColorPicker myColorPicker;
 	
-	private static final String COLOR_TEXT = "Color: ";
+	private static final String COLOR_TEXT = "Color ID: ";
+	private static final int SPACING = 5;
 	
 	private ColorRow(){
-		myRow = new HBox(0);
+		myRow = new HBox(SPACING);
 		myColorPicker = new ColorPicker();
 	}
 	

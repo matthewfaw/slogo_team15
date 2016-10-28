@@ -5,16 +5,28 @@ import front_end.view_modules.shape_color_module.interfaces.IShapeColorModule;
 import front_end.view_modules.shape_color_module.interfaces.IShapeModule;
 import integration.languages.Languages;
 import javafx.scene.Node;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.paint.Color;
 
 class ConcreteShapeColorModule implements IShapeColorModule {
 
+	private ScrollPane myWindow;
+	
 	private IColorModule myColorModule;
 	private IShapeModule myShapeModule;
 	
 	ConcreteShapeColorModule(){
 		myColorModule = new ConcreteColorModule();
 		myShapeModule = new ConcreteShapeModule();
+		
+		myWindow = new ScrollPane();
+		myWindow.setHbarPolicy( ScrollBarPolicy.NEVER );
+		myWindow.setVbarPolicy( ScrollBarPolicy.ALWAYS );
+		
+		//TODO Change this
+		myWindow.setContent(myColorModule.getInstanceAsNode());
+		
 	}
 	
 	@Override
@@ -37,7 +49,7 @@ class ConcreteShapeColorModule implements IShapeColorModule {
 	@Override
 	public Node getInstanceAsNode() {
 		// TODO Finish getInstanceAsNode
-		return null;
+		return myWindow;
 	}
 
 	@Override

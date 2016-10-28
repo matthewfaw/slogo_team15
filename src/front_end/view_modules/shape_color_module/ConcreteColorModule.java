@@ -1,19 +1,20 @@
 package front_end.view_modules.shape_color_module;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.ResourceBundle;
 
 import front_end.view_modules.shape_color_module.interfaces.IColorModule;
 import integration.languages.Languages;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
 class ConcreteColorModule implements IColorModule {
 
 	private List<ColorRow> myColorRowList;
+	private VBox myColorModuleBox;
 	private VBox myColumn;
 	private ResourceBundle myDefaultBundle;
 	
@@ -22,8 +23,17 @@ class ConcreteColorModule implements IColorModule {
 	
 	ConcreteColorModule(){
 		myColorRowList = new ArrayList<>();
+		
+		myColorModuleBox = new VBox();
+		initNewColorButton();
+		
 		myColumn = new VBox();
+		myColorModuleBox.getChildren().add(myColumn);
+		
 		myDefaultBundle = ResourceBundle.getBundle(INIT_FILE + FILENAME);
+		
+		setDefault();
+		setColumn();
 	}
 	
 	private void setDefault() {
@@ -40,34 +50,39 @@ class ConcreteColorModule implements IColorModule {
 	
 	private void setColumn() {
 		myColumn.getChildren().clear();
-		
-		for (ColorRow colorRow : myColorRowList) {
-			
-		}
+		myColorRowList.forEach( cr -> myColumn.getChildren().add(cr.getAsNode()) );
+	}
+	
+	private void initNewColorButton(){
+		Button newColorButton = new Button("New Color!"); 
+		newColorButton.setOnMouseClicked(event -> addColorRow());
+		myColorModuleBox.getChildren().add(newColorButton);
+	}
+	
+	private void addColorRow(){
+		myColorRowList.add(new ColorRow(myColorRowList.size()));
+		setColumn();
 	}
 	
 	@Override
 	public void reset() {
-		// TODO Auto-generated method stub
-
+		setDefault();
+		setColumn();
 	}
 
 	@Override
 	public Node getInstanceAsNode() {
-		// TODO Auto-generated method stub
-		return null;
+		return myColorModuleBox;
 	}
 
 	@Override
 	public void switchLanguage(Languages aLanguage) {
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public Color getColor(int aColorId) {
-		// TODO Auto-generated method stub
-		return null;
+		return myColorRowList.get(aColorId).getColor();
 	}
 
 	
