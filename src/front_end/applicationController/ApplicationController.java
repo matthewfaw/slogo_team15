@@ -19,6 +19,7 @@ import front_end.view_modules.shape_color_module.interfaces.IShapeColorModule;
 import front_end.view_modules.textEditor.ITextEditor;
 import front_end.view_modules.toolbar.IToolbar;
 import front_end.view_modules.turtleBox.ITurtleBox;
+import front_end.view_modules.turtlestate.IAllRobotsStateBox;
 import front_end.view_modules.variableViewer.IVariableViewer;
 import integration.languages.Languages;
 import javafx.event.ActionEvent;
@@ -48,6 +49,7 @@ public class ApplicationController {
     private ITurtleBox myTurtleBox;
     private IScriptViewer myScriptViewer;
     private IShapeColorModule myShapeColorModule;
+    private IAllRobotsStateBox myStatesBox;
     private IPenPopup myPenPopup;
 
     private String TITLE = "SLOGO";
@@ -67,6 +69,8 @@ public class ApplicationController {
         myTurtleBox = myAppScene.getMyTurtleBox();
         myScriptViewer = myAppScene.getMyScriptViewer();
         myShapeColorModule = myAppScene.getMyShapeColorModule();
+        myStatesBox = myAppScene.getMyStatesBox();
+        // TODO: Change this to interface - Kayla
         myPenPopup = new PenPopup();
     }
 

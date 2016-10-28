@@ -13,6 +13,8 @@ import front_end.view_modules.toolbar.IToolbar;
 import front_end.view_modules.toolbar.ToolbarFactory;
 import front_end.view_modules.turtleBox.ITurtleBox;
 import front_end.view_modules.turtleBox.TurtleBoxFactory;
+import front_end.view_modules.turtlestate.ConcreteAllRobotsStateBox;
+import front_end.view_modules.turtlestate.IAllRobotsStateBox;
 import front_end.view_modules.variableViewer.IVariableViewer;
 import front_end.view_modules.variableViewer.VariableViewerFactory;
 import javafx.scene.Group;
@@ -32,7 +34,8 @@ public class ApplicationScene {
     private ITurtleBox myTurtleBox;
     private IVariableViewer myVariableViewer;
     private IScriptViewer myScriptViewer;
-    private IShapeColorModule myShapeColorModule;
+	private IShapeColorModule myShapeColorModule;
+	private IAllRobotsStateBox myStatesBox;
     private HelpPage myHelpPage;
 
     public ApplicationScene () {
@@ -47,6 +50,7 @@ public class ApplicationScene {
         myVariableViewer = VariableViewerFactory.buildVariableViewer(aWidth / 6, aHeight / 3);
         myScriptViewer = ScriptViewerFactory.buildViewerFactory(aWidth / 6, aHeight / 3);
         myShapeColorModule = ShapeColorModuleFactory.build();
+        myStatesBox = new ConcreteAllRobotsStateBox(myShapeColorModule, myShapeColorModule);
         myHelpPage = new HelpPage();
 
         myRoot = new Group();
@@ -59,6 +63,7 @@ public class ApplicationScene {
         myApplicationView.add(myScriptViewer.getInstanceAsNode(), 2, 1, 1, 1);
         myApplicationView.add(myErrorViewer.getInstanceAsNode(), 1, 2, 2, 1);
         myApplicationView.add(myShapeColorModule.getInstanceAsNode(), 2, 2);
+        myApplicationView.add(myStatesBox.getInstanceAsNode(), 2, 3);
 
         return myScene;
     }
@@ -99,4 +104,8 @@ public class ApplicationScene {
         return myShapeColorModule;
     }
 
+    
+    public IAllRobotsStateBox getMyStatesBox() {
+    	return myStatesBox;
+    }
 }
