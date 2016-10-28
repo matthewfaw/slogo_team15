@@ -1,5 +1,7 @@
 package front_end.view_modules.shape_color_module;
 
+import java.io.File;
+
 import front_end.view_modules.shape_color_module.interfaces.IColorModule;
 import front_end.view_modules.shape_color_module.interfaces.IShapeColorModule;
 import front_end.view_modules.shape_color_module.interfaces.IShapeModule;
@@ -104,8 +106,8 @@ class ConcreteShapeColorModule implements IShapeColorModule {
 	}
 
 	@Override
-	public String getFilename(int aImageId) {
-		return myShapeModule.getFilename(aImageId);
+	public File getFile(int aImageId) {
+		return myShapeModule.getFile(aImageId);
 	}
 
 	@Override

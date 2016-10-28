@@ -1,5 +1,7 @@
 package front_end.view_modules.shape_color_module.interfaces;
 
+import java.io.File;
+
 import front_end.view_modules.ILanguageSwitcher;
 import front_end.view_modules.IViewModule;
 
@@ -13,6 +15,6 @@ public interface IShapeModule extends IViewModule, ILanguageSwitcher {
 	 * @param aImageId
 	 * @return
 	 */
-	public String getFilename(int aImageId);
+	public File getFile(int aImageId);
 	
 }
