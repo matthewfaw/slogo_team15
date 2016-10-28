@@ -111,7 +111,6 @@ class ConcreteToolbar implements IToolbar {
 
     @Override
     public void onPenPress (EventHandler<MouseEvent> aEvent) {
-        // TODO Auto-generated method stub
         myPenFunctions.setOnMouseClicked(aEvent);
     }
 

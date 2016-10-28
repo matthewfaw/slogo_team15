@@ -12,6 +12,7 @@ import back_end.model.exception.UnexpectedCommandException;
 import front_end.appScene.ApplicationScene;
 import front_end.view_modules.errorViewer.IErrorViewer;
 import front_end.view_modules.helpPage.HelpPage;
+import front_end.view_modules.penProperties.PenPopup;
 import front_end.view_modules.scriptViewer.IScriptViewer;
 import front_end.view_modules.shape_color_module.interfaces.IShapeColorModule;
 import front_end.view_modules.textEditor.ITextEditor;
@@ -23,8 +24,15 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.stage.Stage;
 
 
+/**
+ * 
+ * @author Kayla Schulz
+ * @author George Bernard
+ *
+ */
 public class ApplicationController {
 
     private ModelController myModel;
@@ -39,8 +47,8 @@ public class ApplicationController {
     private ITurtleBox myTurtleBox;
     private IScriptViewer myScriptViewer;
     private IShapeColorModule myShapeColorModule;
+    private PenPopup myPenPopup;
 
-    // TODO: This class needs A LOT of updating
     private String TITLE = "SLOGO";
 
     public ApplicationController () {
@@ -58,6 +66,8 @@ public class ApplicationController {
         myTurtleBox = myAppScene.getMyTurtleBox();
         myScriptViewer = myAppScene.getMyScriptViewer();
         myShapeColorModule = myAppScene.getMyShapeColorModule();
+        //TODO: Change this to interface - Kayla
+        myPenPopup = new PenPopup();
     }
 
     public Scene init (int aWidth, int aHeight) {
@@ -130,7 +140,16 @@ public class ApplicationController {
         myToolbar.onHelpPress(e -> loadHelp());
 
         myToolbar.onLanguageSelect(makeLanguageMap());
+        
+        myToolbar.onPenPress(e -> popupPenSelector());
 
+    }
+    
+    private void popupPenSelector() {
+       Stage stage = new Stage();
+       Scene myScene = myPenPopup.initPopup();
+       stage.setScene(myScene);
+       stage.show();
     }
 
     public String getTitle () {

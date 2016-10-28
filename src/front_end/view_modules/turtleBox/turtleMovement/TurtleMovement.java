@@ -6,7 +6,11 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 
-
+/**
+ * 
+ * @author Kayla Schulz
+ *
+ */
 public class TurtleMovement implements ITurtleMovement {
 
     IViewRobot myRobot;
@@ -24,6 +28,7 @@ public class TurtleMovement implements ITurtleMovement {
         myTurtleBox = myConTurt;
         myWidth = width;
         myHeight = height;
+        //TODO: Make sure to get these from the back-end
         curX = myWidth / 2;
         curY = myHeight / 2;
     }
