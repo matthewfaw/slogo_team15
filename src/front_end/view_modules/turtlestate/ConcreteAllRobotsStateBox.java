@@ -33,6 +33,10 @@ public class ConcreteAllRobotsStateBox implements IAllRobotsStateBox{
 		myScroller.setVbarPolicy( ScrollBarPolicy.ALWAYS );
 		
 		myScroller.setContent(myBox);
+		
+		IRobotStateBox stateBox = new ConcreteRobotStateBox( myColorMap, myImageMap );
+		myStateBoxes.add(stateBox);
+		build();
 	}
 	
 	private void build(){
