@@ -67,7 +67,6 @@ public class ApplicationController {
         myTurtleBox = myAppScene.getMyTurtleBox();
         myScriptViewer = myAppScene.getMyScriptViewer();
         myShapeColorModule = myAppScene.getMyShapeColorModule();
-        // TODO: Change this to interface - Kayla
         myPenPopup = new PenPopup();
     }
 
