@@ -2,9 +2,11 @@ package front_end.view_modules.shape_color_module;
 
 import java.io.File;
 
+import front_end.view_modules.shape_color_module.color.ColorModuleFactory;
+import front_end.view_modules.shape_color_module.image.ImageModuleFactory;
 import front_end.view_modules.shape_color_module.interfaces.IColorModule;
-import front_end.view_modules.shape_color_module.interfaces.IShapeColorModule;
-import front_end.view_modules.shape_color_module.interfaces.IShapeModule;
+import front_end.view_modules.shape_color_module.interfaces.IImageColorModule;
+import front_end.view_modules.shape_color_module.interfaces.IImageModule;
 import integration.languages.Languages;
 import javafx.scene.Node;
 import javafx.scene.control.MenuButton;
@@ -15,7 +17,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
-class ConcreteShapeColorModule implements IShapeColorModule {
+class ConcreteImageColorModule implements IImageColorModule {
 
 	private ScrollPane myWindow;
 	private VBox myModule;
@@ -39,13 +41,13 @@ class ConcreteShapeColorModule implements IShapeColorModule {
 	}
 	
 	private IColorModule myColorModule;
-	private IShapeModule myShapeModule;
+	private IImageModule myImageModule;
 	
 	private static final Palettes DEFAULT_PALETTE = Palettes.COLOR;
 	
-	ConcreteShapeColorModule(){
-		myColorModule = new ConcreteColorModule();
-		myShapeModule = new ConcreteShapeModule();
+	ConcreteImageColorModule(){
+		myColorModule = ColorModuleFactory.build();
+		myImageModule = ImageModuleFactory.build();
 		
 		myWindow = new ScrollPane();
 		myWindow.setHbarPolicy( ScrollBarPolicy.NEVER );
@@ -72,7 +74,7 @@ class ConcreteShapeColorModule implements IShapeColorModule {
 			break;
 		case SHAPE:
 			name = pal.getName();
-			myModuleSwitchBox.getChildren().add(myShapeModule.getInstanceAsNode());
+			myModuleSwitchBox.getChildren().add(myImageModule.getInstanceAsNode());
 			break;
 		default:
 			name = "";
@@ -107,13 +109,13 @@ class ConcreteShapeColorModule implements IShapeColorModule {
 
 	@Override
 	public File getFile(int aImageId) {
-		return myShapeModule.getFile(aImageId);
+		return myImageModule.getFile(aImageId);
 	}
 
 	@Override
 	public void reset() {
 		// TODO Finish Reset
-		myShapeModule.reset();
+		myImageModule.reset();
 		myColorModule.reset();
 	}
 
@@ -125,7 +127,7 @@ class ConcreteShapeColorModule implements IShapeColorModule {
 
 	@Override
 	public void switchLanguage(Languages aLanguage) {
-		myShapeModule.switchLanguage(aLanguage);
+		myImageModule.switchLanguage(aLanguage);
 		myColorModule.switchLanguage(aLanguage);
 	}
 }

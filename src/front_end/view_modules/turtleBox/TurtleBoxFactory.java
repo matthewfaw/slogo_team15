@@ -1,6 +1,6 @@
 package front_end.view_modules.turtleBox;
 
-import front_end.view_modules.shape_color_module.interfaces.IShapeColorModule;
+import front_end.view_modules.shape_color_module.interfaces.IImageColorModule;
 
 public class TurtleBoxFactory {
 
@@ -8,7 +8,7 @@ public class TurtleBoxFactory {
         // Does Nothing
     }
 
-    public static ITurtleBox buildTurtleBox (int aWidth, int aHeight, IShapeColorModule aShapeColorMap) {
+    public static ITurtleBox buildTurtleBox (int aWidth, int aHeight, IImageColorModule aShapeColorMap) {
         return new ConcreteTurtleBox(aWidth, aHeight, aShapeColorMap);
     }
 }

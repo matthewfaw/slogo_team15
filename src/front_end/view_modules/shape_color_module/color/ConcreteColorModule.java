@@ -1,4 +1,4 @@
-package front_end.view_modules.shape_color_module;
+package front_end.view_modules.shape_color_module.color;
 
 import java.util.ArrayList;
 import java.util.List;

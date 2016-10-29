@@ -2,7 +2,7 @@ package front_end.view_modules.turtlestate;
 
 import back_end.model.robot.IViewRobot;
 import front_end.view_modules.shape_color_module.interfaces.IColorModule;
-import front_end.view_modules.shape_color_module.interfaces.IShapeModule;
+import front_end.view_modules.shape_color_module.interfaces.IImageModule;
 import integration.languages.Languages;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.Node;
@@ -16,7 +16,7 @@ import javafx.scene.layout.VBox;
 public class ConcreteRobotStateBox implements IRobotStateBox {
 
 	private IColorModule myColorMap;
-	private IShapeModule myImageMap;
+	private IImageModule myImageMap;
 	private IViewRobot myRobot;
 
 	private VBox myBox;
@@ -32,7 +32,7 @@ public class ConcreteRobotStateBox implements IRobotStateBox {
 
 	private static final int CHARACTER_SIZE = 20;
 	
-	ConcreteRobotStateBox( IColorModule aColorMap, IShapeModule aImageMap ){
+	ConcreteRobotStateBox( IColorModule aColorMap, IImageModule aImageMap ){
 		myColorMap = aColorMap;
 		myImageMap = aImageMap;
 		myBox = new VBox(0);

@@ -1,18 +1,18 @@
-package front_end.view_modules.shape_color_module;
+package front_end.view_modules.shape_color_module.image;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import front_end.view_modules.shape_color_module.interfaces.IShapeModule;
+import front_end.view_modules.shape_color_module.interfaces.IImageModule;
 import integration.languages.Languages;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
-class ConcreteShapeModule implements IShapeModule {
+class ConcreteImageModule implements IImageModule {
 
 	private List<ImageRow> myImageRowList;
 	private VBox myImageModuleBox;
@@ -24,7 +24,7 @@ class ConcreteShapeModule implements IShapeModule {
 	private static final String IMAGE_FILENAME = "DefaultImages";
 	private static final String TEXT_FILENAME = "ShapeModuleText";
 	
-	ConcreteShapeModule(){
+	ConcreteImageModule(){
 		myDefaultImageBundle = ResourceBundle.getBundle(INIT_FILE + IMAGE_FILENAME);
 		myTextBundle = ResourceBundle.getBundle(INIT_FILE  + TEXT_FILENAME);
 		

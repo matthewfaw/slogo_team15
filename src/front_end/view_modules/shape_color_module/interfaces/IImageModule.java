@@ -5,7 +5,7 @@ import java.io.File;
 import front_end.view_modules.ILanguageSwitcher;
 import front_end.view_modules.IViewModule;
 
-public interface IShapeModule extends IViewModule, ILanguageSwitcher {
+public interface IImageModule extends IViewModule, ILanguageSwitcher {
 
 	/**
 	 *  Returns filename of current image mapped to by integer aImageId

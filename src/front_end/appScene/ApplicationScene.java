@@ -5,8 +5,8 @@ import front_end.view_modules.errorViewer.IErrorViewer;
 import front_end.view_modules.helpPage.HelpPage;
 import front_end.view_modules.scriptViewer.IScriptViewer;
 import front_end.view_modules.scriptViewer.ScriptViewerFactory;
-import front_end.view_modules.shape_color_module.ShapeColorModuleFactory;
-import front_end.view_modules.shape_color_module.interfaces.IShapeColorModule;
+import front_end.view_modules.shape_color_module.ImageColorModuleFactory;
+import front_end.view_modules.shape_color_module.interfaces.IImageColorModule;
 import front_end.view_modules.textEditor.ITextEditor;
 import front_end.view_modules.textEditor.TextEditorFactory;
 import front_end.view_modules.toolbar.IToolbar;
@@ -34,7 +34,7 @@ public class ApplicationScene {
 	private ITurtleBox myTurtleBox;
 	private IVariableViewer myVariableViewer;
 	private IScriptViewer myScriptViewer;
-	private IShapeColorModule myShapeColorModule;
+	private IImageColorModule myShapeColorModule;
 	private IAllRobotsStateBox myStatesBox;
 	private HelpPage myHelpPage;
 
@@ -46,7 +46,7 @@ public class ApplicationScene {
 		myErrorViewer = ErrorViewerFactory.buildErrorViewer(aWidth / 3, aHeight / 3, myTextEditor);
 		myVariableViewer = VariableViewerFactory.buildVariableViewer(aWidth / 6, aHeight / 3);
 		myScriptViewer = ScriptViewerFactory.buildViewerFactory(aWidth / 6, aHeight / 3);
-		myShapeColorModule = ShapeColorModuleFactory.build();
+		myShapeColorModule = ImageColorModuleFactory.build();
 		myTurtleBox = TurtleBoxFactory.buildTurtleBox(2 * aWidth / 3, 2 * aHeight / 3, myShapeColorModule);
 		myStatesBox = new ConcreteAllRobotsStateBox(myShapeColorModule, myShapeColorModule);
 		myHelpPage = new HelpPage();
@@ -101,7 +101,7 @@ public class ApplicationScene {
 		return myToolbar;
 	}
 
-	public IShapeColorModule getMyShapeColorModule () {
+	public IImageColorModule getMyShapeColorModule () {
 		return myShapeColorModule;
 	}
 

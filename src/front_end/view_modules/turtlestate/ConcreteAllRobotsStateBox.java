@@ -5,7 +5,7 @@ import java.util.List;
 
 import back_end.model.robot.IViewRobot;
 import front_end.view_modules.shape_color_module.interfaces.IColorModule;
-import front_end.view_modules.shape_color_module.interfaces.IShapeModule;
+import front_end.view_modules.shape_color_module.interfaces.IImageModule;
 import integration.languages.Languages;
 import javafx.scene.Node;
 import javafx.scene.control.MenuButton;
@@ -24,11 +24,11 @@ public class ConcreteAllRobotsStateBox implements IAllRobotsStateBox{
 	private List<MenuItem> mySwitchList;
 	
 	private IColorModule myColorMap;
-	private IShapeModule myImageMap;
+	private IImageModule myImageMap;
 	
 	private static final String TAB_TEXT = "Turtle ID: ";
 	
-	public ConcreteAllRobotsStateBox( IColorModule aColorMap, IShapeModule aImageMap){
+	public ConcreteAllRobotsStateBox( IColorModule aColorMap, IImageModule aImageMap){
 		myColorMap = aColorMap;
 		myImageMap = aImageMap;
 		

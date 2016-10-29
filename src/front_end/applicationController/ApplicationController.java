@@ -15,7 +15,7 @@ import front_end.view_modules.helpPage.HelpPage;
 import front_end.view_modules.penProperties.IPenPopup;
 import front_end.view_modules.penProperties.PenPopup;
 import front_end.view_modules.scriptViewer.IScriptViewer;
-import front_end.view_modules.shape_color_module.interfaces.IShapeColorModule;
+import front_end.view_modules.shape_color_module.interfaces.IImageColorModule;
 import front_end.view_modules.textEditor.ITextEditor;
 import front_end.view_modules.toolbar.IToolbar;
 import front_end.view_modules.turtleBox.ITurtleBox;
@@ -53,7 +53,7 @@ public class ApplicationController {
     private IVariableViewer myVariableViewer;
     private ITurtleBox myTurtleBox;
     private IScriptViewer myScriptViewer;
-    private IShapeColorModule myShapeColorModule;
+    private IImageColorModule myShapeColorModule;
     private IAllRobotsStateBox myStatesBox;
     private IPenPopup myPenPopup;
     
