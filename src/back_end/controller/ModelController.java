@@ -9,7 +9,7 @@ import back_end.model.robot.IViewRobot;
 import back_end.model.robot.Robot;
 import back_end.model.robot.Turtle;
 import back_end.model.states.Environment;
-import back_end.model.states.IViewableVariableState;
+import back_end.model.states.ScopeController;
 import back_end.model.syntax_tree.AbstractSyntaxTree;
 import back_end.model.text_parser.TextParser;
 import integration.languages.Languages;
@@ -20,13 +20,15 @@ import integration.observe.IRobotObserver;
 public class ModelController {
 	
 	private Environment myEnvironment; 
+	private ScopeController myScopeController;
 	private IObservable myRobot; 
 	private TextParser myParser;
 	
 	public ModelController() {
 		myEnvironment = Environment.getInstance();
 		myRobot = new Turtle();
-		myParser = new TextParser(myEnvironment, (Robot) myRobot);
+		myScopeController = new ScopeController();
+		myParser = new TextParser(myScopeController, myEnvironment, (Robot) myRobot);
 	}
 	
 	public void userInputToModel(String aString) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException, UnexpectedCharacterException, UnexpectedCommandException, EmptyInputException {

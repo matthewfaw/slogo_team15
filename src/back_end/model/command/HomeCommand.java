@@ -15,7 +15,7 @@ public class HomeCommand extends SetPositionCommand {
     @Override
     public double eval (IReadableInput ... aList) {
         IReadableInput[] zeroList =
-                { (IReadableInput) new ConstantNode(0), (IReadableInput) new ConstantNode(0) };
+                { (IReadableInput) new ConstantNode(null, 0, "0", null), (IReadableInput) new ConstantNode(null, 0, "0", null) };
         return super.eval(zeroList);
     }
 
