@@ -8,8 +8,8 @@ import back_end.model.exception.UnexpectedCommandException;
 import back_end.model.robot.IViewRobot;
 import back_end.model.robot.Robot;
 import back_end.model.robot.Turtle;
-import back_end.model.states.IViewVariableState;
-import back_end.model.states.Scope;
+import back_end.model.states.Environment;
+import back_end.model.states.ScopeController;
 import back_end.model.syntax_tree.AbstractSyntaxTree;
 import back_end.model.text_parser.TextParser;
 import integration.languages.Languages;
@@ -20,17 +20,20 @@ import integration.router.IRouter;
 
 public class ModelController {
 	
-	private Scope myScope; 
-	private IObservable myRobot; 
+	private Environment myEnvironment; 
+	private ScopeController myScopeController;
+	private Robot myRobot; 
 	private TextParser myParser;
 	private IRouter myRouter;
 	
+
 	public ModelController(IRouter aRobotRouter) {
-		myScope = new Scope();
-		myRobot = new Turtle();
 		myRouter = aRobotRouter;
-		distributeRobots();
-		myParser = new TextParser(myScope, (Robot) myRobot);
+		myEnvironment = Environment.getInstance();
+		myRobot = new Turtle();
+		distributeRobot(myRobot);
+		myScopeController = new ScopeController();
+		myParser = new TextParser(myScopeController, myEnvironment, (Robot) myRobot);
 	}
 	
 	public void userInputToModel(String aString) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException, UnexpectedCharacterException, UnexpectedCommandException, EmptyInputException {
@@ -45,17 +48,17 @@ public class ModelController {
 		}
 	}
 		
-	private void distributeRobots(){
-		myRouter.distributeRobot( (IViewRobot) myRobot);
+	private void distributeRobot( IViewRobot aRobot ){
+		myRouter.distributeRobot( aRobot );
 	}
 	
 	public void giveVariableObservers(IObserver ro) {
-		myScope.registerObserver(ro);
+		myEnvironment.registerObserver(ro);
 	}
 	
-	public IViewVariableState getVariableMap() {
-		return myScope.getVariableMap();
-	}
+	//public IViewableVariableState getVariableMap() {
+		//return myEnvironment.
+	//}
 	
 	public void setLanguage(Languages aLanguage) {
 		myParser.setLanguage(aLanguage);

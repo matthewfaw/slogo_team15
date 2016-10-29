@@ -113,7 +113,7 @@ public class ConcreteRobotStateBox implements IRobotStateBox {
 	private void build(){
 		if(noRobot()) return;
 		myIDLabel.setText(myRobot.toString()); 
-		myCoordinatesLabel.setText( buildCoordinateString(myRobot.getX(), myRobot.getY()) );
+		myCoordinatesLabel.setText( buildCoordinateString(myRobot.getCoordinate().getX(), myRobot.getCoordinate().getY()) );
 		myBearingLabel.setText("Angle: " + myRobot.getRotation() + " deg");
 		myPenDownButton.setSelected( myRobot.isPenDown() );
 		myVisibilityButton.setSelected( myRobot.isVisible() );

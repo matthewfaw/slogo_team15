@@ -63,11 +63,11 @@ public class TurtleMovement implements ITurtleMovement {
     }
 
     private double translatedXCoordinate () {
-        return myRobot.getX() + myWidth / 2;
+        return myRobot.getCoordinate().getX() + myWidth / 2;
     }
 
     private double translatedYCoordinate () {
-        return -myRobot.getY() + myHeight / 2;
+        return -myRobot.getCoordinate().getY() + myHeight / 2;
     }
 
     private void moveTurtleX () {

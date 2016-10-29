@@ -3,17 +3,18 @@ package back_end.model.command;
 import java.awt.Point;
 import back_end.model.node.IReadableInput;
 import back_end.model.robot.Robot;
+import back_end.model.states.IModifiableVariableState;
 
 
 public abstract class MovementCommand implements ICommand {
 
     private Robot myRobot;
 
-    public MovementCommand (Robot aRobot) {
+    public MovementCommand(Robot aRobot, IModifiableVariableState aEnvironment, String aCommandName) {
         myRobot = aRobot;
     }
 
-    public Point getXYCoordinate (IReadableInput ... aList) {
+	public Point getXYCoordinate (IReadableInput ... aList) {
         double XPos = Math.sin(myRobot.getRotation()) * aList[0].getValue();
         double YPos = Math.cos(myRobot.getRotation()) * aList[0].getValue();
         if (myRobot.getRotation() > 90 && myRobot.getRotation() < 360) {

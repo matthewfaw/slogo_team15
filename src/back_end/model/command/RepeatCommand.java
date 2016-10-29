@@ -1,14 +1,15 @@
 package back_end.model.command;
 
 import back_end.model.node.IReadableInput;
-import back_end.model.states.Scope;
+import back_end.model.robot.Robot;
+import back_end.model.states.IModifiableVariableState;
 
 
-public class RepeatCommand implements ICommandBranch {
+public class RepeatCommand extends ICommandBranch {
 
     private int myNumberTimesRun;
 
-    public RepeatCommand (Scope aScope) {
+    public RepeatCommand(Robot aRobot, IModifiableVariableState aEnvironment, String aCommandName) {
         myNumberTimesRun = 1;
     }
 
@@ -21,11 +22,6 @@ public class RepeatCommand implements ICommandBranch {
         else {
             return -1;
         }
-    }
-
-    @Override
-    public double eval (IReadableInput ... aList) {
-        return aList[0].getValue();
     }
 
 }

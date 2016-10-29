@@ -1,15 +1,17 @@
 package back_end.model.command;
 
 import back_end.model.node.IReadableInput;
-import back_end.model.states.Scope;
+import back_end.model.robot.Robot;
+import back_end.model.states.Environment;
+import back_end.model.states.IModifiableVariableState;
 
 
 public class MakeVariableCommand implements ICommand {
 
-    private Scope myScope;
+    private IModifiableVariableState myScope;
 
-    public MakeVariableCommand (Scope aScope) {
-        myScope = aScope;
+    public MakeVariableCommand(Robot aRobot, IModifiableVariableState aEnvironment, String aCommandName) {
+        myScope = aEnvironment;
     }
 
     @Override

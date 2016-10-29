@@ -14,24 +14,24 @@ import integration.observe.IObserver;
  */
 class ConcreteRouter implements IRouter {
 
-	Collection<IRobotAcceptor> myRobotObservers;
+	Collection<IRobotAcceptor> myRobotAcceptors;
 	Collection<Object> myVariableObservers;
 	ApplicationScene myAppScene;
 	
 	ConcreteRouter(ApplicationScene aAppScene){
-		myRobotObservers = new ArrayList<>();
+		myRobotAcceptors = new ArrayList<>();
 		myAppScene = aAppScene;
 		setRobotObservers();
 	}
 
 	private void setRobotObservers(){
-		myRobotObservers.add( myAppScene.getMyTurtleBox() );
-		myRobotObservers.add( myAppScene.getMyStatesBox() );
+		myRobotAcceptors.add( myAppScene.getMyTurtleBox() );
+		myRobotAcceptors.add( myAppScene.getMyStatesBox() );
 	}
 	
 	@Override
 	public void distributeRobot(IViewRobot aViewRobot) {
-		myRobotObservers.forEach( ro -> ro.giveRobot(aViewRobot) );
+		myRobotAcceptors.forEach( ro -> ro.giveRobot(aViewRobot) );
 	}
 
 	@Override
