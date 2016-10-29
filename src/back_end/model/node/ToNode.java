@@ -17,9 +17,8 @@ public class ToNode extends Node {
 	
 	private double returnValue;
 	
-	public ToNode(ICommand aMethod, int aNumberOfInputs, Environment aEnvironment)
-	{
-		myMethod = aMethod;
+	public ToNode (ICommand aCommand, int aNumberOfInputs, String aUserInput) {
+		myMethod = aCommand;
 		myNumberOfInputs = aNumberOfInputs;
 	}
 	public int getNumberOfInputs()

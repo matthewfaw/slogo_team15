@@ -1,6 +1,7 @@
 package back_end.model.command;
 
 import back_end.model.node.IReadableInput;
+import back_end.model.robot.Robot;
 import back_end.model.states.Environment;
 
 
@@ -8,8 +9,8 @@ public class IfElseCommand extends IfCommand {
 
     private boolean myExecuteMethod;
 
-    public IfElseCommand (Environment aEnvironment) {
-        super(aEnvironment);
+    public IfElseCommand(Robot aRobot, Environment aEnvironment, String aCommandName) {
+        super(aRobot, aEnvironment, aCommandName);
         myExecuteMethod = true;
     }
 

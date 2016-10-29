@@ -1,6 +1,7 @@
 package back_end.model.command;
 
 import back_end.model.node.IReadableInput;
+import back_end.model.robot.Robot;
 import back_end.model.states.Environment;
 
 
@@ -8,7 +9,7 @@ public class RepeatCommand extends ICommandBranch {
 
     private int myNumberTimesRun;
 
-    public RepeatCommand (Environment aEnvironment) {
+    public RepeatCommand(Robot aRobot, Environment aEnvironment, String aCommandName) {
         myNumberTimesRun = 1;
     }
 

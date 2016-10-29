@@ -1,5 +1,6 @@
 package back_end.model.node;
 
+import back_end.model.command.ICommand;
 import back_end.model.exception.ArgumentException;
 
 
@@ -8,10 +9,10 @@ public class ConstantNode extends ValueNode {
     private double myValue;
     private int myNumberOfInputs;
 
-    public ConstantNode (double aValue) {
-        super();
+    public ConstantNode (ICommand aCommand, int aNumberOfInputs, String aUserInput){
+        super(aCommand, aNumberOfInputs, aUserInput);
 
-        myValue = aValue;
+        myValue = Double.parseDouble(aUserInput);
         myNumberOfInputs = 0;
     }
 

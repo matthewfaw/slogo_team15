@@ -4,6 +4,7 @@ import java.util.List;
 import back_end.model.exception.ArgumentException;
 import back_end.model.states.Environment;
 import back_end.model.command.CustomCommand;
+import back_end.model.command.ICommand;
 
 
 public class CustomNode extends Node {
@@ -17,15 +18,14 @@ public class CustomNode extends Node {
 	private double myReturnValue;
 	private NodeState myEvaluationState;
 
-	public CustomNode(CustomCommand aCommand, int aNumberOfInputs, Environment aEnvironment)
-	{
-		super();
+	public CustomNode(ICommand aCommand, int aNumberOfInputs, String aUserInput) {
+		super(aCommand, aNumberOfInputs, aUserInput);
 		
 		myNumberOfInputs = aNumberOfInputs;
 		
 		myEvaluationState = NodeState.EVALUATING_INPUTS;
 		
-		myMethod = aCommand;
+		myMethod = (CustomCommand) aCommand;
 	}
 	
 	public int getNumberOfInputs()

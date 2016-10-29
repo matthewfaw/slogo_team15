@@ -3,13 +3,14 @@ package back_end.model.command;
 import java.awt.Point;
 import back_end.model.node.IReadableInput;
 import back_end.model.robot.Robot;
+import back_end.model.states.Environment;
 
 
 public abstract class MovementCommand implements ICommand {
 
     private Robot myRobot;
 
-    public MovementCommand (Robot aRobot) {
+    public MovementCommand(Robot aRobot, Environment aEnvironment, String aCommandName) {
         myRobot = aRobot;
     }
 

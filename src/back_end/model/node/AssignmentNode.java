@@ -1,13 +1,14 @@
 package back_end.model.node;
 
+import back_end.model.command.ICommand;
 import back_end.model.exception.ArgumentException;
 
 
 public class AssignmentNode extends Node {
 
     // TODO
-    public AssignmentNode (String aUserInput) {
-        super();
+    public AssignmentNode (ICommand aCommand, int aNumberOfInputs, String aUserInput) {
+        super(aCommand, aNumberOfInputs, aUserInput);
     }
 
     @Override

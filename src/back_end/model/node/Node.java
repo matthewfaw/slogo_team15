@@ -2,6 +2,8 @@ package back_end.model.node;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import back_end.model.command.ICommand;
 import back_end.model.exception.ArgumentException;
 
 
@@ -9,7 +11,7 @@ public abstract class Node implements IReadableInput {
     private ArrayList<Node> myChildren;
     private NodeState myState;
 
-    protected Node () {
+    protected Node (ICommand aCommand, int aNumberOfInputs, String aUserInput) {
         myChildren = new ArrayList<Node>();
 
         myState = NodeState.AVAILABLE;

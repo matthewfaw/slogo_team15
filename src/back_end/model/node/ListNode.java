@@ -1,13 +1,14 @@
 package back_end.model.node;
 
+import back_end.model.command.ICommand;
 import back_end.model.exception.ArgumentException;
 
 
 // XXX: Add stuff
 public class ListNode extends Node {
 
-    public ListNode () {
-        super();
+    public ListNode (ICommand aCommand, int aNumberOfInputs, String aUserInput) {
+        super(aCommand, aNumberOfInputs, aUserInput);
     }
 
     @Override

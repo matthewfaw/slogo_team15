@@ -3,9 +3,10 @@ package back_end.model.node;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import back_end.model.command.ICommand;
 import back_end.model.command.ICommandBranch;
 import back_end.model.exception.ArgumentException;
-import back_end.model.states.Environment;
 
 
 public class BranchNode extends Node {
@@ -22,8 +23,8 @@ public class BranchNode extends Node {
     private int myNumberOfInputs;
     private ICommandBranch myCommand;
 
-    public BranchNode (ICommandBranch aCommand, int aNumberOfInputs, Environment aEnvironment) {
-        super();
+    public BranchNode (ICommand aCommand, int aNumberOfInputs, String aUserInput) {
+        super(aCommand, aNumberOfInputs, aUserInput);
 
         myEvaluationState = NodeState.EVALUATING_INPUTS;
 
@@ -31,7 +32,7 @@ public class BranchNode extends Node {
         myChildBranches = new HashMap<Integer, List<Node>>();
 
         myNumberOfInputs = aNumberOfInputs;
-        myCommand = aCommand;
+        myCommand = (ICommandBranch) aCommand;
     }
 
     public int getNumberOfInputs () {

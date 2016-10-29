@@ -2,11 +2,12 @@ package back_end.model.command;
 
 import back_end.model.node.IReadableInput;
 import back_end.model.robot.Robot;
+import back_end.model.states.Environment;
 
 
 public abstract class RotationCommand implements ICommand {
 
-    public RotationCommand (Robot aRobot) {
+    public RotationCommand(Robot aRobot, Environment aEnvironment, String aCommandName) {
     }
 
     public double getRotation (IReadableInput ... aList) {

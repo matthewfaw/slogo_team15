@@ -3,6 +3,7 @@ package back_end.model.command;
 import java.util.Arrays;
 
 import back_end.model.node.IReadableInput;
+import back_end.model.robot.Robot;
 import back_end.model.states.Environment;
 
 
@@ -10,9 +11,9 @@ public class MakeUserInstructionCommand implements ICommand {
 	
 	private Environment myEnvironment;
 	
-	public MakeUserInstructionCommand(Environment aEnvironment, String aName) {
+	public MakeUserInstructionCommand(Robot aRobot, Environment aEnvironment, String aCommandName) {
 		myEnvironment = aEnvironment;
-		myEnvironment.assignMethod(aName, null, null);
+		myEnvironment.assignMethod(aCommandName, null, null);
 	}
 
 	@Override

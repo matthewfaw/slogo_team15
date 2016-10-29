@@ -1,6 +1,7 @@
 package back_end.model.command;
 
 import back_end.model.node.IReadableInput;
+import back_end.model.robot.Robot;
 import back_end.model.states.Environment;
 
 
@@ -9,7 +10,7 @@ public class DoTimesCommand extends ICommandBranch {
     private int myNumberTimesRun;
     private Environment myEnvironment;
 
-    public DoTimesCommand (Environment aEnvironment) {
+    public DoTimesCommand(Robot aRobot, Environment aEnvironment, String aCommandName) {
         myNumberTimesRun = 0;
         myEnvironment = aEnvironment;
     }

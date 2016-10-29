@@ -65,8 +65,8 @@ public class NodeFactory {
 					}
 				}
 				commandClass = (CustomCommand) myCommandFactory.makeCommand(aUserInputWord, "Custom");
-				return (Node) Class.forName(PACKAGE_NODE + translatedInput + "Node").getConstructor(ICommand.class, int.class, String.class).
-						newInstance(commandClass, inputNumber, aUserInputWord);
+				return (Node) Class.forName(PACKAGE_NODE + translatedInput + "Node").getConstructor(ICommand.class, int.class, String.class, Environment.class).
+						newInstance(commandClass, inputNumber, aUserInputWord, myEnvironment);
 			} catch (MissingResourceException e) {
 				e.addSuppressed(new UnexpectedCharacterException("The syntax expression: " + aUserInputWord + " is not associated to any known syntax in this language"));
 			}

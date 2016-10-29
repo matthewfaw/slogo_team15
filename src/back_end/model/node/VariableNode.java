@@ -1,5 +1,6 @@
 package back_end.model.node;
 
+import back_end.model.command.ICommand;
 import back_end.model.exception.ArgumentException;
 import back_end.model.states.Environment;
 
@@ -11,10 +12,10 @@ public class VariableNode extends ValueNode {
     private Environment myEnvironment;
     // private double myValue;
 
-    public VariableNode (String aVariable, Environment aEnvironment) {
-        super();
+    public VariableNode (ICommand aCommand, int aNumberOfInputs, String aUserInput) {
+        super(aCommand, aNumberOfInputs, aUserInput);
 
-        myName = aVariable;
+        myName = aUserInput;
         myEnvironment = aEnvironment;
     }
 

@@ -1,6 +1,7 @@
 package back_end.model.command;
 
 import back_end.model.node.IReadableInput;
+import back_end.model.robot.Robot;
 import back_end.model.states.Environment;
 
 
@@ -9,7 +10,7 @@ public class ForCommand extends ICommandBranch {
     private boolean myFirst;
     private Environment myEnvironment;
 
-    public ForCommand (Environment aEnvironment) {
+    public ForCommand(Robot aRobot, Environment aEnvironment, String aCommandName) {
         myEnvironment = aEnvironment;
         myFirst = true;
     }
