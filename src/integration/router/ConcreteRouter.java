@@ -5,7 +5,8 @@ import java.util.Collection;
 
 import back_end.model.robot.IViewRobot;
 import front_end.appScene.ApplicationScene;
-import integration.observe.IRobotObserver;
+import front_end.view_modules.IRobotAcceptor;
+import integration.observe.IObserver;
 
 /**
  * @author George Bernard
@@ -13,7 +14,7 @@ import integration.observe.IRobotObserver;
  */
 class ConcreteRouter implements IRouter {
 
-	Collection<IRobotObserver> myRobotObservers;
+	Collection<IRobotAcceptor> myRobotObservers;
 	Collection<Object> myVariableObservers;
 	ApplicationScene myAppScene;
 	
