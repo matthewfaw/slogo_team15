@@ -8,7 +8,7 @@ import java.nio.file.Files;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-public class TextSaver {
+class TextSaver {
 
 	private ITextEditor myTextEditor;
 	
@@ -16,7 +16,7 @@ public class TextSaver {
 		myTextEditor = aTextEditor;
 	}
 
-	public void saveToFile(){
+	void saveToFile(){
 		FileChooser chooseFile = new FileChooser();
 		chooseFile.setTitle("Save Text to .TXT File");
 		File textFile = chooseFile.showSaveDialog(new Stage());

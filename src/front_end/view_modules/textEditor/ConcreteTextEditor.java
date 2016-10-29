@@ -47,6 +47,12 @@ class ConcreteTextEditor implements ITextEditor {
     /******* API Defined Methods ********/
 
     @Override
+    public void switchLanguage (Languages aLanguage) {
+        // TODO switch language of toolbar
+
+    }
+    
+    @Override
     public Node getInstanceAsNode () {
         return myTextEditor;
     }
@@ -188,11 +194,5 @@ class ConcreteTextEditor implements ITextEditor {
             }
         });
         myTextEditor.setContent(aContent);
-    }
-
-    @Override
-    public void switchLanguage (Languages aLanguage) {
-        // TODO switch language of toolbar
-
     }
 }

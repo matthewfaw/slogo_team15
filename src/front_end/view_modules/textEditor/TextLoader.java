@@ -18,7 +18,7 @@ class TextLoader {
 		myTextEditor = aTextEditor;
 	}
 	
-	public void loadFile(){
+	void loadFile(){
 		selectFile("Text Files: ");
 		ArrayList<String> instructionList = new ArrayList<>();
 		
@@ -47,7 +47,7 @@ class TextLoader {
 	}
 	
 	
-	public void initScanner(File aFile){
+	private void initScanner(File aFile){
 		try {
 			myScanner = new Scanner(aFile);
 		} catch (FileNotFoundException e) {

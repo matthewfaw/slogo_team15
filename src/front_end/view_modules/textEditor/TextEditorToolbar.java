@@ -36,7 +36,7 @@ class TextEditorToolbar implements ILanguageSwitcher {
      * 
      * @return text editor toolbar
      */
-    public Node getBar () {
+    Node getBar () {
         return myBar;
     }
 
