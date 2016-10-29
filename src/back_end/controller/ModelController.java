@@ -14,14 +14,14 @@ import back_end.model.syntax_tree.AbstractSyntaxTree;
 import back_end.model.text_parser.TextParser;
 import front_end.router.IRouter;
 import integration.languages.Languages;
-import integration.observe.IObservable;
+import integration.observe.IObservableRobot;
 import integration.observe.IRobotObserver;
 
 
 public class ModelController {
 	
 	private Scope myScope; 
-	private IObservable myRobot; 
+	private IObservableRobot myRobot; 
 	private TextParser myParser;
 	private IRouter myRouter;
 	
@@ -55,10 +55,6 @@ public class ModelController {
 	
 	public IViewVariableState getVariableMap() {
 		return myScope.getVariableMap();
-	}
-	
-	public IViewRobot giveRobotView() {
-		return (IViewRobot) myRobot;
 	}
 	
 	public void setLanguage(Languages aLanguage) {

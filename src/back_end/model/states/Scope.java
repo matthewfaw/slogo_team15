@@ -6,11 +6,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import back_end.model.node.IReadableInput;
-import integration.observe.IObservable;
+import integration.observe.IObservableRobot;
 import integration.observe.IRobotObserver;
 
 
-public class Scope implements IObservable {
+public class Scope implements IObservableRobot {
 	
 	private static final String DEFAULT = "DEFAULT";
 	

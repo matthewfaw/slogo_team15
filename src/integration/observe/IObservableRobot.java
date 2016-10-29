@@ -1,6 +1,6 @@
 package integration.observe;
 
-public interface IObservable {
+public interface IObservableRobot {
 
     public void registerObserver (IRobotObserver o);
 

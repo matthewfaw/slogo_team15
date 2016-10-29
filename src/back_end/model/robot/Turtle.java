@@ -1,11 +1,11 @@
 package back_end.model.robot;
 
 import java.util.ArrayList;
-import integration.observe.IObservable;
+import integration.observe.IObservableRobot;
 import integration.observe.IRobotObserver;
 
 
-public class Turtle implements Robot, IViewRobot, IObservable {
+public class Turtle implements Robot, IViewRobot, IObservableRobot {
 
     private double myXpos;
     private double myYpos;
