@@ -46,9 +46,6 @@ public class ConcreteAllRobotsStateBox implements IAllRobotsStateBox{
 		
 		myScroller.setContent(myModule);
 		
-		IRobotStateBox stateBox = new ConcreteRobotStateBox( myColorMap, myImageMap );
-		myStateBoxes.add(stateBox);
-		
 		buildMenu();
 	}
 	

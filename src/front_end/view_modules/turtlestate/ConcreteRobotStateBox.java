@@ -112,13 +112,13 @@ public class ConcreteRobotStateBox implements IRobotStateBox {
 	}
 
 	private void build(){
-		// if(noRobot()) return;
-		myIDLabel.setText("Turtle 1"); //myRobot.toString()); //TODO change this to robotID
-		myCoordinatesLabel.setText( "x, y" ); //buildCoordinateString(myRobot.getX(), myRobot.getY()) );
-		myBearingLabel.setText("Angle: 360 deg" ); //+ myRobot.getRotation() + " deg");
-		myPenDownButton.setSelected( false ); // myRobot.isPenDown());
-		myVisibilityButton.setSelected( true ); //myRobot.isVisible());
-		myRobotImage.setImage( new Image( myImageMap.getFile(2).toURI().toString() ) );
+		if(noRobot()) return;
+		myIDLabel.setText(myRobot.toString()); 
+		myCoordinatesLabel.setText( buildCoordinateString(myRobot.getX(), myRobot.getY()) );
+		myBearingLabel.setText("Angle: " + myRobot.getRotation() + " deg");
+		myPenDownButton.setSelected( myRobot.isPenDown() );
+		myVisibilityButton.setSelected( myRobot.isVisible() );
+		myRobotImage.setImage( new Image( myImageMap.getFile(0).toURI().toString() ) );
 		myIsBuilt = true;
 	}
 
