@@ -1,7 +1,7 @@
 package front_end.appScene.variableViewer;
 
 import java.util.Map;
-import back_end.model.states.IViewVariableState;
+import back_end.model.states.IViewableVariableState;
 import integration.languages.Languages;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -89,7 +89,7 @@ class ConcreteVariableViewer implements IVariableViewer {
     }
 
     @Override
-    public void showVariables (IViewVariableState aVariableState) {
+    public void showVariables (IViewableVariableState aVariableState) {
         myVariables.clear();
 
         for (String varName : aVariableState.getVariableKeySet()) {

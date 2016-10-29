@@ -18,6 +18,7 @@ public class FunctionScope {
 	}
 	
 	//XXX: Very hacky, would be better if we used an iterable, need to talk to front-end.
+	@Deprecated
 	public VariableState getVariableMap() {
 		VariableState returnVal = new VariableState(); 
 		for (VariableState variableState : myNestedVariableStates) {
@@ -41,6 +42,8 @@ public class FunctionScope {
 				return variableState.getValue(aVariable);
 			}
 		}
+		//XXX: Change to refer to a default value from a resource file, perhaps
+		myNestedVariableStates.peek().assignVariable(aVariable, 0); 
 		return 0;
 	}
 	
@@ -62,11 +65,11 @@ public class FunctionScope {
 		myNestedVariableStates.peek().assignVariable(aName, aValue);
 	}
 	
-	public void addNestedScope() {
+	void addNestedScope() {
 		myNestedVariableStates.push(new VariableState());
 	}
 	
-	public void removeNestedScope() {
+	void removeNestedScope() {
 		myNestedVariableStates.pop();
 	}
 

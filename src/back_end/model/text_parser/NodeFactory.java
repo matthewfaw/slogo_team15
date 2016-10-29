@@ -58,13 +58,13 @@ public class NodeFactory {
 				ICommand commandClass = null;
 				if (type.equals("Branch") || type.equals("Command") || type.equals("")) {
 					commandClass = (ICommandBranch) myCommandFactory.makeCommand(aUserInputWord, command);
-					return (Node) Class.forName(PACKAGE_NODE + type + "Node").getConstructor(ICommand.class, int.class, Scope.class).
-							newInstance(commandClass, inputNumber, myScope);
+					return (Node) Class.forName(PACKAGE_NODE + type + "Node").getConstructor(ICommand.class, int.class).
+							newInstance(commandClass, inputNumber);
 				}
 			} catch (MissingResourceException e) {
 				if (myScope.getVariableMap().containsVariable(aUserInputWord)) {
 					CustomCommand commandClass = (CustomCommand) myCommandFactory.makeCommand("Custom", aUserInputWord);
-					return (Node) Class.forName(PACKAGE_NODE + "CustomNode").getConstructor(CustomCommand.class, int.class, Scope.class).newInstance(commandClass, 1, myScope);
+					return (Node) Class.forName(PACKAGE_NODE + "CustomNode").getConstructor(CustomCommand.class, int.class).newInstance(commandClass, 1);
 				} else {
 					e.addSuppressed(new UnexpectedCharacterException("The syntax expression: " + aUserInputWord + " is not associated to any known syntax in this language"));
 				}

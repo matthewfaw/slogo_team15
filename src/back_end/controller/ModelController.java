@@ -8,7 +8,7 @@ import back_end.model.exception.UnexpectedCommandException;
 import back_end.model.robot.IViewRobot;
 import back_end.model.robot.Robot;
 import back_end.model.robot.Turtle;
-import back_end.model.states.IViewVariableState;
+import back_end.model.states.IViewableVariableState;
 import back_end.model.states.Scope;
 import back_end.model.syntax_tree.AbstractSyntaxTree;
 import back_end.model.text_parser.TextParser;
@@ -49,7 +49,7 @@ public class ModelController {
 		myScope.registerObserver(ro);
 	}
 	
-	public IViewVariableState getVariableMap() {
+	public IViewableVariableState getVariableMap() {
 		return myScope.getVariableMap();
 	}
 	

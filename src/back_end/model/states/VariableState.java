@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class VariableState implements IViewVariableState {
+public class VariableState implements IViewableVariableState {
 	
 	private Map<String, Double> myVariableMap;
 	

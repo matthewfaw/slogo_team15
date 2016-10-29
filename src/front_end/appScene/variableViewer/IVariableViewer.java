@@ -1,6 +1,6 @@
 package front_end.appScene.variableViewer;
 
-import back_end.model.states.IViewVariableState;
+import back_end.model.states.IViewableVariableState;
 import front_end.appScene.IViewer;
 import javafx.scene.Node;
 
@@ -23,6 +23,6 @@ public interface IVariableViewer extends IViewer {
      * 
      * @param varMap
      */
-    public void showVariables (IViewVariableState aVariableState);
+    public void showVariables (IViewableVariableState aVariableState);
 
 }
