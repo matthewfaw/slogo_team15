@@ -4,9 +4,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
 import back_end.model.command.ICommand;
-import back_end.model.exception.UnexpectedCommandException;
 import back_end.model.robot.Robot;
-import back_end.model.states.Scope;
+import back_end.model.states.Environment;
 
 
 public class CommandFactory {
@@ -17,20 +16,20 @@ public class CommandFactory {
 	
 	private ResourceBundle myCommandTypeResources;
 	private Robot myRobot;
-	private Scope myScope;
+	private Environment myEnvironment;
 	
-	public CommandFactory(Scope aScope, Robot aRobot) {
+	public CommandFactory(Environment aEnvironment, Robot aRobot) {
 		myCommandTypeResources = PropertyResourceBundle.getBundle(PACKAGE_RESOURCE + TYPE);
 		myRobot = aRobot;
-		myScope = aScope;
+		myEnvironment = aEnvironment;
 	}
 	
-	public ICommand makeCommand(String aWord, String command) throws UnexpectedCommandException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException {
+	public ICommand makeCommand(String aWord, String command) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException {
 		if (aWord.equals("Custom")) {
-			return (ICommand) Class.forName(PACKAGE_COMMAND + aWord + "Command").getConstructor(Robot.class, Scope.class, String.class).newInstance(myRobot, myScope, command);
+			return (ICommand) Class.forName(PACKAGE_COMMAND + aWord + "Command").getConstructor(Robot.class, Environment.class, String.class).newInstance(myRobot, myEnvironment, command);
+		} else {
+			return (ICommand) Class.forName(PACKAGE_COMMAND + command + "Command").getConstructor(Robot.class, Environment.class, String.class).newInstance(myRobot, myEnvironment, command);
 		}
-		return (ICommand) Class.forName(PACKAGE_COMMAND + command + "Command").getConstructor(Robot.class, Scope.class, String.class).newInstance(myRobot, myScope, command);
-		throw new UnexpectedCommandException("Command " + command + " you entered was not found");
 	}
 
 }

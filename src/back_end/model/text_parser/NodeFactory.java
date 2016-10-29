@@ -16,6 +16,7 @@ import back_end.model.node.ListEndNode;
 import back_end.model.node.Node;
 import back_end.model.node.VariableNode;
 import back_end.model.robot.Robot;
+import back_end.model.states.Environment;
 import back_end.model.states.Scope;
 import integration.languages.Languages;
 
@@ -34,17 +35,17 @@ public class NodeFactory {
 
 	private ResourceBundle mySyntaxResources;
 	private ResourceBundle myCommandTypeResources;
-	private Scope myScope;
+	private Environment myEnvironment;
 	private CommandFactory myCommandFactory;
 	private Languages myLanguage;
 	private Translator myTranslator;
 	
-	public NodeFactory(ResourceBundle aResource, Scope aScope, Robot aRobot) {
+	public NodeFactory(ResourceBundle aResource, Environment aEnvironment, Robot aRobot) {
 		mySyntaxResources = aResource; 
 		myCommandTypeResources = PropertyResourceBundle.getBundle(PACKAGE_RESOURCE + TYPE);
-		myCommandFactory = new CommandFactory(aScope, aRobot);
+		myCommandFactory = new CommandFactory(aEnvironment, aRobot);
 		myTranslator = new Translator();
-		myScope = aScope;
+		myEnvironment = aEnvironment;
 	}
 	
 	public Node makeNode(String aUserInputWord) throws UnexpectedCharacterException, UnexpectedCommandException, 
@@ -62,7 +63,7 @@ public class NodeFactory {
 							newInstance(commandClass, inputNumber);
 				}
 			} catch (MissingResourceException e) {
-				if (myScope.getVariableMap().containsVariable(aUserInputWord)) {
+				if (myEnvironment.getVariableKeySet().contains(aUserInputWord)) {
 					CustomCommand commandClass = (CustomCommand) myCommandFactory.makeCommand("Custom", aUserInputWord);
 					return (Node) Class.forName(PACKAGE_NODE + "CustomNode").getConstructor(CustomCommand.class, int.class).newInstance(commandClass, 1);
 				} else {
@@ -75,10 +76,6 @@ public class NodeFactory {
 			return (Node) Class.forName(PACKAGE_NODE + command + "Node").getConstructor(String.class).newInstance(aUserInputWord);
 		}
 		throw new UnexpectedCharacterException("The syntax expression: " + aUserInputWord + " is not associated to any known syntax in this language");
-	}
-	
-	private String translateToVariable(String aWord) {
-		return aWord.substring(1);
 	}
 	
 	private String translateInput(String aWord, String aInputFileLocation) { 
