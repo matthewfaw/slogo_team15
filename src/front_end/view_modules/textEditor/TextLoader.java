@@ -22,12 +22,13 @@ class TextLoader {
 		selectFile("Text Files: ");
 		ArrayList<String> instructionList = new ArrayList<>();
 		
+		if(myScanner == null) return;
+		
 		while(myScanner.hasNext()) 
 			instructionList.add(myScanner.nextLine());
 		
 		myScanner.close();
 		myTextEditor.setInstructionList(instructionList);
-		
 	}
 	
 	private void openFileChooser(FileChooser chooseFile){
