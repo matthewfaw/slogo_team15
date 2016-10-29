@@ -2,7 +2,6 @@ package front_end.view_modules.penProperties;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import integration.drawing.LineStyleSpec;
 import javafx.beans.value.ObservableValue;
@@ -20,6 +19,8 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
 
@@ -39,12 +40,14 @@ public class PenPopup implements IPenPopup {
     private Button clearButton;
     private Scene myScene;
     private ColorPicker myColorPicker;
-    private HBox testBox;
+    private HBox closingButtonBox;
     private ToggleButton myPenDownButton;
+    private VBox myOrder;
 
     @Override
     public void initPopup () {
         myRow = new HBox(SPACING);
+        myOrder = new VBox(SPACING);
         layout = new BorderPane();
         layout.setStyle("-fx-background-color: paleturquoise;");
         layout.setPrefSize(POPUP_SIZE, POPUP_SIZE);
@@ -88,11 +91,15 @@ public class PenPopup implements IPenPopup {
     }
 
     private void setBorderPane () {
-        layout.setTop(myRow);
-        layout.setBottom(testBox);
-        layout.setCenter(createComboBox("Pen thickness: ", penThicknessOptions()));
-        layout.setRight(createComboBox("Line Style: ", myLineStyleOptions()));
-        layout.setLeft(myPenDownButton);
+        myOrder.getChildren().add(myRow);
+        myOrder.getChildren().add(createComboBox("Pen thickness: ", penThicknessOptions()));
+        myOrder.getChildren().add(createComboBox("Line Style: ", myLineStyleOptions()));
+        HBox penUpBox = new HBox(SPACING);
+        penUpBox.getChildren().add(myPenDownButton);
+        penUpBox.setPadding(new Insets(5, 20, 10, 20));
+        myOrder.getChildren().add(penUpBox);
+        layout.setCenter(myOrder);
+        layout.setBottom(closingButtonBox);
     }
     
     private List<LineStyleSpec> myLineStyleOptions () { 
@@ -109,16 +116,17 @@ public class PenPopup implements IPenPopup {
     private void createEndingButtons () {
         applyButton = makeButton("Apply Changes");
         clearButton = makeButton("Clear");
-        testBox = new HBox(SPACING);
-        testBox.setPadding(new Insets(0, 20, 10, 20));
-        testBox.setAlignment(Pos.CENTER_RIGHT);
-        testBox.getChildren().addAll(clearButton, applyButton);
+        closingButtonBox = new HBox(SPACING);
+        closingButtonBox.setPadding(new Insets(0, 20, 10, 20));
+        closingButtonBox.setAlignment(Pos.CENTER_RIGHT);
+        closingButtonBox.getChildren().addAll(clearButton, applyButton);
     }
 
     private HBox createComboBox (String labelName, List myOptions) {
         HBox comboBoxRow = new HBox(SPACING);
+        comboBoxRow.setPadding(new Insets(5, 20, 10, 20));
         Label comboBoxLabel = new Label(labelName);
-        ComboBox<String> addComboBox = new ComboBox<String>();
+        ComboBox addComboBox = new ComboBox();
         addComboBox.getItems().addAll(myOptions);
         comboBoxRow.getChildren().addAll(comboBoxLabel, addComboBox);
         return comboBoxRow;
