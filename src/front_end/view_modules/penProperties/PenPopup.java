@@ -42,6 +42,7 @@ public class PenPopup implements IPenPopup {
     private ColorPicker myColorPicker;
     private HBox closingButtonBox;
     private ToggleButton myPenDownButton;
+    private ToggleButton myPenUpButton;
     private VBox myOrder;
 
     @Override
@@ -72,22 +73,32 @@ public class PenPopup implements IPenPopup {
     }
 
     private void penUpOrDown () {
-
-        myPenDownButton = new ToggleButton("Pen Up");
-
+        myPenDownButton = new ToggleButton("Pen Down");
+        myPenUpButton = new ToggleButton("Pen Up");
         ToggleGroup group1 = new ToggleGroup();
         group1.selectedToggleProperty()
                 // Set Change Text if toggled
                 .addListener( (ObservableValue<? extends Toggle> ov,
                                Toggle old_toggle,
                                Toggle new_toggle) -> {
-                    myPenDownButton.setText("Pen Up");
+                    myPenDownButton.setText("Pen Down");
                     if (new_toggle == null)
                         return;
                     if (new_toggle.isSelected())
-                        myPenDownButton.setText("Pen Down");
+                        myPenUpButton.setSelected(false);
+                });
+        ToggleGroup group2 = new ToggleGroup();
+        group2.selectedToggleProperty()
+        .addListener( (ObservableValue<? extends Toggle> ov,
+                Toggle old_toggle_penup, Toggle new_toggle_penup) -> {
+                    myPenUpButton.setText("Pen Up");
+                    if(new_toggle_penup == null)
+                        return;
+                    if(new_toggle_penup.isSelected())
+                        myPenDownButton.setSelected(false);
                 });
         myPenDownButton.setToggleGroup(group1);
+        myPenUpButton.setToggleGroup(group2);
     }
 
     private void setBorderPane () {
@@ -95,7 +106,7 @@ public class PenPopup implements IPenPopup {
         myOrder.getChildren().add(createComboBox("Pen thickness: ", penThicknessOptions()));
         myOrder.getChildren().add(createComboBox("Line Style: ", myLineStyleOptions()));
         HBox penUpBox = new HBox(SPACING);
-        penUpBox.getChildren().add(myPenDownButton);
+        penUpBox.getChildren().addAll(myPenUpButton, myPenDownButton);
         penUpBox.setPadding(new Insets(5, 20, 10, 20));
         myOrder.getChildren().add(penUpBox);
         layout.setCenter(myOrder);
@@ -140,8 +151,9 @@ public class PenPopup implements IPenPopup {
     @Override
     public void clear () {
         myRow.getChildren().clear();
-        myPenDownButton.setText("Pen Up");
         // TODO: Figure out how to keep createComboBox method and be able to access here
+        myPenDownButton.setSelected(false);
+        myPenUpButton.setSelected(true);
         makeColorPicker();
     }
 
