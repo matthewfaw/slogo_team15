@@ -1,4 +1,4 @@
-package front_end.view_modules.scriptViewer;
+package front_end.view_modules.function_viewer;
 
 import front_end.view_modules.ILanguageSwitcher;
 import front_end.view_modules.IViewModule;
