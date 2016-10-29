@@ -1,4 +1,4 @@
-package front_end.view_modules.shape_color_module.interfaces;
+package front_end.view_modules.image_color_module.interfaces;
 
 import java.io.File;
 

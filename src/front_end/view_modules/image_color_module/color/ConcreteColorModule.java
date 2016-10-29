@@ -1,10 +1,10 @@
-package front_end.view_modules.shape_color_module.color;
+package front_end.view_modules.image_color_module.color;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import front_end.view_modules.shape_color_module.interfaces.IColorModule;
+import front_end.view_modules.image_color_module.interfaces.IColorModule;
 import integration.languages.Languages;
 import javafx.scene.Node;
 import javafx.scene.control.Button;

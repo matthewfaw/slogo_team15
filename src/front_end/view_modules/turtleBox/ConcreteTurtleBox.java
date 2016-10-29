@@ -1,7 +1,7 @@
 package front_end.view_modules.turtleBox;
 
 import back_end.model.robot.IViewRobot;
-import front_end.view_modules.shape_color_module.interfaces.IImageColorModule;
+import front_end.view_modules.image_color_module.interfaces.IImageColorModule;
 import front_end.view_modules.turtleBox.turtleMovement.TurtleMovement;
 import javafx.geometry.Insets;
 import javafx.scene.Group;

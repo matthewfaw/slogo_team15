@@ -1,6 +1,6 @@
-package front_end.view_modules.shape_color_module.color;
+package front_end.view_modules.image_color_module.color;
 
-import front_end.view_modules.shape_color_module.interfaces.IColorModule;
+import front_end.view_modules.image_color_module.interfaces.IColorModule;
 
 public class ColorModuleFactory {
 

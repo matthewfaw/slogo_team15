@@ -1,12 +1,12 @@
-package front_end.view_modules.shape_color_module;
+package front_end.view_modules.image_color_module;
 
 import java.io.File;
 
-import front_end.view_modules.shape_color_module.color.ColorModuleFactory;
-import front_end.view_modules.shape_color_module.image.ImageModuleFactory;
-import front_end.view_modules.shape_color_module.interfaces.IColorModule;
-import front_end.view_modules.shape_color_module.interfaces.IImageColorModule;
-import front_end.view_modules.shape_color_module.interfaces.IImageModule;
+import front_end.view_modules.image_color_module.color.ColorModuleFactory;
+import front_end.view_modules.image_color_module.image.ImageModuleFactory;
+import front_end.view_modules.image_color_module.interfaces.IColorModule;
+import front_end.view_modules.image_color_module.interfaces.IImageColorModule;
+import front_end.view_modules.image_color_module.interfaces.IImageModule;
 import integration.languages.Languages;
 import javafx.scene.Node;
 import javafx.scene.control.MenuButton;

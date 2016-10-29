@@ -1,6 +1,6 @@
 package front_end.view_modules.turtleBox;
 
-import front_end.view_modules.shape_color_module.interfaces.IImageColorModule;
+import front_end.view_modules.image_color_module.interfaces.IImageColorModule;
 
 public class TurtleBoxFactory {
 

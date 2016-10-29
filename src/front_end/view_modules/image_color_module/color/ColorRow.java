@@ -1,4 +1,4 @@
-package front_end.view_modules.shape_color_module.color;
+package front_end.view_modules.image_color_module.color;
 
 import javafx.scene.Node;
 import javafx.scene.control.ColorPicker;
