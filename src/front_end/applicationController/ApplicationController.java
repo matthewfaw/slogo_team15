@@ -151,8 +151,8 @@ public class ApplicationController {
 
     }
 
-    private void configurePenPopup () {
-        myPenPopup.onApplyPress(e -> collectPenInfo());
+    private void configurePenPopup (Stage stage) {
+        myPenPopup.onApplyPress(e -> collectPenInfo(stage));
         myPenPopup.onClearPress(e -> clearPenSettings());
     }
 
@@ -160,8 +160,8 @@ public class ApplicationController {
         myPenPopup.clear();
     }
 
-    private void collectPenInfo () {
-
+    private void collectPenInfo (Stage stage) {
+        stage.hide();
     }
 
     private void buildCommands () {
@@ -174,7 +174,7 @@ public class ApplicationController {
         Scene myScene = myPenPopup.getScene();
         stage.setScene(myScene);
         stage.show();
-        configurePenPopup();
+        configurePenPopup(stage);
     }
 
     /**
