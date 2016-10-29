@@ -14,6 +14,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
@@ -42,8 +43,8 @@ public class PenPopup implements IPenPopup {
     private Scene myScene;
     private ColorPicker myColorPicker;
     private HBox closingButtonBox;
-    private ToggleButton myPenDownButton;
-    private ToggleButton myPenUpButton;
+    private RadioButton myPenDownButton;
+    private RadioButton myPenUpButton;
     private VBox myOrder;
 
     @Override
@@ -74,8 +75,8 @@ public class PenPopup implements IPenPopup {
     }
 
     private void penUpOrDown () {
-        myPenDownButton = new ToggleButton("Pen Down");
-        myPenUpButton = new ToggleButton("Pen Up");
+        myPenDownButton = new RadioButton("Pen Down");
+        myPenUpButton = new RadioButton("Pen Up");
         myPenUpButton.setSelected(true);
         myPenDownButton.setUserData("Pen Down");
         myPenUpButton.setUserData("Pen Up");
