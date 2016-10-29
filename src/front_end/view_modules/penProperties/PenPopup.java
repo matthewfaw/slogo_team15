@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import integration.drawing.LineStyleSpec;
+import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -75,30 +76,22 @@ public class PenPopup implements IPenPopup {
     private void penUpOrDown () {
         myPenDownButton = new ToggleButton("Pen Down");
         myPenUpButton = new ToggleButton("Pen Up");
+        myPenUpButton.setSelected(true);
+        myPenDownButton.setUserData("Pen Down");
+        myPenUpButton.setUserData("Pen Up");
+        
+        
         ToggleGroup group1 = new ToggleGroup();
         group1.selectedToggleProperty()
                 // Set Change Text if toggled
-                .addListener( (ObservableValue<? extends Toggle> ov,
-                               Toggle old_toggle,
-                               Toggle new_toggle) -> {
-                    myPenDownButton.setText("Pen Down");
-                    if (new_toggle == null)
-                        return;
-                    if (new_toggle.isSelected())
-                        myPenUpButton.setSelected(false);
-                });
-        ToggleGroup group2 = new ToggleGroup();
-        group2.selectedToggleProperty()
-        .addListener( (ObservableValue<? extends Toggle> ov,
-                Toggle old_toggle_penup, Toggle new_toggle_penup) -> {
-                    myPenUpButton.setText("Pen Up");
-                    if(new_toggle_penup == null)
-                        return;
-                    if(new_toggle_penup.isSelected())
-                        myPenDownButton.setSelected(false);
-                });
+                .addListener( (ObservableValue<? extends Toggle> ov, Toggle old_toggle, Toggle new_toggle) -> {        
+                             if (new_toggle == null)
+                                 return;
+                             if (new_toggle.isSelected()) {
+                             }
+                             });
         myPenDownButton.setToggleGroup(group1);
-        myPenUpButton.setToggleGroup(group2);
+        myPenUpButton.setToggleGroup(group1);
     }
 
     private void setBorderPane () {
