@@ -3,9 +3,7 @@ package front_end.view_modules.textEditor;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
-import java.util.stream.Collectors;
 
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -41,6 +39,7 @@ class TextLoader {
 	
 	private void selectFile( String aFieldText ) {
 		FileChooser choose = new FileChooser();
+		choose.setTitle("Load .TXT File to Editor");
 		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter( aFieldText, "*.txt");
 		choose.getExtensionFilters().add(extFilter);
 		openFileChooser( choose );
