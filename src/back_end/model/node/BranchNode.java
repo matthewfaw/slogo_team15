@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import back_end.model.command.ICommandBranch;
 import back_end.model.exception.ArgumentException;
-import back_end.model.states.Scope;
+import back_end.model.states.Environment;
 
 
 public class BranchNode extends Node {
@@ -22,7 +22,7 @@ public class BranchNode extends Node {
     private int myNumberOfInputs;
     private ICommandBranch myCommand;
 
-    public BranchNode (ICommandBranch aCommand, int aNumberOfInputs, Scope aScope) {
+    public BranchNode (ICommandBranch aCommand, int aNumberOfInputs, Environment aEnvironment) {
         super();
 
         myEvaluationState = NodeState.EVALUATING_INPUTS;

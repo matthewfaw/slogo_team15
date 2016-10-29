@@ -1,15 +1,15 @@
 package back_end.model.command;
 
 import back_end.model.node.IReadableInput;
-import back_end.model.states.Scope;
+import back_end.model.states.Environment;
 
 
 public class MakeVariableCommand implements ICommand {
 
-    private Scope myScope;
+    private Environment myScope;
 
-    public MakeVariableCommand (Scope aScope) {
-        myScope = aScope;
+    public MakeVariableCommand (Environment aEnvironment) {
+        myScope = aEnvironment;
     }
 
     @Override

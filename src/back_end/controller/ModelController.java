@@ -8,8 +8,8 @@ import back_end.model.exception.UnexpectedCommandException;
 import back_end.model.robot.IViewRobot;
 import back_end.model.robot.Robot;
 import back_end.model.robot.Turtle;
+import back_end.model.states.Environment;
 import back_end.model.states.IViewableVariableState;
-import back_end.model.states.Scope;
 import back_end.model.syntax_tree.AbstractSyntaxTree;
 import back_end.model.text_parser.TextParser;
 import integration.languages.Languages;
@@ -19,14 +19,14 @@ import integration.observe.IRobotObserver;
 
 public class ModelController {
 	
-	private Scope myScope; 
+	private Environment myEnvironment; 
 	private IObservable myRobot; 
 	private TextParser myParser;
 	
 	public ModelController() {
-		myScope = new Scope();
+		myEnvironment = Environment.getInstance();
 		myRobot = new Turtle();
-		myParser = new TextParser(myScope, (Robot) myRobot);
+		myParser = new TextParser(myEnvironment, (Robot) myRobot);
 	}
 	
 	public void userInputToModel(String aString) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException, UnexpectedCharacterException, UnexpectedCommandException, EmptyInputException {
@@ -46,12 +46,12 @@ public class ModelController {
 	}
 	
 	public void giveVariableObservers(IRobotObserver ro) {
-		myScope.registerObserver(ro);
+		myEnvironment.registerObserver(ro);
 	}
 	
-	public IViewableVariableState getVariableMap() {
-		return myScope.getVariableMap();
-	}
+	//public IViewableVariableState getVariableMap() {
+		//return myEnvironment.
+	//}
 	
 	public IViewRobot giveRobotView() {
 		return (IViewRobot) myRobot;

@@ -2,7 +2,7 @@ package back_end.model.node;
 
 import back_end.model.command.ICommand;
 import back_end.model.exception.ArgumentException;
-import back_end.model.states.Scope;
+import back_end.model.states.Environment;
 
 
 public class CommandNode extends Node {
@@ -11,7 +11,7 @@ public class CommandNode extends Node {
     private int myNumberOfInputs;
     private double myOutput;
 
-    public CommandNode (ICommand aCommand, int aNumberOfInputs, Scope aScope) {
+    public CommandNode (ICommand aCommand, int aNumberOfInputs, Environment aEnvironment) {
         super();
 
         myCommand = aCommand;

@@ -1,22 +1,22 @@
 package back_end.model.command;
 
 import back_end.model.node.IReadableInput;
-import back_end.model.states.Scope;
+import back_end.model.states.Environment;
 
 
-public class DoTimesCommand implements ICommandBranch {
+public class DoTimesCommand extends ICommandBranch {
 
     private int myNumberTimesRun;
-    private Scope myScope;
+    private Environment myEnvironment;
 
-    public DoTimesCommand (Scope aScope) {
+    public DoTimesCommand (Environment aEnvironment) {
         myNumberTimesRun = 0;
-        myScope = aScope;
+        myEnvironment = aEnvironment;
     }
 
     @Override
     public int evalCondition (IReadableInput ... aList) {
-        myScope.assignVariable(aList[0].getName(), myNumberTimesRun);
+        myEnvironment.assignVariable(aList[0].getName(), myNumberTimesRun);
         if (myNumberTimesRun < aList[1].getValue()) {
             myNumberTimesRun++;
             return 0;
@@ -24,11 +24,6 @@ public class DoTimesCommand implements ICommandBranch {
         else {
             return -1;
         }
-    }
-
-    @Override
-    public double eval (IReadableInput ... aList) {
-        return aList[aList.length - 1].getValue();
     }
 
 }

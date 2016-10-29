@@ -1,15 +1,15 @@
 package back_end.model.command;
 
 import back_end.model.node.IReadableInput;
-import back_end.model.states.Scope;
+import back_end.model.states.Environment;
 
 
 public class IfElseCommand extends IfCommand {
 
     private boolean myExecuteMethod;
 
-    public IfElseCommand (Scope aScope) {
-        super(aScope);
+    public IfElseCommand (Environment aEnvironment) {
+        super(aEnvironment);
         myExecuteMethod = true;
     }
 

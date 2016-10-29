@@ -7,17 +7,11 @@ import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 import back_end.model.command.CustomCommand;
 import back_end.model.command.ICommand;
-import back_end.model.command.ICommandBranch;
 import back_end.model.exception.UnexpectedCharacterException;
 import back_end.model.exception.UnexpectedCommandException;
-import back_end.model.node.ListStartNode;
-import back_end.model.node.ConstantNode;
-import back_end.model.node.ListEndNode;
 import back_end.model.node.Node;
-import back_end.model.node.VariableNode;
 import back_end.model.robot.Robot;
 import back_end.model.states.Environment;
-import back_end.model.states.Scope;
 import integration.languages.Languages;
 
 
@@ -51,30 +45,31 @@ public class NodeFactory {
 	public Node makeNode(String aUserInputWord) throws UnexpectedCharacterException, UnexpectedCommandException, 
 														InstantiationException, IllegalAccessException, IllegalArgumentException, 
 														InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException {
-		if (Pattern.matches(mySyntaxResources.getString("Command"), aUserInputWord)) {
 			try {
-				String command = translateInput(aUserInputWord, myLanguage.getFileLocation());
-				String type = myCommandTypeResources.getString(command);
-				int inputNumber = Integer.parseInt(mySyntaxResources.getString(command));
+				String fileLocation = myLanguage.getFileLocation();
+				if (Pattern.matches(aUserInputWord, mySyntaxResources.getString("Variable"))) {
+					fileLocation = mySyntaxResources.getBaseBundleName();
+				}
+				String translatedInput = translateInput(aUserInputWord, fileLocation);
+				System.out.println(translatedInput);
+				int inputNumber = 0;
 				ICommand commandClass = null;
-				if (type.equals("Branch") || type.equals("Command") || type.equals("")) {
-					commandClass = (ICommandBranch) myCommandFactory.makeCommand(aUserInputWord, command);
-					return (Node) Class.forName(PACKAGE_NODE + type + "Node").getConstructor(ICommand.class, int.class).
-							newInstance(commandClass, inputNumber);
+				if (Pattern.matches(mySyntaxResources.getString("Command"), translatedInput)) {
+					translatedInput = myCommandTypeResources.getString(translatedInput);
+					if (translatedInput.equals("Branch") || translatedInput.equals("Command") || translatedInput.equals("")) {
+						inputNumber = Integer.parseInt(mySyntaxResources.getString(translatedInput));
+					} 
+					else if (myEnvironment.getVariableKeySet().contains(aUserInputWord)) {
+						inputNumber = 1; 
+						translatedInput = "Custom";
+					}
 				}
+				commandClass = (CustomCommand) myCommandFactory.makeCommand(aUserInputWord, "Custom");
+				return (Node) Class.forName(PACKAGE_NODE + translatedInput + "Node").getConstructor(ICommand.class, int.class, String.class).
+						newInstance(commandClass, inputNumber, aUserInputWord);
 			} catch (MissingResourceException e) {
-				if (myEnvironment.getVariableKeySet().contains(aUserInputWord)) {
-					CustomCommand commandClass = (CustomCommand) myCommandFactory.makeCommand("Custom", aUserInputWord);
-					return (Node) Class.forName(PACKAGE_NODE + "CustomNode").getConstructor(CustomCommand.class, int.class).newInstance(commandClass, 1);
-				} else {
-					e.addSuppressed(new UnexpectedCharacterException("The syntax expression: " + aUserInputWord + " is not associated to any known syntax in this language"));
-				}
+				e.addSuppressed(new UnexpectedCharacterException("The syntax expression: " + aUserInputWord + " is not associated to any known syntax in this language"));
 			}
-		}
-		else {
-			String command = translateInput(aUserInputWord, mySyntaxResources.getBaseBundleName()); 
-			return (Node) Class.forName(PACKAGE_NODE + command + "Node").getConstructor(String.class).newInstance(aUserInputWord);
-		}
 		throw new UnexpectedCharacterException("The syntax expression: " + aUserInputWord + " is not associated to any known syntax in this language");
 	}
 	

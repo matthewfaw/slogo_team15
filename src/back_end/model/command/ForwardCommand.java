@@ -17,8 +17,8 @@ public class ForwardCommand extends MovementCommand {
     @Override
     public double eval (IReadableInput ... aList) {
         Point p = getXYCoordinate(aList);
-        myRobot.setX(myRobot.getX() + p.getX());
-        myRobot.setY(myRobot.getY() + p.getY());
+        myRobot.setX(myRobot.getCoordinates().getX() + p.getX());
+        myRobot.setY(myRobot.getCoordinates().getY() + p.getY());
         return aList[0].getValue();
     }
 

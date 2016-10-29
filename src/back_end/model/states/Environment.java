@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import back_end.model.exception.SameMethodNameException;
 import back_end.model.node.IReadableInput;
 import integration.observe.IObservable;
 import integration.observe.IRobotObserver;
@@ -33,17 +34,17 @@ public class Environment implements IObservable, IModifiableVariableState, IView
 		myObservers = new ArrayList<IRobotObserver>();
 		myMethodMap = new HashMap<String, MethodState>();
 	}
-	public static Environment getInstance()
-	{
+	
+	public static Environment getInstance() {
 		return INSTANCE;
 	}
 	
-	void addNestedScope()
-	{
+	void addNestedScope() {
 		myCurrentScope.addNestedScope();
 	}
-	void removeNestedScope()
-	{
+	
+	
+	void removeNestedScope() {
 		myCurrentScope.removeNestedScope();
 	}
 	
@@ -69,7 +70,29 @@ public class Environment implements IObservable, IModifiableVariableState, IView
 	}
 	
 	public void assignMethod(String aMethodName, IReadableInput aNode, IReadableInput...aVariableInputs) {
+		MethodState methodState = new MethodState();
+		methodState.assignMethod(aMethodName, aNode, aVariableInputs);
+		myMethodMap.put(aMethodName, methodState);
+	}
+	
+	public void getVariablesInMethod(String aMethodName, Double...aValues) {
+		MethodState currentMethodState = myMethodMap.get(aMethodName);
+		List<IReadableInput> arrayOfVariables = currentMethodState.getVariables(aMethodName);
+		for (int i = 0; i < arrayOfVariables.size(); i++) {
+			myCurrentScope.assignVariable(arrayOfVariables.get(i).getName(), aValues[i]);
+		}
 		
+	}
+	
+	@Override
+	public Collection<String> getVariableKeySet() {
+		return myCurrentScope.getVariableKeySet();
+	}
+	
+	
+	@Override
+	public double getValue(String aVariable) {
+		return myCurrentScope.getVariableValue(aVariable);
 	}
 	
 	
@@ -95,16 +118,6 @@ public class Environment implements IObservable, IModifiableVariableState, IView
 			observer.update();
 		}
 		
-	}
-	@Override
-	public Collection<String> getVariableKeySet() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	@Override
-	public double getValue(String aVariable) {
-		// TODO Auto-generated method stub
-		return 0;
 	}
 
 }

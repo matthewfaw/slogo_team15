@@ -5,7 +5,7 @@ import java.util.List;
 
 import back_end.model.command.ICommand;
 import back_end.model.exception.ArgumentException;
-import back_end.model.states.Scope;
+import back_end.model.states.Environment;
 
 public class ToNode extends Node {
 	private ICommand myMethod;
@@ -17,7 +17,7 @@ public class ToNode extends Node {
 	
 	private double returnValue;
 	
-	public ToNode(ICommand aMethod, int aNumberOfInputs, Scope aScope)
+	public ToNode(ICommand aMethod, int aNumberOfInputs, Environment aEnvironment)
 	{
 		myMethod = aMethod;
 		myNumberOfInputs = aNumberOfInputs;

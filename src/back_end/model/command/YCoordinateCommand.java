@@ -14,7 +14,7 @@ public class YCoordinateCommand implements ICommand {
 
     @Override
     public double eval (IReadableInput ... aList) {
-        return myRobot.getY();
+        return myRobot.getCoordinates().getY();
     }
 
 }

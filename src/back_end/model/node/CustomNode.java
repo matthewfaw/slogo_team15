@@ -2,7 +2,7 @@ package back_end.model.node;
 
 import java.util.List;
 import back_end.model.exception.ArgumentException;
-import back_end.model.states.Scope;
+import back_end.model.states.Environment;
 import back_end.model.command.CustomCommand;
 
 
@@ -17,7 +17,7 @@ public class CustomNode extends Node {
 	private double myReturnValue;
 	private NodeState myEvaluationState;
 
-	public CustomNode(CustomCommand aCommand, int aNumberOfInputs, Scope aScope)
+	public CustomNode(CustomCommand aCommand, int aNumberOfInputs, Environment aEnvironment)
 	{
 		super();
 		
@@ -37,18 +37,18 @@ public class CustomNode extends Node {
 	public double eval() throws ArgumentException {
 		Node[] inputs = myFunction.toArray(new Node[myFunction.size()]);
 		myReturnValue = myMethod.eval(inputs);
-		myMethod.resetScope();
+		//myMethod.resetScope();
 		
 		return myReturnValue;
 	}
 	public void evalInputs()
 	{
-		myMethod.setScope();
+		//myMethod.setScope();
 
 		Node[] myInputList = myInputs.toArray(new Node[myInputs.size()]);
 		myMethod.evalCondition(myInputList);
 		
-		myFunction = ((Node) myMethod.getFunction()).getChildren();
+		//myFunction = ((Node) myMethod.getFunction()).getChildren();
 	}
 
     @Override

@@ -1,26 +1,26 @@
 package back_end.model.node;
 
 import back_end.model.exception.ArgumentException;
-import back_end.model.states.Scope;
+import back_end.model.states.Environment;
 
 
 public class VariableNode extends ValueNode {
 
     private String myName;
     private int myNumberOfInputs = 0;
-    private Scope myScope;
+    private Environment myEnvironment;
     // private double myValue;
 
-    public VariableNode (String aVariable, Scope aScope) {
+    public VariableNode (String aVariable, Environment aEnvironment) {
         super();
 
         myName = aVariable;
-        myScope = aScope;
+        myEnvironment = aEnvironment;
     }
 
     @Override
     public double eval () throws ArgumentException {
-        return myScope.getVariableValue(myName);
+        return myEnvironment.getVariableValue(myName);
     }
 
     public int getNumberOfInputs () {
@@ -34,6 +34,6 @@ public class VariableNode extends ValueNode {
 
     @Override
     public double getValue () {
-        return myScope.getVariableValue(myName);
+        return myEnvironment.getVariableValue(myName);
     }
 }

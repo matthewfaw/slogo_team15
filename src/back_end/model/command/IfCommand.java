@@ -1,14 +1,14 @@
 package back_end.model.command;
 
 import back_end.model.node.IReadableInput;
-import back_end.model.states.Scope;
+import back_end.model.states.Environment;
 
 
-public class IfCommand implements ICommandBranch {
+public class IfCommand extends ICommandBranch {
 
     private boolean myFirstExecution;
 
-    public IfCommand (Scope aScope) {
+    public IfCommand (Environment aEnvironment) {
         myFirstExecution = true;
     }
 
@@ -19,11 +19,6 @@ public class IfCommand implements ICommandBranch {
             return (aList[0].getValue() != 0) ? 0 : -1;
         }
         return -1;
-    }
-
-    @Override
-    public double eval (IReadableInput ... aList) {
-        return aList[aList.length - 1].getValue();
     }
 
 }

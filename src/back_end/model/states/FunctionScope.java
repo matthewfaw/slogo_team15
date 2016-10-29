@@ -2,7 +2,6 @@ package back_end.model.states;
 
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Set;
 import java.util.Stack;
 
@@ -15,16 +14,6 @@ public class FunctionScope {
 	public FunctionScope() {
 		myNestedVariableStates = new Stack<VariableState>();
 		myNestedVariableStates.push(new VariableState());
-	}
-	
-	//XXX: Very hacky, would be better if we used an iterable, need to talk to front-end.
-	@Deprecated
-	public VariableState getVariableMap() {
-		VariableState returnVal = new VariableState(); 
-		for (VariableState variableState : myNestedVariableStates) {
-			returnVal.combineVariableMap(variableState.getVariableMap());
-		}
-		return returnVal;
 	}
 	
 	public boolean containsVariable(String name) {
@@ -71,6 +60,14 @@ public class FunctionScope {
 	
 	void removeNestedScope() {
 		myNestedVariableStates.pop();
+	}
+
+	public Collection<String> getVariableKeySet() {
+		Set<String> set = new HashSet<String>();
+		for (VariableState variableState : myNestedVariableStates) {
+			set.addAll(variableState.getVariableKeySet());
+		}
+		return set;
 	}
 
 

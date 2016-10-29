@@ -14,8 +14,8 @@ public class SetPositionCommand implements ICommand {
 
     @Override
     public double eval (IReadableInput ... aList) {
-        double posX = Math.abs(myRobot.getX() - aList[0].getValue());
-        double posY = Math.abs(myRobot.getY() - aList[1].getValue());
+        double posX = Math.abs(myRobot.getCoordinates().getX() - aList[0].getValue());
+        double posY = Math.abs(myRobot.getCoordinates().getY() - aList[1].getValue());
         double returnVal = Math.sqrt(Math.pow(posX, 2) + Math.pow(posY, 2));
         myRobot.setX(aList[0].getValue());
         myRobot.setY(aList[1].getValue());
