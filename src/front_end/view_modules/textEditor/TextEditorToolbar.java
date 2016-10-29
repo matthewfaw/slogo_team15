@@ -79,6 +79,7 @@ class TextEditorToolbar implements ILanguageSwitcher {
 
     private void initSaveTextButton () {
         Button saveText = new Button(myTextToolbarResources.getString(SAVE_TEXT_KEY));
+        saveText.setOnMouseClicked( event -> {new TextSaver(myTextEditor).saveToFile();} );
         myBar.getChildren().add(saveText);
         // TODO: Implement Saving Text to TXT file
     }
