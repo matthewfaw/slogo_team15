@@ -42,12 +42,12 @@ public class ApplicationScene {
 		myApplicationView = new GridPane();
 
 		myToolbar = ToolbarFactory.buildToolbar(aWidth, aHeight / 20);
-		myTurtleBox = TurtleBoxFactory.buildTurtleBox(2 * aWidth / 3, 2 * aHeight / 3);
 		myTextEditor = TextEditorFactory.buildTextEditor(2 * aWidth / 3, aHeight / 3);
 		myErrorViewer = ErrorViewerFactory.buildErrorViewer(aWidth / 3, aHeight / 3, myTextEditor);
 		myVariableViewer = VariableViewerFactory.buildVariableViewer(aWidth / 6, aHeight / 3);
 		myScriptViewer = ScriptViewerFactory.buildViewerFactory(aWidth / 6, aHeight / 3);
 		myShapeColorModule = ShapeColorModuleFactory.build();
+		myTurtleBox = TurtleBoxFactory.buildTurtleBox(2 * aWidth / 3, 2 * aHeight / 3, myShapeColorModule);
 		myStatesBox = new ConcreteAllRobotsStateBox(myShapeColorModule, myShapeColorModule);
 		myHelpPage = new HelpPage();
 

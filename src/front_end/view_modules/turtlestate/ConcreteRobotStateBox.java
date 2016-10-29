@@ -79,7 +79,6 @@ public class ConcreteRobotStateBox implements IRobotStateBox {
 		build();
 	}
 
-
 	@Override
 	public void reset() {
 		// TODO Auto-generated method stub
@@ -129,7 +128,6 @@ public class ConcreteRobotStateBox implements IRobotStateBox {
 	private boolean noRobot() {
 		return (myRobot == null);
 	}
-
 
 	@Override
 	public int getRobotID() {

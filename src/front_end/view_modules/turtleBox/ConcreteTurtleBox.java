@@ -1,8 +1,8 @@
 package front_end.view_modules.turtleBox;
 
 import back_end.model.robot.IViewRobot;
+import front_end.view_modules.shape_color_module.interfaces.IShapeColorModule;
 import front_end.view_modules.turtleBox.turtleMovement.TurtleMovement;
-import integration.observe.IRobotObserver;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -24,6 +24,9 @@ class ConcreteTurtleBox implements ITurtleBox {
     ScrollPane myScroller;
     Pane mySandbox;
     ColorPicker myBackgroundColorPicker;
+    
+    IShapeColorModule myShapeColorMap;
+    
     IViewRobot myRobot;
     ImageView myTurtle;
     Group root;
@@ -36,9 +39,11 @@ class ConcreteTurtleBox implements ITurtleBox {
 
     private final int CHARACTER_SIZE = 50;
 
-    ConcreteTurtleBox (int width, int height) {
+    ConcreteTurtleBox (int width, int height, IShapeColorModule aShapeColorMap) {
         myWidth = width;
         myHeight = height;
+        myShapeColorMap = aShapeColorMap;
+        
         myTurtMove = new TurtleMovement(this, myWidth, myHeight);
         root = new Group();
         drawingCanvas = new Canvas(width, height);
@@ -82,7 +87,7 @@ class ConcreteTurtleBox implements ITurtleBox {
     }
 
     public void loadDefaultTurtle (int width, int height) {
-        Image character = new Image("turtle.png");
+        Image character = new Image( myShapeColorMap.getFile(0).toURI().toString() );
         myTurtle = new ImageView(character);
         myTurtle.setFitHeight(CHARACTER_SIZE);
         myTurtle.setFitWidth(CHARACTER_SIZE);

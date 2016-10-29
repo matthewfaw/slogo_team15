@@ -7,4 +7,6 @@ import integration.observe.IRobotObserver;
 
 public interface IAllRobotsStateBox extends IViewModule, ILanguageSwitcher, IRobotObserver {
 	
+	public void switchRobotTabs(int aRobotID);
+	
 }

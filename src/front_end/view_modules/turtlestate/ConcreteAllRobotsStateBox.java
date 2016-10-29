@@ -70,8 +70,7 @@ public class ConcreteAllRobotsStateBox implements IAllRobotsStateBox{
 	
 	@Override
 	public void reset() {
-		// TODO Auto-generated method stub
-		
+		buildMenu();
 	}
 
 	@Override
@@ -97,6 +96,12 @@ public class ConcreteAllRobotsStateBox implements IAllRobotsStateBox{
 	@Override
 	public void update() {
 		// Does Nothing, this class just passes Robots along
+	}
+
+	@Override
+	public void switchRobotTabs(int aRobotID) {
+		if(aRobotID >= myStateBoxes.size()) return;
+		switchStateBox(myStateBoxes.get(aRobotID));		
 	}
 	
 	
