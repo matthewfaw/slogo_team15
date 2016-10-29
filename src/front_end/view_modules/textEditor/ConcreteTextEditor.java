@@ -81,6 +81,8 @@ class ConcreteTextEditor implements ITextEditor {
 
     @Override
     public void setInstructionList (List<String> aInstructions) {
+        configureStartParameters(myWidth, myHeight);
+    	initTextScroller(buildTextColumn(aInstructions.size()));
         for (int i = 0; (i < myTextFields.size()) && (i < aInstructions.size()); i++) {
             myTextFields.get(i).setText(aInstructions.get(i));
         }
@@ -104,7 +106,7 @@ class ConcreteTextEditor implements ITextEditor {
 
     private void buildInstance (int aWidth, int aHeight) {
         configureStartParameters(aWidth, aHeight);
-        initTextScroller(buildTextColumn());
+        initTextScroller(buildTextColumn(NUM_START_ROWS));
     }
 
     private void configureStartParameters (int aWidth, int aHeight) {
@@ -117,10 +119,10 @@ class ConcreteTextEditor implements ITextEditor {
         myRows = new ArrayList<HBox>();
     }
 
-    private VBox buildTextColumn () {
+    private VBox buildTextColumn (int aStartRows) {
         myTextColumn = new VBox(0);
         initTextToolbar();
-        while (myLastIndex < NUM_START_ROWS)
+        while (myLastIndex < aStartRows)
             newLine();
         return myTextColumn;
     }
