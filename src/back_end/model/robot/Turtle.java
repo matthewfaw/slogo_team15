@@ -93,7 +93,6 @@ public class Turtle implements Robot, IViewRobot, IObservable {
     @Override
     public void registerObserver (IRobotObserver o) {
         myObservers.add(o);
-        o.giveRobot(this);
     }
 
     @Override

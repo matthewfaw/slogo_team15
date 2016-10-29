@@ -25,87 +25,87 @@ import javafx.scene.paint.Color;
 
 public class ApplicationScene {
 
-    private GridPane myApplicationView;
-    private Scene myScene;
-    private Group myRoot;
-    private IToolbar myToolbar;
-    private ITextEditor myTextEditor;
-    private IErrorViewer myErrorViewer;
-    private ITurtleBox myTurtleBox;
-    private IVariableViewer myVariableViewer;
-    private IScriptViewer myScriptViewer;
+	private GridPane myApplicationView;
+	private Scene myScene;
+	private Group myRoot;
+	private IToolbar myToolbar;
+	private ITextEditor myTextEditor;
+	private IErrorViewer myErrorViewer;
+	private ITurtleBox myTurtleBox;
+	private IVariableViewer myVariableViewer;
+	private IScriptViewer myScriptViewer;
 	private IShapeColorModule myShapeColorModule;
 	private IAllRobotsStateBox myStatesBox;
-    private HelpPage myHelpPage;
+	private HelpPage myHelpPage;
 
-    public ApplicationScene () {
-        myApplicationView = new GridPane();
-    }
+	public ApplicationScene (int aWidth, int aHeight) {
+		myApplicationView = new GridPane();
 
-    public Scene initScene (int aWidth, int aHeight) {
-        myToolbar = ToolbarFactory.buildToolbar(aWidth, aHeight / 20);
-        myTurtleBox = TurtleBoxFactory.buildTurtleBox(2 * aWidth / 3, 2 * aHeight / 3);
-        myTextEditor = TextEditorFactory.buildTextEditor(2 * aWidth / 3, aHeight / 3);
-        myErrorViewer = ErrorViewerFactory.buildErrorViewer(aWidth / 3, aHeight / 3, myTextEditor);
-        myVariableViewer = VariableViewerFactory.buildVariableViewer(aWidth / 6, aHeight / 3);
-        myScriptViewer = ScriptViewerFactory.buildViewerFactory(aWidth / 6, aHeight / 3);
-        myShapeColorModule = ShapeColorModuleFactory.build();
-        myStatesBox = new ConcreteAllRobotsStateBox(myShapeColorModule, myShapeColorModule);
-        myHelpPage = new HelpPage();
+		myToolbar = ToolbarFactory.buildToolbar(aWidth, aHeight / 20);
+		myTurtleBox = TurtleBoxFactory.buildTurtleBox(2 * aWidth / 3, 2 * aHeight / 3);
+		myTextEditor = TextEditorFactory.buildTextEditor(2 * aWidth / 3, aHeight / 3);
+		myErrorViewer = ErrorViewerFactory.buildErrorViewer(aWidth / 3, aHeight / 3, myTextEditor);
+		myVariableViewer = VariableViewerFactory.buildVariableViewer(aWidth / 6, aHeight / 3);
+		myScriptViewer = ScriptViewerFactory.buildViewerFactory(aWidth / 6, aHeight / 3);
+		myShapeColorModule = ShapeColorModuleFactory.build();
+		myStatesBox = new ConcreteAllRobotsStateBox(myShapeColorModule, myShapeColorModule);
+		myHelpPage = new HelpPage();
 
-        myRoot = new Group();
-        myRoot.getChildren().addAll(myApplicationView);
-        myScene = new Scene(myRoot, aWidth, aHeight + aHeight / 20 + 10, Color.WHITE);
-        myApplicationView.add(myToolbar.getInstanceAsNode(), 0, 0, GridPane.REMAINING, 1);
-        myApplicationView.add(myTurtleBox.getInstanceAsNode(), 0, 1, 1, 1);
-        myApplicationView.add(myTextEditor.getInstanceAsNode(), 0, 2, 1, 1);
-        myApplicationView.add(myVariableViewer.getInstanceAsNode(), 1, 1, 1, 1);
-        myApplicationView.add(myScriptViewer.getInstanceAsNode(), 2, 1, 1, 1);
-        myApplicationView.add(myErrorViewer.getInstanceAsNode(), 1, 2, 2, 1);
-        myApplicationView.add(myShapeColorModule.getInstanceAsNode(), 2, 2);
-        myApplicationView.add(myStatesBox.getInstanceAsNode(), 2, 3);
+		myRoot = new Group();
+		myRoot.getChildren().addAll(myApplicationView);
+		myScene = new Scene(myRoot, aWidth, aHeight + aHeight / 20 + 10, Color.WHITE);
+		myApplicationView.add(myToolbar.getInstanceAsNode(), 0, 0, GridPane.REMAINING, 1);
+		myApplicationView.add(myTurtleBox.getInstanceAsNode(), 0, 1, 1, 1);
+		myApplicationView.add(myTextEditor.getInstanceAsNode(), 0, 2, 1, 1);
+		myApplicationView.add(myVariableViewer.getInstanceAsNode(), 1, 1, 1, 1);
+		myApplicationView.add(myScriptViewer.getInstanceAsNode(), 2, 1, 1, 1);
+		myApplicationView.add(myErrorViewer.getInstanceAsNode(), 1, 2, 2, 1);
+		myApplicationView.add(myShapeColorModule.getInstanceAsNode(), 2, 2);
+		myApplicationView.add(myStatesBox.getInstanceAsNode(), 2, 3);
 
-        return myScene;
-    }
+	}
 
-    public Group getMyRoot () {
-        return myRoot;
-    }
+	public Scene getScene () {
+		return myScene;
+	}
 
-    public HelpPage getMyHelpPage () {
-        return myHelpPage;
-    }
+	public Group getMyRoot () {
+		return myRoot;
+	}
 
-    public ITurtleBox getMyTurtleBox () {
-        return myTurtleBox;
-    }
+	public HelpPage getMyHelpPage () {
+		return myHelpPage;
+	}
 
-    public IScriptViewer getMyScriptViewer () {
-        return myScriptViewer;
-    }
+	public ITurtleBox getMyTurtleBox () {
+		return myTurtleBox;
+	}
 
-    public ITextEditor getMyTextEditor () {
-        return myTextEditor;
-    }
+	public IScriptViewer getMyScriptViewer () {
+		return myScriptViewer;
+	}
 
-    public IErrorViewer getMyErrorViewer () {
-        return myErrorViewer;
-    }
+	public ITextEditor getMyTextEditor () {
+		return myTextEditor;
+	}
 
-    public IVariableViewer getMyVariableViewer () {
-        return myVariableViewer;
-    }
+	public IErrorViewer getMyErrorViewer () {
+		return myErrorViewer;
+	}
 
-    public IToolbar getMyToolbar () {
-        return myToolbar;
-    }
+	public IVariableViewer getMyVariableViewer () {
+		return myVariableViewer;
+	}
 
-    public IShapeColorModule getMyShapeColorModule () {
-        return myShapeColorModule;
-    }
+	public IToolbar getMyToolbar () {
+		return myToolbar;
+	}
 
-    
-    public IAllRobotsStateBox getMyStatesBox() {
-    	return myStatesBox;
-    }
+	public IShapeColorModule getMyShapeColorModule () {
+		return myShapeColorModule;
+	}
+
+	public IAllRobotsStateBox getMyStatesBox() {
+		return myStatesBox;
+	}
 }

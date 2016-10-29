@@ -10,6 +10,8 @@ import back_end.model.exception.EmptyInputException;
 import back_end.model.exception.UnexpectedCharacterException;
 import back_end.model.exception.UnexpectedCommandException;
 import front_end.appScene.ApplicationScene;
+import front_end.router.IRouter;
+import front_end.router.RouterFactory;
 import front_end.view_modules.errorViewer.IErrorViewer;
 import front_end.view_modules.helpPage.HelpPage;
 import front_end.view_modules.penProperties.IPenPopup;
@@ -42,6 +44,9 @@ public class ApplicationController {
     private HelpPage myHelpPage;
     private Group myRoot;
 
+    private IRouter myRobotRouter;
+    
+    /** View Modules **/
     private IToolbar myToolbar;
     private ITextEditor myTextEditor;
     private IErrorViewer myErrorViewer;
@@ -51,15 +56,20 @@ public class ApplicationController {
     private IShapeColorModule myShapeColorModule;
     private IAllRobotsStateBox myStatesBox;
     private IPenPopup myPenPopup;
-
+    
+    
     private String TITLE = "SLOGO";
 
-    public ApplicationController () {
-        myAppScene = new ApplicationScene();
-        myModel = new ModelController();
+    public ApplicationController (int aWidth, int aHeight) {
+        myAppScene = new ApplicationScene(aWidth, aHeight);
+        myRobotRouter = RouterFactory.build(myAppScene);
+        myModel = new ModelController(myRobotRouter);
+       
+        getFromScene();
+        configureToolbar();
     }
 
-    private void initFromScene () {
+    private void getFromScene () {
         myToolbar = myAppScene.getMyToolbar();
         myTextEditor = myAppScene.getMyTextEditor();
         myErrorViewer = myAppScene.getMyErrorViewer();
@@ -74,12 +84,8 @@ public class ApplicationController {
         myPenPopup = new PenPopup();
     }
 
-    public Scene init (int aWidth, int aHeight) {
-        Scene myScene = myAppScene.initScene(aWidth, aHeight);
-        initFromScene();
-        myModel.giveRobotObservers(myTurtleBox);
-        configureToolbar();
-        return myScene;
+    public Scene getScene () {
+        return myAppScene.getScene();
     }
 
     private void runAll () {
@@ -119,6 +125,7 @@ public class ApplicationController {
         myVariableViewer.reset();
         myScriptViewer.reset();
         myShapeColorModule.reset();
+        myStatesBox.reset();
     }
 
     private Map<Languages, EventHandler<ActionEvent>> makeLanguageMap () {

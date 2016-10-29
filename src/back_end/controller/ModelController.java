@@ -12,6 +12,7 @@ import back_end.model.states.IViewVariableState;
 import back_end.model.states.Scope;
 import back_end.model.syntax_tree.AbstractSyntaxTree;
 import back_end.model.text_parser.TextParser;
+import front_end.router.IRouter;
 import integration.languages.Languages;
 import integration.observe.IObservable;
 import integration.observe.IRobotObserver;
@@ -22,10 +23,13 @@ public class ModelController {
 	private Scope myScope; 
 	private IObservable myRobot; 
 	private TextParser myParser;
+	private IRouter myRouter;
 	
-	public ModelController() {
+	public ModelController(IRouter aRobotRouter) {
 		myScope = new Scope();
 		myRobot = new Turtle();
+		myRouter = aRobotRouter;
+		distributeRobots();
 		myParser = new TextParser(myScope, (Robot) myRobot);
 	}
 	
@@ -40,9 +44,9 @@ public class ModelController {
 			e.printStackTrace();
 		}
 	}
-	
-	public void giveRobotObservers(IRobotObserver ro){
-		myRobot.registerObserver(ro);
+		
+	private void distributeRobots(){
+		myRouter.distributeRobot( (IViewRobot) myRobot);
 	}
 	
 	public void giveVariableObservers(IRobotObserver ro) {

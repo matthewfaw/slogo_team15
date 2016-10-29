@@ -2,6 +2,7 @@ package front_end.view_modules.turtleBox;
 
 import back_end.model.robot.IViewRobot;
 import front_end.view_modules.turtleBox.turtleMovement.TurtleMovement;
+import integration.observe.IRobotObserver;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -122,6 +123,7 @@ class ConcreteTurtleBox implements ITurtleBox {
     @Override
     public void giveRobot (IViewRobot aRobot) {
         myRobot = aRobot;
+        aRobot.registerObserver( this);
     }
 
     public IViewRobot getRobot () {

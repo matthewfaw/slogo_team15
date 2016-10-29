@@ -96,6 +96,11 @@ public class ConcreteAllRobotsStateBox implements IAllRobotsStateBox{
 		myStateBoxes.add(stateBox);
 		buildMenu();
 	}
+
+	@Override
+	public void update() {
+		// Does Nothing, this class just passes Robots along
+	}
 	
 	
 

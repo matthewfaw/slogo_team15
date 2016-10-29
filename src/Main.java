@@ -23,10 +23,10 @@ public class Main extends Application {
      */
     @Override
     public void start (Stage s) {
-        myApplicationController = new ApplicationController();
+        myApplicationController = new ApplicationController(WIDTH, HEIGHT);
         s.setTitle(myApplicationController.getTitle());
 
-        Scene scene = myApplicationController.init(WIDTH, HEIGHT);
+        Scene scene = myApplicationController.getScene();
 
         s.setScene(scene);
         s.show();
