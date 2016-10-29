@@ -12,6 +12,7 @@ import back_end.model.exception.UnexpectedCommandException;
 import back_end.model.node.Node;
 import back_end.model.robot.Robot;
 import back_end.model.states.Environment;
+import back_end.model.states.ScopeController;
 import integration.languages.Languages;
 
 
@@ -33,13 +34,15 @@ public class NodeFactory {
 	private CommandFactory myCommandFactory;
 	private Languages myLanguage;
 	private Translator myTranslator;
+	private ScopeController myScopeController;
 	
-	public NodeFactory(ResourceBundle aResource, Environment aEnvironment, Robot aRobot) {
+	public NodeFactory(ScopeController aScopeController, ResourceBundle aResource, Environment aEnvironment, Robot aRobot) {
 		mySyntaxResources = aResource; 
 		myCommandTypeResources = PropertyResourceBundle.getBundle(PACKAGE_RESOURCE + TYPE);
 		myCommandFactory = new CommandFactory(aEnvironment, aRobot);
 		myTranslator = new Translator();
 		myEnvironment = aEnvironment;
+		myScopeController = aScopeController;
 	}
 	
 	public Node makeNode(String aUserInputWord) throws UnexpectedCharacterException, UnexpectedCommandException, 
@@ -65,8 +68,8 @@ public class NodeFactory {
 					}
 				}
 				commandClass = (CustomCommand) myCommandFactory.makeCommand(aUserInputWord, "Custom");
-				return (Node) Class.forName(PACKAGE_NODE + translatedInput + "Node").getConstructor(ICommand.class, int.class, String.class, Environment.class).
-						newInstance(commandClass, inputNumber, aUserInputWord, myEnvironment);
+				return (Node) Class.forName(PACKAGE_NODE + translatedInput + "Node").getConstructor(ICommand.class, int.class, String.class, ScopeController.class).
+						newInstance(commandClass, inputNumber, aUserInputWord, myScopeController);
 			} catch (MissingResourceException e) {
 				e.addSuppressed(new UnexpectedCharacterException("The syntax expression: " + aUserInputWord + " is not associated to any known syntax in this language"));
 			}

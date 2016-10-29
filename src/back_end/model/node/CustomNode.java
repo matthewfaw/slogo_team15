@@ -3,6 +3,7 @@ package back_end.model.node;
 import java.util.List;
 import back_end.model.exception.ArgumentException;
 import back_end.model.states.Environment;
+import back_end.model.states.ScopeController;
 import back_end.model.command.CustomCommand;
 import back_end.model.command.ICommand;
 
@@ -18,8 +19,8 @@ public class CustomNode extends Node {
 	private double myReturnValue;
 	private NodeState myEvaluationState;
 
-	public CustomNode(ICommand aCommand, int aNumberOfInputs, String aUserInput) {
-		super(aCommand, aNumberOfInputs, aUserInput);
+	public CustomNode(ICommand aCommand, int aNumberOfInputs, String aUserInput, ScopeController aScopeController) {
+		super(aCommand, aNumberOfInputs, aUserInput, aScopeController);
 		
 		myNumberOfInputs = aNumberOfInputs;
 		

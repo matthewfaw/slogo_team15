@@ -11,6 +11,7 @@ import back_end.model.exception.UnexpectedCommandException;
 import back_end.model.node.Node;
 import back_end.model.robot.Robot;
 import back_end.model.states.Environment;
+import back_end.model.states.ScopeController;
 import integration.languages.Languages;
 
 
@@ -31,10 +32,10 @@ public class TextParser {
     private NodeFactory myFactory;
     private Languages myLanguage;
 
-    public TextParser (Environment aEnvironment, Robot aRobot) {
+    public TextParser (ScopeController aScopeController, Environment aEnvironment, Robot aRobot) {
         mySyntaxResources = PropertyResourceBundle.getBundle(PACKAGE + SYNTAX);
         myLanguage = Languages.DEFAULT;
-        myFactory = new NodeFactory(mySyntaxResources, aEnvironment, aRobot);
+        myFactory = new NodeFactory(aScopeController, mySyntaxResources, aEnvironment, aRobot);
         setLanguage(myLanguage);
     }
 

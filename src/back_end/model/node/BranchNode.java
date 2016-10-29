@@ -7,6 +7,7 @@ import java.util.List;
 import back_end.model.command.ICommand;
 import back_end.model.command.ICommandBranch;
 import back_end.model.exception.ArgumentException;
+import back_end.model.states.ScopeController;
 
 
 public class BranchNode extends Node {
@@ -23,8 +24,8 @@ public class BranchNode extends Node {
     private int myNumberOfInputs;
     private ICommandBranch myCommand;
 
-    public BranchNode (ICommand aCommand, int aNumberOfInputs, String aUserInput) {
-        super(aCommand, aNumberOfInputs, aUserInput);
+    public BranchNode (ICommand aCommand, int aNumberOfInputs, String aUserInput, ScopeController aScopeController) {
+        super(aCommand, aNumberOfInputs, aUserInput, aScopeController);
 
         myEvaluationState = NodeState.EVALUATING_INPUTS;
 
