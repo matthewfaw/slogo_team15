@@ -12,10 +12,10 @@ import back_end.model.states.IViewVariableState;
 import back_end.model.states.Scope;
 import back_end.model.syntax_tree.AbstractSyntaxTree;
 import back_end.model.text_parser.TextParser;
-import front_end.router.IRouter;
 import integration.languages.Languages;
 import integration.observe.IObservableRobot;
 import integration.observe.IRobotObserver;
+import integration.router.IRouter;
 
 
 public class ModelController {

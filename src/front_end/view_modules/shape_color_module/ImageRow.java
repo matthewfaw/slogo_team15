@@ -2,6 +2,10 @@ package front_end.view_modules.shape_color_module;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
+import java.util.ResourceBundle;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -29,11 +33,18 @@ class ImageRow {
 	private Button myDeleteRow;
 	private File myFile;
 	
-	private static final String IMAGE_TEXT = "Image ID: ";
-	private static final String INIT_BUTTON_TEXT = "Select an Image";
-	private static final String COMP_BUTTON_TEXT = "Switch Image";
+	private ResourceBundle myExtensionBundle;
+	private ResourceBundle myTextBundle;
+	
+	private static final String INIT_FILE = "resources.frontend.shape_module.shape_row.";
+	private static final String EXTENSIONS = "AcceptableImageFileExtensions";
+	private static final String ROW_TEXT = "ImageRowText";
 	private static final String IMAGE_RESOURCE_LOC = "src/resources/images/";
-	private static final String DELETE_TEXT = "Delete Row";
+	
+	private static final String IMAGE_TEXT = "id";
+	private static final String INIT_BUTTON_TEXT = "select";
+	private static final String COMP_BUTTON_TEXT = "switch";
+	private static final String DELETE_TEXT = "delete";
 	
 	private static final int SPACING = 5;
 	private static final int CHARACTER_SIZE = 50;
@@ -42,6 +53,9 @@ class ImageRow {
 		myRow = new HBox(SPACING);
 		myImageSelect = new Button();
 		myDeleteRow = new Button();
+		
+		myExtensionBundle = ResourceBundle.getBundle(INIT_FILE + EXTENSIONS);
+		myTextBundle = ResourceBundle.getBundle(INIT_FILE + ROW_TEXT);
 	}
 	
 	ImageRow(int aImageID) {
@@ -77,8 +91,12 @@ class ImageRow {
 	}
 	
 	private void selectFile() {
+		List<String> extensionList = myExtensionBundle.keySet().stream()
+				.map( s -> {return myExtensionBundle.getString(s);} )
+				.collect(Collectors.toList());
+		
 		FileChooser choose = new FileChooser();
-		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpeg", "*.gif");
+		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Image Files:", extensionList);
 		choose.getExtensionFilters().add(extFilter);
 		
 		openFileChooser( choose );
@@ -93,12 +111,12 @@ class ImageRow {
 	}	
 
 	private void buildIncompleteRow(){
-		Label idLabel = new Label( IMAGE_TEXT + Integer.toString(myIndex));
+		Label idLabel = new Label( myTextBundle.getString(IMAGE_TEXT) + Integer.toString(myIndex));
 		
 		VBox imageMenu = new VBox(0);
-		myImageSelect.setText(INIT_BUTTON_TEXT);
+		myImageSelect.setText(myTextBundle.getString(INIT_BUTTON_TEXT));
 		myImageSelect.setOnMouseClicked( event -> selectFile() );
-		myDeleteRow.setText(DELETE_TEXT);
+		myDeleteRow.setText(myTextBundle.getString(DELETE_TEXT));
 		myDeleteRow.setOnMouseClicked( event -> myRow.getChildren().clear());
 		imageMenu.getChildren().addAll(myImageSelect, myDeleteRow);
 		
@@ -108,7 +126,7 @@ class ImageRow {
 	private void buildCompleteRow(){
 		myRow.getChildren().clear();
 		buildIncompleteRow();
-		myImageSelect.setText(COMP_BUTTON_TEXT);
+		myImageSelect.setText(myTextBundle.getString(COMP_BUTTON_TEXT));
 		myRow.getChildren().add(myImageView);
 	}
 }

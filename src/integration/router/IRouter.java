@@ -1,4 +1,4 @@
-package front_end.router;
+package integration.router;
 
 import back_end.model.robot.IViewRobot;
 

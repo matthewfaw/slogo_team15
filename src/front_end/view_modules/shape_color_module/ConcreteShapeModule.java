@@ -17,12 +17,17 @@ class ConcreteShapeModule implements IShapeModule {
 	private List<ImageRow> myImageRowList;
 	private VBox myImageModuleBox;
 	private VBox myColumn;
-	private ResourceBundle myDefaultBundle;
+	private ResourceBundle myDefaultImageBundle;
+	private ResourceBundle myTextBundle;
 	
 	private static final String INIT_FILE = "resources.frontend.shape_module.";
-	private static final String FILENAME = "DefaultImages";
+	private static final String IMAGE_FILENAME = "DefaultImages";
+	private static final String TEXT_FILENAME = "ShapeModuleText";
 	
 	ConcreteShapeModule(){
+		myDefaultImageBundle = ResourceBundle.getBundle(INIT_FILE + IMAGE_FILENAME);
+		myTextBundle = ResourceBundle.getBundle(INIT_FILE  + TEXT_FILENAME);
+		
 		myImageRowList = new ArrayList<>();
 		
 		myImageModuleBox = new VBox();
@@ -30,8 +35,6 @@ class ConcreteShapeModule implements IShapeModule {
 		
 		myColumn = new VBox();
 		myImageModuleBox.getChildren().add(myColumn);
-		
-		myDefaultBundle = ResourceBundle.getBundle(INIT_FILE + FILENAME);
 		
 		setDefault();
 		setColumn();	
@@ -42,8 +45,8 @@ class ConcreteShapeModule implements IShapeModule {
 		
 		int i = 0;
 		
-		for( String key : myDefaultBundle.keySet()){
-			myImageRowList.add(i, new ImageRow( i++, myDefaultBundle.getString(key)	));
+		for( String key : myDefaultImageBundle.keySet()){
+			myImageRowList.add(i, new ImageRow( i++, myDefaultImageBundle.getString(key)	));
 			}
 	}
 
@@ -53,7 +56,7 @@ class ConcreteShapeModule implements IShapeModule {
 	}
 	
 	private void initNewImageButton(){
-		Button newImageButton = new Button("New Image!"); 
+		Button newImageButton = new Button( myTextBundle.getString( "NewRow" ) ); 
 		newImageButton.setOnMouseClicked(event -> addImageRow());
 
 		myImageModuleBox.getChildren().add(newImageButton);
