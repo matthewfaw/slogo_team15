@@ -9,6 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -25,12 +26,14 @@ class ImageRow {
 	private int myIndex;
 	private ImageView myImageView;
 	private Button myImageSelect;
+	private Button myDeleteRow;
 	private File myFile;
 	
 	private static final String IMAGE_TEXT = "Image ID: ";
 	private static final String INIT_BUTTON_TEXT = "Select an Image";
 	private static final String COMP_BUTTON_TEXT = "Switch Image";
 	private static final String IMAGE_RESOURCE_LOC = "src/resources/images/";
+	private static final String DELETE_TEXT = "Delete Row";
 	
 	private static final int SPACING = 5;
 	private static final int CHARACTER_SIZE = 50;
@@ -38,6 +41,7 @@ class ImageRow {
 	private ImageRow() {
 		myRow = new HBox(SPACING);
 		myImageSelect = new Button();
+		myDeleteRow = new Button();
 	}
 	
 	ImageRow(int aImageID) {
@@ -90,11 +94,15 @@ class ImageRow {
 
 	private void buildIncompleteRow(){
 		Label idLabel = new Label( IMAGE_TEXT + Integer.toString(myIndex));
+		
+		VBox imageMenu = new VBox(0);
 		myImageSelect.setText(INIT_BUTTON_TEXT);
-		
 		myImageSelect.setOnMouseClicked( event -> selectFile() );
+		myDeleteRow.setText(DELETE_TEXT);
+		myDeleteRow.setOnMouseClicked( event -> myRow.getChildren().clear());
+		imageMenu.getChildren().addAll(myImageSelect, myDeleteRow);
 		
-		myRow.getChildren().addAll(idLabel, myImageSelect);
+		myRow.getChildren().addAll(idLabel, imageMenu);
 	}
 	
 	private void buildCompleteRow(){

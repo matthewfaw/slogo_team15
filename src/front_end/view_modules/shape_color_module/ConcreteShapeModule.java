@@ -55,6 +55,7 @@ class ConcreteShapeModule implements IShapeModule {
 	private void initNewImageButton(){
 		Button newImageButton = new Button("New Image!"); 
 		newImageButton.setOnMouseClicked(event -> addImageRow());
+
 		myImageModuleBox.getChildren().add(newImageButton);
 	}
 	

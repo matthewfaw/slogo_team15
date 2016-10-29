@@ -7,5 +7,5 @@ import integration.observe.IRobotObserver;
 public interface IRobotStateBox extends IViewModule, 
 										ILanguageSwitcher, 
 										IRobotObserver {
-	
+	public int getRobotID();
 }

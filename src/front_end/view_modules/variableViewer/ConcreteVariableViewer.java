@@ -67,7 +67,7 @@ class ConcreteVariableViewer implements IVariableViewer {
         myVariableTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
         myVariableTable.setItems(myVariables);
-
+        
         myVariableViewer.getChildren().add(myVariableTable);
     }
 

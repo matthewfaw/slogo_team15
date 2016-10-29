@@ -101,22 +101,24 @@ public class ConcreteRobotStateBox implements IRobotStateBox {
 	@Override
 	public void update() {
 		if(noRobot() || !myIsBuilt) return;
+		build();
 	}
 
 	@Override
 	public void giveRobot(IViewRobot aViewRobot) {
 		myRobot = aViewRobot;
+		myRobot.registerObserver(this);
 		build();
 	}
 
 	private void build(){
-		//if(noRobot()) return;
+		// if(noRobot()) return;
 		myIDLabel.setText("Turtle 1"); //myRobot.toString()); //TODO change this to robotID
 		myCoordinatesLabel.setText( "x, y" ); //buildCoordinateString(myRobot.getX(), myRobot.getY()) );
 		myBearingLabel.setText("Angle: 360 deg" ); //+ myRobot.getRotation() + " deg");
 		myPenDownButton.setSelected( false ); // myRobot.isPenDown());
 		myVisibilityButton.setSelected( true ); //myRobot.isVisible());
-		myRobotImage.setImage( new Image( myImageMap.getFile(0).toURI().toString() ) );
+		myRobotImage.setImage( new Image( myImageMap.getFile(2).toURI().toString() ) );
 		myIsBuilt = true;
 	}
 
@@ -126,6 +128,13 @@ public class ConcreteRobotStateBox implements IRobotStateBox {
 
 	private boolean noRobot() {
 		return (myRobot == null);
+	}
+
+
+	@Override
+	public int getRobotID() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 

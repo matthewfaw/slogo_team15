@@ -14,7 +14,7 @@ public class Main extends Application {
     private ApplicationController myApplicationController;
     private final int SIZE = 600;
     private final int WIDTH = 2 * SIZE;
-    private final int HEIGHT = SIZE;
+    private final int HEIGHT =  SIZE;
 
     /**
      * Starts initializing the stage and scene

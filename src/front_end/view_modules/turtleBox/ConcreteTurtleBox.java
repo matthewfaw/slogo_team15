@@ -123,7 +123,6 @@ class ConcreteTurtleBox implements ITurtleBox {
     @Override
     public void giveRobot (IViewRobot aRobot) {
         myRobot = aRobot;
-
     }
 
     public IViewRobot getRobot () {
