@@ -1,12 +1,14 @@
 package front_end.view_modules.penProperties;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import integration.drawing.LineStyleSpec;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
@@ -57,7 +59,7 @@ public class PenPopup implements IPenPopup {
     public Scene getScene () {
         return myScene;
     }
-    
+
     private List<Integer> penThicknessOptions () {
         List<Integer> myList = new ArrayList<Integer>();
         for (int i = 1; i < MAX_PEN_THICKNESS; i++) {
@@ -65,19 +67,23 @@ public class PenPopup implements IPenPopup {
         }
         return myList;
     }
-    
+
     private void penUpOrDown () {
-        
+
         myPenDownButton = new ToggleButton("Pen Up");
 
         ToggleGroup group1 = new ToggleGroup();
-        group1.selectedToggleProperty() 
-        // Set Change Text if toggled
-        .addListener( (ObservableValue<? extends Toggle> ov,Toggle old_toggle, Toggle new_toggle) -> {
-                myPenDownButton.setText("Pen Up");
-                if(new_toggle == null) return;
-                if(new_toggle.isSelected()) myPenDownButton.setText("Pen Down");
-        });
+        group1.selectedToggleProperty()
+                // Set Change Text if toggled
+                .addListener( (ObservableValue<? extends Toggle> ov,
+                               Toggle old_toggle,
+                               Toggle new_toggle) -> {
+                    myPenDownButton.setText("Pen Up");
+                    if (new_toggle == null)
+                        return;
+                    if (new_toggle.isSelected())
+                        myPenDownButton.setText("Pen Down");
+                });
         myPenDownButton.setToggleGroup(group1);
     }
 
@@ -85,7 +91,12 @@ public class PenPopup implements IPenPopup {
         layout.setTop(myRow);
         layout.setBottom(testBox);
         layout.setCenter(createComboBox("Pen thickness: ", penThicknessOptions()));
+        layout.setRight(createComboBox("Line Style: ", myLineStyleOptions()));
         layout.setLeft(myPenDownButton);
+    }
+    
+    private List<LineStyleSpec> myLineStyleOptions () { 
+        return Arrays.asList(LineStyleSpec.values());
     }
 
     private void makeColorPicker () {
@@ -122,8 +133,7 @@ public class PenPopup implements IPenPopup {
     public void clear () {
         myRow.getChildren().clear();
         myPenDownButton.setText("Pen Up");
-        //TODO: Figure out how to keep createComboBox method and be able to access here
-        //myCombobox.getSelectionModel().clearSelection();
+        // TODO: Figure out how to keep createComboBox method and be able to access here
         makeColorPicker();
     }
 
