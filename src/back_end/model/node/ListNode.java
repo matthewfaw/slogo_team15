@@ -11,6 +11,10 @@ public class ListNode extends Node {
     public ListNode (ICommand aCommand, int aNumberOfInputs, String aUserInput, ScopeController aScopeController) {
         super(aCommand, aNumberOfInputs, aUserInput, aScopeController);
     }
+    public ListNode()
+    {
+    	this(null,0,null,null);
+    }
 
     @Override
     public String getName () {
