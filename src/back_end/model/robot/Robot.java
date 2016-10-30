@@ -7,7 +7,7 @@ package back_end.model.robot;
  *
  */
 
-public interface Robot extends IViewRobot {
+public interface Robot extends IViewableRobot {
 
     /** SETTERS **/
 

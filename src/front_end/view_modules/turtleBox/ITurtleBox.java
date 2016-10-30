@@ -1,6 +1,6 @@
 package front_end.view_modules.turtleBox;
 
-import back_end.model.robot.IViewRobot;
+import back_end.model.robot.IViewableRobot;
 import front_end.view_modules.IRobotAcceptor;
 import front_end.view_modules.IViewModule;
 import integration.observe.IObserver;
@@ -19,7 +19,7 @@ public interface ITurtleBox extends IViewModule, IObserver, IRobotAcceptor {
 
     public double getTurtleWidth ();
 
-    public IViewRobot getRobot ();
+    public IViewableRobot getRobot ();
 
     public void removeTurtle ();
 

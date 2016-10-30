@@ -7,7 +7,7 @@ import integration.observe.IObservable;
 import integration.observe.IObserver;
 
 
-public class Turtle implements Robot, IViewRobot, IObservable {
+public class Turtle implements Robot, IViewableRobot, IObservable {
 
     private double myXpos;
     private double myYpos;

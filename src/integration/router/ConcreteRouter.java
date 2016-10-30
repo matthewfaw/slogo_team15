@@ -3,9 +3,11 @@ package integration.router;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import back_end.model.robot.IViewRobot;
+import back_end.model.robot.IViewableRobot;
+import back_end.model.states.IViewableVariableState;
 import front_end.appScene.ApplicationScene;
 import front_end.view_modules.IRobotAcceptor;
+import front_end.view_modules.IViewVariableAcceptor;
 import integration.observe.IObserver;
 
 /**
@@ -15,7 +17,7 @@ import integration.observe.IObserver;
 class ConcreteRouter implements IRouter {
 
 	Collection<IRobotAcceptor> myRobotAcceptors;
-	Collection<Object> myVariableObservers;
+	Collection<IViewVariableAcceptor> myVariableObservers;
 	ApplicationScene myAppScene;
 	
 	ConcreteRouter(ApplicationScene aAppScene){
@@ -30,13 +32,13 @@ class ConcreteRouter implements IRouter {
 	}
 	
 	@Override
-	public void distributeRobot(IViewRobot aViewRobot) {
+	public void distributeRobot(IViewableRobot aViewRobot) {
 		myRobotAcceptors.forEach( ro -> ro.giveRobot(aViewRobot) );
 	}
 
 	@Override
-	public void distributeVariableMap() {
-		myVariableObservers.forEach( vo -> {});
+	public void distributeVariableMap(IViewableVariableState aViewVariableState) {
+		myVariableObservers.forEach( vo -> vo.giveVariableState(aViewVariableState) );				
 	}
 
 }

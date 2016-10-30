@@ -11,7 +11,7 @@ import integration.observe.IObservable;
  *
  */
 
-public interface IViewRobot extends IObservable {
+public interface IViewableRobot extends IObservable {
 
     /** GETTERS **/
 

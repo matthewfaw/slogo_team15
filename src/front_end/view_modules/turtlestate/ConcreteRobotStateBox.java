@@ -1,6 +1,6 @@
 package front_end.view_modules.turtlestate;
 
-import back_end.model.robot.IViewRobot;
+import back_end.model.robot.IViewableRobot;
 import front_end.view_modules.image_color_module.interfaces.IColorModule;
 import front_end.view_modules.image_color_module.interfaces.IImageModule;
 import integration.languages.Languages;
@@ -17,7 +17,7 @@ public class ConcreteRobotStateBox implements IRobotStateBox {
 
 	private IColorModule myColorMap;
 	private IImageModule myImageMap;
-	private IViewRobot myRobot;
+	private IViewableRobot myRobot;
 
 	private VBox myBox;
 
@@ -104,7 +104,7 @@ public class ConcreteRobotStateBox implements IRobotStateBox {
 	}
 
 	@Override
-	public void giveRobot(IViewRobot aViewRobot) {
+	public void giveRobot(IViewableRobot aViewRobot) {
 		myRobot = aViewRobot;
 		myRobot.registerObserver(this);
 		build();

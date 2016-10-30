@@ -1,6 +1,6 @@
 package front_end.view_modules.turtleBox.turtleMovement;
 
-import back_end.model.robot.IViewRobot;
+import back_end.model.robot.IViewableRobot;
 import front_end.view_modules.turtleBox.ITurtleBox;
 import javafx.scene.image.ImageView;
 
@@ -12,7 +12,7 @@ import javafx.scene.image.ImageView;
  */
 public class TurtleMovement implements ITurtleMovement {
 
-    IViewRobot myRobot;
+    IViewableRobot myRobot;
 
     private ImageView myTurtle;
     private int myWidth;

@@ -1,6 +1,6 @@
 package front_end.view_modules.turtleBox;
 
-import back_end.model.robot.IViewRobot;
+import back_end.model.robot.IViewableRobot;
 import front_end.view_modules.image_color_module.interfaces.IImageColorModule;
 import front_end.view_modules.turtleBox.turtleMovement.TurtleMovement;
 import javafx.geometry.Insets;
@@ -27,7 +27,7 @@ class ConcreteTurtleBox implements ITurtleBox {
     
     IImageColorModule myShapeColorMap;
     
-    IViewRobot myRobot;
+    IViewableRobot myRobot;
     ImageView myTurtle;
     Group root;
     Canvas drawingCanvas;
@@ -126,12 +126,12 @@ class ConcreteTurtleBox implements ITurtleBox {
     }
 
     @Override
-    public void giveRobot (IViewRobot aRobot) {
+    public void giveRobot (IViewableRobot aRobot) {
         myRobot = aRobot;
         aRobot.registerObserver( this);
     }
 
-    public IViewRobot getRobot () {
+    public IViewableRobot getRobot () {
         return myRobot;
     }
 
