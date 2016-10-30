@@ -81,7 +81,7 @@ class ConcreteVariableViewer implements IVariableViewer {
     }
 
     @Override
-    public void showVariables (IViewVariableState aVariableState) {
+    public void giveVariables (IViewVariableState aVariableState) {
         myVariables.clear();
 
         for (String varName : aVariableState.getVariableKeySet()) {

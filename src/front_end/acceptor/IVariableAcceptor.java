@@ -1,5 +1,6 @@
 package front_end.acceptor;
 
+import back_end.model.states.IViewVariableState;
 
 /**
  * Defines the VariableAcceptor Property. 
@@ -14,5 +15,5 @@ public interface IVariableAcceptor {
 	/**
 	 * Pushes specified Variable state to object
 	 */
-	public void giveVariables();
+	public void giveVariables( IViewVariableState aViewVariableState);
 }

@@ -2,9 +2,11 @@ package front_end.appScene;
 
 import front_end.view_modules.errorViewer.ErrorViewerFactory;
 import front_end.view_modules.errorViewer.IErrorViewer;
-import front_end.view_modules.function_viewer.IScriptViewer;
-import front_end.view_modules.function_viewer.ScriptViewerFactory;
+import front_end.view_modules.function_viewer.IFunctionViewer;
+import front_end.view_modules.function_viewer.FunctionViewerFactory;
 import front_end.view_modules.helpPage.HelpPage;
+import front_end.view_modules.history.HistoryModuleFactory;
+import front_end.view_modules.history.IHistoryModule;
 import front_end.view_modules.image_color_module.ImageColorModuleFactory;
 import front_end.view_modules.image_color_module.interfaces.IImageColorModule;
 import front_end.view_modules.textEditor.ITextEditor;
@@ -33,19 +35,21 @@ public class ApplicationScene {
 	private IErrorViewer myErrorViewer;
 	private ITurtleBox myTurtleBox;
 	private IVariableViewer myVariableViewer;
-	private IScriptViewer myScriptViewer;
+	private IFunctionViewer myFunctionViewer;
 	private IImageColorModule myShapeColorModule;
 	private IAllRobotsStateBox myStatesBox;
+	private IHistoryModule myHistoryModule;
 	private HelpPage myHelpPage;
 
 	public ApplicationScene (int aWidth, int aHeight) {
 		myApplicationView = new GridPane();
-
+		
+		myHistoryModule = HistoryModuleFactory.build(); // TODO: Actually implement this
 		myToolbar = ToolbarFactory.buildToolbar(aWidth, aHeight / 20);
 		myTextEditor = TextEditorFactory.buildTextEditor(2 * aWidth / 3, aHeight / 3);
 		myErrorViewer = ErrorViewerFactory.buildErrorViewer(aWidth / 3, aHeight / 3, myTextEditor);
 		myVariableViewer = VariableViewerFactory.buildVariableViewer(aWidth / 6, aHeight / 3);
-		myScriptViewer = ScriptViewerFactory.buildViewerFactory(aWidth / 6, aHeight / 3);
+		myFunctionViewer = FunctionViewerFactory.build(aWidth / 6, aHeight / 3);
 		myShapeColorModule = ImageColorModuleFactory.build();
 		myTurtleBox = TurtleBoxFactory.buildTurtleBox(2 * aWidth / 3, 2 * aHeight / 3, myShapeColorModule);
 		myStatesBox = new ConcreteAllRobotsStateBox(myShapeColorModule, myShapeColorModule);
@@ -58,7 +62,7 @@ public class ApplicationScene {
 		myApplicationView.add(myTurtleBox.getInstanceAsNode(), 0, 1, 1, 1);
 		myApplicationView.add(myTextEditor.getInstanceAsNode(), 0, 2, 1, 1);
 		myApplicationView.add(myVariableViewer.getInstanceAsNode(), 1, 1, 1, 1);
-		myApplicationView.add(myScriptViewer.getInstanceAsNode(), 2, 1, 1, 1);
+		myApplicationView.add(myFunctionViewer.getInstanceAsNode(), 2, 1, 1, 1);
 		myApplicationView.add(myErrorViewer.getInstanceAsNode(), 1, 2, 2, 1);
 		myApplicationView.add(myShapeColorModule.getInstanceAsNode(), 2, 2);
 		myApplicationView.add(myStatesBox.getInstanceAsNode(), 2, 3);
@@ -81,8 +85,8 @@ public class ApplicationScene {
 		return myTurtleBox;
 	}
 
-	public IScriptViewer getMyScriptViewer () {
-		return myScriptViewer;
+	public IFunctionViewer getMyFunctionViewer () {
+		return myFunctionViewer;
 	}
 
 	public ITextEditor getMyTextEditor () {
@@ -107,5 +111,9 @@ public class ApplicationScene {
 
 	public IAllRobotsStateBox getMyStatesBox() {
 		return myStatesBox;
+	}
+	
+	public IHistoryModule getMyHistoryModule(){
+		return myHistoryModule;
 	}
 }

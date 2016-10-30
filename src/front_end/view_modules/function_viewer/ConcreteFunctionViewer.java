@@ -7,11 +7,11 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.Pane;
 
 
-class ConcreteScriptViewer implements IScriptViewer {
+class ConcreteFunctionViewer implements IFunctionViewer {
 
     private Pane myScriptViewer;
 
-    ConcreteScriptViewer (int aWidth, int aHeight) {
+    ConcreteFunctionViewer (int aWidth, int aHeight) {
         myScriptViewer = new Pane();
         myScriptViewer.setPrefSize(aWidth, aHeight);
         myScriptViewer.setMaxSize(aWidth, aHeight);
@@ -30,18 +30,6 @@ class ConcreteScriptViewer implements IScriptViewer {
     }
 
     @Override
-    public void giveScriptStructure () {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void onScriptPress () {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
     public Node getInstanceAsNode () {
         // TODO Auto-generated method stub
         return myScriptViewer;
@@ -52,5 +40,11 @@ class ConcreteScriptViewer implements IScriptViewer {
         // TODO Auto-generated method stub
 
     }
+
+	@Override
+	public void giveFunction() {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

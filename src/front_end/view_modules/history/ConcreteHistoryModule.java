@@ -20,4 +20,10 @@ class ConcreteHistoryModule implements IHistoryModule {
 		return null;
 	}
 
+	@Override
+	public void giveHistory() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

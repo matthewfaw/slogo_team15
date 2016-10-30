@@ -11,7 +11,7 @@ import back_end.model.exception.UnexpectedCharacterException;
 import back_end.model.exception.UnexpectedCommandException;
 import front_end.appScene.ApplicationScene;
 import front_end.view_modules.errorViewer.IErrorViewer;
-import front_end.view_modules.function_viewer.IScriptViewer;
+import front_end.view_modules.function_viewer.IFunctionViewer;
 import front_end.view_modules.helpPage.HelpPage;
 import front_end.view_modules.image_color_module.interfaces.IImageColorModule;
 import front_end.view_modules.penProperties.IPenPopup;
@@ -52,7 +52,7 @@ public class ApplicationController {
     private IErrorViewer myErrorViewer;
     private IVariableViewer myVariableViewer;
     private ITurtleBox myTurtleBox;
-    private IScriptViewer myScriptViewer;
+    private IFunctionViewer myScriptViewer;
     private IImageColorModule myImageColorModule;
     private IAllRobotsStateBox myStatesBox;
     private IPenPopup myPenPopup;
@@ -77,7 +77,7 @@ public class ApplicationController {
         myHelpPage = myAppScene.getMyHelpPage();
         myRoot = myAppScene.getMyRoot();
         myTurtleBox = myAppScene.getMyTurtleBox();
-        myScriptViewer = myAppScene.getMyScriptViewer();
+        myScriptViewer = myAppScene.getMyFunctionViewer();
         myImageColorModule = myAppScene.getMyShapeColorModule();
         myStatesBox = myAppScene.getMyStatesBox();
         // TODO: Change this to interface - Kayla
@@ -109,7 +109,7 @@ public class ApplicationController {
             myErrorViewer.giveError(e);
         }
 
-        myVariableViewer.showVariables(myModel.getVariableMap());
+        myVariableViewer.giveVariables(myModel.getVariableMap());
     }
 
     private void loadHelp () {

@@ -10,5 +10,6 @@ package front_end.acceptor;
  */
 public interface IFunctionAcceptor {
 
+	public void giveFunction();
 		
 }
