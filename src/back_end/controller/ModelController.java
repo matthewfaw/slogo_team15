@@ -6,6 +6,7 @@ import back_end.model.exception.EmptyInputException;
 import back_end.model.exception.UnexpectedCharacterException;
 import back_end.model.exception.UnexpectedCommandException;
 import back_end.model.robot.IViewableRobot;
+import back_end.model.robot.RobotController;
 import back_end.model.robot.IRobot;
 import back_end.model.robot.Turtle;
 import back_end.model.states.Environment;
@@ -31,7 +32,7 @@ public class ModelController {
 	public ModelController(IRouter aRobotRouter) {
 		myRouter = aRobotRouter;
 		myEnvironment = Environment.getInstance();
-		myRobot = new Turtle();
+		myRobot = new RobotController();
 		distributeRobot(myRobot);
 		distributeVariableState(myEnvironment);
 		myScopeController = new ScopeController();

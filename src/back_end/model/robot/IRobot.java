@@ -27,10 +27,11 @@ public interface IRobot extends IViewableRobot {
 
 	public void setTurtleID(int aTurtleID);
 	
-	public void addTurtle(int aTurtleID);
-	
 	public int getCurrentID();
 	
 	public int getNumberOfTurtles();
 
+	public void setActiveTurtles(int[] aTurtleIDs);
+	
+	public Turtle getTurtle(int aTurtleID);
 }

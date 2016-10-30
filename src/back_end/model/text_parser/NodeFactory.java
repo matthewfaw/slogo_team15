@@ -4,8 +4,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.MissingResourceException;
 import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
-import java.util.regex.Pattern;
-import back_end.model.command.CustomCommand;
 import back_end.model.command.ICommand;
 import back_end.model.exception.UnexpectedCharacterException;
 import back_end.model.exception.UnexpectedCommandException;
@@ -30,7 +28,6 @@ public class NodeFactory {
 
 	private ResourceBundle mySyntaxResources;
 	private ResourceBundle myCommandTypeResources;
-	private Environment myEnvironment;
 	private CommandFactory myCommandFactory;
 	private Languages myLanguage;
 	private Translator myTranslator;
@@ -41,7 +38,6 @@ public class NodeFactory {
 		myCommandTypeResources = PropertyResourceBundle.getBundle(PACKAGE_RESOURCE + TYPE);
 		myCommandFactory = new CommandFactory(aEnvironment, aRobot);
 		myTranslator = new Translator();
-		myEnvironment = aEnvironment;
 		myScopeController = aScopeController;
 	}
 	
@@ -49,35 +45,20 @@ public class NodeFactory {
 														InstantiationException, IllegalAccessException, IllegalArgumentException, 
 														InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException {
 			try {
-				String fileLocation = getFileLocation(aUserInputWord);
-				String translatedInput = translateInput(aUserInputWord, fileLocation);
-				int inputNumber = 0;
+				String generalNodeCategory = translateInput(aUserInputWord, mySyntaxResources.getBaseBundleName());
 				ICommand commandClass = null;
-				if (Pattern.matches(mySyntaxResources.getString("Command"), translatedInput)) {
-					translatedInput = myCommandTypeResources.getString(translatedInput);
-					if (translatedInput.equals("Branch") || translatedInput.equals("Command") || translatedInput.equals("")) {
-						inputNumber = Integer.parseInt(mySyntaxResources.getString(translatedInput));
-					} 
-					else if (myEnvironment.getVariableKeySet().contains(aUserInputWord)) {
-						inputNumber = 1; 
-						translatedInput = "Custom";
-					}
-					commandClass = myCommandFactory.makeCommand(aUserInputWord, translatedInput);
+				int inputNumber = 0;
+				if (generalNodeCategory.equals("Command") || generalNodeCategory.equals("Variable")) {
+					String commandType = getCommandType(generalNodeCategory, aUserInputWord);
+					inputNumber = getInputNumber(generalNodeCategory);
+					commandClass = myCommandFactory.makeCommand(aUserInputWord, commandType);
 				}
-				return (Node) Class.forName(PACKAGE_NODE + translatedInput + "Node").getConstructor(ICommand.class, int.class, String.class, ScopeController.class).
+				return (Node) Class.forName(PACKAGE_NODE + generalNodeCategory + "Node").getConstructor(ICommand.class, int.class, String.class, ScopeController.class).
 						newInstance(commandClass, inputNumber, aUserInputWord, myScopeController);
 			} catch (MissingResourceException e) {
 				e.addSuppressed(new UnexpectedCharacterException("The syntax expression: " + aUserInputWord + " is not associated to any known syntax in this language"));
 			}
 		throw new UnexpectedCharacterException("The syntax expression: " + aUserInputWord + " is not associated to any known syntax in this language");
-	}
-	
-	private String getFileLocation(String aUserInputWord) {
-		String fileLocation = myLanguage.getFileLocation();
-		if (Pattern.matches(aUserInputWord, mySyntaxResources.getString("Variable"))) {
-			fileLocation = mySyntaxResources.getBaseBundleName();
-		}
-		return fileLocation;
 	}
 	
 	private String translateInput(String aWord, String aInputFileLocation) { 
@@ -87,6 +68,29 @@ public class NodeFactory {
 
     public void setLanguage (Languages aLanguage) {
         myLanguage = aLanguage;
+    }
+    
+    private String getCommandType(String aGeneralNodeCategory, String aUserInputWord) {
+    	String commandTypeReturn = "Custom";
+		if (aGeneralNodeCategory.equals("Command")){
+			aGeneralNodeCategory = myCommandTypeResources.getString(aGeneralNodeCategory);
+			if (aGeneralNodeCategory != null) {
+				commandTypeReturn = translateInput(aUserInputWord, myLanguage.getFileLocation());
+			}
+		}
+		else if (aGeneralNodeCategory.equals("Variable")) {
+			commandTypeReturn = "RetrieveVariable";
+		} 
+		return commandTypeReturn;
+    }
+    
+    private int getInputNumber(String aGeneralNodeCategory) {
+    	int inputNumberReturn = 0;
+    	if (aGeneralNodeCategory.equals("Command")) inputNumberReturn = 1; 
+		if (aGeneralNodeCategory != null) {
+			inputNumberReturn = Integer.parseInt(mySyntaxResources.getString(aGeneralNodeCategory));
+		}
+		return inputNumberReturn;
     }
 
 }
