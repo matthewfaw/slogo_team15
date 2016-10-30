@@ -7,7 +7,7 @@ package back_end.model.robot;
  *
  */
 
-public interface Robot {
+public interface Robot extends IViewRobot {
 
     /** SETTERS **/
 
@@ -20,17 +20,5 @@ public interface Robot {
     public void setPenDown (boolean t);
 
     public void setVisible (boolean t);
-
-    /** GETTERS **/
-
-    public double getX ();
-
-    public double getY ();
-
-    public double getRotation ();
-
-    public boolean isPenDown ();
-
-    public boolean isVisible ();
 
 }

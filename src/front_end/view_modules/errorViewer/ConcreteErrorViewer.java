@@ -56,15 +56,9 @@ class ConcreteErrorViewer implements IErrorViewer {
     }
 
     @Override
-    public void giveErrorStructure (Exception aError) {
+    public void giveError (Exception aError) {
         myErrorList.add(0, aError);
         myErrorLabel.setText(aError.getMessage());
-    }
-
-    @Override
-    public void onErrorPress () {
-        // TODO Auto-generated method stub
-
     }
 
     private void setErrorButtonEvents () {

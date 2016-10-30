@@ -106,7 +106,7 @@ public class ApplicationController {
                 | NoSuchMethodException | SecurityException | ClassNotFoundException
                 | UnexpectedCharacterException
                 | UnexpectedCommandException | EmptyInputException e) {
-            myErrorViewer.giveErrorStructure(e);
+            myErrorViewer.giveError(e);
         }
 
         myVariableViewer.showVariables(myModel.getVariableMap());

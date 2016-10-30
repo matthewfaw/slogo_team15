@@ -3,7 +3,7 @@ package back_end.model.robot;
 import integration.observe.IObservable;
 
 /**
- * Allows for the view to get the values set by the back-end
+ * Building upon observable, this specifies all of the publically viewable properties of the robot class
  * 
  * @author Hannah Fuchshuber
  *
@@ -17,10 +17,19 @@ public interface IViewRobot extends IObservable {
 
     public double getY ();
 
+    /**
+     * @return current bearing of Robot
+     */
     public double getRotation ();
 
+    /**
+     * @return boolean of Pen Down status
+     */
     public boolean isPenDown ();
 
+    /**
+     * @return boolean of visibility status
+     */
     public boolean isVisible ();
 
 }
