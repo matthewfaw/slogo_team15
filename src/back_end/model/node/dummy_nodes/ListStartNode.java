@@ -6,8 +6,12 @@ import back_end.model.node.INode;
 import back_end.model.states.ScopeController;
 
 
-public class ListStartNode implements IDummyNode {
+public class ListStartNode extends AbstractDummyNode {
 
-    public ListStartNode (ICommand aCommand, int aNumberOfInputs, String aUserInput, ScopeController aScopeController) {
-    }
+	protected ListStartNode(ICommand aCommand, int aNumberOfInputs, String aUserInput,
+			ScopeController aScopeController) {
+		super(aCommand, aNumberOfInputs, aUserInput, aScopeController);
+		// TODO Auto-generated constructor stub
+	}
+
 }

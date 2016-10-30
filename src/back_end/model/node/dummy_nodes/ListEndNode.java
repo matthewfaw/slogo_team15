@@ -6,9 +6,11 @@ import back_end.model.node.INode;
 import back_end.model.states.ScopeController;
 
 
-public class ListEndNode implements IDummyNode {
+public class ListEndNode extends AbstractDummyNode {
 
-    public ListEndNode (ICommand aCommand, int aNumberOfInputs, String aUserInput, ScopeController aScopeController) {
-    }
+	protected ListEndNode(ICommand aCommand, int aNumberOfInputs, String aUserInput, ScopeController aScopeController) {
+		super(aCommand, aNumberOfInputs, aUserInput, aScopeController);
+		// TODO Auto-generated constructor stub
+	}
 
 }

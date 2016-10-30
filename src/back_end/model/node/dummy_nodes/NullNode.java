@@ -6,8 +6,10 @@ import back_end.model.node.INode;
 import back_end.model.states.ScopeController;
 
 
-public class NullNode implements IDummyNode {
+public class NullNode extends AbstractDummyNode {
 
-    public NullNode (ICommand aCommand, int aNumberOfInputs, String aUserInput, ScopeController aScopeController) {
-    }
+	protected NullNode(ICommand aCommand, int aNumberOfInputs, String aUserInput, ScopeController aScopeController) {
+		super(aCommand, aNumberOfInputs, aUserInput, aScopeController);
+		// TODO Auto-generated constructor stub
+	}
 }

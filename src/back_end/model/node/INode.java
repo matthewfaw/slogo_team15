@@ -1,6 +1,7 @@
 package back_end.model.node;
 
 import back_end.model.exception.ArgumentException;
+import back_end.model.exception.InvalidNodeUsageException;
 
 public interface INode extends IReadableInput {
 //    protected Node (ICommand aCommand, int aNumberOfInputs, String aUserInput, ScopeController aScopeController) {
@@ -8,8 +9,8 @@ public interface INode extends IReadableInput {
 //    }
 //
     public abstract NodeState getState (); 
-    public abstract void setState (NodeState aNodeState); 
+    public abstract void setState (NodeState aNodeState) throws InvalidNodeUsageException; 
 
-    public abstract double eval () throws ArgumentException;
+    public abstract void eval () throws ArgumentException;
 
 }
