@@ -21,8 +21,8 @@ public class CommandFactory {
 	public ICommand makeCommand(String aUserInputWord, String aCommandType) throws InstantiationException, IllegalAccessException, 
 																			IllegalArgumentException, InvocationTargetException, 
 																			NoSuchMethodException, SecurityException, ClassNotFoundException {
-			return (ICommand) Class.forName(PACKAGE_COMMAND + aCommandType + "Command").getConstructor(Robot.class, IModifiableVariableState.class, String.class).
-					newInstance(myRobot, myEnvironment, aUserInputWord);
+		return (ICommand) Class.forName(PACKAGE_COMMAND + aCommandType + "Command").getConstructor(Robot.class, IModifiableVariableState.class, String.class).
+				newInstance(myRobot, myEnvironment, aUserInputWord);
 	}
 
 }
