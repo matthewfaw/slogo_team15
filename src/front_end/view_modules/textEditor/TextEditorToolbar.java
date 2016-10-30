@@ -36,7 +36,7 @@ class TextEditorToolbar implements ILanguageSwitcher {
      * 
      * @return text editor toolbar
      */
-    public Node getBar () {
+    Node getBar () {
         return myBar;
     }
 
@@ -73,12 +73,13 @@ class TextEditorToolbar implements ILanguageSwitcher {
 
     private void initLoadTextButton () {
         Button loadText = new Button(myTextToolbarResources.getString(LOAD_TEXT_KEY));
+        loadText.setOnMouseClicked( event -> {new TextLoader(myTextEditor).loadFile();});
         myBar.getChildren().add(loadText);
-        // TODO: Implement Loading Text from TXT file
     }
 
     private void initSaveTextButton () {
         Button saveText = new Button(myTextToolbarResources.getString(SAVE_TEXT_KEY));
+        saveText.setOnMouseClicked( event -> {new TextSaver(myTextEditor).saveToFile();} );
         myBar.getChildren().add(saveText);
         // TODO: Implement Saving Text to TXT file
     }

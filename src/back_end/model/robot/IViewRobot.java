@@ -1,5 +1,7 @@
 package back_end.model.robot;
 
+import integration.observe.IObservable;
+
 /**
  * Allows for the view to get the values set by the back-end
  * 
@@ -7,7 +9,7 @@ package back_end.model.robot;
  *
  */
 
-public interface IViewRobot {
+public interface IViewRobot extends IObservable {
 
     /** GETTERS **/
 

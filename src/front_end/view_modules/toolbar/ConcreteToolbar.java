@@ -1,3 +1,4 @@
+
 package front_end.view_modules.toolbar;
 
 import javafx.scene.Node;
@@ -110,7 +111,6 @@ class ConcreteToolbar implements IToolbar {
 
     @Override
     public void onPenPress (EventHandler<MouseEvent> aEvent) {
-        // TODO Auto-generated method stub
         myPenFunctions.setOnMouseClicked(aEvent);
     }
 

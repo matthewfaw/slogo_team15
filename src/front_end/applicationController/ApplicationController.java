@@ -11,41 +11,65 @@ import back_end.model.exception.UnexpectedCharacterException;
 import back_end.model.exception.UnexpectedCommandException;
 import front_end.appScene.ApplicationScene;
 import front_end.view_modules.errorViewer.IErrorViewer;
+import front_end.view_modules.function_viewer.IScriptViewer;
 import front_end.view_modules.helpPage.HelpPage;
-import front_end.view_modules.scriptViewer.IScriptViewer;
+import front_end.view_modules.image_color_module.interfaces.IImageColorModule;
+import front_end.view_modules.penProperties.IPenPopup;
+import front_end.view_modules.penProperties.PenPopup;
 import front_end.view_modules.textEditor.ITextEditor;
 import front_end.view_modules.toolbar.IToolbar;
 import front_end.view_modules.turtleBox.ITurtleBox;
+import front_end.view_modules.turtlestate.IAllRobotsStateBox;
 import front_end.view_modules.variableViewer.IVariableViewer;
 import integration.languages.Languages;
+import integration.router.IRouter;
+import integration.router.RouterFactory;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.stage.Stage;
 
 
+/**
+ * 
+ * @author Kayla Schulz
+ * @author George Bernard
+ *
+ */
 public class ApplicationController {
 
     private ModelController myModel;
     private ApplicationScene myAppScene;
+    private HelpPage myHelpPage;
+    private Group myRoot;
+
+    private IRouter myRobotRouter;
+    
+    /** View Modules **/
     private IToolbar myToolbar;
     private ITextEditor myTextEditor;
     private IErrorViewer myErrorViewer;
     private IVariableViewer myVariableViewer;
-    private HelpPage myHelpPage;
-    private Group myRoot;
     private ITurtleBox myTurtleBox;
     private IScriptViewer myScriptViewer;
-
-    // TODO: This class needs A LOT of updating
+    private IImageColorModule myShapeColorModule;
+    private IAllRobotsStateBox myStatesBox;
+    private IPenPopup myPenPopup;
+    
+    
     private String TITLE = "SLOGO";
 
-    public ApplicationController () {
-        myAppScene = new ApplicationScene();
-        myModel = new ModelController();
+    public ApplicationController (int aWidth, int aHeight) {
+        myAppScene = new ApplicationScene(aWidth, aHeight);
+        myRobotRouter = RouterFactory.build(myAppScene);
+        myModel = new ModelController(myRobotRouter);
+       
+        getFromScene();
+        configureToolbar();
     }
-    
-    private void initFromScene() {
+
+    private void getFromScene () {
         myToolbar = myAppScene.getMyToolbar();
         myTextEditor = myAppScene.getMyTextEditor();
         myErrorViewer = myAppScene.getMyErrorViewer();
@@ -54,14 +78,14 @@ public class ApplicationController {
         myRoot = myAppScene.getMyRoot();
         myTurtleBox = myAppScene.getMyTurtleBox();
         myScriptViewer = myAppScene.getMyScriptViewer();
+        myShapeColorModule = myAppScene.getMyShapeColorModule();
+        myStatesBox = myAppScene.getMyStatesBox();
+        // TODO: Change this to interface - Kayla
+        myPenPopup = new PenPopup();
     }
 
-    public Scene init (int aWidth, int aHeight) {
-        Scene myScene = myAppScene.initScene(aWidth, aHeight);
-        initFromScene();
-        myModel.giveRobotObservers(myTurtleBox);
-        configureToolbar();
-        return myScene;
+    public Scene getScene () {
+        return myAppScene.getScene();
     }
 
     private void runAll () {
@@ -100,6 +124,8 @@ public class ApplicationController {
         myTurtleBox.reset();
         myVariableViewer.reset();
         myScriptViewer.reset();
+        myShapeColorModule.reset();
+        myStatesBox.reset();
     }
 
     private Map<Languages, EventHandler<ActionEvent>> makeLanguageMap () {
@@ -126,8 +152,43 @@ public class ApplicationController {
 
         myToolbar.onLanguageSelect(makeLanguageMap());
 
+        myToolbar.onPenPress(e -> popupPenSelector());
+
+        myToolbar.onBuildPress(e -> buildCommands());
+
     }
 
+    private void configurePenPopup (Stage stage) {
+        myPenPopup.onApplyPress(e -> collectPenInfo(stage));
+        myPenPopup.onClearPress(e -> clearPenSettings());
+    }
+
+    private void clearPenSettings () {
+        myPenPopup.clear();
+    }
+
+    private void collectPenInfo (Stage stage) {
+        stage.hide();
+    }
+
+    private void buildCommands () {
+        // TODO: Actually make this method
+    }
+
+    private void popupPenSelector () {
+        Stage stage = new Stage();
+        myPenPopup.initPopup();
+        Scene myScene = myPenPopup.getScene();
+        stage.setScene(myScene);
+        stage.show();
+        configurePenPopup(stage);
+    }
+
+    /**
+     * Returns the title of the SLOGO project
+     * 
+     * @return Title of project
+     */
     public String getTitle () {
         return TITLE;
     }

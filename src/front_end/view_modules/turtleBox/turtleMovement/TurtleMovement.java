@@ -2,20 +2,21 @@ package front_end.view_modules.turtleBox.turtleMovement;
 
 import back_end.model.robot.IViewRobot;
 import front_end.view_modules.turtleBox.ITurtleBox;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.ImageView;
-import javafx.scene.paint.Color;
 
 
+/**
+ * 
+ * @author Kayla Schulz
+ *
+ */
 public class TurtleMovement implements ITurtleMovement {
 
     IViewRobot myRobot;
-    private GraphicsContext gc;
+
     private ImageView myTurtle;
     private int myWidth;
     private int myHeight;
-    private double curX;
-    private double curY;
 
     public static final int FRAMES_PER_SECOND = 60;
     private ITurtleBox myTurtleBox;
@@ -24,18 +25,17 @@ public class TurtleMovement implements ITurtleMovement {
         myTurtleBox = myConTurt;
         myWidth = width;
         myHeight = height;
-        curX = myWidth / 2;
-        curY = myHeight / 2;
     }
 
     @Override
     public void updateTurtle () {
-        gc = myTurtleBox.getGC();
+
         myTurtle = myTurtleBox.getTurtle();
         myRobot = myTurtleBox.getRobot();
 
         checkVisibility();
-
+        // This is a problem: what if turtle needs to rotate first?
+        // Unless that is the function of observer/observable
         updateTurtlePosition();
 
         updateTurtleRotation();
@@ -49,12 +49,8 @@ public class TurtleMovement implements ITurtleMovement {
         moveTurtleX();
         moveTurtleY();
         if (myRobot.isPenDown()) {
-            gc.setStroke(Color.BLACK);
-            gc.setLineWidth(5);
-            gc.strokeLine(curX, curY, translatedXCoordinate(), translatedYCoordinate());
+            // TODO: Get this to access pen movement class
         }
-        curX = translatedXCoordinate();
-        curY = translatedYCoordinate();
     }
 
     private void checkVisibility () {

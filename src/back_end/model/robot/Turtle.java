@@ -1,8 +1,9 @@
 package back_end.model.robot;
 
 import java.util.ArrayList;
+
 import integration.observe.IObservable;
-import integration.observe.IRobotObserver;
+import integration.observe.IObserver;
 
 
 public class Turtle implements Robot, IViewRobot, IObservable {
@@ -12,10 +13,10 @@ public class Turtle implements Robot, IViewRobot, IObservable {
     private double myRotation;
     private boolean myPenDown;
     private boolean myVisibility;
-    private ArrayList<IRobotObserver> myObservers;
+    private ArrayList<IObserver> myObservers;
 
     public Turtle () {
-        myObservers = new ArrayList<IRobotObserver>();
+        myObservers = new ArrayList<IObserver>();
 
         // TODO: Move this to a resource file, and have the
         // constructor initialize these vals
@@ -91,13 +92,12 @@ public class Turtle implements Robot, IViewRobot, IObservable {
     /** OBSERVERABLE **/
 
     @Override
-    public void registerObserver (IRobotObserver o) {
+    public void registerObserver (IObserver o) {
         myObservers.add(o);
-        o.giveRobot(this);
     }
 
     @Override
-    public void removeObserver (IRobotObserver o) {
+    public void removeObserver (IObserver o) {
         int i = myObservers.indexOf(o);
         if (i > 0) {
             myObservers.remove(i);
@@ -107,7 +107,7 @@ public class Turtle implements Robot, IViewRobot, IObservable {
 
     @Override
     public void notifyObservers () {
-        for (IRobotObserver observer : myObservers) {
+        for (IObserver observer : myObservers) {
             observer.update();
         }
     }

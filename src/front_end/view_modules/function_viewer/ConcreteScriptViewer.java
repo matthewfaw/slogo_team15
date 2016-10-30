@@ -1,4 +1,4 @@
-package front_end.view_modules.scriptViewer;
+package front_end.view_modules.function_viewer;
 
 import integration.languages.Languages;
 import javafx.collections.FXCollections;
@@ -15,6 +15,7 @@ class ConcreteScriptViewer implements IScriptViewer {
     ConcreteScriptViewer (int aWidth, int aHeight) {
         myScriptViewer = new Pane();
         myScriptViewer.setPrefSize(aWidth, aHeight);
+        myScriptViewer.setMaxSize(aWidth, aHeight);
         ListView<String> myFunctionList = new ListView<String>();
         ObservableList<String> items = FXCollections.observableArrayList(
                                                                          "Function 1",
