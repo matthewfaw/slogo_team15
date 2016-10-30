@@ -1,7 +1,7 @@
 package front_end.view_modules.turtleBox;
 
 import back_end.model.robot.IViewRobot;
-import front_end.view_modules.IRobotAcceptor;
+import front_end.acceptor.IRobotAcceptor;
 import front_end.view_modules.IViewModule;
 import integration.observe.IObserver;
 import javafx.scene.canvas.GraphicsContext;

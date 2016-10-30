@@ -30,10 +30,16 @@ public interface ILanguageSwitcher {
 			myName = aFilename;
 		}
 
+		/**
+		 * @return Language Name
+		 */
 		public String getName () {
 			return myName;
 		}
 
+		/**
+		 * @return file location of language resource file
+		 */
 		public String getFileLocation () {
 			return INIT_FILE + myName;
 		}

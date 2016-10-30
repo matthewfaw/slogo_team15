@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import back_end.model.robot.IViewRobot;
+import front_end.acceptor.IRobotAcceptor;
 import front_end.appScene.ApplicationScene;
-import front_end.view_modules.IRobotAcceptor;
 import integration.observe.IObserver;
 
 /**
