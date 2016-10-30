@@ -1,5 +1,7 @@
 package back_end.model.robot;
 
+import integration.drawing.PenInformation;
+
 /**
  * Allows for the model to set the values of the robot
  * 
@@ -7,7 +9,7 @@ package back_end.model.robot;
  *
  */
 
-public interface Robot extends IViewableRobot {
+public interface IRobot extends IViewableRobot {
 
     /** SETTERS **/
 
@@ -17,14 +19,18 @@ public interface Robot extends IViewableRobot {
 
     public void setRotation (double r);
 
-    public void setPenDown (boolean t);
-
     public void setVisible (boolean t);
 
-    //public void setPenStyle (PenStyle aPenStyle);
+    public void setPenInformation (PenInformation aPenInformation);
         
     public void setImageID (int aImageID);
 
 	public void setTurtleID(int aTurtleID);
+	
+	public void addTurtle(int aTurtleID);
+	
+	public int getCurrentID();
+	
+	public int getNumberOfTurtles();
 
 }

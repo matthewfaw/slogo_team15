@@ -1,15 +1,15 @@
 package back_end.model.command;
 
 import back_end.model.node.IReadableInput;
-import back_end.model.robot.Robot;
-import back_end.model.states.IModifiableVariableState;
+import back_end.model.robot.IRobot;
+import back_end.model.states.IModifiableEnvironmentState;
 
 
 public class IfCommand extends ICommandBranch {
 
     private boolean myFirstExecution;
 
-    public IfCommand(Robot aRobot, IModifiableVariableState aEnvironment, String aCommandName) {
+    public IfCommand(IRobot aRobot, IModifiableEnvironmentState aEnvironment, String aCommandName) {
         myFirstExecution = true;
     }
 

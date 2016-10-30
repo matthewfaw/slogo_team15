@@ -1,16 +1,16 @@
 package back_end.model.command;
 
 import back_end.model.node.IReadableInput;
-import back_end.model.robot.Robot;
-import back_end.model.states.IModifiableVariableState;
+import back_end.model.robot.IRobot;
+import back_end.model.states.IModifiableEnvironmentState;
 
 
 public class ForCommand extends ICommandBranch {
 
     private boolean myFirst;
-    private IModifiableVariableState myEnvironment;
+    private IModifiableEnvironmentState myEnvironment;
 
-    public ForCommand(Robot aRobot, IModifiableVariableState aEnvironment, String aCommandName) {
+    public ForCommand(IRobot aRobot, IModifiableEnvironmentState aEnvironment, String aCommandName) {
         myEnvironment = aEnvironment;
         myFirst = true;
     }

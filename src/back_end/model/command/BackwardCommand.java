@@ -2,15 +2,15 @@ package back_end.model.command;
 
 import java.awt.Point;
 import back_end.model.node.IReadableInput;
-import back_end.model.robot.Robot;
-import back_end.model.states.IModifiableVariableState;
+import back_end.model.robot.IRobot;
+import back_end.model.states.IModifiableEnvironmentState;
 
 
 public class BackwardCommand extends MovementCommand {
 
-    private Robot myRobot;
+    private IRobot myRobot;
 
-    public BackwardCommand(Robot aRobot, IModifiableVariableState aEnvironment, String aCommandName) {
+    public BackwardCommand(IRobot aRobot, IModifiableEnvironmentState aEnvironment, String aCommandName) {
         super(aRobot, aEnvironment, aCommandName);
         myRobot = aRobot;
     }

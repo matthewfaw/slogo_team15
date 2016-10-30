@@ -1,14 +1,14 @@
 package back_end.model.command;
 
 import back_end.model.node.IReadableInput;
-import back_end.model.robot.Robot;
+import back_end.model.robot.IRobot;
 import back_end.model.states.Environment;
-import back_end.model.states.IModifiableVariableState;
+import back_end.model.states.IModifiableEnvironmentState;
 
 
 public class SumCommand implements ICommand {
 
-    public SumCommand(Robot aRobot, IModifiableVariableState aEnvironment, String aCommandName) {
+    public SumCommand(IRobot aRobot, IModifiableEnvironmentState aEnvironment, String aCommandName) {
     }
 
     @Override

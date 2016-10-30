@@ -2,6 +2,8 @@ package back_end.model.robot;
 
 
 import java.awt.Point;
+
+import integration.drawing.PenInformation;
 import integration.observe.IObservable;
 
 /**
@@ -19,13 +21,11 @@ public interface IViewableRobot extends IObservable {
            
     public int getImageID ();
     
-    //public PenStyle getPenStyle ();
+    public PenInformation getPenInformation ();
     
     public int getTurtleID ();
 
     public double getRotation ();
-
-    public boolean isPenDown ();
 
     public boolean isVisible ();
     

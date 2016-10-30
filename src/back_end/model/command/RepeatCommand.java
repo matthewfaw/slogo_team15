@@ -1,15 +1,15 @@
 package back_end.model.command;
 
 import back_end.model.node.IReadableInput;
-import back_end.model.robot.Robot;
-import back_end.model.states.IModifiableVariableState;
+import back_end.model.robot.IRobot;
+import back_end.model.states.IModifiableEnvironmentState;
 
 
 public class RepeatCommand extends ICommandBranch {
 
     private int myNumberTimesRun;
 
-    public RepeatCommand(Robot aRobot, IModifiableVariableState aEnvironment, String aCommandName) {
+    public RepeatCommand(IRobot aRobot, IModifiableEnvironmentState aEnvironment, String aCommandName) {
         myNumberTimesRun = 1;
     }
 

@@ -6,7 +6,7 @@ import back_end.model.exception.EmptyInputException;
 import back_end.model.exception.UnexpectedCharacterException;
 import back_end.model.exception.UnexpectedCommandException;
 import back_end.model.robot.IViewableRobot;
-import back_end.model.robot.Robot;
+import back_end.model.robot.IRobot;
 import back_end.model.robot.Turtle;
 import back_end.model.states.Environment;
 import back_end.model.states.IViewableVariableState;
@@ -23,7 +23,7 @@ public class ModelController {
 	
 	private Environment myEnvironment; 
 	private ScopeController myScopeController;
-	private Robot myRobot; 
+	private IRobot myRobot; 
 	private TextParser myParser;
 	private IRouter myRouter;
 	
@@ -35,7 +35,7 @@ public class ModelController {
 		distributeRobot(myRobot);
 		distributeVariableState(myEnvironment);
 		myScopeController = new ScopeController();
-		myParser = new TextParser(myScopeController, myEnvironment, (Robot) myRobot);
+		myParser = new TextParser(myScopeController, myEnvironment, (IRobot) myRobot);
 	}
 	
 	public void userInputToModel(String aString) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException, UnexpectedCharacterException, UnexpectedCommandException, EmptyInputException {

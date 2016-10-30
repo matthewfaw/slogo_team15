@@ -9,7 +9,7 @@ import back_end.model.exception.EmptyInputException;
 import back_end.model.exception.UnexpectedCharacterException;
 import back_end.model.exception.UnexpectedCommandException;
 import back_end.model.node.Node;
-import back_end.model.robot.Robot;
+import back_end.model.robot.IRobot;
 import back_end.model.states.Environment;
 import back_end.model.states.ScopeController;
 import integration.languages.Languages;
@@ -32,7 +32,7 @@ public class TextParser {
     private NodeFactory myFactory;
     private Languages myLanguage;
 
-    public TextParser (ScopeController aScopeController, Environment aEnvironment, Robot aRobot) {
+    public TextParser (ScopeController aScopeController, Environment aEnvironment, IRobot aRobot) {
         mySyntaxResources = PropertyResourceBundle.getBundle(PACKAGE + SYNTAX);
         myLanguage = Languages.DEFAULT;
         myFactory = new NodeFactory(aScopeController, mySyntaxResources, aEnvironment, aRobot);

@@ -1,21 +1,21 @@
 package back_end.model.command;
 
 import back_end.model.node.IReadableInput;
-import back_end.model.robot.Robot;
-import back_end.model.states.IModifiableVariableState;
+import back_end.model.robot.IRobot;
+import back_end.model.states.IModifiableEnvironmentState;
 
 
 public class IsPenDownCommand implements ICommand {
 
-    private Robot myRobot;
+    private IRobot myRobot;
 
-    public IsPenDownCommand(Robot aRobot, IModifiableVariableState aEnvironment, String aCommandName) {
+    public IsPenDownCommand(IRobot aRobot, IModifiableEnvironmentState aEnvironment, String aCommandName) {
         myRobot = aRobot;
     }
 
     @Override
     public double eval (IReadableInput ... aList) {
-        double returnVal = (myRobot.isPenDown()) ? 1 : 0;
+        double returnVal = (myRobot.getPenInformation().isPenUp()) ? 0 : 1;
         return returnVal;
     }
 
