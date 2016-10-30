@@ -66,8 +66,8 @@ public class NodeFactory {
 						inputNumber = 1; 
 						translatedInput = "Custom";
 					}
+					commandClass = myCommandFactory.makeCommand(aUserInputWord, translatedInput);
 				}
-				commandClass = (CustomCommand) myCommandFactory.makeCommand(aUserInputWord, "Custom");
 				return (Node) Class.forName(PACKAGE_NODE + translatedInput + "Node").getConstructor(ICommand.class, int.class, String.class, ScopeController.class).
 						newInstance(commandClass, inputNumber, aUserInputWord, myScopeController);
 			} catch (MissingResourceException e) {
