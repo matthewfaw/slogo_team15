@@ -82,7 +82,7 @@ public class AbstractSyntaxTree {
 	}
 	private Node connectSubtrees(Stack<Node> aInputStack)
 	{
-		ListNode root = new ListNode();
+		ListNode root = new ListNode(null,0,null,null);
 		
 		while(!aInputStack.isEmpty()) {
 			root.addChild(aInputStack.pop());
@@ -145,7 +145,7 @@ public class AbstractSyntaxTree {
 	}
 	private void updateList(ListStartNode aNode, Stack<Node> aOriginalNodeStack, Stack<Node> aCurrentInputStack)
 	{
-		ListNode listNode = new ListNode();
+		ListNode listNode = new ListNode(null,0,null,null);
 		Node inputNode = aCurrentInputStack.pop();
 		while (!(inputNode instanceof ListEndNode)) {
 			listNode.addChild(inputNode);
@@ -349,7 +349,7 @@ public class AbstractSyntaxTree {
 			}
 		}
 		
-		return new NullNode();
+		return new NullNode(null,0,null,null);
 	}
 	private boolean isAvailableForTraversal(Node aNode)
 	{
