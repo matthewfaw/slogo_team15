@@ -10,7 +10,7 @@ import integration.observe.IObserver;
 
 /**
  * @author George Bernard
- * Middle Man to accomodate for multiple turtle/variable scenario
+ * Middle Man to accommodate for multiple turtle/variable scenario
  */
 class ConcreteRouter implements IRouter {
 

@@ -1,11 +1,12 @@
 package front_end.view_modules.turtleBox.turtleMovement;
 
 import front_end.view_modules.turtleBox.ITurtleBox;
+import integration.observe.IObserver;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
 
-public class PenMovement implements ITurtleMovement {
+public class PenMovement implements IObserver {
 
     private TurtleMovement myMovement;
     
@@ -17,7 +18,7 @@ public class PenMovement implements ITurtleMovement {
     private GraphicsContext gc;
 
     @Override
-    public void updateTurtle () {
+    public void update() {
         // TODO Auto-generated method stub
         //Need to get TurtleBox
         //gc.setStroke(Color.BLACK);

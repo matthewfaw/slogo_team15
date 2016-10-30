@@ -3,6 +3,7 @@ package front_end.view_modules.penProperties;
 import java.util.ArrayList;
 import java.util.List;
 import integration.drawing.LineStyleSpec;
+import integration.drawing.PenInformation;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
@@ -79,7 +80,7 @@ public class PenPopup implements IPenPopup {
         myPenUpButton.setSelected(true);
         myPenDownButton.setUserData("Pen Down");
         myPenUpButton.setUserData("Pen Up");
-
+        
         ToggleGroup group1 = new ToggleGroup();
         group1.selectedToggleProperty()
                 // Set Change Text if toggled

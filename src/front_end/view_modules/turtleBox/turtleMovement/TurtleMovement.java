@@ -2,6 +2,7 @@ package front_end.view_modules.turtleBox.turtleMovement;
 
 import back_end.model.robot.IViewRobot;
 import front_end.view_modules.turtleBox.ITurtleBox;
+import integration.observe.IObserver;
 import javafx.scene.image.ImageView;
 
 
@@ -10,7 +11,7 @@ import javafx.scene.image.ImageView;
  * @author Kayla Schulz
  *
  */
-public class TurtleMovement implements ITurtleMovement {
+public class TurtleMovement implements IObserver {
 
     IViewRobot myRobot;
 
@@ -21,14 +22,16 @@ public class TurtleMovement implements ITurtleMovement {
     public static final int FRAMES_PER_SECOND = 60;
     private ITurtleBox myTurtleBox;
 
-    public TurtleMovement (ITurtleBox myConTurt, int width, int height) {
+    public TurtleMovement (ITurtleBox myConTurt, IViewRobot aRobot, int width, int height) {
         myTurtleBox = myConTurt;
         myWidth = width;
         myHeight = height;
+        myRobot = aRobot;
+        myRobot.registerObserver(this);
     }
 
     @Override
-    public void updateTurtle () {
+    public void update () {
 
         myTurtle = myTurtleBox.getTurtle();
         myRobot = myTurtleBox.getRobot();

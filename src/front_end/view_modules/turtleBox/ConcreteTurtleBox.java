@@ -43,8 +43,8 @@ class ConcreteTurtleBox implements ITurtleBox {
         myWidth = width;
         myHeight = height;
         myShapeColorMap = aShapeColorMap;
+        //HERE IS THE PROBLEM
         
-        myTurtMove = new TurtleMovement(this, myWidth, myHeight);
         root = new Group();
         drawingCanvas = new Canvas(width, height);
         gc = drawingCanvas.getGraphicsContext2D();
@@ -128,7 +128,9 @@ class ConcreteTurtleBox implements ITurtleBox {
     @Override
     public void giveRobot (IViewRobot aRobot) {
         myRobot = aRobot;
-        aRobot.registerObserver( this);
+        aRobot.registerObserver(this);
+        
+        myTurtMove = new TurtleMovement(this, getRobot(), myWidth, myHeight);
     }
 
     public IViewRobot getRobot () {
@@ -141,7 +143,7 @@ class ConcreteTurtleBox implements ITurtleBox {
             return;
         }
 
-        myTurtMove.updateTurtle();
+        myTurtMove.update();
     }
 
     private void initColorPicker () {
