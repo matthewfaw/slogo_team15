@@ -1,37 +1,68 @@
 package back_end.model.syntax_tree;
 import back_end.model.exception.ArgumentException;
-import back_end.model.node.Node;
+import back_end.model.node.INode;
 import back_end.model.node.NodeState;
-import back_end.model.node.command_nodes.BranchNode;
-import back_end.model.node.command_nodes.CommandNode;
-import back_end.model.node.command_nodes.CustomNode;
-import back_end.model.node.command_nodes.ToNode;
 import back_end.model.node.dummy_nodes.ListEndNode;
 import back_end.model.node.dummy_nodes.ListStartNode;
 import back_end.model.node.dummy_nodes.NullNode;
-import back_end.model.node.grouping_nodes.ListNode;
-import back_end.model.node.value_nodes.ValueNode;
-import back_end.model.node.value_nodes.VariableNode;
+import back_end.model.node.inner_nodes.command_nodes.AbstractCommandNode;
+import back_end.model.node.inner_nodes.command_nodes.CustomNode;
+import back_end.model.node.inner_nodes.command_nodes.branching_nodes.AbstractBranchNode;
+import back_end.model.node.inner_nodes.command_nodes.branching_nodes.ToNode;
+import back_end.model.node.inner_nodes.list_nodes.ListNode;
+import back_end.model.node.leaf_nodes.ILeafNode;
+import back_end.model.node.leaf_nodes.VariableNode;
 
 import java.util.List;
 import java.util.Stack;
 
 public class TreeEvaluator {
 	private AbstractSyntaxTree myAST;
-	private Stack<Node> myExpressionStack;
+	private Stack<INode> myExpressionStack;
 	
 	public TreeEvaluator(AbstractSyntaxTree aTree)
 	{
 		myAST = aTree;
-		myExpressionStack = new Stack<Node>();
+		myExpressionStack = new Stack<INode>();
+	}
+	public boolean hasNextInstruction()
+	{
+		return myRoot.getState() == NodeState.AVAILABLE; 
+	}
+	public void executeNextInstruction() throws ArgumentException
+	{
+		INode currentTopLevelNode = getNextUnvisitedChild(myRoot);
+		buildCallStackForNextInstruction(currentTopLevelNode);
+		INode nextInstruction = myExpressionStack.peek();
+		if (nextInstruction == null) {
+			// Do nothing
+			return;
+		}
+		
+		if (allInputsAreReadyToBeUsed(nextInstruction)) {
+			performEvaluation(nextInstruction);
+		}
+		if (allInstructionsHaveBeenEvaluated()) {
+			myRoot.setState(NodeState.VISITED);
+		}
+	}
+	private boolean allInstructionsHaveBeenEvaluated()
+	{
+		for (INode child: myRoot.getChildren()) {
+			if (child.getState() != NodeState.VISITED) {
+				return false;
+			}
+		}
+		return true;
 	}
 
-	private void performEvaluation(Node aNode) throws ArgumentException
+
+	private void performEvaluation(INode aNode) throws ArgumentException
 	{
-		if (aNode instanceof CommandNode) {
-			performEvaluation((CommandNode) aNode);
-		} else if (aNode instanceof BranchNode) {
-			performEvaluation((BranchNode) aNode);
+		if (aNode instanceof AbstractCommandNode) {
+			performEvaluation((AbstractCommandNode) aNode);
+		} else if (aNode instanceof AbstractBranchNode) {
+			performEvaluation((AbstractBranchNode) aNode);
 		} else if (aNode instanceof ToNode) {
 			performEvaluation((ToNode) aNode); 
 		} else if (aNode instanceof CustomNode) {
@@ -40,7 +71,7 @@ public class TreeEvaluator {
 			//XXX: add error here
 		}
 	}
-	private void performEvaluation(CommandNode aNextInstruction) throws ArgumentException
+	private void performEvaluation(AbstractCommandNode aNextInstruction) throws ArgumentException
 	{
 		// Call the next instruction
 		aNextInstruction.eval();
@@ -49,7 +80,7 @@ public class TreeEvaluator {
 		// Update the stack
 		myExpressionStack.pop();
 	}
-	private void performEvaluation(BranchNode aCondition) throws ArgumentException
+	private void performEvaluation(AbstractBranchNode aCondition) throws ArgumentException
 	{
 		if (aCondition.getEvaluationState() == NodeState.EVALUATING_INPUTS) {
 			aCondition.evalCondition();
@@ -85,7 +116,7 @@ public class TreeEvaluator {
 			aNode.setState(NodeState.VISITED);
 		}
 	}
-	private boolean allInputsAreReadyToBeUsed(Node aParentNode)
+	private boolean allInputsAreReadyToBeUsed(INode aParentNode)
 	{
 		//XXX: Note that for some cases--ToNode, for instance--this works by chance. we should probably come up with
 		// a more robust solution
@@ -99,9 +130,9 @@ public class TreeEvaluator {
 //			return allInputsAreReadyToBeUsed(aParentNode.getActiveBranch().getChildren());
 //		}
 //	}
-	private boolean allInputsAreReadyToBeUsed(List<Node> aNodes)
+	private boolean allInputsAreReadyToBeUsed(List<INode> aNodes)
 	{
-		for (Node child: aNodes) {
+		for (INode child: aNodes) {
 			if (child.getState() != NodeState.VISITED) {
 				return false;
 			}
@@ -111,16 +142,16 @@ public class TreeEvaluator {
 	
 	//XXX: dispatcher for multiple dispatch method.
 	// is there a nice way around this???
-	private void buildCallStackForNextInstruction(Node aNode)
+	private void buildCallStackForNextInstruction(INode aNode)
 	{
 		if (aNode instanceof NullNode) {
 			buildCallStackForNextInstruction((NullNode) aNode);
-		} else if (aNode instanceof ValueNode) {
-			buildCallStackForNextInstruction((ValueNode) aNode);
-		} else if (aNode instanceof CommandNode) {
-			buildCallStackForNextInstruction((CommandNode) aNode);
-		} else if (aNode instanceof BranchNode) {
-			buildCallStackForNextInstruction((BranchNode) aNode);
+		} else if (aNode instanceof ILeafNode) {
+			buildCallStackForNextInstruction((ILeafNode) aNode);
+		} else if (aNode instanceof AbstractCommandNode) {
+			buildCallStackForNextInstruction((AbstractCommandNode) aNode);
+		} else if (aNode instanceof AbstractBranchNode) {
+			buildCallStackForNextInstruction((AbstractBranchNode) aNode);
 		} else if (aNode instanceof ToNode) {
 			buildCallStackForNextInstruction((ToNode) aNode);
 		} else if (aNode instanceof CustomNode) {
@@ -133,14 +164,14 @@ public class TreeEvaluator {
 	{
 		// Do nothing
 	}
-	private void buildCallStackForNextInstruction(ValueNode aNode)
+	private void buildCallStackForNextInstruction(ILeafNode aNode)
 	{
 		if (isAvailableForTraversal(aNode)) {
 //			myInputStack.push(aNode);
 			aNode.setState(NodeState.VISITED);
 		}
 	}
-	private void buildCallStackForNextInstruction(CommandNode aNode)
+	private void buildCallStackForNextInstruction(AbstractCommandNode aNode)
 	{
 		if (isAvailableForTraversal(aNode)) {
 			if (!myExpressionStack.contains(aNode)) {
@@ -150,7 +181,7 @@ public class TreeEvaluator {
 		}
 	}
 	//XXX: Remove this method--same as the method for CommandNode
-	private void buildCallStackForNextInstruction(BranchNode aNode)
+	private void buildCallStackForNextInstruction(AbstractBranchNode aNode)
 	{
 		if (isAvailableForTraversal(aNode)) {
 			if (!myExpressionStack.contains(aNode)) {
@@ -191,9 +222,9 @@ public class TreeEvaluator {
 		}
 	}
 	
-	private boolean allChildrenAreVisited(Node aParentNode)
+	private boolean allChildrenAreVisited(INode aParentNode)
 	{
-		for (Node child: aParentNode.getChildren()) {
+		for (INode child: aParentNode.getChildren()) {
 			if (child.getState() != NodeState.VISITED) {
 				return false;
 			}
@@ -201,13 +232,13 @@ public class TreeEvaluator {
 		return true;
 	}
 
-	private Node getNextUnvisitedChild(Node aParentNode)
+	private INode getNextUnvisitedChild(INode aParentNode)
 	{
 		return getNextUnvisitedChild(aParentNode.getChildren());
 	}
-	private Node getNextUnvisitedChild(List<Node> aNodes) 
+	private INode getNextUnvisitedChild(List<INode> aNodes) 
 	{
-		for (Node child: aNodes) {
+		for (INode child: aNodes) {
 			if (isAvailableForTraversal(child)) {
 				return child;
 			}
@@ -215,7 +246,7 @@ public class TreeEvaluator {
 		
 		return new NullNode();
 	}
-	private boolean isAvailableForTraversal(Node aNode)
+	private boolean isAvailableForTraversal(INode aNode)
 	{
 		NodeState state = aNode.getState();
 		return state == NodeState.AVAILABLE;

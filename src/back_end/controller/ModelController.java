@@ -11,6 +11,7 @@ import back_end.model.robot.Turtle;
 import back_end.model.states.Environment;
 import back_end.model.states.ScopeController;
 import back_end.model.syntax_tree.AbstractSyntaxTree;
+import back_end.model.syntax_tree.TreeEvaluator;
 import back_end.model.text_parser.TextParser;
 import integration.languages.Languages;
 import integration.observe.IObservable;
@@ -33,9 +34,10 @@ public class ModelController {
 	
 	public void userInputToModel(String aString) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException, UnexpectedCharacterException, UnexpectedCommandException, EmptyInputException {
 		AbstractSyntaxTree ast = new AbstractSyntaxTree(myParser.getNodeStack(aString));
+		TreeEvaluator treeEvaluator = new TreeEvaluator(ast);
 		try {
-			while (ast.hasNextInstruction()) {
-				ast.executeNextInstruction();
+			while (treeEvaluator.hasNextInstruction()) {
+				treeEvaluator.executeNextInstruction();
 			}
 		} catch (ArgumentException e) {
 			// TODO Auto-generated catch block

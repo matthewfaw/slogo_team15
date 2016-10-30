@@ -3,17 +3,17 @@ package back_end.model.states.methodhistory;
 import java.util.HashMap;
 import java.util.Map;
 
-import back_end.model.node.Node;
+import back_end.model.node.INode;
 
 public class UserInputHistory {
 	
-	private Map<String, Node> myUserHistory; 
+	private Map<String, INode> myUserHistory; 
 	
 	public UserInputHistory() { 
-		myUserHistory = new HashMap<String, Node>();
+		myUserHistory = new HashMap<String, INode>();
 	}
 	
-	public void storeMethod(String aUserInputString, Node aNode) {
+	public void storeMethod(String aUserInputString, INode aNode) {
 		myUserHistory.put(aUserInputString, aNode);
 	}
 	

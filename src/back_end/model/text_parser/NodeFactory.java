@@ -9,7 +9,7 @@ import back_end.model.command.CustomCommand;
 import back_end.model.command.ICommand;
 import back_end.model.exception.UnexpectedCharacterException;
 import back_end.model.exception.UnexpectedCommandException;
-import back_end.model.node.Node;
+import back_end.model.node.INode;
 import back_end.model.robot.Robot;
 import back_end.model.states.Environment;
 import back_end.model.states.ScopeController;
@@ -45,7 +45,7 @@ public class NodeFactory {
 		myScopeController = aScopeController;
 	}
 	
-	public Node makeNode(String aUserInputWord) throws UnexpectedCharacterException, UnexpectedCommandException, 
+	public INode makeNode(String aUserInputWord) throws UnexpectedCharacterException, UnexpectedCommandException, 
 														InstantiationException, IllegalAccessException, IllegalArgumentException, 
 														InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException {
 			try {
@@ -68,7 +68,7 @@ public class NodeFactory {
 					}
 					commandClass = myCommandFactory.makeCommand(aUserInputWord, translatedInput);
 				}
-				return (Node) Class.forName(PACKAGE_NODE + translatedInput + "Node").getConstructor(ICommand.class, int.class, String.class, ScopeController.class).
+				return (INode) Class.forName(PACKAGE_NODE + translatedInput + "Node").getConstructor(ICommand.class, int.class, String.class, ScopeController.class).
 						newInstance(commandClass, inputNumber, aUserInputWord, myScopeController);
 			} catch (MissingResourceException e) {
 				e.addSuppressed(new UnexpectedCharacterException("The syntax expression: " + aUserInputWord + " is not associated to any known syntax in this language"));

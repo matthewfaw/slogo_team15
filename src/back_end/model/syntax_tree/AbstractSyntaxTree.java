@@ -3,47 +3,45 @@ package back_end.model.syntax_tree;
 import java.util.ArrayList;
 import java.util.Stack;
 
-import back_end.model.node.Node;
-import back_end.model.node.command_nodes.BranchNode;
-import back_end.model.node.command_nodes.CommandNode;
-import back_end.model.node.command_nodes.CustomNode;
-import back_end.model.node.command_nodes.ToNode;
+import back_end.model.node.INode;
 import back_end.model.node.dummy_nodes.ListEndNode;
 import back_end.model.node.dummy_nodes.ListStartNode;
-import back_end.model.node.grouping_nodes.ListNode;
-import back_end.model.node.value_nodes.VariableNode;
+import back_end.model.node.inner_nodes.command_nodes.AbstractCommandNode;
+import back_end.model.node.inner_nodes.command_nodes.CustomNode;
+import back_end.model.node.inner_nodes.command_nodes.branching_nodes.AbstractBranchNode;
+import back_end.model.node.inner_nodes.command_nodes.branching_nodes.ToNode;
+import back_end.model.node.inner_nodes.list_nodes.ListNode;
+import back_end.model.node.leaf_nodes.VariableNode;
 
 
 public class AbstractSyntaxTree {
-	private Node myRoot;
+	private INode myRoot;
 	
 	//XXX: These should be moved to another class. Visitor pattern might work here?
 	
-	public AbstractSyntaxTree(Stack<Node> aNodeStack)
+	public AbstractSyntaxTree(Stack<INode> aNodeStack)
 	{
 		myRoot = constructTree(aNodeStack);
 	}
-	Node getRoot()
+	INode getRoot()
 	{
 		return myRoot;
 	}
 	
-	private Node constructTree(Stack<Node> aNodeStack)
+	private INode constructTree(Stack<INode> aNodeStack)
 	{
-		Stack<Node> inputStack = new Stack<Node>();
+		Stack<INode> inputStack = new Stack<INode>();
 		
 		while (!aNodeStack.isEmpty()) {
-			Node node = aNodeStack.pop();
+			INode node = aNodeStack.pop();
 			
-			//XXX: Unsure if this will actually modify these stacks properly
-			//if this doesn't work, switch back to if/else
 			updateList(node, aNodeStack, inputStack);
 		}
-		Node rootNode = connectSubtrees(inputStack);
+		INode rootNode = connectSubtrees(inputStack);
 
 		return rootNode;
 	}
-	private Node connectSubtrees(Stack<Node> aInputStack)
+	private INode connectSubtrees(Stack<INode> aInputStack)
 	{
 		ListNode root = new ListNode();
 		
@@ -54,33 +52,33 @@ public class AbstractSyntaxTree {
 		return root;
 	}
 	
-	private void updateList(Node aNode, Stack<Node> aOriginalNodeStack, Stack<Node> aCurrentInputStack)
+	private void updateList(INode aNode, Stack<INode> aOriginalNodeStack, Stack<INode> aCurrentInputStack)
 	{
-		if (aNode instanceof CommandNode) {
-			populateCommandNode((CommandNode) aNode, aOriginalNodeStack, aCurrentInputStack);
+		if (aNode instanceof AbstractCommandNode) {
+			populateCommandNode((AbstractCommandNode) aNode, aOriginalNodeStack, aCurrentInputStack);
 		} else if (aNode instanceof ListStartNode) {
 			populateBracketNode((ListStartNode) aNode, aOriginalNodeStack, aCurrentInputStack);
 		} else {
 			aCurrentInputStack.push(aNode);
 		}
 	}
-	private void populateCommandNode(CommandNode aNode, Stack<Node> aOriginalNodeStack, Stack<Node> aCurrentInputStack)
+	private void populateCommandNode(AbstractCommandNode aNode, Stack<INode> aOriginalNodeStack, Stack<INode> aCurrentInputStack)
 	{
-		ArrayList<Node> inputList = new ArrayList<Node>();
+		ArrayList<INode> inputList = new ArrayList<INode>();
 		for (int i=0; i<aNode.getNumberOfInputs(); ++i) {
-			Node inputNode = aCurrentInputStack.pop();
+			INode inputNode = aCurrentInputStack.pop();
 			inputList.add(inputNode);
 		}
 		aNode.addChildren(inputList);
 		aCurrentInputStack.push(aNode);
 	}
-	private void populateBracketNode(ListStartNode aNode, Stack<Node> aOriginalNodeStack, Stack<Node> aCurrentInputStack)
+	private void populateBracketNode(ListStartNode aNode, Stack<INode> aOriginalNodeStack, Stack<INode> aCurrentInputStack)
 	{
 		ListNode listNode = new ListNode();
 		
-		ArrayList<Node> inputList = new ArrayList<Node>();
+		ArrayList<INode> inputList = new ArrayList<INode>();
 		
-		Node inputNode = aCurrentInputStack.pop();
+		INode inputNode = aCurrentInputStack.pop();
 		while (!(inputNode instanceof ListEndNode)) {
 			inputList.add(inputNode);
 			inputNode = aCurrentInputStack.pop();

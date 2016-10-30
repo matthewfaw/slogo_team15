@@ -8,7 +8,7 @@ import java.util.Stack;
 import back_end.model.exception.EmptyInputException;
 import back_end.model.exception.UnexpectedCharacterException;
 import back_end.model.exception.UnexpectedCommandException;
-import back_end.model.node.Node;
+import back_end.model.node.INode;
 import back_end.model.robot.Robot;
 import back_end.model.states.Environment;
 import back_end.model.states.ScopeController;
@@ -27,7 +27,7 @@ public class TextParser {
     private static final String PACKAGE = "resources.syntax.";
     private static final String SYNTAX = "Syntax";
 
-    private Stack<Node> myNodes;
+    private Stack<INode> myNodes;
     private ResourceBundle mySyntaxResources;
     private NodeFactory myFactory;
     private Languages myLanguage;
@@ -54,7 +54,7 @@ public class TextParser {
      * @throws InstantiationException
      * @throws EmptyInputException
      */
-    public Stack<Node> getNodeStack (String aString) throws InstantiationException,
+    public Stack<INode> getNodeStack (String aString) throws InstantiationException,
                                                      IllegalAccessException,
                                                      IllegalArgumentException,
                                                      InvocationTargetException,
@@ -63,7 +63,7 @@ public class TextParser {
                                                      UnexpectedCharacterException,
                                                      UnexpectedCommandException,
                                                      EmptyInputException {
-        myNodes = new Stack<Node>();
+        myNodes = new Stack<INode>();
         createNodes(aString);
         if (myNodes.isEmpty())
             throw new EmptyInputException("No input!");
@@ -113,7 +113,7 @@ public class TextParser {
      * @throws IllegalAccessException
      * @throws InstantiationException
      */
-    private Node getNode (String aWord) throws InstantiationException, IllegalAccessException,
+    private INode getNode (String aWord) throws InstantiationException, IllegalAccessException,
                                         IllegalArgumentException, InvocationTargetException,
                                         NoSuchMethodException, SecurityException,
                                         ClassNotFoundException, UnexpectedCharacterException,

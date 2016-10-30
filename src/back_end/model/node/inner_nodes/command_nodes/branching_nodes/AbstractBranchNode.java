@@ -1,4 +1,4 @@
-package back_end.model.node.command_nodes;
+package back_end.model.node.inner_nodes.command_nodes.branching_nodes;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -7,17 +7,18 @@ import java.util.List;
 import back_end.model.command.ICommand;
 import back_end.model.command.ICommandBranch;
 import back_end.model.exception.ArgumentException;
-import back_end.model.node.Node;
+import back_end.model.node.INode;
 import back_end.model.node.NodeState;
-import back_end.model.node.grouping_nodes.ListNode;
+import back_end.model.node.inner_nodes.command_nodes.AbstractCommandNode;
+import back_end.model.node.inner_nodes.list_nodes.ListNode;
 import back_end.model.states.ScopeController;
 
 
-public class BranchNode extends Node {
+public abstract class AbstractBranchNode extends AbstractCommandNode {
     private NodeState myEvaluationState;
 
-    private ArrayList<Node> myChildConditions;
-    private HashMap<Integer, List<Node>> myChildBranches;
+    private ArrayList<INode> myChildConditions;
+    private HashMap<Integer, List<INode>> myChildBranches;
 
     private int myActiveBranchIndex;
 
@@ -27,13 +28,13 @@ public class BranchNode extends Node {
     private int myNumberOfInputs;
     private ICommandBranch myCommand;
 
-    public BranchNode (ICommand aCommand, int aNumberOfInputs, String aUserInput, ScopeController aScopeController) {
+    public AbstractBranchNode (ICommand aCommand, int aNumberOfInputs, String aUserInput, ScopeController aScopeController) {
         super(aCommand, aNumberOfInputs, aUserInput, aScopeController);
 
         myEvaluationState = NodeState.EVALUATING_INPUTS;
 
-        myChildConditions = new ArrayList<Node>();
-        myChildBranches = new HashMap<Integer, List<Node>>();
+        myChildConditions = new ArrayList<INode>();
+        myChildBranches = new HashMap<Integer, List<INode>>();
 
         myNumberOfInputs = aNumberOfInputs;
         myCommand = (ICommandBranch) aCommand;
@@ -53,14 +54,14 @@ public class BranchNode extends Node {
 
     @Override
     public double eval () throws ArgumentException {
-        List<Node> currentBranch = myChildBranches.get(myActiveBranchIndex);
-        Node[] inputList = currentBranch.toArray(new Node[currentBranch.size()]);
+        List<INode> currentBranch = myChildBranches.get(myActiveBranchIndex);
+        INode[] inputList = currentBranch.toArray(new INode[currentBranch.size()]);
         myReturnValue = myCommand.eval(inputList);
         return myReturnValue;
     }
 
     public int evalCondition () {
-        Node[] inputList = myChildConditions.toArray(new Node[myChildConditions.size()]);
+        INode[] inputList = myChildConditions.toArray(new INode[myChildConditions.size()]);
         myConditionReturnValue = myCommand.evalCondition(inputList);
         if (myConditionReturnValue == -1) {
             myReturnValue = myConditionReturnValue;
@@ -86,7 +87,7 @@ public class BranchNode extends Node {
     }
 
     @Override
-    public List<Node> getChildren () {
+    public List<INode> getChildren () {
         switch (myEvaluationState) {
             case EVALUATING_INPUTS:
                 return myChildConditions;
@@ -99,12 +100,12 @@ public class BranchNode extends Node {
     }
 
     @Override
-    public void addChild (Node aNode) {
+    public void addChild (INode aNode) {
         // XXX: remove this
         throw new RuntimeException("Do not use this method");
     }
 
-    public void addConditions (Node aNode) {
+    public void addConditions (INode aNode) {
         if (aNode instanceof ListNode) {
             addConditions((ListNode) aNode);
         }
@@ -114,42 +115,42 @@ public class BranchNode extends Node {
     }
 
     private void addConditions (ListNode aList) {
-        for (Node child : aList.getChildren()) {
+        for (INode child : aList.getChildren()) {
             myChildConditions.add(child);
         }
     }
 
     public void addBranchChildren (int aBranchId, ListNode aListNode) {
         if (!myChildBranches.containsKey(aBranchId)) {
-            myChildBranches.put(aBranchId, new ArrayList<Node>());
+            myChildBranches.put(aBranchId, new ArrayList<INode>());
         }
-        for (Node child : aListNode.getChildren()) {
+        for (INode child : aListNode.getChildren()) {
             myChildBranches.get(aBranchId).add(child);
         }
     }
 
     public void unmarkAllChildren () {
         // Unmark all conditions
-        for (Node child : myChildConditions) {
+        for (INode child : myChildConditions) {
             child.setState(NodeState.AVAILABLE);
             unmarkAllChildren(child);
         }
 
         // Unmark all branches
         for (int branchId : myChildBranches.keySet()) {
-            for (Node child : myChildBranches.get(branchId)) {
+            for (INode child : myChildBranches.get(branchId)) {
                 child.setState(NodeState.AVAILABLE);
                 unmarkAllChildren(child);
             }
         }
     }
 
-    private void unmarkAllChildren (Node aParent) {
-        if (aParent instanceof BranchNode) {
-            ((BranchNode) aParent).unmarkAllChildren();
+    private void unmarkAllChildren (INode aParent) {
+        if (aParent instanceof AbstractBranchNode) {
+            ((AbstractBranchNode) aParent).unmarkAllChildren();
         }
         else {
-            for (Node child : aParent.getChildren()) {
+            for (INode child : aParent.getChildren()) {
                 child.setState(NodeState.AVAILABLE);
                 unmarkAllChildren(child);
             }
