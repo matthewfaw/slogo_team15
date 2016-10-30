@@ -130,4 +130,14 @@ class ConcreteImageColorModule implements IImageColorModule {
 		myImageModule.switchLanguage(aLanguage);
 		myColorModule.switchLanguage(aLanguage);
 	}
+
+	@Override
+	public int getColorAmount() {
+		return myColorModule.getColorAmount();
+	}
+
+	@Override
+	public void newColorRow(Color aColor) {
+		myColorModule.newColorRow(aColor);
+	}
 }

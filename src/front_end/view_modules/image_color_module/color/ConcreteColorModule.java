@@ -60,7 +60,7 @@ class ConcreteColorModule implements IColorModule {
 	}
 	
 	private void addColorRow(){
-		myColorRowList.add(new ColorRow(myColorRowList.size()));
+		myColorRowList.add(new ColorRow(getColorAmount()));
 		setColumn();
 	}
 	
@@ -83,6 +83,16 @@ class ConcreteColorModule implements IColorModule {
 	@Override
 	public Color getColor(int aColorId) {
 		return myColorRowList.get(aColorId).getColor();
+	}
+
+	@Override
+	public int getColorAmount() {
+		return myColorRowList.size();
+	}
+
+	@Override
+	public void newColorRow(Color aColor) {
+		myColorRowList.add(new ColorRow(getColorAmount(), aColor));
 	}
 
 	
