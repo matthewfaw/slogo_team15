@@ -5,13 +5,14 @@ import java.util.Arrays;
 import back_end.model.node.IReadableInput;
 import back_end.model.robot.Robot;
 import back_end.model.states.Environment;
+import back_end.model.states.IModifiableVariableState;
 
 
 public class MakeUserInstructionCommand implements ICommand {
 	
-	private Environment myEnvironment;
+	private IModifiableVariableState myEnvironment;
 	
-	public MakeUserInstructionCommand(Robot aRobot, Environment aEnvironment, String aCommandName) {
+	public MakeUserInstructionCommand(Robot aRobot, IModifiableVariableState aEnvironment, String aCommandName) {
 		myEnvironment = aEnvironment;
 		myEnvironment.assignMethod(aCommandName, null, null);
 	}

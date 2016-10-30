@@ -3,13 +3,14 @@ package back_end.model.command;
 import back_end.model.node.IReadableInput;
 import back_end.model.robot.Robot;
 import back_end.model.states.Environment;
+import back_end.model.states.IModifiableVariableState;
 
 
 public class SetHeadingCommand extends RotationCommand {
 
     private Robot myRobot;
 
-    public SetHeadingCommand(Robot aRobot, Environment aEnvironment, String aCommandName) {
+    public SetHeadingCommand(Robot aRobot, IModifiableVariableState aEnvironment, String aCommandName) {
         super(aRobot, aEnvironment, aCommandName);
         myRobot = aRobot;
     }

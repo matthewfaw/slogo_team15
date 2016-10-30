@@ -2,15 +2,15 @@ package back_end.model.command;
 
 import back_end.model.node.IReadableInput;
 import back_end.model.robot.Robot;
-import back_end.model.states.Environment;
+import back_end.model.states.IModifiableVariableState;
 
 
 public class DoTimesCommand extends ICommandBranch {
 
     private int myNumberTimesRun;
-    private Environment myEnvironment;
+    private IModifiableVariableState myEnvironment;
 
-    public DoTimesCommand(Robot aRobot, Environment aEnvironment, String aCommandName) {
+    public DoTimesCommand(Robot aRobot, IModifiableVariableState aEnvironment, String aCommandName) {
         myNumberTimesRun = 0;
         myEnvironment = aEnvironment;
     }

@@ -2,14 +2,14 @@ package back_end.model.command;
 
 import back_end.model.node.IReadableInput;
 import back_end.model.robot.Robot;
-import back_end.model.states.Environment;
+import back_end.model.states.IModifiableVariableState;
 
 
 public class PenDownCommand implements ICommand {
 
     private Robot myRobot;
 
-    public PenDownCommand(Robot aRobot, Environment aEnvironment, String aCommandName) {
+    public PenDownCommand(Robot aRobot, IModifiableVariableState aEnvironment, String aCommandName) {
         super();
         myRobot = aRobot;
     }
