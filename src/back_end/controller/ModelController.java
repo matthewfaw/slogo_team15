@@ -13,15 +13,15 @@ import back_end.model.states.Scope;
 import back_end.model.syntax_tree.AbstractSyntaxTree;
 import back_end.model.text_parser.TextParser;
 import integration.languages.Languages;
-import integration.observe.IObservableRobot;
-import integration.observe.IRobotObserver;
+import integration.observe.IObservable;
+import integration.observe.IObserver;
 import integration.router.IRouter;
 
 
 public class ModelController {
 	
 	private Scope myScope; 
-	private IObservableRobot myRobot; 
+	private IObservable myRobot; 
 	private TextParser myParser;
 	private IRouter myRouter;
 	
@@ -49,7 +49,7 @@ public class ModelController {
 		myRouter.distributeRobot( (IViewRobot) myRobot);
 	}
 	
-	public void giveVariableObservers(IRobotObserver ro) {
+	public void giveVariableObservers(IObserver ro) {
 		myScope.registerObserver(ro);
 	}
 	

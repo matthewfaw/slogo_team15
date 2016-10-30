@@ -1,4 +1,4 @@
-package front_end.view_modules.scriptViewer;
+package front_end.view_modules.function_viewer;
 
 import integration.languages.Languages;
 import javafx.collections.FXCollections;

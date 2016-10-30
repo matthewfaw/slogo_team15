@@ -12,6 +12,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
@@ -46,6 +47,12 @@ class ConcreteTextEditor implements ITextEditor {
 
     /******* API Defined Methods ********/
 
+    @Override
+    public void switchLanguage (Languages aLanguage) {
+        // TODO switch language of toolbar
+
+    }
+    
     @Override
     public Node getInstanceAsNode () {
         return myTextEditor;
@@ -122,8 +129,7 @@ class ConcreteTextEditor implements ITextEditor {
     private VBox buildTextColumn (int aStartRows) {
         myTextColumn = new VBox(0);
         initTextToolbar();
-        while (myLastIndex < aStartRows)
-            newLine();
+        while (myLastIndex < aStartRows) newLine();      
         return myTextColumn;
     }
 
@@ -141,20 +147,36 @@ class ConcreteTextEditor implements ITextEditor {
         labelBox.getChildren().add(curLabel);
 
         TextField curTextField = new TextField();
-        curTextField
-                .setMinWidth(myWidth - labelBox.getWidth() - curLabel.getWidth() - SPACING - 30);
-        curTextField
-                .setMaxWidth(myWidth - labelBox.getWidth() - curLabel.getWidth() - SPACING - 30);
+        curTextField.setMinWidth(myWidth - labelBox.getWidth() - curLabel.getWidth() - SPACING - 30);
+        curTextField.setMaxWidth(myWidth - labelBox.getWidth() - curLabel.getWidth() - SPACING - 30);
         myTextFields.add(myLastIndex, curTextField);
 
-        curTextField.setOnMouseClicked(e -> {
+        curTextField.setOnAction(e -> {
             if (curTextField.equals(myTextFields.get(myLastIndex - 1))) {
                 myRowsAdded = true;
                 for (int i = 0; i < NEW_ROW_BURST; i++)
                     newLine();
             }
         });
-
+        
+        curTextField.setOnKeyPressed( e -> {
+        	switch (e.getCode()) {
+			case UP:
+				int prevIndex = myTextFields.indexOf(curTextField) - 1;
+				if (prevIndex < 0) break;
+				myTextFields.get(myTextFields.lastIndexOf(curTextField) - 1).requestFocus();
+				break;
+			case DOWN:
+				int nextIndex = myTextFields.indexOf(curTextField) + 1;
+				if (myTextFields.size() == nextIndex) break;
+				myTextFields.get(myTextFields.lastIndexOf(curTextField) + 1).requestFocus();
+				break;
+			default:
+				break;
+			}    
+        });
+        
+       
         rowBox.getChildren().addAll(labelBox, curTextField);
         myRows.add(myLastIndex, rowBox);
         myTextColumn.getChildren().add(rowBox);
@@ -188,11 +210,5 @@ class ConcreteTextEditor implements ITextEditor {
             }
         });
         myTextEditor.setContent(aContent);
-    }
-
-    @Override
-    public void switchLanguage (Languages aLanguage) {
-        // TODO switch language of toolbar
-
     }
 }
