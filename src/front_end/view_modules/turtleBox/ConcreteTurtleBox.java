@@ -18,7 +18,12 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 
-
+/**
+ * 
+ * @author George Bernard
+ * @author Kayla Schulz
+ *
+ */
 class ConcreteTurtleBox implements ITurtleBox {
 
     ScrollPane myScroller;
