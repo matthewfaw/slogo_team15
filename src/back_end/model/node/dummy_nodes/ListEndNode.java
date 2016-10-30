@@ -1,30 +1,21 @@
-package back_end.model.node;
+package back_end.model.node.dummy_nodes;
 
 import back_end.model.command.ICommand;
 import back_end.model.exception.ArgumentException;
+import back_end.model.node.Node;
 import back_end.model.states.ScopeController;
 
 
-public class ConstantNode extends ValueNode {
+public class ListEndNode extends Node {
 
-    private double myValue;
-    private int myNumberOfInputs;
-
-    public ConstantNode (ICommand aCommand, int aNumberOfInputs, String aUserInput, ScopeController aScopeController) {
+    public ListEndNode (ICommand aCommand, int aNumberOfInputs, String aUserInput, ScopeController aScopeController) {
         super(aCommand, aNumberOfInputs, aUserInput, aScopeController);
-
-        myValue = Double.parseDouble(aUserInput);
-        myNumberOfInputs = 0;
     }
 
     @Override
     public double eval () throws ArgumentException {
         // TODO Auto-generated method stub
-        return myValue;
-    }
-
-    public int getNumberOfInputs () {
-        return myNumberOfInputs;
+        return 0;
     }
 
     @Override
@@ -35,7 +26,8 @@ public class ConstantNode extends ValueNode {
 
     @Override
     public double getValue () {
-        return myValue;
+        // TODO Auto-generated method stub
+        return 0;
     }
 
 }

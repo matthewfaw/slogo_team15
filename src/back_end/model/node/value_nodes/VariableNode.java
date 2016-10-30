@@ -1,4 +1,4 @@
-package back_end.model.node;
+package back_end.model.node.value_nodes;
 
 import back_end.model.command.ICommand;
 import back_end.model.exception.ArgumentException;

@@ -1,7 +1,8 @@
-package back_end.model.node;
+package back_end.model.node.command_nodes;
 
 import back_end.model.command.ICommand;
 import back_end.model.exception.ArgumentException;
+import back_end.model.node.Node;
 import back_end.model.states.ScopeController;
 
 

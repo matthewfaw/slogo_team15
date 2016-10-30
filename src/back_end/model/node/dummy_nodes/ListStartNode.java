@@ -1,14 +1,14 @@
-package back_end.model.node;
+package back_end.model.node.dummy_nodes;
 
 import back_end.model.command.ICommand;
 import back_end.model.exception.ArgumentException;
+import back_end.model.node.Node;
 import back_end.model.states.ScopeController;
 
 
-public class AssignmentNode extends Node {
+public class ListStartNode extends Node {
 
-    // TODO
-    public AssignmentNode (ICommand aCommand, int aNumberOfInputs, String aUserInput, ScopeController aScopeController) {
+    public ListStartNode (ICommand aCommand, int aNumberOfInputs, String aUserInput, ScopeController aScopeController) {
         super(aCommand, aNumberOfInputs, aUserInput, aScopeController);
     }
 
@@ -25,7 +25,6 @@ public class AssignmentNode extends Node {
 
     @Override
     public double getValue () {
-        // TODO Auto-generated method stub
         return 0;
     }
 

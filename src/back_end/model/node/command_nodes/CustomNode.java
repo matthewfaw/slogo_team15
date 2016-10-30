@@ -1,7 +1,10 @@
-package back_end.model.node;
+package back_end.model.node.command_nodes;
 
 import java.util.List;
 import back_end.model.exception.ArgumentException;
+import back_end.model.node.Node;
+import back_end.model.node.NodeState;
+import back_end.model.node.grouping_nodes.ListNode;
 import back_end.model.states.Environment;
 import back_end.model.states.ScopeController;
 import back_end.model.command.CustomCommand;

@@ -1,27 +1,31 @@
-package back_end.model.node;
+package back_end.model.node.grouping_nodes;
 
 import back_end.model.command.ICommand;
 import back_end.model.exception.ArgumentException;
+import back_end.model.node.Node;
 import back_end.model.states.ScopeController;
 
 
-public class NullNode extends Node {
+// XXX: Add stuff
+public class ListNode extends Node {
 
-    public NullNode (ICommand aCommand, int aNumberOfInputs, String aUserInput, ScopeController aScopeController) {
+    public ListNode (ICommand aCommand, int aNumberOfInputs, String aUserInput, ScopeController aScopeController) {
         super(aCommand, aNumberOfInputs, aUserInput, aScopeController);
     }
-    public NullNode()
+    public ListNode()
     {
     	this(null,0,null,null);
     }
 
     @Override
     public String getName () {
+        // TODO Auto-generated method stub
         return null;
     }
 
     @Override
     public double getValue () {
+        // TODO Auto-generated method stub
         return 0;
     }
 
