@@ -1,13 +1,11 @@
 package back_end.model.command;
 
 import back_end.model.node.IReadableInput;
-import back_end.model.robot.Robot;
-import back_end.model.states.IModifiableVariableState;
 
 
 public class EqualCommand implements ICommand {
 
-    public EqualCommand(Robot aRobot, IModifiableVariableState aEnvironment, String aCommandName) {
+    public EqualCommand () {
     }
 
     @Override

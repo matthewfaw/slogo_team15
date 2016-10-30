@@ -2,23 +2,20 @@ package back_end.model.node;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import back_end.model.command.ICommand;
 import back_end.model.exception.ArgumentException;
-import back_end.model.states.ScopeController;
 
 
 public abstract class Node implements IReadableInput {
     private ArrayList<Node> myChildren;
     private NodeState myState;
 
-    protected Node (ICommand aCommand, int aNumberOfInputs, String aUserInput, ScopeController aScopeController) {
+    protected Node () {
         myChildren = new ArrayList<Node>();
 
         myState = NodeState.AVAILABLE;
     }
 
-	public List<Node> getChildren () {
+    public List<Node> getChildren () {
         return myChildren;
     }
 

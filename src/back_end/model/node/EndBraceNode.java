@@ -1,14 +1,12 @@
 package back_end.model.node;
 
-import back_end.model.command.ICommand;
 import back_end.model.exception.ArgumentException;
-import back_end.model.states.ScopeController;
 
 
-public class ListEndNode extends Node {
+public class EndBraceNode extends Node {
 
-    public ListEndNode (ICommand aCommand, int aNumberOfInputs, String aUserInput, ScopeController aScopeController) {
-        super(aCommand, aNumberOfInputs, aUserInput, aScopeController);
+    public EndBraceNode () {
+        super();
     }
 
     @Override

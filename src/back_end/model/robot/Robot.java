@@ -7,12 +7,12 @@ package back_end.model.robot;
  *
  */
 
-public interface Robot extends IViewableRobot {
+public interface Robot {
 
     /** SETTERS **/
 
     public void setX (double x);
-    
+
     public void setY (double y);
 
     public void setRotation (double r);
@@ -21,10 +21,16 @@ public interface Robot extends IViewableRobot {
 
     public void setVisible (boolean t);
 
-    //public void setPenStyle (PenStyle aPenStyle);
-        
-    public void setImageID (int aImageID);
+    /** GETTERS **/
 
-	public void setTurtleID(int aTurtleID);
+    public double getX ();
+
+    public double getY ();
+
+    public double getRotation ();
+
+    public boolean isPenDown ();
+
+    public boolean isVisible ();
 
 }

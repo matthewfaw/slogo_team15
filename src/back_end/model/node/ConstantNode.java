@@ -1,8 +1,6 @@
 package back_end.model.node;
 
-import back_end.model.command.ICommand;
 import back_end.model.exception.ArgumentException;
-import back_end.model.states.ScopeController;
 
 
 public class ConstantNode extends ValueNode {
@@ -10,10 +8,10 @@ public class ConstantNode extends ValueNode {
     private double myValue;
     private int myNumberOfInputs;
 
-    public ConstantNode (ICommand aCommand, int aNumberOfInputs, String aUserInput, ScopeController aScopeController) {
-        super(aCommand, aNumberOfInputs, aUserInput, aScopeController);
+    public ConstantNode (double aValue) {
+        super();
 
-        myValue = Double.parseDouble(aUserInput);
+        myValue = aValue;
         myNumberOfInputs = 0;
     }
 

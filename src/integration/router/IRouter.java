@@ -1,12 +1,11 @@
 package integration.router;
 
-import back_end.model.robot.IViewableRobot;
-import back_end.model.states.IViewableVariableState;
+import back_end.model.robot.IViewRobot;
 
 public interface IRouter {
 
-	public void distributeRobot(IViewableRobot aViewRobot);
+	public void distributeRobot(IViewRobot aViewRobot);
 	
-	public void distributeVariableMap(IViewableVariableState aViewVariableState);
+	public void distributeVariableMap();
 	
 }
