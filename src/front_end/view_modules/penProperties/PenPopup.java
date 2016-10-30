@@ -1,7 +1,6 @@
 package front_end.view_modules.penProperties;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import integration.drawing.LineStyleSpec;
 import javafx.beans.value.ChangeListener;
