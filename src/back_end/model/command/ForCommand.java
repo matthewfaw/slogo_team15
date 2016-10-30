@@ -5,6 +5,7 @@ import back_end.model.robot.Robot;
 import back_end.model.states.IModifiableVariableState;
 
 
+import back_end.model.exception.InvalidNodeUsageException;
 public class ForCommand extends ICommandBranch {
 
     private boolean myFirst;
@@ -16,7 +17,7 @@ public class ForCommand extends ICommandBranch {
     }
 
     @Override
-    public int evalCondition (IReadableInput ... aList) {
+    public int evalCondition (IReadableInput ... aList) throws InvalidNodeUsageException {
         if (myFirst) {
             myFirst = false;
             myEnvironment.assignVariable(aList[0].getName(), aList[1].getValue());

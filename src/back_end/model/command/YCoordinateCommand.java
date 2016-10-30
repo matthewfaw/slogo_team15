@@ -5,6 +5,7 @@ import back_end.model.robot.Robot;
 import back_end.model.states.IModifiableVariableState;
 
 
+import back_end.model.exception.InvalidNodeUsageException;
 public class YCoordinateCommand implements ICommand {
 
     private Robot myRobot;
@@ -14,7 +15,7 @@ public class YCoordinateCommand implements ICommand {
     }
 
     @Override
-    public double eval (IReadableInput ... aList) {
+    public double eval (IReadableInput ... aList) throws InvalidNodeUsageException {
         return myRobot.getCoordinates().getY();
     }
 

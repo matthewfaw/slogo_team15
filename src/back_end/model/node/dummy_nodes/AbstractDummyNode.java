@@ -11,7 +11,7 @@ public abstract class AbstractDummyNode implements INode {
 	//XXX: Pull this value from resource file, perhaps?
 	private static final double DEFAULT_RETURN_VALUE = 0.0;
 
-	protected AbstractDummyNode (ICommand aCommand, int aNumberOfInputs, String aUserInput, ScopeController aScopeController)
+	protected AbstractDummyNode()
 	{
 	}
 

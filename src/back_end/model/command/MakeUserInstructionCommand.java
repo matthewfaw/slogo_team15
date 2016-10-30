@@ -8,6 +8,7 @@ import back_end.model.states.Environment;
 import back_end.model.states.IModifiableVariableState;
 
 
+import back_end.model.exception.InvalidNodeUsageException;
 public class MakeUserInstructionCommand implements ICommand {
 	
 	private IModifiableVariableState myEnvironment;
@@ -18,7 +19,7 @@ public class MakeUserInstructionCommand implements ICommand {
 	}
 
 	@Override
-	public double eval(IReadableInput... aList) {
+	public double eval(IReadableInput... aList) throws InvalidNodeUsageException {
 		IReadableInput[] variableList = Arrays.copyOfRange(aList, 2, aList.length);
 		myEnvironment.assignMethod(aList[0].getName(), aList[1], variableList);
 		return 1;

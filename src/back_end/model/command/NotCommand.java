@@ -5,13 +5,14 @@ import back_end.model.robot.Robot;
 import back_end.model.states.IModifiableVariableState;
 
 
+import back_end.model.exception.InvalidNodeUsageException;
 public class NotCommand implements ICommand {
 
     public NotCommand(Robot aRobot, IModifiableVariableState aEnvironment, String aCommandName) {
     }
 
     @Override
-    public double eval (IReadableInput ... aList) {
+    public double eval (IReadableInput ... aList) throws InvalidNodeUsageException {
         double returnVal = (aList[0].getValue() == 0) ? 1 : 0;
         return returnVal;
     }

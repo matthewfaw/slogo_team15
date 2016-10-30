@@ -6,6 +6,7 @@ import back_end.model.robot.Robot;
 import back_end.model.states.IModifiableVariableState;
 
 
+import back_end.model.exception.InvalidNodeUsageException;
 public class HomeCommand extends SetPositionCommand {
 
     public HomeCommand(Robot aRobot, IModifiableVariableState aEnvironment, String aCommandName) {
@@ -13,7 +14,7 @@ public class HomeCommand extends SetPositionCommand {
     }
 
 	@Override
-    public double eval (IReadableInput ... aList) {
+    public double eval (IReadableInput ... aList) throws InvalidNodeUsageException {
         IReadableInput[] zeroList =
                 { (IReadableInput) new ConstantNode(null, 0, "0", null), (IReadableInput) new ConstantNode(null, 0, "0", null) };
         return super.eval(zeroList);

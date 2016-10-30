@@ -9,7 +9,7 @@ import back_end.model.states.ScopeController;
 public class NullNode extends AbstractDummyNode {
 
 	protected NullNode(ICommand aCommand, int aNumberOfInputs, String aUserInput, ScopeController aScopeController) {
-		super(aCommand, aNumberOfInputs, aUserInput, aScopeController);
+		super();
 		// TODO Auto-generated constructor stub
 	}
 }

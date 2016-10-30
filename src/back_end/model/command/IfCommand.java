@@ -5,6 +5,7 @@ import back_end.model.robot.Robot;
 import back_end.model.states.IModifiableVariableState;
 
 
+import back_end.model.exception.InvalidNodeUsageException;
 public class IfCommand extends ICommandBranch {
 
     private boolean myFirstExecution;
@@ -14,7 +15,7 @@ public class IfCommand extends ICommandBranch {
     }
 
 	@Override
-    public int evalCondition (IReadableInput ... aList) {
+    public int evalCondition (IReadableInput ... aList) throws InvalidNodeUsageException {
         if (myFirstExecution) {
             myFirstExecution = false;
             return (aList[0].getValue() != 0) ? 0 : -1;

@@ -10,7 +10,7 @@ import back_end.model.node.inner_nodes.command_nodes.CustomNode;
 import back_end.model.node.inner_nodes.command_nodes.branching_nodes.AbstractBranchNode;
 import back_end.model.node.inner_nodes.command_nodes.branching_nodes.ToNode;
 import back_end.model.node.inner_nodes.list_nodes.ListNode;
-import back_end.model.node.leaf_nodes.ILeafNode;
+import back_end.model.node.leaf_nodes.AbstractLeafNode;
 import back_end.model.node.leaf_nodes.VariableNode;
 
 import java.util.List;
@@ -146,8 +146,8 @@ public class TreeEvaluator {
 	{
 		if (aNode instanceof NullNode) {
 			buildCallStackForNextInstruction((NullNode) aNode);
-		} else if (aNode instanceof ILeafNode) {
-			buildCallStackForNextInstruction((ILeafNode) aNode);
+		} else if (aNode instanceof AbstractLeafNode) {
+			buildCallStackForNextInstruction((AbstractLeafNode) aNode);
 		} else if (aNode instanceof AbstractCommandNode) {
 			buildCallStackForNextInstruction((AbstractCommandNode) aNode);
 		} else if (aNode instanceof AbstractBranchNode) {
@@ -164,7 +164,7 @@ public class TreeEvaluator {
 	{
 		// Do nothing
 	}
-	private void buildCallStackForNextInstruction(ILeafNode aNode)
+	private void buildCallStackForNextInstruction(AbstractLeafNode aNode)
 	{
 		if (isAvailableForTraversal(aNode)) {
 //			myInputStack.push(aNode);

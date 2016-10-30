@@ -5,6 +5,7 @@ import back_end.model.robot.Robot;
 import back_end.model.states.IModifiableVariableState;
 
 
+import back_end.model.exception.InvalidNodeUsageException;
 public class DoTimesCommand extends ICommandBranch {
 
     private int myNumberTimesRun;
@@ -16,7 +17,7 @@ public class DoTimesCommand extends ICommandBranch {
     }
 
     @Override
-    public int evalCondition (IReadableInput ... aList) {
+    public int evalCondition (IReadableInput ... aList) throws InvalidNodeUsageException {
         myEnvironment.assignVariable(aList[0].getName(), myNumberTimesRun);
         if (myNumberTimesRun < aList[1].getValue()) {
             myNumberTimesRun++;

@@ -5,6 +5,7 @@ import back_end.model.robot.Robot;
 import back_end.model.states.IModifiableVariableState;
 
 
+import back_end.model.exception.InvalidNodeUsageException;
 public class IfElseCommand extends IfCommand {
 
     private boolean myExecuteMethod;
@@ -14,7 +15,7 @@ public class IfElseCommand extends IfCommand {
         myExecuteMethod = true;
     }
 
-    public int evalCondition (IReadableInput ... aList) {
+    public int evalCondition (IReadableInput ... aList) throws InvalidNodeUsageException {
         if (myExecuteMethod) {
             int returnVal = (super.evalCondition(aList) == 0) ? 0 : 1;
             myExecuteMethod = false;
@@ -24,7 +25,7 @@ public class IfElseCommand extends IfCommand {
     }
 
     @Override
-    public double eval (IReadableInput ... aList) {
+    public double eval (IReadableInput ... aList) throws InvalidNodeUsageException {
         return super.eval(aList);
     }
 

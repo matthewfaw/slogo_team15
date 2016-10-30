@@ -6,6 +6,7 @@ import back_end.model.states.Environment;
 import back_end.model.states.IModifiableVariableState;
 
 
+import back_end.model.exception.InvalidNodeUsageException;
 public class ShowTurtleCommand implements ICommand {
 
     private Robot myRobot;
@@ -16,7 +17,7 @@ public class ShowTurtleCommand implements ICommand {
     }
 
     @Override
-    public double eval (IReadableInput ... aList) {
+    public double eval (IReadableInput ... aList) throws InvalidNodeUsageException {
         myRobot.setVisible(true);
         return 1;
     }

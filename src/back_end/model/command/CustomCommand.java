@@ -5,6 +5,7 @@ import back_end.model.robot.Robot;
 import back_end.model.states.Environment;
 import back_end.model.states.IModifiableVariableState;
 
+import back_end.model.exception.InvalidNodeUsageException;
 public class CustomCommand extends ICommandBranch {
 	
 	private IModifiableVariableState myEnvironment;

@@ -6,6 +6,7 @@ import back_end.model.states.Environment;
 import back_end.model.states.IModifiableVariableState;
 
 
+import back_end.model.exception.InvalidNodeUsageException;
 public class ClearScreenCommand extends HomeCommand {
 
     public ClearScreenCommand(Robot aRobot, IModifiableVariableState aEnvironment, String aCommandName) {
@@ -13,7 +14,7 @@ public class ClearScreenCommand extends HomeCommand {
     }
 
     @Override
-    public double eval (IReadableInput ... aList) {
+    public double eval (IReadableInput ... aList) throws InvalidNodeUsageException {
         return super.eval(aList);
     }
 

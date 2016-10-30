@@ -6,6 +6,7 @@ import back_end.model.robot.Robot;
 import back_end.model.states.IModifiableVariableState;
 
 
+import back_end.model.exception.InvalidNodeUsageException;
 public class BackwardCommand extends MovementCommand {
 
     private Robot myRobot;
@@ -16,7 +17,7 @@ public class BackwardCommand extends MovementCommand {
     }
 
     @Override
-    public double eval (IReadableInput ... aList) {
+    public double eval (IReadableInput ... aList) throws InvalidNodeUsageException {
         Point p = getXYCoordinate(aList);
         myRobot.setX(myRobot.getCoordinates().getX() - p.getX());
         myRobot.setY(myRobot.getCoordinates().getY() - p.getY());

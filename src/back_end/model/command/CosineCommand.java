@@ -6,13 +6,14 @@ import back_end.model.states.Environment;
 import back_end.model.states.IModifiableVariableState;
 
 
+import back_end.model.exception.InvalidNodeUsageException;
 public class CosineCommand implements ICommand {
 
     public CosineCommand(Robot aRobot, IModifiableVariableState aEnvironment, String aCommandName) {
     }
 
     @Override
-    public double eval (IReadableInput ... aList) {
+    public double eval (IReadableInput ... aList) throws InvalidNodeUsageException {
         return Math.cos(aList[0].getValue());
     }
 

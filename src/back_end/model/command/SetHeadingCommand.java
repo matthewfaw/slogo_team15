@@ -6,6 +6,7 @@ import back_end.model.states.Environment;
 import back_end.model.states.IModifiableVariableState;
 
 
+import back_end.model.exception.InvalidNodeUsageException;
 public class SetHeadingCommand extends RotationCommand {
 
     private Robot myRobot;
@@ -16,7 +17,7 @@ public class SetHeadingCommand extends RotationCommand {
     }
 
     @Override
-    public double eval (IReadableInput ... aList) {
+    public double eval (IReadableInput ... aList) throws InvalidNodeUsageException {
         double rotation = getRotation(aList);
         double returnVal = Math.abs(myRobot.getRotation() - rotation);
         myRobot.setRotation(rotation);

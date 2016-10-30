@@ -5,6 +5,7 @@ import back_end.model.robot.Robot;
 import back_end.model.states.IModifiableVariableState;
 
 
+import back_end.model.exception.InvalidNodeUsageException;
 public class RepeatCommand extends ICommandBranch {
 
     private int myNumberTimesRun;
@@ -14,7 +15,7 @@ public class RepeatCommand extends ICommandBranch {
     }
 
     @Override
-    public int evalCondition (IReadableInput ... aList) {
+    public int evalCondition (IReadableInput ... aList) throws InvalidNodeUsageException {
         if (myNumberTimesRun < aList[0].getValue()) {
             myNumberTimesRun++;
             return 0;

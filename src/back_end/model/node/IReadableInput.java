@@ -6,6 +6,6 @@ public interface IReadableInput {
 
     public String getName () throws InvalidNodeUsageException;
 
-    public double getValue ();
+    public double getValue () throws InvalidNodeUsageException;
 
 }

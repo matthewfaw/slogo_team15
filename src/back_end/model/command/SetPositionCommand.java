@@ -5,6 +5,7 @@ import back_end.model.robot.Robot;
 import back_end.model.states.IModifiableVariableState;
 
 
+import back_end.model.exception.InvalidNodeUsageException;
 public class SetPositionCommand implements ICommand {
 
     private Robot myRobot;
@@ -14,7 +15,7 @@ public class SetPositionCommand implements ICommand {
     }
 
 	@Override
-    public double eval (IReadableInput ... aList) {
+    public double eval (IReadableInput ... aList) throws InvalidNodeUsageException {
         double posX = Math.abs(myRobot.getCoordinates().getX() - aList[0].getValue());
         double posY = Math.abs(myRobot.getCoordinates().getY() - aList[1].getValue());
         double returnVal = Math.sqrt(Math.pow(posX, 2) + Math.pow(posY, 2));
