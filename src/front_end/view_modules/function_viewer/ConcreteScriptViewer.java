@@ -1,6 +1,5 @@
 package front_end.view_modules.function_viewer;
 
-import integration.languages.Languages;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;

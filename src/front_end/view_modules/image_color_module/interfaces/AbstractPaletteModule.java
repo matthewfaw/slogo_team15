@@ -1,8 +1,7 @@
 package front_end.view_modules.image_color_module.interfaces;
 
-import front_end.view_modules.ILanguageSwitcher;
 import front_end.view_modules.IViewModule;
-import integration.languages.Languages;
+import integration.languages.ILanguageSwitcher;
 import javafx.scene.Node;
 
 public class AbstractPaletteModule implements IViewModule, ILanguageSwitcher {

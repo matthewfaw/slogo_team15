@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import front_end.view_modules.image_color_module.interfaces.IImageModule;
-import integration.languages.Languages;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;

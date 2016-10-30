@@ -3,7 +3,6 @@ package front_end.view_modules.turtlestate;
 import back_end.model.robot.IViewRobot;
 import front_end.view_modules.image_color_module.interfaces.IColorModule;
 import front_end.view_modules.image_color_module.interfaces.IImageModule;
-import integration.languages.Languages;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.Node;
 import javafx.scene.control.Label;

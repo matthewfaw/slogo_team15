@@ -12,8 +12,6 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
-import integration.languages.Languages;
-
 
 class ConcreteToolbar implements IToolbar {
 

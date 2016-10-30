@@ -1,7 +1,7 @@
 package front_end.view_modules.errorViewer;
 
-import front_end.view_modules.ILanguageSwitcher;
 import front_end.view_modules.IViewModule;
+import integration.languages.ILanguageSwitcher;
 
 
 /**

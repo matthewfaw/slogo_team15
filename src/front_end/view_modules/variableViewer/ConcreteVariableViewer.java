@@ -1,7 +1,6 @@
 package front_end.view_modules.variableViewer;
 
 import back_end.model.states.IViewVariableState;
-import integration.languages.Languages;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

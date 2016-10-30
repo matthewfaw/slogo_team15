@@ -17,7 +17,7 @@ import back_end.model.node.Node;
 import back_end.model.node.VariableNode;
 import back_end.model.robot.Robot;
 import back_end.model.states.Scope;
-import integration.languages.Languages;
+import integration.languages.ILanguageSwitcher.Languages;
 
 
 /**

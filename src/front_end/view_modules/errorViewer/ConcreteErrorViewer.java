@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import front_end.view_modules.textEditor.ITextEditor;
-import integration.languages.Languages;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;

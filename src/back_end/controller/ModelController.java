@@ -12,7 +12,7 @@ import back_end.model.states.IViewVariableState;
 import back_end.model.states.Scope;
 import back_end.model.syntax_tree.AbstractSyntaxTree;
 import back_end.model.text_parser.TextParser;
-import integration.languages.Languages;
+import integration.languages.ILanguageSwitcher.Languages;
 import integration.observe.IObservable;
 import integration.observe.IObserver;
 import integration.router.IRouter;

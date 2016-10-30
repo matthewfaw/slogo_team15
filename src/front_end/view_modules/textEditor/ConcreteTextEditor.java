@@ -2,7 +2,6 @@ package front_end.view_modules.textEditor;
 
 import java.util.List;
 import java.util.stream.Collectors;
-import integration.languages.Languages;
 import java.util.ArrayList;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;

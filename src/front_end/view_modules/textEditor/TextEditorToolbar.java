@@ -2,8 +2,7 @@ package front_end.view_modules.textEditor;
 
 import java.util.ResourceBundle;
 
-import front_end.view_modules.ILanguageSwitcher;
-import integration.languages.Languages;
+import integration.languages.ILanguageSwitcher;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;

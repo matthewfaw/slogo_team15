@@ -1,6 +1,5 @@
 package front_end.view_modules.helpPage;
 
-import integration.languages.Languages;
 import javafx.scene.Node;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;

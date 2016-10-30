@@ -7,7 +7,6 @@ import front_end.view_modules.image_color_module.image.ImageModuleFactory;
 import front_end.view_modules.image_color_module.interfaces.IColorModule;
 import front_end.view_modules.image_color_module.interfaces.IImageColorModule;
 import front_end.view_modules.image_color_module.interfaces.IImageModule;
-import integration.languages.Languages;
 import javafx.scene.Node;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
