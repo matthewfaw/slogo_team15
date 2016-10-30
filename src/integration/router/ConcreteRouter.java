@@ -6,8 +6,8 @@ import java.util.Collection;
 import back_end.model.robot.IViewableRobot;
 import back_end.model.states.IViewableVariableState;
 import front_end.appScene.ApplicationScene;
-import front_end.view_modules.IRobotAcceptor;
-import front_end.view_modules.IViewVariableAcceptor;
+import integration.acceptors.IRobotAcceptor;
+import integration.acceptors.IVariableAcceptor;
 import integration.observe.IObserver;
 
 /**
@@ -17,7 +17,7 @@ import integration.observe.IObserver;
 class ConcreteRouter implements IRouter {
 
 	Collection<IRobotAcceptor> myRobotAcceptors;
-	Collection<IViewVariableAcceptor> myVariableAcceptors;
+	Collection<IVariableAcceptor> myVariableAcceptors;
 	ApplicationScene myAppScene;
 	
 	ConcreteRouter(ApplicationScene aAppScene){

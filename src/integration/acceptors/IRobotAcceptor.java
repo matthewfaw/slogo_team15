@@ -1,4 +1,4 @@
-package front_end.view_modules;
+package integration.acceptors;
 
 import back_end.model.robot.IViewableRobot;
 

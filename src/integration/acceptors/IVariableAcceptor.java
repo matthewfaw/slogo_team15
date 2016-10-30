@@ -1,8 +1,8 @@
-package front_end.view_modules;
+package integration.acceptors;
 
 import back_end.model.states.IViewableVariableState;
 
-public interface IViewVariableAcceptor {
+public interface IVariableAcceptor {
 
 	public void giveVariableState(IViewableVariableState aViewVariableState);
 	

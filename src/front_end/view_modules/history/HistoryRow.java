@@ -1,18 +1,12 @@
 package front_end.view_modules.history;
 
-import integration.acceptors.IHistoryAcceptor;
+import front_end.view_modules.ILanguageSwitcher;
+import front_end.view_modules.IViewModule;
+import integration.languages.Languages;
 import javafx.scene.Node;
-import javafx.scene.control.ScrollPane;
 
-class ConcreteHistoryModule implements IHistoryModule, IHistoryAcceptor {
+public class HistoryRow implements IViewModule, ILanguageSwitcher {
 
-	private ScrollPane myScroller;
-	
-	
-	ConcreteHistoryModule(){
-		
-	}
-	
 	@Override
 	public void reset() {
 		// TODO Auto-generated method stub
@@ -26,9 +20,9 @@ class ConcreteHistoryModule implements IHistoryModule, IHistoryAcceptor {
 	}
 
 	@Override
-	public void update() {
+	public void switchLanguage(Languages aLanguage) {
 		// TODO Auto-generated method stub
 		
 	}
-
+	
 }
