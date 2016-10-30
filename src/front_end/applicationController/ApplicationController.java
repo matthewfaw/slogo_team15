@@ -21,7 +21,6 @@ import front_end.view_modules.toolbar.IToolbar;
 import front_end.view_modules.turtleBox.ITurtleBox;
 import front_end.view_modules.turtlestate.IAllRobotsStateBox;
 import front_end.view_modules.variableViewer.IVariableViewer;
-import integration.languages.ILanguageSwitcher;
 import integration.languages.ILanguageSwitcher.Languages;
 import integration.router.IRouter;
 import integration.router.RouterFactory;

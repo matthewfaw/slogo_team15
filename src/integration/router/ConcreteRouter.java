@@ -9,8 +9,9 @@ import front_end.view_modules.IRobotAcceptor;
 import integration.observe.IObserver;
 
 /**
- * @author George Bernard
  * Middle Man to accommodate for multiple turtle/variable scenario
+ * 
+ * @author George Bernard
  */
 class ConcreteRouter implements IRouter {
 
@@ -23,7 +24,7 @@ class ConcreteRouter implements IRouter {
 		myAppScene = aAppScene;
 		setRobotObservers();
 	}
-
+	
 	private void setRobotObservers(){
 		myRobotObservers.add( myAppScene.getMyTurtleBox() );
 		myRobotObservers.add( myAppScene.getMyStatesBox() );
