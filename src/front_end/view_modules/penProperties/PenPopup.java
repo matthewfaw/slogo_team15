@@ -16,12 +16,10 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.Toggle;
-import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
@@ -46,6 +44,8 @@ public class PenPopup implements IPenPopup {
     private RadioButton myPenDownButton;
     private RadioButton myPenUpButton;
     private VBox myOrder;
+    private String myLineStyle;
+    private int myPenThickness;
 
     @Override
     public void initPopup () {
@@ -66,8 +66,8 @@ public class PenPopup implements IPenPopup {
         return myScene;
     }
 
-    private List<Integer> penThicknessOptions () {
-        List<Integer> myList = new ArrayList<Integer>();
+    private List<Object> penThicknessOptions () {
+        List<Object> myList = new ArrayList<Object>();
         for (int i = 1; i < MAX_PEN_THICKNESS; i++) {
             myList.add(i);
         }
@@ -80,24 +80,28 @@ public class PenPopup implements IPenPopup {
         myPenUpButton.setSelected(true);
         myPenDownButton.setUserData("Pen Down");
         myPenUpButton.setUserData("Pen Up");
-        
-        
+
         ToggleGroup group1 = new ToggleGroup();
         group1.selectedToggleProperty()
                 // Set Change Text if toggled
-                .addListener( (ObservableValue<? extends Toggle> ov, Toggle old_toggle, Toggle new_toggle) -> {        
-                             if (new_toggle == null)
-                                 return;
-                             if (new_toggle.isSelected()) {
-                             }
-                             });
+                .addListener( (ObservableValue<? extends Toggle> ov,
+                               Toggle old_toggle,
+                               Toggle new_toggle) -> {
+                    if (new_toggle == null)
+                        return;
+                    if (new_toggle.isSelected()) {
+                    }
+                });
         myPenDownButton.setToggleGroup(group1);
         myPenUpButton.setToggleGroup(group1);
     }
 
+    private HBox penThickness;
+
     private void setBorderPane () {
         myOrder.getChildren().add(myRow);
-        myOrder.getChildren().add(createComboBox("Pen thickness: ", penThicknessOptions()));
+        penThickness = createComboBox("Pen thickness: ", penThicknessOptions());
+        myOrder.getChildren().add(penThickness);
         myOrder.getChildren().add(createComboBox("Line Style: ", myLineStyleOptions()));
         HBox penUpBox = new HBox(SPACING);
         penUpBox.getChildren().addAll(myPenUpButton, myPenDownButton);
@@ -106,9 +110,9 @@ public class PenPopup implements IPenPopup {
         layout.setCenter(myOrder);
         layout.setBottom(closingButtonBox);
     }
-    
-    private List<LineStyleSpec> myLineStyleOptions () { 
-        return Arrays.asList(LineStyleSpec.values());
+
+    private List<Object> myLineStyleOptions () {
+        return LineStyleSpec.getMyLineStyles();
     }
 
     private void makeColorPicker () {
@@ -127,14 +131,45 @@ public class PenPopup implements IPenPopup {
         closingButtonBox.getChildren().addAll(clearButton, applyButton);
     }
 
-    private HBox createComboBox (String labelName, List myOptions) {
+    private HBox createComboBox (String labelName, List<Object> myOptions) {
         HBox comboBoxRow = new HBox(SPACING);
         comboBoxRow.setPadding(new Insets(5, 20, 10, 20));
         Label comboBoxLabel = new Label(labelName);
-        ComboBox addComboBox = new ComboBox();
+        ComboBox<Object> addComboBox = new ComboBox<Object>();
         addComboBox.getItems().addAll(myOptions);
+        addComboBox.getSelectionModel().selectedItemProperty()
+                .addListener(new ChangeListener<Object>() {
+                    public void changed (ObservableValue<? extends Object> ov,
+                                         final Object oldvalue,
+                                         final Object newvalue) {
+                        if (labelName.contains("Pen"))
+                            setPenThickness(newvalue);
+                        if (labelName.contains("Line"))
+                            setLineStyle(newvalue);
+                    }
+                });
         comboBoxRow.getChildren().addAll(comboBoxLabel, addComboBox);
         return comboBoxRow;
+    }
+
+    private void setLineStyle (Object newvalue) {
+        myLineStyle = newvalue.toString();
+    }
+
+    private void setPenThickness (Object newvalue) {
+        myPenThickness = Integer.parseInt(newvalue.toString());
+    }
+
+    public Color getColorValue () {
+        return myColorPicker.getValue();
+    }
+
+    public int getPenThickness () {
+        return myPenThickness;
+    }
+
+    public String getLineStyle () {
+        return myLineStyle;
     }
 
     private Button makeButton (String buttonText) {
@@ -146,7 +181,7 @@ public class PenPopup implements IPenPopup {
     public void clear () {
         myRow.getChildren().clear();
         // TODO: Figure out how to keep createComboBox method and be able to access here
-        myPenDownButton.setSelected(false);
+        // TODO: get pen to take its previous state
         myPenUpButton.setSelected(true);
         makeColorPicker();
     }

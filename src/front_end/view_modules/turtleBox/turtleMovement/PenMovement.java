@@ -7,6 +7,11 @@ import javafx.scene.paint.Color;
 
 public class PenMovement implements ITurtleMovement {
 
+    private TurtleMovement myMovement;
+    
+    public PenMovement(TurtleMovement myTurtMove) {
+        myMovement = myTurtMove;
+    }
     // TODO: What I need from back-end: previous coordinates to draw the line
     // In this case: curX and curY
     private GraphicsContext gc;
@@ -20,7 +25,7 @@ public class PenMovement implements ITurtleMovement {
         //gc.strokeLine(curX, curY, translatedXCoordinate(), translatedYCoordinate());
     }
     
-    public void drawWithPen(ITurtleBox myTurtleBox) {
+    protected void drawWithPen(ITurtleBox myTurtleBox) {
         //TODO: Fix turtleBox being null
         gc = myTurtleBox.getGC();
     }
