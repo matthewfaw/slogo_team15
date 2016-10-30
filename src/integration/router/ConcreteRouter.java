@@ -17,18 +17,24 @@ import integration.observe.IObserver;
 class ConcreteRouter implements IRouter {
 
 	Collection<IRobotAcceptor> myRobotAcceptors;
-	Collection<IViewVariableAcceptor> myVariableObservers;
+	Collection<IViewVariableAcceptor> myVariableAcceptors;
 	ApplicationScene myAppScene;
 	
 	ConcreteRouter(ApplicationScene aAppScene){
 		myRobotAcceptors = new ArrayList<>();
+		myVariableAcceptors = new ArrayList<>();
 		myAppScene = aAppScene;
-		setRobotObservers();
+		setRobotAcceptors();
+		setVariableAcceptors();
 	}
 
-	private void setRobotObservers(){
+	private void setRobotAcceptors(){
 		myRobotAcceptors.add( myAppScene.getMyTurtleBox() );
 		myRobotAcceptors.add( myAppScene.getMyStatesBox() );
+	}
+	
+	private void setVariableAcceptors(){
+		myVariableAcceptors.add( myAppScene.getMyVariableViewer() );
 	}
 	
 	@Override
@@ -36,9 +42,10 @@ class ConcreteRouter implements IRouter {
 		myRobotAcceptors.forEach( ro -> ro.giveRobot(aViewRobot) );
 	}
 
+		
 	@Override
 	public void distributeVariableMap(IViewableVariableState aViewVariableState) {
-		myVariableObservers.forEach( vo -> vo.giveVariableState(aViewVariableState) );				
+		myVariableAcceptors.forEach( vo -> vo.giveVariableState(aViewVariableState) );				
 	}
 
 }
