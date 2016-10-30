@@ -1,17 +1,16 @@
 package back_end.model.command;
 
 import back_end.model.node.IReadableInput;
-import back_end.model.robot.Robot;
-import back_end.model.states.IModifiableVariableState;
+import back_end.model.states.Scope;
 
 
-public class ForCommand extends ICommandBranch {
+public class ForCommand implements ICommandBranch {
 
     private boolean myFirst;
-    private IModifiableVariableState myEnvironment;
+    private Scope myScope;
 
-    public ForCommand(Robot aRobot, IModifiableVariableState aEnvironment, String aCommandName) {
-        myEnvironment = aEnvironment;
+    public ForCommand (Scope aScope) {
+        myScope = aScope;
         myFirst = true;
     }
 
@@ -19,14 +18,19 @@ public class ForCommand extends ICommandBranch {
     public int evalCondition (IReadableInput ... aList) {
         if (myFirst) {
             myFirst = false;
-            myEnvironment.assignVariable(aList[0].getName(), aList[1].getValue());
+            myScope.assignVariable(aList[0].getName(), aList[1].getValue());
         }
-        if (myEnvironment.getVariableValue(aList[0].getName()) < aList[2].getValue()) {
-            myEnvironment.assignVariable(aList[0].getName(),
-                                   (myEnvironment.getVariableValue(aList[0].getName()) + aList[3].getValue()));
+        if (myScope.getValue(aList[0].getName()) < aList[2].getValue()) {
+            myScope.assignVariable(aList[0].getName(),
+                                   (myScope.getValue(aList[0].getName()) + aList[3].getValue()));
             return 0;
         }
         return -1;
+    }
+
+    @Override
+    public double eval (IReadableInput ... aList) {
+        return aList[aList.length - 1].getValue();
     }
 
 }

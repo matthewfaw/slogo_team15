@@ -1,27 +1,30 @@
 package back_end.model.command;
 
 import back_end.model.node.IReadableInput;
-import back_end.model.robot.Robot;
-import back_end.model.states.Environment;
-import back_end.model.states.IModifiableVariableState;
+import back_end.model.states.Scope;
 
-public class CustomCommand extends ICommandBranch {
+public class CustomCommand implements ICommandBranch {
 	
-	private IModifiableVariableState myEnvironment;
+	private Scope myScope;
 	private String myName;
 	
-	public CustomCommand(Robot aRobot, IModifiableVariableState aEnvironment, String aCommandName) {
-		myEnvironment = aEnvironment;
-		myName = aCommandName;
+	public CustomCommand(Scope aScope, String aName) {
+		myScope = aScope;
+		myName = aName;
+	}
+
+	@Override
+	public double eval(IReadableInput... aList) {
+		return aList[aList.length - 1].getValue();
 	}
 
 	@Override
 	public int evalCondition(IReadableInput... aList) {
 		int counter = 0;
-		//for (String variable: myEnvironment.getVariablesInScope()) {
-			//myEnvironment.assignVariable(variable, aList[counter].getValue());
+		for (String variable: myScope.getVariablesInMethod(myName)) {
+			myScope.assignVariable(variable, aList[counter].getValue());
 			++counter;
-		//}
+		}
 //		IReadableInput[] variableList = myScope.getVariablesInMethod(myName);
 //		for (int i = 0; i < variableList.length; i++) {
 //			myScope.assignVariable(variableList[i].getName(), aList[i].getValue());
@@ -29,9 +32,17 @@ public class CustomCommand extends ICommandBranch {
 		return 1;
 	}
 	
-	//public IReadableInput getFunction() {
-		//return myEnvironment.getMethodToEvaluate(myName);
-	//}
+	public void setScope() {
+		myScope.swapScope(myName);
+	}
+	
+	public void resetScope() {
+		myScope.swapScope("DEFAULT");
+	}
+	
+	public IReadableInput getFunction() {
+		return myScope.getMethodToEvaluate(myName);
+	}
 	
 
 }

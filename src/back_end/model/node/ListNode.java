@@ -1,15 +1,13 @@
 package back_end.model.node;
 
-import back_end.model.command.ICommand;
 import back_end.model.exception.ArgumentException;
-import back_end.model.states.ScopeController;
 
 
 // XXX: Add stuff
 public class ListNode extends Node {
 
-    public ListNode (ICommand aCommand, int aNumberOfInputs, String aUserInput, ScopeController aScopeController) {
-        super(aCommand, aNumberOfInputs, aUserInput, aScopeController);
+    public ListNode () {
+        super();
     }
 
     @Override

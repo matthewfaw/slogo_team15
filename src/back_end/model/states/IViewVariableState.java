@@ -2,10 +2,8 @@ package back_end.model.states;
 
 import java.util.Collection;
 
-import integration.observe.IObservable;
 
-
-public interface IViewableVariableState extends IObservable {
+public interface IViewVariableState {
 
     public Collection<String> getVariableKeySet ();
 

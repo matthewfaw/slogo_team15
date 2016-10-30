@@ -1,11 +1,12 @@
 package front_end.view_modules.turtleBox;
 
-import back_end.model.robot.IViewableRobot;
+import back_end.model.robot.IViewRobot;
 import front_end.view_modules.IRobotAcceptor;
 import front_end.view_modules.IViewModule;
 import integration.observe.IObserver;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.ImageView;
+
 
 public interface ITurtleBox extends IViewModule, IObserver, IRobotAcceptor {
 
@@ -19,7 +20,7 @@ public interface ITurtleBox extends IViewModule, IObserver, IRobotAcceptor {
 
     public double getTurtleWidth ();
 
-    public IViewableRobot getRobot ();
+    public IViewRobot getRobot ();
 
     public void removeTurtle ();
 

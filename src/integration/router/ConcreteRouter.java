@@ -3,11 +3,9 @@ package integration.router;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import back_end.model.robot.IViewableRobot;
-import back_end.model.states.IViewableVariableState;
+import back_end.model.robot.IViewRobot;
 import front_end.appScene.ApplicationScene;
 import front_end.view_modules.IRobotAcceptor;
-import front_end.view_modules.IViewVariableAcceptor;
 import integration.observe.IObserver;
 
 /**
@@ -16,36 +14,29 @@ import integration.observe.IObserver;
  */
 class ConcreteRouter implements IRouter {
 
-	Collection<IRobotAcceptor> myRobotAcceptors;
-	Collection<IViewVariableAcceptor> myVariableAcceptors;
+	Collection<IRobotAcceptor> myRobotObservers;
+	Collection<Object> myVariableObservers;
 	ApplicationScene myAppScene;
 	
 	ConcreteRouter(ApplicationScene aAppScene){
-		myRobotAcceptors = new ArrayList<>();
-		myVariableAcceptors = new ArrayList<>();
+		myRobotObservers = new ArrayList<>();
 		myAppScene = aAppScene;
-		setRobotAcceptors();
-		setVariableAcceptors();
+		setRobotObservers();
 	}
 
-	private void setRobotAcceptors(){
-		myRobotAcceptors.add( myAppScene.getMyTurtleBox() );
-		myRobotAcceptors.add( myAppScene.getMyStatesBox() );
-	}
-	
-	private void setVariableAcceptors(){
-		myVariableAcceptors.add( myAppScene.getMyVariableViewer() );
+	private void setRobotObservers(){
+		myRobotObservers.add( myAppScene.getMyTurtleBox() );
+		myRobotObservers.add( myAppScene.getMyStatesBox() );
 	}
 	
 	@Override
-	public void distributeRobot(IViewableRobot aViewRobot) {
-		myRobotAcceptors.forEach( ro -> ro.giveRobot(aViewRobot) );
+	public void distributeRobot(IViewRobot aViewRobot) {
+		myRobotObservers.forEach( ro -> ro.giveRobot(aViewRobot) );
 	}
 
-		
 	@Override
-	public void distributeVariableMap(IViewableVariableState aViewVariableState) {
-		myVariableAcceptors.forEach( vo -> vo.giveVariableState(aViewVariableState) );				
+	public void distributeVariableMap() {
+		myVariableObservers.forEach( vo -> {});
 	}
 
 }

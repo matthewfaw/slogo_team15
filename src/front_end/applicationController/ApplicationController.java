@@ -109,8 +109,7 @@ public class ApplicationController {
             myErrorViewer.giveErrorStructure(e);
         }
 
-        // TODO: Implement variable viewing
-        // myVariableViewer.showVariables(myModel.getVariableMap());
+        myVariableViewer.showVariables(myModel.getVariableMap());
     }
 
     private void loadHelp () {

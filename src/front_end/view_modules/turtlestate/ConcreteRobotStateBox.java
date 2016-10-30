@@ -1,6 +1,6 @@
 package front_end.view_modules.turtlestate;
 
-import back_end.model.robot.IViewableRobot;
+import back_end.model.robot.IViewRobot;
 import front_end.view_modules.image_color_module.interfaces.IColorModule;
 import front_end.view_modules.image_color_module.interfaces.IImageModule;
 import integration.languages.Languages;
@@ -17,7 +17,7 @@ public class ConcreteRobotStateBox implements IRobotStateBox {
 
 	private IColorModule myColorMap;
 	private IImageModule myImageMap;
-	private IViewableRobot myRobot;
+	private IViewRobot myRobot;
 
 	private VBox myBox;
 
@@ -104,7 +104,7 @@ public class ConcreteRobotStateBox implements IRobotStateBox {
 	}
 
 	@Override
-	public void giveRobot(IViewableRobot aViewRobot) {
+	public void giveRobot(IViewRobot aViewRobot) {
 		myRobot = aViewRobot;
 		myRobot.registerObserver(this);
 		build();
@@ -113,7 +113,7 @@ public class ConcreteRobotStateBox implements IRobotStateBox {
 	private void build(){
 		if(noRobot()) return;
 		myIDLabel.setText(myRobot.toString()); 
-		myCoordinatesLabel.setText( buildCoordinateString(myRobot.getCoordinate().getX(), myRobot.getCoordinate().getY()) );
+		myCoordinatesLabel.setText( buildCoordinateString(myRobot.getX(), myRobot.getY()) );
 		myBearingLabel.setText("Angle: " + myRobot.getRotation() + " deg");
 		myPenDownButton.setSelected( myRobot.isPenDown() );
 		myVisibilityButton.setSelected( myRobot.isVisible() );
