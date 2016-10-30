@@ -1,5 +1,7 @@
 package back_end.model.robot;
 
+
+import java.awt.Point;
 import integration.observe.IObservable;
 
 /**
@@ -9,18 +11,23 @@ import integration.observe.IObservable;
  *
  */
 
-public interface IViewRobot extends IObservable {
+public interface IViewableRobot extends IObservable {
 
     /** GETTERS **/
 
-    public double getX ();
-
-    public double getY ();
+    public Point getCoordinate ();
+           
+    public int getImageID ();
+    
+    //public PenStyle getPenStyle ();
+    
+    public int getTurtleID ();
 
     public double getRotation ();
 
     public boolean isPenDown ();
 
     public boolean isVisible ();
+    
 
 }

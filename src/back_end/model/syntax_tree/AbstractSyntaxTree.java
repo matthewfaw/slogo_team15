@@ -4,11 +4,11 @@ import java.util.List;
 import java.util.Stack;
 import back_end.model.exception.ArgumentException;
 import back_end.model.node.AssignmentNode;
-import back_end.model.node.BeginBraceNode;
+import back_end.model.node.ListStartNode;
 import back_end.model.node.BranchNode;
 import back_end.model.node.CommandNode;
 import back_end.model.node.CustomNode;
-import back_end.model.node.EndBraceNode;
+import back_end.model.node.ListEndNode;
 import back_end.model.node.ListNode;
 import back_end.model.node.Node;
 import back_end.model.node.NodeState;
@@ -100,8 +100,8 @@ public class AbstractSyntaxTree {
 			updateList((CustomNode) aNode, aOriginalNodeStack, aCurrentInputStack);
 		} else if (aNode instanceof BranchNode) {
 			updateList((BranchNode) aNode, aOriginalNodeStack, aCurrentInputStack);
-		} else if (aNode instanceof BeginBraceNode) {
-			updateList((BeginBraceNode) aNode, aOriginalNodeStack, aCurrentInputStack);
+		} else if (aNode instanceof ListStartNode) {
+			updateList((ListStartNode) aNode, aOriginalNodeStack, aCurrentInputStack);
 		} else {
 			aCurrentInputStack.push(aNode);
 		}
@@ -143,11 +143,11 @@ public class AbstractSyntaxTree {
 		}
 		aCurrentInputStack.push(aNode);
 	}
-	private void updateList(BeginBraceNode aNode, Stack<Node> aOriginalNodeStack, Stack<Node> aCurrentInputStack)
+	private void updateList(ListStartNode aNode, Stack<Node> aOriginalNodeStack, Stack<Node> aCurrentInputStack)
 	{
 		ListNode listNode = new ListNode();
 		Node inputNode = aCurrentInputStack.pop();
-		while (!(inputNode instanceof EndBraceNode)) {
+		while (!(inputNode instanceof ListEndNode)) {
 			listNode.addChild(inputNode);
 			inputNode = aCurrentInputStack.pop();
 		}

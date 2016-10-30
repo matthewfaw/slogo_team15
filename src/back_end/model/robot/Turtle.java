@@ -1,12 +1,13 @@
 package back_end.model.robot;
 
+import java.awt.Point;
 import java.util.ArrayList;
 
 import integration.observe.IObservable;
 import integration.observe.IObserver;
 
 
-public class Turtle implements Robot, IViewRobot, IObservable {
+public class Turtle implements Robot, IViewableRobot, IObservable {
 
     private double myXpos;
     private double myYpos;
@@ -14,6 +15,9 @@ public class Turtle implements Robot, IViewRobot, IObservable {
     private boolean myPenDown;
     private boolean myVisibility;
     private ArrayList<IObserver> myObservers;
+    private int myTurtleID;
+    private int myImageID;
+    //private PenStyle myPenStyle;
 
     public Turtle () {
         myObservers = new ArrayList<IObserver>();
@@ -24,6 +28,9 @@ public class Turtle implements Robot, IViewRobot, IObservable {
         myXpos = 0.0;
         myYpos = 0.0;
         myPenDown = false;
+        // myPenStyle = new PenStyle();
+        myImageID = 0;
+        myTurtleID = 0;
     }
 
     /** SETTERS **/
@@ -59,20 +66,44 @@ public class Turtle implements Robot, IViewRobot, IObservable {
     public void setVisible (boolean t) {
         myVisibility = t;
         notifyObservers();
-
     }
+    
+	//@Override
+	//public void setPenStyle(PenStyle aPenStyle) {
+	//	myPenStyle = aPenStyle;
+	//	
+	//}
+
+	@Override
+	public void setTurtleID(int aTurtleID) {
+		myTurtleID = aTurtleID;
+	}
+	
+
+	@Override
+	public void setImageID(int aImageID) {
+		myImageID = aImageID;
+		
+	}
 
     /** GETTERS **/
 
     @Override
-    public double getX () {
-        return myXpos;
+    public Point getCoordinate () {
+    	Point coordinates = new Point(); 
+    	coordinates.setLocation(myXpos, myYpos);
+        return coordinates;
     }
+    
+	@Override
+	public int getImageID() {
+		return myImageID;
+	}
 
-    @Override
-    public double getY () {
-        return myYpos;
-    }
+	//@Override
+	//public PenStyle getPenStyle() {
+	//	return myPenStyle;
+	//}
 
     @Override
     public double getRotation () {
@@ -88,6 +119,11 @@ public class Turtle implements Robot, IViewRobot, IObservable {
     public boolean isVisible () {
         return myVisibility;
     }
+    
+    @Override
+	public int getTurtleID() {
+		return myTurtleID;
+	}
 
     /** OBSERVERABLE **/
 
@@ -111,5 +147,6 @@ public class Turtle implements Robot, IViewRobot, IObservable {
             observer.update();
         }
     }
+
 
 }

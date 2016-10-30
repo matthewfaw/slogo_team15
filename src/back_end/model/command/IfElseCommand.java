@@ -1,15 +1,16 @@
 package back_end.model.command;
 
 import back_end.model.node.IReadableInput;
-import back_end.model.states.Scope;
+import back_end.model.robot.Robot;
+import back_end.model.states.IModifiableVariableState;
 
 
 public class IfElseCommand extends IfCommand {
 
     private boolean myExecuteMethod;
 
-    public IfElseCommand (Scope aScope) {
-        super(aScope);
+    public IfElseCommand(Robot aRobot, IModifiableVariableState aEnvironment, String aCommandName) {
+        super(aRobot, aEnvironment, aCommandName);
         myExecuteMethod = true;
     }
 

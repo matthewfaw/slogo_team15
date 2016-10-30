@@ -2,14 +2,15 @@ package back_end.model.command;
 
 import back_end.model.node.IReadableInput;
 import back_end.model.robot.Robot;
+import back_end.model.states.Environment;
 
 
 public class LeftCommand extends RotationCommand {
 
     private Robot myRobot;
 
-    public LeftCommand (Robot aRobot) {
-        super(aRobot);
+    public LeftCommand(Robot aRobot, Environment aEnvironment, String aCommandName) {
+        super(aRobot, aEnvironment, aCommandName);
         myRobot = aRobot;
     }
 

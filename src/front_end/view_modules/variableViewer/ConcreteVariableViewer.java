@@ -1,6 +1,7 @@
 package front_end.view_modules.variableViewer;
 
-import back_end.model.states.IViewVariableState;
+
+import back_end.model.states.IViewableVariableState;
 import integration.languages.Languages;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -23,6 +24,7 @@ import javafx.util.Callback;
 class ConcreteVariableViewer implements IVariableViewer {
 
     private Pane myVariableViewer;
+    private IViewableVariableState myVariableState;
 
     private TableView<Variable> myVariableTable;
     private TableColumn<Variable, String> myNameColumn;
@@ -82,20 +84,26 @@ class ConcreteVariableViewer implements IVariableViewer {
     }
 
     @Override
-    public void showVariables (IViewVariableState aVariableState) {
-        myVariables.clear();
-
-        for (String varName : aVariableState.getVariableKeySet()) {
-            myVariables.add(new Variable(varName, aVariableState.getValue(varName)));
-        }
-
-        myVariableTable.setItems(myVariables);
-    }
-
-    @Override
     public void switchLanguage (Languages aLanguage) {
         // TODO Auto-generated method stub
 
     }
+
+	@Override
+	public void update() {
+		myVariables.clear();
+
+        for (String varName : myVariableState.getVariableKeySet()) {
+            myVariables.add(new Variable(varName, myVariableState.getValue(varName)));
+        }
+
+        myVariableTable.setItems(myVariables);
+	}
+
+	@Override
+	public void giveVariableState(IViewableVariableState aViewVariableState) {
+		myVariableState = aViewVariableState;
+		myVariableState.registerObserver(this);
+	}
 
 }

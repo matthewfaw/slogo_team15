@@ -1,9 +1,9 @@
 package front_end.view_modules;
 
-import back_end.model.robot.IViewRobot;
+import back_end.model.robot.IViewableRobot;
 
 public interface IRobotAcceptor {
 	
-	public void giveRobot(IViewRobot aViewRobot);
+	public void giveRobot(IViewableRobot aViewRobot);
 	
 }

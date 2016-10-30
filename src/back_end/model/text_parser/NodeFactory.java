@@ -7,16 +7,12 @@ import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 import back_end.model.command.CustomCommand;
 import back_end.model.command.ICommand;
-import back_end.model.command.ICommandBranch;
 import back_end.model.exception.UnexpectedCharacterException;
 import back_end.model.exception.UnexpectedCommandException;
-import back_end.model.node.BeginBraceNode;
-import back_end.model.node.ConstantNode;
-import back_end.model.node.EndBraceNode;
 import back_end.model.node.Node;
-import back_end.model.node.VariableNode;
 import back_end.model.robot.Robot;
-import back_end.model.states.Scope;
+import back_end.model.states.Environment;
+import back_end.model.states.ScopeController;
 import integration.languages.Languages;
 
 
@@ -34,70 +30,55 @@ public class NodeFactory {
 
 	private ResourceBundle mySyntaxResources;
 	private ResourceBundle myCommandTypeResources;
-	private Scope myScope;
+	private Environment myEnvironment;
 	private CommandFactory myCommandFactory;
 	private Languages myLanguage;
+	private Translator myTranslator;
+	private ScopeController myScopeController;
 	
-	public NodeFactory(ResourceBundle aResource, Scope aScope, Robot aRobot) {
+	public NodeFactory(ScopeController aScopeController, ResourceBundle aResource, Environment aEnvironment, Robot aRobot) {
 		mySyntaxResources = aResource; 
 		myCommandTypeResources = PropertyResourceBundle.getBundle(PACKAGE_RESOURCE + TYPE);
-		myCommandFactory = new CommandFactory(aScope, aRobot);
-		myScope = aScope;
+		myCommandFactory = new CommandFactory(aEnvironment, aRobot);
+		myTranslator = new Translator();
+		myEnvironment = aEnvironment;
+		myScopeController = aScopeController;
 	}
 	
-	public Node makeNode(String aWord) throws UnexpectedCharacterException, UnexpectedCommandException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException {
-		if (Pattern.matches(mySyntaxResources.getString("Variable"), aWord)) {
-			return new VariableNode(translateToVariable(aWord), myScope); 
-		}
-		else if (Pattern.matches(mySyntaxResources.getString("Command"), aWord)) {
+	public Node makeNode(String aUserInputWord) throws UnexpectedCharacterException, UnexpectedCommandException, 
+														InstantiationException, IllegalAccessException, IllegalArgumentException, 
+														InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException {
 			try {
-				String command = translateToCommand(aWord);
-				String type = myCommandTypeResources.getString(command);
-				int inputNumber = Integer.parseInt(mySyntaxResources.getString(command));
+				String fileLocation = myLanguage.getFileLocation();
+				if (Pattern.matches(aUserInputWord, mySyntaxResources.getString("Variable"))) {
+					fileLocation = mySyntaxResources.getBaseBundleName();
+				}
+				String translatedInput = translateInput(aUserInputWord, fileLocation);
+				System.out.println(translatedInput);
+				int inputNumber = 0;
 				ICommand commandClass = null;
-				if (type.equals("Branch")) {
-					commandClass = (ICommandBranch) myCommandFactory.makeCommand(aWord, command);
-					return (Node) Class.forName(PACKAGE_NODE + type + "Node").getConstructor(ICommandBranch.class, int.class, Scope.class).
-							newInstance(commandClass, inputNumber, myScope);
-				} else if (type.equals("To")) {
-					commandClass = myCommandFactory.makeCommand(aWord, command);
-					return (Node) Class.forName(PACKAGE_NODE + type + "Node").getConstructor(ICommand.class, int.class, Scope.class).
-							newInstance(commandClass, inputNumber, myScope);
-				} else {
-					type = "Command";
-					commandClass = myCommandFactory.makeCommand(aWord, command);
-					return (Node) Class.forName(PACKAGE_NODE + type + "Node").getConstructor(ICommand.class, int.class, Scope.class).
-							newInstance(commandClass, inputNumber, myScope);
+				if (Pattern.matches(mySyntaxResources.getString("Command"), translatedInput)) {
+					translatedInput = myCommandTypeResources.getString(translatedInput);
+					if (translatedInput.equals("Branch") || translatedInput.equals("Command") || translatedInput.equals("")) {
+						inputNumber = Integer.parseInt(mySyntaxResources.getString(translatedInput));
+					} 
+					else if (myEnvironment.getVariableKeySet().contains(aUserInputWord)) {
+						inputNumber = 1; 
+						translatedInput = "Custom";
+					}
 				}
+				commandClass = (CustomCommand) myCommandFactory.makeCommand(aUserInputWord, "Custom");
+				return (Node) Class.forName(PACKAGE_NODE + translatedInput + "Node").getConstructor(ICommand.class, int.class, String.class, ScopeController.class).
+						newInstance(commandClass, inputNumber, aUserInputWord, myScopeController);
 			} catch (MissingResourceException e) {
-				if (myScope.getVariableMap().containsVariable(aWord)) {
-					CustomCommand commandClass = (CustomCommand) myCommandFactory.makeCommand("Custom", aWord);
-					return (Node) Class.forName(PACKAGE_NODE + "CustomNode").getConstructor(CustomCommand.class, int.class, Scope.class).newInstance(commandClass, 1, myScope);
-				} else {
-					e.addSuppressed(new UnexpectedCharacterException("The syntax expression: " + aWord + " is not associated to any known syntax in this language"));
-				}
+				e.addSuppressed(new UnexpectedCharacterException("The syntax expression: " + aUserInputWord + " is not associated to any known syntax in this language"));
 			}
-		}
-		else if (Pattern.matches(mySyntaxResources.getString("Constant"), aWord)) {
-			return new ConstantNode(Double.parseDouble(aWord));
-		}
-		else if (Pattern.matches(mySyntaxResources.getString("ListStart"), aWord)) {
-			return new BeginBraceNode();
-		}
-		else if (Pattern.matches(mySyntaxResources.getString("ListEnd"), aWord)) {
-			return new EndBraceNode();
-		}
-		throw new UnexpectedCharacterException("The syntax expression: " + aWord + " is not associated to any known syntax in this language");
+		throw new UnexpectedCharacterException("The syntax expression: " + aUserInputWord + " is not associated to any known syntax in this language");
 	}
 	
-	private String translateToVariable(String aWord) {
-		return aWord.substring(1);
-	}
-	
-	private String translateToCommand(String aWord) { 
-		CommandTranslator parse = new CommandTranslator();
-		parse.addPatterns(myLanguage.getFileLocation());
-		return parse.getSymbol(aWord);
+	private String translateInput(String aWord, String aInputFileLocation) { 
+		myTranslator.addPatterns(aInputFileLocation);
+		return myTranslator.getSymbol(aWord);
 	}
 
     public void setLanguage (Languages aLanguage) {
