@@ -22,6 +22,8 @@ class ConcreteRouter implements IRouter {
 	private Collection<IHistoryAcceptor> myHistoryAcceptors;
 	ApplicationScene myAppScene;
 	
+	/******* Initializing methods *********/
+	
 	ConcreteRouter(ApplicationScene aAppScene){
 		myAppScene = aAppScene;
 		
@@ -49,7 +51,7 @@ class ConcreteRouter implements IRouter {
 		myErrorAcceptors = new ArrayList<>();
 		myErrorAcceptors.add( myAppScene.getMyErrorViewer() );
 	}
-	
+
 	private void setFunctionAcceptors(){
 		myFunctionAcceptors = new ArrayList<>();
 		myFunctionAcceptors.add( myAppScene.getMyFunctionViewer() );
@@ -59,6 +61,8 @@ class ConcreteRouter implements IRouter {
 		myHistoryAcceptors = new ArrayList<>();
 		myHistoryAcceptors.add( myAppScene.getMyHistoryModule() );
 	}
+	
+	/******* API methods *********/
 	
 	@Override
 	public void distributeRobot(IViewRobot aViewRobot) {

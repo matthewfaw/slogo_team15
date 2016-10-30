@@ -37,6 +37,8 @@ public interface IRouter {
 	
 	/**
 	 * distributes Error to modules decided upon inside Router
+	 * 
+	 * @param passes in exception from back end
 	 */
 	public void distributeError( Exception aException );
 	
