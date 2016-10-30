@@ -33,7 +33,6 @@ import javafx.scene.paint.Color;
 public class PenPopup implements IPenPopup {
 
     private BorderPane layout;
-    private HBox myRow;
     private static final int POPUP_SIZE = 600;
     private static final int SPACING = 10;
     private static final int MAX_PEN_THICKNESS = 30;
@@ -51,7 +50,6 @@ public class PenPopup implements IPenPopup {
     
     @Override
     public void initPopup (IColorModule aColorModule) {
-        myRow = new HBox(SPACING);
         myOrder = new VBox(SPACING);
         layout = new BorderPane();
         layout.setStyle("-fx-background-color: paleturquoise;");
@@ -107,32 +105,72 @@ public class PenPopup implements IPenPopup {
         myPenUpButton.setToggleGroup(group1);
     }
 
-    private HBox penThickness;
-
     private void setBorderPane () {
-        myOrder.getChildren().add(myRow);
-        myOrder.getChildren().add(createComboBox("Choose Palette Color: ", makeColorPaletteOptions()));
-        penThickness = createComboBox("Pen thickness: ", penThicknessOptions());
-        myOrder.getChildren().add(penThickness);
-        myOrder.getChildren().add(createComboBox("Line Style: ", myLineStyleOptions()));
-        
+        colorSelectorBox();
+        setThicknessBox();
+        setLineStyleBox();
+        setPenUpDownBox();
+        layout.setCenter(myOrder);
+        layout.setBottom(closingButtonBox);
+    }
+    
+    private void setLineStyleBox () {
+        String lineStyleLabel = "Line Style: ";
+        ComboBox<Object> myLineCombo = createComboBox(lineStyleLabel, myLineStyleOptions());
+        HBox myLineHBox = createComboHBox(lineStyleLabel);
+        myLineHBox.getChildren().add(myLineCombo);
+        myOrder.getChildren().add(myLineHBox);
+    }
+    
+    private void setThicknessBox() {
+        ComboBox<Object> penThickness = createComboBox("Pen thickness: ", penThicknessOptions());
+        HBox penThickBox = createComboHBox("Pen thickness: ");
+        penThickBox.getChildren().add(penThickness);
+        myOrder.getChildren().add(penThickBox);
+    }
+    
+    private void setPenUpDownBox() {
         HBox penUpBox = new HBox(SPACING);
         penUpBox.getChildren().addAll(myPenUpButton, myPenDownButton);
         penUpBox.setPadding(new Insets(5, 20, 10, 20));
         myOrder.getChildren().add(penUpBox);
-        layout.setCenter(myOrder);
-        layout.setBottom(closingButtonBox);
+    }
+    
+    private void colorSelectorBox() {
+        String colorPickerLabel = "Choose new pen color: ";
+        HBox colorPickerBox = createComboHBox(colorPickerLabel);
+        colorPickerBox.getChildren().add(myColorPicker);
+        myOrder.getChildren().add(colorPickerBox);
+        
+        String labelName = "Choose Palette Color: ";
+        ComboBox<Object> paletteColor = createComboBox(labelName, makeColorPaletteOptions());
+        setComboBoxListener(paletteColor, labelName);
+        HBox paletteBox = createComboHBox(labelName);
+        paletteBox.getChildren().add(paletteColor);
+        myOrder.getChildren().add(paletteBox);
+    }
+    
+    private void setComboBoxListener(ComboBox<Object> myComboBox, String labelName) {
+        myComboBox.getSelectionModel().selectedItemProperty()
+        .addListener(new ChangeListener<Object>() {
+            public void changed (ObservableValue<? extends Object> ov,
+                                 final Object oldvalue,
+                                 final Object newvalue) {
+                if (labelName.contains("Pen"))
+                    setPenThickness(newvalue);
+                if (labelName.contains("Line"))
+                    setLineStyle(newvalue);
+            }
+        });
     }
 
     private List<Object> myLineStyleOptions () {
         return LineStyleSpec.getMyLineStyles();
     }
 
-    private void makeColorPickerRow () {
-        Label penColorLabel = new Label("Choose new pen color: ");
+    private ColorPicker makeColorPickerRow () {
         myColorPicker = new ColorPicker(Color.WHITE);
-        myRow.setPadding(new Insets(5, 20, 10, 20));
-        myRow.getChildren().addAll(penColorLabel, myColorPicker);
+        return myColorPicker;
     }
 
     private void createEndingButtons () {
@@ -144,24 +182,17 @@ public class PenPopup implements IPenPopup {
         closingButtonBox.getChildren().addAll(clearButton, applyButton);
     }
 
-    private HBox createComboBox (String labelName, List<Object> myOptions) {
+    private ComboBox<Object> createComboBox (String labelName, List<Object> myOptions) {
+        ComboBox<Object> addComboBox = new ComboBox<Object>();
+        addComboBox.getItems().addAll(myOptions);
+        return addComboBox;
+    }
+    
+    private HBox createComboHBox(String labelName) {
         HBox comboBoxRow = new HBox(SPACING);
         comboBoxRow.setPadding(new Insets(5, 20, 10, 20));
         Label comboBoxLabel = new Label(labelName);
-        ComboBox<Object> addComboBox = new ComboBox<Object>();
-        addComboBox.getItems().addAll(myOptions);
-        addComboBox.getSelectionModel().selectedItemProperty()
-                .addListener(new ChangeListener<Object>() {
-                    public void changed (ObservableValue<? extends Object> ov,
-                                         final Object oldvalue,
-                                         final Object newvalue) {
-                        if (labelName.contains("Pen"))
-                            setPenThickness(newvalue);
-                        if (labelName.contains("Line"))
-                            setLineStyle(newvalue);
-                    }
-                });
-        comboBoxRow.getChildren().addAll(comboBoxLabel, addComboBox);
+        comboBoxRow.getChildren().add(comboBoxLabel);
         return comboBoxRow;
     }
 
@@ -194,11 +225,9 @@ public class PenPopup implements IPenPopup {
 
     @Override
     public void clear () {
-        myRow.getChildren().clear();
         // TODO: Figure out how to keep createComboBox method and be able to access here
         // TODO: get pen to take its previous state
         myPenUpButton.setSelected(true);
-        makeColorPickerRow();
     }
 
     @Override
