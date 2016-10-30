@@ -16,4 +16,8 @@ public interface IColorModule extends IViewModule, ILanguageSwitcher {
 	 */
 	public Color getColor(int aColorId);
 	
+	public int getColorAmount();
+	
+	public void newColorRow(Color aColor);
+	
 }
