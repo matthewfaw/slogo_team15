@@ -53,7 +53,7 @@ public class ApplicationController {
     private IVariableViewer myVariableViewer;
     private ITurtleBox myTurtleBox;
     private IScriptViewer myScriptViewer;
-    private IImageColorModule myShapeColorModule;
+    private IImageColorModule myImageColorModule;
     private IAllRobotsStateBox myStatesBox;
     private IPenPopup myPenPopup;
     
@@ -78,7 +78,7 @@ public class ApplicationController {
         myRoot = myAppScene.getMyRoot();
         myTurtleBox = myAppScene.getMyTurtleBox();
         myScriptViewer = myAppScene.getMyScriptViewer();
-        myShapeColorModule = myAppScene.getMyShapeColorModule();
+        myImageColorModule = myAppScene.getMyShapeColorModule();
         myStatesBox = myAppScene.getMyStatesBox();
         // TODO: Change this to interface - Kayla
         myPenPopup = new PenPopup();
@@ -124,7 +124,7 @@ public class ApplicationController {
         myTurtleBox.reset();
         myVariableViewer.reset();
         myScriptViewer.reset();
-        myShapeColorModule.reset();
+        myImageColorModule.reset();
         myStatesBox.reset();
     }
 
@@ -177,7 +177,7 @@ public class ApplicationController {
 
     private void popupPenSelector () {
         Stage stage = new Stage();
-        myPenPopup.initPopup();
+        myPenPopup.initPopup(myImageColorModule);
         Scene myScene = myPenPopup.getScene();
         stage.setScene(myScene);
         stage.show();

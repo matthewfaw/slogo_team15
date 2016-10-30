@@ -2,6 +2,7 @@ package front_end.view_modules.penProperties;
 
 import java.util.ArrayList;
 import java.util.List;
+import front_end.view_modules.image_color_module.interfaces.IColorModule;
 import integration.drawing.LineStyleSpec;
 import integration.drawing.PenInformation;
 import javafx.beans.value.ChangeListener;
@@ -46,15 +47,17 @@ public class PenPopup implements IPenPopup {
     private VBox myOrder;
     private String myLineStyle;
     private int myPenThickness;
-
+    private IColorModule myColorModule;
+    
     @Override
-    public void initPopup () {
+    public void initPopup (IColorModule aColorModule) {
         myRow = new HBox(SPACING);
         myOrder = new VBox(SPACING);
         layout = new BorderPane();
         layout.setStyle("-fx-background-color: paleturquoise;");
         layout.setPrefSize(POPUP_SIZE, POPUP_SIZE);
-        makeColorPicker();
+        myColorModule = aColorModule;
+        makeColorPickerRow();
         createEndingButtons();
         penUpOrDown();
         setBorderPane();
@@ -69,6 +72,14 @@ public class PenPopup implements IPenPopup {
     private List<Object> penThicknessOptions () {
         List<Object> myList = new ArrayList<Object>();
         for (int i = 1; i < MAX_PEN_THICKNESS; i++) {
+            myList.add(i);
+        }
+        return myList;
+    }
+    
+    private List<Object> makeColorPaletteOptions() {
+        List<Object> myList = new ArrayList<Object>();
+        for(int i = 0; i < myColorModule.getColorAmount(); i++) {
             myList.add(i);
         }
         return myList;
@@ -100,9 +111,11 @@ public class PenPopup implements IPenPopup {
 
     private void setBorderPane () {
         myOrder.getChildren().add(myRow);
+        myOrder.getChildren().add(createComboBox("Choose Palette Color: ", makeColorPaletteOptions()));
         penThickness = createComboBox("Pen thickness: ", penThicknessOptions());
         myOrder.getChildren().add(penThickness);
         myOrder.getChildren().add(createComboBox("Line Style: ", myLineStyleOptions()));
+        
         HBox penUpBox = new HBox(SPACING);
         penUpBox.getChildren().addAll(myPenUpButton, myPenDownButton);
         penUpBox.setPadding(new Insets(5, 20, 10, 20));
@@ -115,8 +128,8 @@ public class PenPopup implements IPenPopup {
         return LineStyleSpec.getMyLineStyles();
     }
 
-    private void makeColorPicker () {
-        Label penColorLabel = new Label("Choose your pen color: ");
+    private void makeColorPickerRow () {
+        Label penColorLabel = new Label("Choose new pen color: ");
         myColorPicker = new ColorPicker(Color.WHITE);
         myRow.setPadding(new Insets(5, 20, 10, 20));
         myRow.getChildren().addAll(penColorLabel, myColorPicker);
@@ -161,6 +174,8 @@ public class PenPopup implements IPenPopup {
     }
 
     public Color getColorValue () {
+        //TODO: Change this later
+        myColorModule.newColorRow(myColorPicker.getValue());
         return myColorPicker.getValue();
     }
 
@@ -183,7 +198,7 @@ public class PenPopup implements IPenPopup {
         // TODO: Figure out how to keep createComboBox method and be able to access here
         // TODO: get pen to take its previous state
         myPenUpButton.setSelected(true);
-        makeColorPicker();
+        makeColorPickerRow();
     }
 
     @Override
