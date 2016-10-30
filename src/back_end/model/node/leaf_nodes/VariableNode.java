@@ -18,21 +18,6 @@ public class VariableNode extends AbstractLeafNode {
         myName = aUserInput;
         myCommand = aCommand;
     }
-//
-//    @Override
-//    public double eval () throws ArgumentException {
-//    	return getValue();
-//    }
-//
-//    @Override
-//    public String getName () {
-//        return myName;
-//    }
-//
-//    @Override
-//    public double getValue () {
-//        return myScopeController.getVariableValue(myName);
-//    }
 
 	@Override
 	public void eval() throws ArgumentException 
