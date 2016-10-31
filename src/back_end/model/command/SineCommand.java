@@ -1,15 +1,15 @@
 package back_end.model.command;
 
 import back_end.model.node.IReadableInput;
-import back_end.model.robot.Robot;
+import back_end.model.robot.IRobot;
 import back_end.model.states.Environment;
-import back_end.model.states.IModifiableVariableState;
+import back_end.model.states.IModifiableEnvironmentState;
 
 
 import back_end.model.exception.InvalidNodeUsageException;
 public class SineCommand implements ICommand {
 
-    public SineCommand(Robot aRobot, IModifiableVariableState aEnvironment, String aCommandName) {
+    public SineCommand(IRobot aRobot, IModifiableEnvironmentState aEnvironment, String aCommandName) {
     }
 
     @Override

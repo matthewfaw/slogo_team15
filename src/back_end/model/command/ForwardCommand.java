@@ -2,16 +2,15 @@ package back_end.model.command;
 
 import java.awt.Point;
 import back_end.model.node.IReadableInput;
-import back_end.model.robot.Robot;
-import back_end.model.states.IModifiableVariableState;
-
+import back_end.model.robot.IRobot;
+import back_end.model.states.IModifiableEnvironmentState;
 
 import back_end.model.exception.InvalidNodeUsageException;
 public class ForwardCommand extends MovementCommand {
 
-    private Robot myRobot;
+    private IRobot myRobot;
 
-    public ForwardCommand(Robot aRobot, IModifiableVariableState aEnvironment, String aCommandName) {
+    public ForwardCommand(IRobot aRobot, IModifiableEnvironmentState aEnvironment, String aCommandName) {
         super(aRobot, aEnvironment, aCommandName);
         myRobot = aRobot;
     }
@@ -19,8 +18,8 @@ public class ForwardCommand extends MovementCommand {
     @Override
     public double eval (IReadableInput ... aList) throws InvalidNodeUsageException {
         Point p = getXYCoordinate(aList);
-        myRobot.setX(myRobot.getCoordinates().getX() + p.getX());
-        myRobot.setY(myRobot.getCoordinates().getY() + p.getY());
+        myRobot.setX(myRobot.getCoordinate().getX() + p.getX());
+        myRobot.setY(myRobot.getCoordinate().getY() + p.getY());
         return aList[0].getValue();
     }
 

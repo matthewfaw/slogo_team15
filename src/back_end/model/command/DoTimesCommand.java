@@ -1,17 +1,16 @@
 package back_end.model.command;
 
 import back_end.model.node.IReadableInput;
-import back_end.model.robot.Robot;
-import back_end.model.states.IModifiableVariableState;
-
+import back_end.model.robot.IRobot;
+import back_end.model.states.IModifiableEnvironmentState;
 
 import back_end.model.exception.InvalidNodeUsageException;
 public class DoTimesCommand extends ICommandBranch {
 
     private int myNumberTimesRun;
-    private IModifiableVariableState myEnvironment;
+    private IModifiableEnvironmentState myEnvironment;
 
-    public DoTimesCommand(Robot aRobot, IModifiableVariableState aEnvironment, String aCommandName) {
+    public DoTimesCommand(IRobot aRobot, IModifiableEnvironmentState aEnvironment, String aCommandName) {
         myNumberTimesRun = 0;
         myEnvironment = aEnvironment;
     }

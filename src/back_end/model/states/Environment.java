@@ -1,15 +1,14 @@
 package back_end.model.states;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import back_end.model.exception.SameMethodNameException;
 import back_end.model.node.IReadableInput;
-import integration.observe.IObservable;
-import integration.observe.IRobotObserver;
+import back_end.model.states.background.BackgroundInformation;
+import back_end.model.states.background.IViewableBackground;
+import integration.observe.Observable;
 
 /**
  * A singleton class that keeps track of current variables and methods associated with evaluation
@@ -22,17 +21,17 @@ import integration.observe.IRobotObserver;
  * @author hannahfuchshuber && matthewfaw
  *
  */
-public class Environment implements IObservable, IModifiableVariableState, IViewableVariableState {
+public class Environment extends Observable implements IModifiableEnvironmentState, IViewableVariableState, IViewableBackground {
 
 	public static final Environment INSTANCE = new Environment();
 	
 	private FunctionScope myCurrentScope;
-	private List<IRobotObserver> myObservers;
-	private Map<String, MethodState> myMethodMap;
+	private Map<String, Method> myMethodMap;
+	private BackgroundInformation myBackgroundInformation;
 	
 	private Environment() {
-		myObservers = new ArrayList<IRobotObserver>();
-		myMethodMap = new HashMap<String, MethodState>();
+		myMethodMap = new HashMap<String, Method>();
+		myBackgroundInformation = new BackgroundInformation();
 	}
 	
 	public static Environment getInstance() {
@@ -70,18 +69,41 @@ public class Environment implements IObservable, IModifiableVariableState, IView
 	}
 	
 	public void assignMethod(String aMethodName, IReadableInput aNode, IReadableInput...aVariableInputs) {
-		MethodState methodState = new MethodState();
+		Method methodState = new Method();
 		methodState.assignMethod(aMethodName, aNode, aVariableInputs);
 		myMethodMap.put(aMethodName, methodState);
 	}
 	
+	public Collection<IReadableInput> getMethodVariables(String aMethodName) {
+		return myMethodMap.get(aMethodName).getVariables();
+	}
+	
+	public IReadableInput getMethodExecutionNode(String aMethodName) {
+		return myMethodMap.get(aMethodName).getExecutionNode();
+	}
+	
+	public Collection<String> getAllMethodNames() {
+		return myMethodMap.keySet();
+	}
+	
+	public void clearMethods() {
+		myMethodMap = new HashMap<String, Method>();
+	}
+	
 	public void getVariablesInMethod(String aMethodName, Double...aValues) {
-		MethodState currentMethodState = myMethodMap.get(aMethodName);
-		List<IReadableInput> arrayOfVariables = currentMethodState.getVariables(aMethodName);
+		Method currentMethodState = myMethodMap.get(aMethodName);
+		List<IReadableInput> arrayOfVariables = currentMethodState.getVariables();
 		for (int i = 0; i < arrayOfVariables.size(); i++) {
 			myCurrentScope.assignVariable(arrayOfVariables.get(i).getName(), aValues[i]);
-		}
-		
+		}	
+	}
+	
+	public int getBackgroundColor() {
+		return myBackgroundInformation.getBackgroundColor();
+	}
+	
+	public void setBackgroundColor(int aColor) {
+		myBackgroundInformation.setBackgroundColor(aColor);
 	}
 	
 	@Override
@@ -96,28 +118,5 @@ public class Environment implements IObservable, IModifiableVariableState, IView
 	}
 	
 	
-	/** Observable **/
-	
-	@Override
-	public void registerObserver(IRobotObserver o) {
-		myObservers.add(o);
-	}
-
-
-	@Override
-	public void removeObserver(IRobotObserver o) {
-		int i = myObservers.indexOf(o);
-		if (i > 0) {
-			myObservers.remove(i);
-		}
-	}
-
-	@Override
-	public void notifyObservers() {
-		for (IRobotObserver observer : myObservers) {
-			observer.update();
-		}
-		
-	}
 
 }

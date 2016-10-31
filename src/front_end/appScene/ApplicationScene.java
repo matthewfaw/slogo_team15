@@ -1,29 +1,22 @@
 package front_end.appScene;
 
-import java.lang.reflect.InvocationTargetException;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import back_end.controller.ModelController;
-import back_end.model.exception.EmptyInputException;
-import back_end.model.exception.UnexpectedCharacterException;
-import back_end.model.exception.UnexpectedCommandException;
-import front_end.appScene.errorViewer.ErrorViewerFactory;
-import front_end.appScene.errorViewer.IErrorViewer;
-import front_end.appScene.scriptViewer.IScriptViewer;
-import front_end.appScene.scriptViewer.ScriptViewerFactory;
-import front_end.appScene.textEditor.ITextEditor;
-import front_end.appScene.textEditor.TextEditorFactory;
-import front_end.appScene.toolbar.IToolbar;
-import front_end.appScene.toolbar.ToolbarFactory;
-import front_end.appScene.turtleBox.ITurtleBox;
-import front_end.appScene.turtleBox.TurtleBoxFactory;
-import front_end.appScene.variableViewer.IVariableViewer;
-import front_end.appScene.variableViewer.VariableViewerFactory;
-import integration.languages.Languages;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import front_end.view_modules.errorViewer.ErrorViewerFactory;
+import front_end.view_modules.errorViewer.IErrorViewer;
+import front_end.view_modules.function_viewer.IScriptViewer;
+import front_end.view_modules.function_viewer.ScriptViewerFactory;
+import front_end.view_modules.helpPage.HelpPage;
+import front_end.view_modules.image_color_module.ImageColorModuleFactory;
+import front_end.view_modules.image_color_module.interfaces.IImageColorModule;
+import front_end.view_modules.textEditor.ITextEditor;
+import front_end.view_modules.textEditor.TextEditorFactory;
+import front_end.view_modules.toolbar.IToolbar;
+import front_end.view_modules.toolbar.ToolbarFactory;
+import front_end.view_modules.turtleBox.ITurtleBox;
+import front_end.view_modules.turtleBox.TurtleBoxFactory;
+import front_end.view_modules.turtlestate.ConcreteAllRobotsStateBox;
+import front_end.view_modules.turtlestate.IAllRobotsStateBox;
+import front_end.view_modules.variableViewer.IVariableViewer;
+import front_end.view_modules.variableViewer.VariableViewerFactory;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
@@ -32,105 +25,87 @@ import javafx.scene.paint.Color;
 
 public class ApplicationScene {
 
-    private GridPane myApplicationView;
-    private Scene myScene;
-    private Group myRoot;
-    private IToolbar myToolbar;
-    private ITextEditor myTextEditor;
-    private IErrorViewer myErrorViewer;
-    private ITurtleBox myTurtleBox;
-    private IVariableViewer myVariableViewer;
-    private IScriptViewer myScriptViewer;
+	private GridPane myApplicationView;
+	private Scene myScene;
+	private Group myRoot;
+	private IToolbar myToolbar;
+	private ITextEditor myTextEditor;
+	private IErrorViewer myErrorViewer;
+	private ITurtleBox myTurtleBox;
+	private IVariableViewer myVariableViewer;
+	private IScriptViewer myScriptViewer;
+	private IImageColorModule myShapeColorModule;
+	private IAllRobotsStateBox myStatesBox;
+	private HelpPage myHelpPage;
 
-    private ModelController myModel;
+	public ApplicationScene (int aWidth, int aHeight) {
+		myApplicationView = new GridPane();
 
-    public ApplicationScene () {
-        myApplicationView = new GridPane();
-        myModel = new ModelController();
-    }
+		myToolbar = ToolbarFactory.buildToolbar(aWidth, aHeight / 20);
+		myTextEditor = TextEditorFactory.buildTextEditor(2 * aWidth / 3, aHeight / 3);
+		myErrorViewer = ErrorViewerFactory.buildErrorViewer(aWidth / 3, aHeight / 3, myTextEditor);
+		myVariableViewer = VariableViewerFactory.buildVariableViewer(aWidth / 6, aHeight / 3);
+		myScriptViewer = ScriptViewerFactory.buildViewerFactory(aWidth / 6, aHeight / 3);
+		myShapeColorModule = ImageColorModuleFactory.build();
+		myTurtleBox = TurtleBoxFactory.buildTurtleBox(2 * aWidth / 3, 2 * aHeight / 3, myShapeColorModule);
+		myStatesBox = new ConcreteAllRobotsStateBox(myShapeColorModule, myShapeColorModule);
+		myHelpPage = new HelpPage();
 
-    public Scene initScene (int aWidth, int aHeight) {
-        myToolbar = ToolbarFactory.buildToolbar(aWidth, aHeight / 20);
-        myTurtleBox = TurtleBoxFactory.buildTurtleBox(2 * aWidth / 3, 2 * aHeight / 3);
-        myTextEditor = TextEditorFactory.buildTextEditor(2 * aWidth / 3, aHeight / 3);
-        myErrorViewer = ErrorViewerFactory.buildErrorViewer(aWidth / 3, aHeight / 3, myTextEditor);
-        myVariableViewer = VariableViewerFactory.buildVariableViewer(aWidth / 6, aHeight / 3);
-        myScriptViewer = ScriptViewerFactory.buildViewerFactory(aWidth / 6, aHeight / 3); // double
-                                                                                          // check
-                                                                                          // these
-                                                                                          // values
+		myRoot = new Group();
+		myRoot.getChildren().addAll(myApplicationView);
+		myScene = new Scene(myRoot, aWidth, aHeight + aHeight / 20 + 10, Color.WHITE);
+		myApplicationView.add(myToolbar.getInstanceAsNode(), 0, 0, GridPane.REMAINING, 1);
+		myApplicationView.add(myTurtleBox.getInstanceAsNode(), 0, 1, 1, 1);
+		myApplicationView.add(myTextEditor.getInstanceAsNode(), 0, 2, 1, 1);
+		myApplicationView.add(myVariableViewer.getInstanceAsNode(), 1, 1, 1, 1);
+		myApplicationView.add(myScriptViewer.getInstanceAsNode(), 2, 1, 1, 1);
+		myApplicationView.add(myErrorViewer.getInstanceAsNode(), 1, 2, 2, 1);
+		myApplicationView.add(myShapeColorModule.getInstanceAsNode(), 2, 2);
+		myApplicationView.add(myStatesBox.getInstanceAsNode(), 2, 3);
 
-        myRoot = new Group();
-        myRoot.getChildren().addAll(myApplicationView);
-        myScene = new Scene(myRoot, aWidth, aHeight + aHeight / 20 + 10, Color.WHITE);
-        myApplicationView.add(myToolbar.getInstanceAsNode(), 0, 0, GridPane.REMAINING, 1);
-        myApplicationView.add(myTurtleBox.getInstanceAsNode(), 0, 1, 1, 1);
-        myApplicationView.add(myTextEditor.getInstanceAsNode(), 0, 2, 1, 1);
-        myApplicationView.add(myVariableViewer.getInstanceAsNode(), 1, 1, 1, 1);
-        myApplicationView.add(myScriptViewer.getInstanceAsNode(), 2, 1, 1, 1);
-        myApplicationView.add(myErrorViewer.getInstanceAsNode(), 1, 2, 2, 1);
+	}
 
-        myModel.giveRobotObservers(myTurtleBox);
+	public Scene getScene () {
+		return myScene;
+	}
 
-        configureToolbar();
+	public Group getMyRoot () {
+		return myRoot;
+	}
 
-        return myScene;
-    }
+	public HelpPage getMyHelpPage () {
+		return myHelpPage;
+	}
 
-    private void resetAll () {
-        myTextEditor.reset();
-        myErrorViewer.reset();
-        myTurtleBox.reset();
-        myVariableViewer.reset();
-        myScriptViewer.reset();
-    }
+	public ITurtleBox getMyTurtleBox () {
+		return myTurtleBox;
+	}
 
-    private void runAll () {
-        StringBuilder sb = new StringBuilder();
+	public IScriptViewer getMyScriptViewer () {
+		return myScriptViewer;
+	}
 
-        String newLine = "\n";
+	public ITextEditor getMyTextEditor () {
+		return myTextEditor;
+	}
 
-        for (int i = 0; i < myTextEditor.getInstructionList().size(); i++) {
-            sb.append(myTextEditor.getInstructionList().get(i));
-            sb.append(newLine);
-        }
+	public IErrorViewer getMyErrorViewer () {
+		return myErrorViewer;
+	}
 
-        try {
-            myModel.userInputToModel(sb.toString());
-        }
-        catch (InstantiationException | IllegalAccessException | IllegalArgumentException
-                | InvocationTargetException
-                | NoSuchMethodException | SecurityException | ClassNotFoundException
-                | UnexpectedCharacterException
-                | UnexpectedCommandException | EmptyInputException e) {
-            myErrorViewer.giveErrorStructure(e);
-        }
+	public IVariableViewer getMyVariableViewer () {
+		return myVariableViewer;
+	}
 
-        myVariableViewer.showVariables(myModel.getVariableMap());
-    }
+	public IToolbar getMyToolbar () {
+		return myToolbar;
+	}
 
-    private Map<Languages, EventHandler<ActionEvent>> makeLanguageMap () {
-        Map<Languages, EventHandler<ActionEvent>> languageMap = new HashMap<>();
+	public IImageColorModule getMyShapeColorModule () {
+		return myShapeColorModule;
+	}
 
-        Collection<Languages> langSet = Arrays.asList(Languages.values());
-
-        for (Languages lang : langSet) {
-            languageMap.put(lang, e -> {
-                myModel.setLanguage(lang);
-                myToolbar.switchLanguage(lang);
-            });
-        }
-
-        return languageMap;
-    }
-
-    private void configureToolbar () {
-        myToolbar.onResetPress(e -> resetAll());
-
-        myToolbar.onRunPress(e -> runAll());
-
-        myToolbar.onLanguageSelect(makeLanguageMap());
-
-    }
-
+	public IAllRobotsStateBox getMyStatesBox() {
+		return myStatesBox;
+	}
 }

@@ -1,14 +1,14 @@
 package back_end.model.command;
 
 import back_end.model.node.IReadableInput;
-import back_end.model.robot.Robot;
-import back_end.model.states.IModifiableVariableState;
+import back_end.model.robot.IRobot;
+import back_end.model.states.IModifiableEnvironmentState;
 
 
 import back_end.model.exception.InvalidNodeUsageException;
 public class TangentCommand implements ICommand {
 
-    public TangentCommand(Robot aRobot, IModifiableVariableState aEnvironment, String aCommandName) {
+    public TangentCommand(IRobot aRobot, IModifiableEnvironmentState aEnvironment, String aCommandName) {
     }
 
     @Override

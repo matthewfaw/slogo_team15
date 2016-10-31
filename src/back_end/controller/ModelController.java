@@ -5,31 +5,38 @@ import back_end.model.exception.ArgumentException;
 import back_end.model.exception.EmptyInputException;
 import back_end.model.exception.UnexpectedCharacterException;
 import back_end.model.exception.UnexpectedCommandException;
-import back_end.model.robot.IViewRobot;
-import back_end.model.robot.Robot;
+import back_end.model.robot.IViewableRobot;
+import back_end.model.robot.IRobot;
 import back_end.model.robot.Turtle;
 import back_end.model.states.Environment;
+import back_end.model.states.IViewableVariableState;
 import back_end.model.states.ScopeController;
 import back_end.model.syntax_tree.AbstractSyntaxTree;
 import back_end.model.syntax_tree.TreeEvaluator;
 import back_end.model.text_parser.TextParser;
 import integration.languages.Languages;
 import integration.observe.IObservable;
-import integration.observe.IRobotObserver;
+import integration.observe.IObserver;
+import integration.router.IRouter;
 
 
 public class ModelController {
 	
 	private Environment myEnvironment; 
 	private ScopeController myScopeController;
-	private IObservable myRobot; 
+	private IRobot myRobot; 
 	private TextParser myParser;
+	private IRouter myRouter;
 	
-	public ModelController() {
+
+	public ModelController(IRouter aRobotRouter) {
+		myRouter = aRobotRouter;
 		myEnvironment = Environment.getInstance();
 		myRobot = new Turtle();
+		distributeRobot(myRobot);
+		distributeVariableState(myEnvironment);
 		myScopeController = new ScopeController();
-		myParser = new TextParser(myScopeController, myEnvironment, (Robot) myRobot);
+		myParser = new TextParser(myScopeController, myEnvironment, (IRobot) myRobot);
 	}
 	
 	public void userInputToModel(String aString) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException, UnexpectedCharacterException, UnexpectedCommandException, EmptyInputException {
@@ -44,21 +51,13 @@ public class ModelController {
 			e.printStackTrace();
 		}
 	}
-	
-	public void giveRobotObservers(IRobotObserver ro){
-		myRobot.registerObserver(ro);
+			
+	private void distributeRobot( IViewableRobot aRobot ){
+		myRouter.distributeRobot( aRobot );
 	}
 	
-	public void giveVariableObservers(IRobotObserver ro) {
-		myEnvironment.registerObserver(ro);
-	}
-	
-	//public IViewableVariableState getVariableMap() {
-		//return myEnvironment.
-	//}
-	
-	public IViewRobot giveRobotView() {
-		return (IViewRobot) myRobot;
+	private void distributeVariableState (IViewableVariableState aViewableVariableState){
+		myRouter.distributeVariableMap(aViewableVariableState);
 	}
 	
 	public void setLanguage(Languages aLanguage) {

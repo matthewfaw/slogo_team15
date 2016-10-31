@@ -5,12 +5,11 @@ import java.util.MissingResourceException;
 import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
-import back_end.model.command.CustomCommand;
 import back_end.model.command.ICommand;
 import back_end.model.exception.UnexpectedCharacterException;
 import back_end.model.exception.UnexpectedCommandException;
 import back_end.model.node.INode;
-import back_end.model.robot.Robot;
+import back_end.model.robot.IRobot;
 import back_end.model.states.Environment;
 import back_end.model.states.ScopeController;
 import integration.languages.Languages;
@@ -36,7 +35,7 @@ public class NodeFactory {
 	private Translator myTranslator;
 	private ScopeController myScopeController;
 	
-	public NodeFactory(ScopeController aScopeController, ResourceBundle aResource, Environment aEnvironment, Robot aRobot) {
+	public NodeFactory(ScopeController aScopeController, ResourceBundle aResource, Environment aEnvironment, IRobot aRobot) {
 		mySyntaxResources = aResource; 
 		myCommandTypeResources = PropertyResourceBundle.getBundle(PACKAGE_RESOURCE + TYPE);
 		myCommandFactory = new CommandFactory(aEnvironment, aRobot);
@@ -49,12 +48,8 @@ public class NodeFactory {
 														InstantiationException, IllegalAccessException, IllegalArgumentException, 
 														InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException {
 			try {
-				String fileLocation = myLanguage.getFileLocation();
-				if (Pattern.matches(aUserInputWord, mySyntaxResources.getString("Variable"))) {
-					fileLocation = mySyntaxResources.getBaseBundleName();
-				}
+				String fileLocation = getFileLocation(aUserInputWord);
 				String translatedInput = translateInput(aUserInputWord, fileLocation);
-				System.out.println(translatedInput);
 				int inputNumber = 0;
 				ICommand commandClass = null;
 				if (Pattern.matches(mySyntaxResources.getString("Command"), translatedInput)) {
@@ -74,6 +69,14 @@ public class NodeFactory {
 				e.addSuppressed(new UnexpectedCharacterException("The syntax expression: " + aUserInputWord + " is not associated to any known syntax in this language"));
 			}
 		throw new UnexpectedCharacterException("The syntax expression: " + aUserInputWord + " is not associated to any known syntax in this language");
+	}
+	
+	private String getFileLocation(String aUserInputWord) {
+		String fileLocation = myLanguage.getFileLocation();
+		if (Pattern.matches(aUserInputWord, mySyntaxResources.getString("Variable"))) {
+			fileLocation = mySyntaxResources.getBaseBundleName();
+		}
+		return fileLocation;
 	}
 	
 	private String translateInput(String aWord, String aInputFileLocation) { 
