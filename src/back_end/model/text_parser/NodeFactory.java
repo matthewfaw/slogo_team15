@@ -30,14 +30,12 @@ public class NodeFactory {
 	private ResourceBundle myCommandTypeResources;
 	private CommandFactory myCommandFactory;
 	private Languages myLanguage;
-	private Translator myTranslator;
 	private ScopeController myScopeController;
 	
 	public NodeFactory(ScopeController aScopeController, ResourceBundle aResource, Environment aEnvironment, IRobot aRobot) {
 		mySyntaxResources = aResource; 
 		myCommandTypeResources = PropertyResourceBundle.getBundle(PACKAGE_RESOURCE + TYPE);
 		myCommandFactory = new CommandFactory(aEnvironment, aRobot);
-		myTranslator = new Translator();
 		myScopeController = aScopeController;
 	}
 	
@@ -50,14 +48,37 @@ public class NodeFactory {
 				int inputNumber = 0;
 				if (generalNodeCategory.equals("Command") || generalNodeCategory.equals("Variable")) {
 					String commandType = getCommandType(generalNodeCategory, aUserInputWord);
-					inputNumber = getInputNumber(generalNodeCategory);
-					aUserInputWord = translateInput(aUserInputWord, myLanguage.getFileLocation());
+					if (generalNodeCategory.equals("Command")) {
+						inputNumber = getInputNumber(commandType);
+						//aUserInputWord = translateInput(aUserInputWord, myLanguage.getFileLocation());
+					}
 					commandClass = myCommandFactory.makeCommand(aUserInputWord, commandType);
 					if (generalNodeCategory.equals("Command")) {
-						generalNodeCategory = myCommandTypeResources.getString("aUserInputWord");
+						generalNodeCategory = myCommandTypeResources.getString(commandType);
 					}
 				}
-				return (INode) Class.forName(PACKAGE_NODE + generalNodeCategory + "Node").getConstructor(ICommand.class, int.class, String.class, ScopeController.class).
+				//XXX: Refactor this ish
+				String packagePath = PACKAGE_NODE;
+				switch (generalNodeCategory) {
+					case "InputCommand": 
+						packagePath += "inner_nodes.command_nodes.input_nodes.";
+						break;
+					case "CommandDefinition":
+						packagePath += "inner_nodes.command_nodes.branching_nodes.";
+						break;
+					case "ControlFlow":
+						packagePath += "inner_nodes.command_nodes.branching_nodes.";
+						break;
+					case "Constant":
+						packagePath += "leaf_nodes.";
+						break;
+					case "Variable":
+						packagePath += "leaf_nodes.";
+						break;
+					default:
+						packagePath += "dummy_nodes.";
+				}
+				return (INode) Class.forName(packagePath + generalNodeCategory + "Node").getConstructor(ICommand.class, int.class, String.class, ScopeController.class).
 						newInstance(commandClass, inputNumber, aUserInputWord, myScopeController);
 			} catch (MissingResourceException e) {
 				e.addSuppressed(new UnexpectedCharacterException("The syntax expression: " + aUserInputWord + " is not associated to any known syntax in this language"));
@@ -66,8 +87,9 @@ public class NodeFactory {
 	}
 	
 	private String translateInput(String aWord, String aInputFileLocation) { 
-		myTranslator.addPatterns(aInputFileLocation);
-		return myTranslator.getSymbol(aWord);
+		Translator translator = new Translator();
+		translator.addPatterns(aInputFileLocation);
+		return translator.getSymbol(aWord);
 	}
 
     public void setLanguage (Languages aLanguage) {
@@ -77,24 +99,26 @@ public class NodeFactory {
     private String getCommandType(String aGeneralNodeCategory, String aUserInputWord) {
     	String commandTypeReturn = "Custom";
 		if (aGeneralNodeCategory.equals("Command")){
-			aGeneralNodeCategory = myCommandTypeResources.getString(aGeneralNodeCategory);
-			if (aGeneralNodeCategory != null) {
+			//aGeneralNodeCategory = myCommandTypeResources.getString(aGeneralNodeCategory);
+			//if (aGeneralNodeCategory != null) {
 				commandTypeReturn = translateInput(aUserInputWord, myLanguage.getFileLocation());
-			}
+			//}
 		}
 		else if (aGeneralNodeCategory.equals("Variable")) {
-			commandTypeReturn = "RetrieveVariable";
+			commandTypeReturn = "RetrieveValue";
 		} 
 		return commandTypeReturn;
     }
     
     private int getInputNumber(String aGeneralNodeCategory) {
-    	int inputNumberReturn = 0;
-    	if (aGeneralNodeCategory.equals("Command")) inputNumberReturn = 1; 
-		if (aGeneralNodeCategory != null) {
-			inputNumberReturn = Integer.parseInt(mySyntaxResources.getString(aGeneralNodeCategory));
+		if (aGeneralNodeCategory == null) {
+			// Custom command
+			//XXX Move to resource file
+			return 1;
+		} else {
+			return Integer.parseInt(mySyntaxResources.getString(aGeneralNodeCategory)); 
 		}
-		return inputNumberReturn;
+		
     }
 
 }

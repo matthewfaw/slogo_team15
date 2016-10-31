@@ -8,7 +8,7 @@ import back_end.model.states.ScopeController;
 
 public class ListEndNode extends AbstractDummyNode {
 
-	protected ListEndNode(ICommand aCommand, int aNumberOfInputs, String aUserInput, ScopeController aScopeController) {
+	public ListEndNode(ICommand aCommand, int aNumberOfInputs, String aUserInput, ScopeController aScopeController) {
 		super();
 		// TODO Auto-generated constructor stub
 	}
