@@ -64,7 +64,10 @@ public class NodeFactory {
 						packagePath += "inner_nodes.command_nodes.input_nodes.";
 						break;
 					case "CommandDefinition":
-						packagePath += "inner_nodes.command_nodes.branching_nodes.";
+						packagePath += "inner_nodes.command_nodes.input_nodes.";
+						break;
+					case "Custom":
+						packagePath +="inner_nodes.command_nodes.branching_nodes.";
 						break;
 					case "ControlFlow":
 						packagePath += "inner_nodes.command_nodes.branching_nodes.";
