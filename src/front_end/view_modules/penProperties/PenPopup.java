@@ -7,6 +7,7 @@ import integration.drawing.LineStyleSpec;
 import integration.drawing.PenInformation;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -47,6 +48,7 @@ public class PenPopup implements IPenPopup {
     private String myLineStyle;
     private int myPenThickness;
     private IColorModule myColorModule;
+    private ComboBox<Object> paletteColor;
     
     @Override
     public void initPopup (IColorModule aColorModule) {
@@ -143,11 +145,26 @@ public class PenPopup implements IPenPopup {
         myOrder.getChildren().add(colorPickerBox);
         
         String labelName = "Choose Palette Color: ";
-        ComboBox<Object> paletteColor = createComboBox(labelName, makeColorPaletteOptions());
+        paletteColor = createComboBox(labelName, makeColorPaletteOptions());
         setComboBoxListener(paletteColor, labelName);
         HBox paletteBox = createComboHBox(labelName);
         paletteBox.getChildren().add(paletteColor);
         myOrder.getChildren().add(paletteBox);
+        
+        //myColorPicker.setOnAction(new EventHandler() {
+      //      public void handle(Event t) {
+       //         paletteColor.setDisable(true);               
+      //      }
+      //  });
+        
+        myColorPicker.valueProperty().addListener(new ChangeListener<Object>() {
+            public void changed (ObservableValue<? extends Object> ov,
+                                final Object oldVal,
+                                final Object newVal) {
+                paletteColor.setDisable(true);
+            }
+            
+        });
     }
     
     private void setComboBoxListener(ComboBox<Object> myComboBox, String labelName) {
@@ -227,7 +244,9 @@ public class PenPopup implements IPenPopup {
     public void clear () {
         // TODO: Figure out how to keep createComboBox method and be able to access here
         // TODO: get pen to take its previous state
+        myColorPicker.setValue(Color.WHITE);
         myPenUpButton.setSelected(true);
+        paletteColor.setDisable(false);
     }
 
     @Override
