@@ -36,7 +36,7 @@ public class ModelController {
 		ScopeController scopeController = new ScopeController();
 		TextParser textParser = new TextParser(scopeController, environment, robot);
 
-		String aString = "if [ make :x 5 ] [ to :haha [ :a ] [ fd :a ] ]";
+		String aString = "if [ make :x 5 ] [ to :haha [ :a ] [ fd :a ] ] haha [ fd 50 ]";
 		
 		
 		AbstractSyntaxTree ast;
