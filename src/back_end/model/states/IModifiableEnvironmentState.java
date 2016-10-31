@@ -1,5 +1,6 @@
 package back_end.model.states;
 
+import back_end.model.exception.InvalidNodeUsageException;
 import back_end.model.node.IReadableInput;
 import back_end.model.states.background.IViewableBackground;
 
@@ -13,7 +14,7 @@ public interface IModifiableEnvironmentState extends IViewableVariableState, IVi
 	
 	public void assignMethod(String aMethodName, IReadableInput aNode, IReadableInput...aVariableInputs);
 	
-	public void getVariablesInMethod(String aMethodName, Double...aValues);
+	public void getVariablesInMethod(String aMethodName, Double...aValues) throws InvalidNodeUsageException;
 	
 	public void setBackgroundColor(int aColor);
 

@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import back_end.model.exception.InvalidNodeUsageException;
 import back_end.model.node.IReadableInput;
 import back_end.model.states.background.BackgroundInformation;
 import back_end.model.states.background.IViewableBackground;
@@ -90,7 +91,7 @@ public class Environment extends Observable implements IModifiableEnvironmentSta
 		myMethodMap = new HashMap<String, Method>();
 	}
 	
-	public void getVariablesInMethod(String aMethodName, Double...aValues) {
+	public void getVariablesInMethod(String aMethodName, Double...aValues) throws InvalidNodeUsageException {
 		Method currentMethodState = myMethodMap.get(aMethodName);
 		List<IReadableInput> arrayOfVariables = currentMethodState.getVariables();
 		for (int i = 0; i < arrayOfVariables.size(); i++) {
