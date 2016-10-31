@@ -1,4 +1,4 @@
-package back_end.model.node.inner_nodes.command_nodes.branching_nodes;
+package back_end.model.node.inner_nodes.command_nodes.input_nodes;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,14 +7,16 @@ import back_end.model.command.ICommand;
 import back_end.model.exception.ArgumentException;
 import back_end.model.exception.InvalidNodeUsageException;
 import back_end.model.node.INode;
+import back_end.model.node.inner_nodes.command_nodes.branching_nodes.AbstractBranchNode;
 import back_end.model.node.inner_nodes.list_nodes.ListNode;
 import back_end.model.node.leaf_nodes.VariableNode;
 import back_end.model.states.Environment;
 import back_end.model.states.ScopeController;
 
-public class CommandDefinitionNode extends AbstractBranchNode {
+public class CommandDefinitionNode extends AbstractInputCommandNode {
 	private static final int NAME_INDEX = 0;
 	private static final int INPUTS_INDEX = 1;
+	private static final int METHOD_BODY_INDEX = 2;
 	public CommandDefinitionNode (ICommand aCommand, int aNumberOfInputs, String aUserInput, ScopeController aScopeController) {
 		super(aCommand, aNumberOfInputs);
 	}
@@ -27,18 +29,24 @@ public class CommandDefinitionNode extends AbstractBranchNode {
 	 */
 	@Override
 	public void setChildren(List<INode> aChildren) throws InvalidNodeUsageException {
-		super.setInputs(aChildren.get(NAME_INDEX));
-		super.setInputs(aChildren.get(INPUTS_INDEX));
+		INode methodName = aChildren.get(NAME_INDEX);
+		ListNode methodInputNames = getListNode(aChildren.get(INPUTS_INDEX));
+		ListNode methodBody = getListNode(aChildren.get(METHOD_BODY_INDEX));
 		
-		for (int i=INPUTS_INDEX+1; i<aChildren.size(); ++i) {
-			INode aNode = aChildren.get(i);
-			if (aNode instanceof ListNode) {
-				ListNode aListNode = (ListNode) aNode;
-				super.setBranch(i, aListNode);
-			} else {
-				throw new InvalidNodeUsageException("Attempting to add a branch that is not a ListNode!");
-			}
+		
+		super.addChild(methodName);
+		super.addChildren(methodInputNames.getChildren());
+		super.addChild(methodBody);
+	}
+	private ListNode getListNode(INode aNode) throws InvalidNodeUsageException
+	{
+		if (aNode instanceof ListNode) {
+			ListNode aListNode = (ListNode) aNode;
+			return aListNode;
+		} else {
+			throw new InvalidNodeUsageException("Attempting to add a branch that is not a ListNode!");
 		}
+		
 	}
 //	public int getNumberOfInputs()
 //	{

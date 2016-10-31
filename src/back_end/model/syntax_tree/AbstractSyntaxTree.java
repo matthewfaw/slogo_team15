@@ -9,7 +9,7 @@ import back_end.model.node.dummy_nodes.ListStartNode;
 import back_end.model.node.inner_nodes.command_nodes.AbstractCommandNode;
 import back_end.model.node.inner_nodes.command_nodes.CustomNode;
 import back_end.model.node.inner_nodes.command_nodes.branching_nodes.AbstractBranchNode;
-import back_end.model.node.inner_nodes.command_nodes.branching_nodes.CommandDefinitionNode;
+import back_end.model.node.inner_nodes.command_nodes.input_nodes.CommandDefinitionNode;
 import back_end.model.node.inner_nodes.list_nodes.ListNode;
 import back_end.model.node.leaf_nodes.VariableNode;
 
@@ -69,7 +69,7 @@ public class AbstractSyntaxTree {
 			INode inputNode = aCurrentInputStack.pop();
 			inputList.add(inputNode);
 		}
-		aNode.addChildren(inputList);
+		aNode.addChild(inputList);
 		aCurrentInputStack.push(aNode);
 	}
 	private void populateBracketNode(ListStartNode aNode, Stack<INode> aOriginalNodeStack, Stack<INode> aCurrentInputStack)
@@ -83,7 +83,7 @@ public class AbstractSyntaxTree {
 			inputList.add(inputNode);
 			inputNode = aCurrentInputStack.pop();
 		}
-		listNode.addChildren(inputList);
+		listNode.addChild(inputList);
 		aCurrentInputStack.push(listNode);
 	}
 	
