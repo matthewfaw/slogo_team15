@@ -2,12 +2,13 @@ package back_end.model.command;
 
 import back_end.model.exception.InvalidNodeUsageException;
 import back_end.model.node.IReadableInput;
+import back_end.model.robot.IRobot;
+import back_end.model.states.IModifiableEnvironmentState;
 
-import back_end.model.exception.InvalidNodeUsageException;
 public class RetrieveValueCommand implements ICommand {
-	private IModifiableVariableState myEnvironment;
+	private IModifiableEnvironmentState myEnvironment;
 
-    public RetrieveValueCommand(Robot aRobot, IModifiableVariableState aEnvironment, String aCommandName) {
+    public RetrieveValueCommand(IRobot aRobot, IModifiableEnvironmentState  aEnvironment, String aCommandName) {
     	myEnvironment = aEnvironment;
     }
 
