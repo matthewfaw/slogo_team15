@@ -43,13 +43,13 @@ public class ApplicationScene {
 
 	public ApplicationScene (int aWidth, int aHeight) {
 		myApplicationView = new GridPane();
-		
+
 		myHistoryModule = HistoryModuleFactory.build(); // TODO: Actually implement this
 		myToolbar = ToolbarFactory.buildToolbar(aWidth, aHeight / 20);
 		myTextEditor = TextEditorFactory.buildTextEditor(2 * aWidth / 3, aHeight / 3);
 		myErrorViewer = ErrorViewerFactory.buildErrorViewer(aWidth / 3, aHeight / 3, myTextEditor);
-		myVariableViewer = VariableViewerFactory.buildVariableViewer(aWidth / 6, aHeight / 3);
-		myFunctionViewer = FunctionViewerFactory.build(aWidth / 6, aHeight / 3);
+		myVariableViewer = VariableViewerFactory.buildVariableViewer(aWidth / 6, 2*aHeight / 3);
+		myFunctionViewer = FunctionViewerFactory.build(aWidth / 6, 2*aHeight / 3);
 		myShapeColorModule = ImageColorModuleFactory.build();
 		myTurtleBox = TurtleBoxFactory.buildTurtleBox(2 * aWidth / 3, 2 * aHeight / 3, myShapeColorModule);
 		myStatesBox = new ConcreteAllRobotsStateBox(myShapeColorModule, myShapeColorModule);

@@ -110,6 +110,7 @@ public class ApplicationController {
         }
 
         myVariableViewer.giveVariables(myModel.getVariableMap());
+        myScriptViewer.giveFunction(sb.toString());
     }
 
     private void loadHelp () {

@@ -30,12 +30,10 @@ class ConcreteVariableViewer implements IVariableViewer {
     private ObservableList<Variable> myVariables;
 
     ConcreteVariableViewer (int width, int height) {
-        myVariables = FXCollections.observableArrayList(
-                                                        new Variable("this is hardcoded", 7),
-                                                        new Variable("wow, also hardcoded", 1000.8),
-                                                        new Variable("much hardcoded", 9));
-
+        myVariables = FXCollections.observableArrayList();
         myVariableTable = new TableView<>();
+        myVariableTable.setPrefSize(width, height);
+        System.out.println("w: " + width + " H: " + height);
         myVariableViewer = new Pane();
         myVariableTable.setEditable(true);
         myNameColumn = new TableColumn<>("Name");
