@@ -7,7 +7,6 @@ import integration.drawing.LineStyleSpec;
 import integration.drawing.PenInformation;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -144,24 +143,30 @@ public class PenPopup implements IPenPopup {
         colorPickerBox.getChildren().add(myColorPicker);
         myOrder.getChildren().add(colorPickerBox);
         
+        HBox colorChoices = createComboHBox("OR: ");
+        myOrder.getChildren().add(colorChoices);
+        
         String labelName = "Choose Palette Color: ";
         paletteColor = createComboBox(labelName, makeColorPaletteOptions());
         setComboBoxListener(paletteColor, labelName);
         HBox paletteBox = createComboHBox(labelName);
         paletteBox.getChildren().add(paletteColor);
         myOrder.getChildren().add(paletteBox);
-        
-        //myColorPicker.setOnAction(new EventHandler() {
-      //      public void handle(Event t) {
-       //         paletteColor.setDisable(true);               
-      //      }
-      //  });
-        
+
         myColorPicker.valueProperty().addListener(new ChangeListener<Object>() {
             public void changed (ObservableValue<? extends Object> ov,
                                 final Object oldVal,
                                 final Object newVal) {
                 paletteColor.setDisable(true);
+            }
+            
+        });
+        
+        paletteColor.valueProperty().addListener(new ChangeListener<Object>() {
+            public void changed (ObservableValue<? extends Object> ov,
+                                final Object oldVal,
+                                final Object newVal) {
+                myColorPicker.setDisable(true);
             }
             
         });
@@ -242,11 +247,11 @@ public class PenPopup implements IPenPopup {
 
     @Override
     public void clear () {
-        // TODO: Figure out how to keep createComboBox method and be able to access here
         // TODO: get pen to take its previous state
         myColorPicker.setValue(Color.WHITE);
         myPenUpButton.setSelected(true);
         paletteColor.setDisable(false);
+        myColorPicker.setDisable(false);
     }
 
     @Override
