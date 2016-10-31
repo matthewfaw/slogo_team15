@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import back_end.model.command.ICommand;
-import back_end.model.exception.ArgumentException;
+import back_end.model.exception.InvalidInputNumberException;
 import back_end.model.exception.InvalidNodeUsageException;
 import back_end.model.node.INode;
 import back_end.model.node.NodeState;
@@ -27,7 +27,7 @@ public class ListNode extends AbstractInnerNode {
 	}
 
 	@Override
-	public void eval() throws ArgumentException {
+	public void eval() throws InvalidInputNumberException {
 		// do nothing
 	}
 

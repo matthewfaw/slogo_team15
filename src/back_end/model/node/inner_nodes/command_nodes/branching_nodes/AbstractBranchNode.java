@@ -6,7 +6,7 @@ import java.util.List;
 
 import back_end.model.command.ICommand;
 import back_end.model.command.ICommandBranch;
-import back_end.model.exception.ArgumentException;
+import back_end.model.exception.InvalidInputNumberException;
 import back_end.model.exception.InvalidNodeUsageException;
 import back_end.model.node.EvaluationState;
 import back_end.model.node.INode;
@@ -33,7 +33,7 @@ public abstract class AbstractBranchNode extends AbstractCommandNode {
     }
     
 	@Override
-	public void eval() throws ArgumentException, InvalidNodeUsageException {
+	public void eval() throws InvalidInputNumberException, InvalidNodeUsageException {
 		INode[] inputs;
 
 		switch (myEvaluationState) {

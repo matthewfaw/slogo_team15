@@ -1,7 +1,7 @@
 package back_end.controller;
 
 import java.lang.reflect.InvocationTargetException;
-import back_end.model.exception.ArgumentException;
+import back_end.model.exception.InvalidInputNumberException;
 import back_end.model.exception.EmptyInputException;
 import back_end.model.exception.UnexpectedCharacterException;
 import back_end.model.exception.UnexpectedCommandException;
@@ -47,7 +47,7 @@ public class ModelController {
 				while (treeEvaluator.hasNextInstruction()) {
 					treeEvaluator.executeNextInstruction();
 				}
-			} catch (ArgumentException e) {
+			} catch (InvalidInputNumberException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
@@ -76,7 +76,7 @@ public class ModelController {
 			while (treeEvaluator.hasNextInstruction()) {
 				treeEvaluator.executeNextInstruction();
 			}
-		} catch (ArgumentException e) {
+		} catch (InvalidInputNumberException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

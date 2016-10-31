@@ -1,5 +1,5 @@
 package back_end.model.syntax_tree;
-import back_end.model.exception.ArgumentException;
+import back_end.model.exception.InvalidInputNumberException;
 import back_end.model.node.INode;
 import back_end.model.node.NodeState;
 import back_end.model.node.dummy_nodes.ListEndNode;
@@ -29,7 +29,7 @@ public class TreeEvaluator {
 	{
 		return myRoot.getState() == NodeState.AVAILABLE; 
 	}
-	public void executeNextInstruction() throws ArgumentException
+	public void executeNextInstruction() throws InvalidInputNumberException
 	{
 		INode currentTopLevelNode = getNextUnvisitedChild(myRoot);
 		buildCallStackForNextInstruction(currentTopLevelNode);
@@ -57,7 +57,7 @@ public class TreeEvaluator {
 	}
 
 
-	private void performEvaluation(INode aNode) throws ArgumentException
+	private void performEvaluation(INode aNode) throws InvalidInputNumberException
 	{
 		if (aNode instanceof AbstractCommandNode) {
 			performEvaluation((AbstractCommandNode) aNode);
@@ -71,7 +71,7 @@ public class TreeEvaluator {
 			//XXX: add error here
 		}
 	}
-	private void performEvaluation(AbstractCommandNode aNextInstruction) throws ArgumentException
+	private void performEvaluation(AbstractCommandNode aNextInstruction) throws InvalidInputNumberException
 	{
 		// Call the next instruction
 		aNextInstruction.eval();
@@ -80,7 +80,7 @@ public class TreeEvaluator {
 		// Update the stack
 		myExpressionStack.pop();
 	}
-	private void performEvaluation(AbstractBranchNode aCondition) throws ArgumentException
+	private void performEvaluation(AbstractBranchNode aCondition) throws InvalidInputNumberException
 	{
 		if (aCondition.getEvaluationState() == NodeState.EVALUATING_INPUTS) {
 			aCondition.evalCondition();
@@ -98,14 +98,14 @@ public class TreeEvaluator {
 		}
 	}
 	//XXX: change, since same as CommandNode
-	private void performEvaluation(CommandDefinitionNode aNode) throws ArgumentException
+	private void performEvaluation(CommandDefinitionNode aNode) throws InvalidInputNumberException
 	{
 		aNode.eval();
 		aNode.setState(NodeState.VISITED);
 		myExpressionStack.pop();
 	}
 	//XXX: change, since similar to BranchNode
-	private void performEvaluation(CustomNode aNode) throws ArgumentException
+	private void performEvaluation(CustomNode aNode) throws InvalidInputNumberException
 	{
 		if (aNode.getEvaluationState() == NodeState.EVALUATING_INPUTS) {
 			aNode.evalInputs();
