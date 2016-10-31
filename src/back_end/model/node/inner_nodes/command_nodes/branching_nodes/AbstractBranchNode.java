@@ -12,8 +12,6 @@ import back_end.model.node.EvaluationState;
 import back_end.model.node.INode;
 import back_end.model.node.inner_nodes.command_nodes.AbstractCommandNode;
 import back_end.model.node.inner_nodes.list_nodes.ListNode;
-import back_end.model.states.ScopeController;
-
 
 public abstract class AbstractBranchNode extends AbstractCommandNode {
     private EvaluationState myEvaluationState;

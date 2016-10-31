@@ -4,7 +4,6 @@ import java.util.Arrays;
 
 import back_end.model.node.IReadableInput;
 import back_end.model.robot.IRobot;
-import back_end.model.states.Environment;
 import back_end.model.states.IModifiableEnvironmentState;
 
 
@@ -15,7 +14,7 @@ public class MakeUserInstructionCommand implements ICommand {
 	
 	public MakeUserInstructionCommand(IRobot aRobot, IModifiableEnvironmentState aEnvironment, String aCommandName) {
 		myEnvironment = aEnvironment;
-		myEnvironment.assignMethod(aCommandName, null, null);
+		//myEnvironment.assignMethod(aCommandName, null, null);
 	}
 
 	@Override
