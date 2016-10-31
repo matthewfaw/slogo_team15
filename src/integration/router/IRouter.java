@@ -28,7 +28,7 @@ public interface IRouter {
 	/**
 	 * distributes History to modules decided upon inside Router
 	 */
-	public void distributeHistory(/**TODO History Object (no observer relation) **/);
+	public void distributeHistory(String aHistory);
 	
 	/**
 	 * distributes Function to modules decided upon inside Router

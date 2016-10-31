@@ -66,6 +66,7 @@ public class ApplicationScene {
 		myApplicationView.add(myErrorViewer.getInstanceAsNode(), 1, 2, 2, 1);
 		myApplicationView.add(myShapeColorModule.getInstanceAsNode(), 2, 2);
 		myApplicationView.add(myStatesBox.getInstanceAsNode(), 2, 3);
+		myApplicationView.add(myHistoryModule.getInstanceAsNode(), 1, 3);
 
 	}
 

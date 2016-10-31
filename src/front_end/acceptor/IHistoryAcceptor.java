@@ -14,6 +14,6 @@ public interface IHistoryAcceptor {
 	/**
 	 * Pushes specified History to robots
 	 */
-	public void giveHistory();
+	public void giveHistory(String aHistory);
 	
 }

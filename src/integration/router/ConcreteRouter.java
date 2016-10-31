@@ -75,8 +75,8 @@ class ConcreteRouter implements IRouter {
 	}
 
 	@Override
-	public void distributeHistory() {
-		myHistoryAcceptors.forEach( c -> c.giveHistory() );
+	public void distributeHistory(String aHistory) {
+		myHistoryAcceptors.forEach( c -> c.giveHistory(aHistory) );
 	}
 
 	@Override

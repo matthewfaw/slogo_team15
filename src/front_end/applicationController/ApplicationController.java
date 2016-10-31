@@ -13,6 +13,7 @@ import front_end.appScene.ApplicationScene;
 import front_end.view_modules.errorViewer.IErrorViewer;
 import front_end.view_modules.function_viewer.IFunctionViewer;
 import front_end.view_modules.helpPage.HelpPage;
+import front_end.view_modules.history.IHistoryModule;
 import front_end.view_modules.image_color_module.interfaces.IImageColorModule;
 import front_end.view_modules.penProperties.IPenPopup;
 import front_end.view_modules.penProperties.PenPopup;
@@ -55,6 +56,7 @@ public class ApplicationController {
     private IFunctionViewer myScriptViewer;
     private IImageColorModule myImageColorModule;
     private IAllRobotsStateBox myStatesBox;
+    private IHistoryModule myHistoryModule;
     private IPenPopup myPenPopup;
     
     
@@ -80,6 +82,7 @@ public class ApplicationController {
         myScriptViewer = myAppScene.getMyFunctionViewer();
         myImageColorModule = myAppScene.getMyShapeColorModule();
         myStatesBox = myAppScene.getMyStatesBox();
+        myHistoryModule = myAppScene.getMyHistoryModule();
         // TODO: Change this to interface - Kayla
         myPenPopup = new PenPopup();
     }
