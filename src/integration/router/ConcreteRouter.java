@@ -77,7 +77,7 @@ class ConcreteRouter implements IRouter {
 
 	@Override
 	public void distributeFunction() {
-		myFunctionAcceptors.forEach( c -> c.giveFunction() );		
+		//myFunctionAcceptors.forEach( c -> c.giveFunction() );		
 	}
 
 	@Override

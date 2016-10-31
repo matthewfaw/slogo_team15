@@ -10,6 +10,6 @@ package front_end.acceptor;
  */
 public interface IFunctionAcceptor {
 
-	public void giveFunction();
+	public void giveFunction(String myFunction);
 		
 }
