@@ -4,7 +4,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.MissingResourceException;
 import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
-import java.util.regex.Pattern;
 import back_end.model.command.ICommand;
 import back_end.model.exception.UnexpectedCharacterException;
 import back_end.model.exception.UnexpectedCommandException;
@@ -52,7 +51,11 @@ public class NodeFactory {
 				if (generalNodeCategory.equals("Command") || generalNodeCategory.equals("Variable")) {
 					String commandType = getCommandType(generalNodeCategory, aUserInputWord);
 					inputNumber = getInputNumber(generalNodeCategory);
+					aUserInputWord = translateInput(aUserInputWord, myLanguage.getFileLocation());
 					commandClass = myCommandFactory.makeCommand(aUserInputWord, commandType);
+					if (generalNodeCategory.equals("Command")) {
+						generalNodeCategory = myCommandTypeResources.getString("aUserInputWord");
+					}
 				}
 				return (INode) Class.forName(PACKAGE_NODE + generalNodeCategory + "Node").getConstructor(ICommand.class, int.class, String.class, ScopeController.class).
 						newInstance(commandClass, inputNumber, aUserInputWord, myScopeController);

@@ -29,6 +29,10 @@ public class ModelController {
 	private TextParser myParser;
 	private IRouter myRouter;
 	
+	public static void main(String[] args)
+	{
+		
+	}
 
 	public ModelController(IRouter aRobotRouter) {
 		myRouter = aRobotRouter;

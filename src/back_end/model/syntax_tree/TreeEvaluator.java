@@ -8,7 +8,7 @@ import back_end.model.node.dummy_nodes.NullNode;
 import back_end.model.node.inner_nodes.command_nodes.AbstractCommandNode;
 import back_end.model.node.inner_nodes.command_nodes.CustomNode;
 import back_end.model.node.inner_nodes.command_nodes.branching_nodes.AbstractBranchNode;
-import back_end.model.node.inner_nodes.command_nodes.branching_nodes.ToNode;
+import back_end.model.node.inner_nodes.command_nodes.branching_nodes.CommandDefinitionNode;
 import back_end.model.node.inner_nodes.list_nodes.ListNode;
 import back_end.model.node.leaf_nodes.AbstractLeafNode;
 import back_end.model.node.leaf_nodes.VariableNode;
@@ -63,8 +63,8 @@ public class TreeEvaluator {
 			performEvaluation((AbstractCommandNode) aNode);
 		} else if (aNode instanceof AbstractBranchNode) {
 			performEvaluation((AbstractBranchNode) aNode);
-		} else if (aNode instanceof ToNode) {
-			performEvaluation((ToNode) aNode); 
+		} else if (aNode instanceof CommandDefinitionNode) {
+			performEvaluation((CommandDefinitionNode) aNode); 
 		} else if (aNode instanceof CustomNode) {
 			performEvaluation((CustomNode) aNode);
 		} else {
@@ -98,7 +98,7 @@ public class TreeEvaluator {
 		}
 	}
 	//XXX: change, since same as CommandNode
-	private void performEvaluation(ToNode aNode) throws ArgumentException
+	private void performEvaluation(CommandDefinitionNode aNode) throws ArgumentException
 	{
 		aNode.eval();
 		aNode.setState(NodeState.VISITED);
@@ -152,8 +152,8 @@ public class TreeEvaluator {
 			buildCallStackForNextInstruction((AbstractCommandNode) aNode);
 		} else if (aNode instanceof AbstractBranchNode) {
 			buildCallStackForNextInstruction((AbstractBranchNode) aNode);
-		} else if (aNode instanceof ToNode) {
-			buildCallStackForNextInstruction((ToNode) aNode);
+		} else if (aNode instanceof CommandDefinitionNode) {
+			buildCallStackForNextInstruction((CommandDefinitionNode) aNode);
 		} else if (aNode instanceof CustomNode) {
 			buildCallStackForNextInstruction((CustomNode) aNode);
 		} else if (aNode instanceof ListNode) {
@@ -202,7 +202,7 @@ public class TreeEvaluator {
 		}
 	}
 	//XXX: add heirarchy to remove repeated code
-	private void buildCallStackForNextInstruction(ToNode aNode)
+	private void buildCallStackForNextInstruction(CommandDefinitionNode aNode)
 	{
 		if (isAvailableForTraversal(aNode)) {
 			if (!myExpressionStack.contains(aNode)) {

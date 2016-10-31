@@ -9,7 +9,7 @@ import back_end.model.node.dummy_nodes.ListStartNode;
 import back_end.model.node.inner_nodes.command_nodes.AbstractCommandNode;
 import back_end.model.node.inner_nodes.command_nodes.CustomNode;
 import back_end.model.node.inner_nodes.command_nodes.branching_nodes.AbstractBranchNode;
-import back_end.model.node.inner_nodes.command_nodes.branching_nodes.ToNode;
+import back_end.model.node.inner_nodes.command_nodes.branching_nodes.CommandDefinitionNode;
 import back_end.model.node.inner_nodes.list_nodes.ListNode;
 import back_end.model.node.leaf_nodes.VariableNode;
 

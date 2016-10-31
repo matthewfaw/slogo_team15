@@ -12,10 +12,10 @@ import back_end.model.node.leaf_nodes.VariableNode;
 import back_end.model.states.Environment;
 import back_end.model.states.ScopeController;
 
-public class ToNode extends AbstractBranchNode {
+public class CommandDefinitionNode extends AbstractBranchNode {
 	private static final int NAME_INDEX = 0;
 	private static final int INPUTS_INDEX = 1;
-	public ToNode (ICommand aCommand, int aNumberOfInputs, String aUserInput, ScopeController aScopeController) {
+	public CommandDefinitionNode (ICommand aCommand, int aNumberOfInputs, String aUserInput, ScopeController aScopeController) {
 		super(aCommand, aNumberOfInputs);
 	}
 	/**
