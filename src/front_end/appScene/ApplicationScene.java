@@ -43,7 +43,7 @@ public class ApplicationScene {
 
 	public ApplicationScene (int aWidth, int aHeight) {
 		myApplicationView = new GridPane();
-		
+		System.out.println("w " + aWidth + " h " + aHeight);
 		myHistoryModule = HistoryModuleFactory.build(); // TODO: Actually implement this
 		myToolbar = ToolbarFactory.buildToolbar(aWidth, aHeight / 20);
 		myTextEditor = TextEditorFactory.buildTextEditor(2 * aWidth / 3, aHeight / 3);
