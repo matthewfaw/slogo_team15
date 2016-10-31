@@ -22,6 +22,8 @@ import integration.observe.Observable;
  * @author hannahfuchshuber && matthewfaw
  *
  */
+
+
 public class Environment extends Observable implements IModifiableEnvironmentState, IViewableVariableState, IViewableBackground {
 
 	public static final Environment INSTANCE = new Environment();
@@ -39,6 +41,8 @@ public class Environment extends Observable implements IModifiableEnvironmentSta
 		return INSTANCE;
 	}
 	
+	/**SCOPE CONTROLLING**/
+	
 	void addNestedScope() {
 		myCurrentScope.addNestedScope();
 	}
@@ -51,6 +55,8 @@ public class Environment extends Observable implements IModifiableEnvironmentSta
 	public void setCurrentScope(FunctionScope aCurrentScope) {
 		myCurrentScope = aCurrentScope;
 	}
+	
+	/**VARIABLES**/
 	
 	public boolean containsVariable(String name) {
 		return myCurrentScope.containsVariable(name);
@@ -68,6 +74,8 @@ public class Environment extends Observable implements IModifiableEnvironmentSta
 		myCurrentScope.assignVariable(aName, aValue);
 		notifyObservers();
 	}
+	
+	/**METHOD**/
 	
 	public void assignMethod(String aMethodName, IReadableInput aNode, IReadableInput...aVariableInputs) {
 		Method methodState = new Method();
@@ -99,6 +107,8 @@ public class Environment extends Observable implements IModifiableEnvironmentSta
 		}	
 	}
 	
+	/**BACKGROUND INFORMATION**/
+	
 	public int getBackgroundColor() {
 		return myBackgroundInformation.getBackgroundColor();
 	}
@@ -116,6 +126,26 @@ public class Environment extends Observable implements IModifiableEnvironmentSta
 	@Override
 	public double getValue(String aVariable) {
 		return myCurrentScope.getVariableValue(aVariable);
+	}
+
+	@Override
+	public Collection<Integer> getPaletteColors() {
+		return myBackgroundInformation.getPaletteColors();
+	}
+
+	@Override
+	public String getHexadecimalColor(int aIndex) {
+		return myBackgroundInformation.getHexadecimalColor(aIndex);
+	}
+
+	@Override
+	public int getWidth() {
+		return myBackgroundInformation.getWidth();
+	}
+
+	@Override
+	public int getHeight() {
+		return myBackgroundInformation.getHeight();
 	}
 	
 	
