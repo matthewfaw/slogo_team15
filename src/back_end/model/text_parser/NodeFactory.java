@@ -99,28 +99,31 @@ public class NodeFactory {
         myLanguage = aLanguage;
     }
     
-    private String getCommandType(String aGeneralNodeCategory, String aUserInputWord) {
-    	String commandTypeReturn = "Custom";
+    private String getCommandType(String aGeneralNodeCategory, String aUserInputWord) throws UnexpectedCommandException {
 		if (aGeneralNodeCategory.equals("Command")){
-			//aGeneralNodeCategory = myCommandTypeResources.getString(aGeneralNodeCategory);
-			//if (aGeneralNodeCategory != null) {
-				commandTypeReturn = translateInput(aUserInputWord, myLanguage.getFileLocation());
-			//}
+			String commandName = translateInput(aUserInputWord, myLanguage.getFileLocation());
+			//XXX: Change this to come from resource file
+			if (commandName.equals("NO MATCH")) {
+				return "Custom";
+			} else {
+				return translateInput(aUserInputWord, myLanguage.getFileLocation());
+			}
 		}
 		else if (aGeneralNodeCategory.equals("Variable")) {
-			commandTypeReturn = "RetrieveValue";
+			return "RetrieveValue";
 		} 
-		return commandTypeReturn;
+		//XXX: Pull this error message from a resource file
+		throw new UnexpectedCommandException("The command "+aUserInputWord+" from node category "+aGeneralNodeCategory+"does not exist");
     }
     
     private int getInputNumber(String aGeneralNodeCategory) {
-		if (aGeneralNodeCategory == null) {
-			// Custom command
-			//XXX Move to resource file
-			return 1;
-		} else {
+//		if (aGeneralNodeCategory == null) {
+//			// Custom command
+//			//XXX Move to resource file
+//			return 1;
+//		} else {
 			return Integer.parseInt(mySyntaxResources.getString(aGeneralNodeCategory)); 
-		}
+//		}
 		
     }
 
