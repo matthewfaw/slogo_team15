@@ -20,7 +20,6 @@ class ColorRow {
 	
 	private static final String COLOR_TEXT = "Color ID: ";
 	private static final int SPACING = 5;
-	private static final int CHARACTER_SIZE = 50;
 	
 	private ColorRow(){
 		myRow = new HBox(SPACING);

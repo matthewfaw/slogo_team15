@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import front_end.view_modules.textEditor.ITextEditor;
-import integration.languages.Languages;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -57,15 +56,9 @@ class ConcreteErrorViewer implements IErrorViewer {
     }
 
     @Override
-    public void giveErrorStructure (Exception aError) {
+    public void giveError (Exception aError) {
         myErrorList.add(0, aError);
         myErrorLabel.setText(aError.getMessage());
-    }
-
-    @Override
-    public void onErrorPress () {
-        // TODO Auto-generated method stub
-
     }
 
     private void setErrorButtonEvents () {
@@ -93,12 +86,6 @@ class ConcreteErrorViewer implements IErrorViewer {
     private VBox initErrorColumn () {
         VBox columnBox = new VBox(0);
         return columnBox;
-    }
-
-    @Override
-    public void switchLanguage (Languages aLanguage) {
-        // TODO Auto-generated method stub
-
     }
 
 }

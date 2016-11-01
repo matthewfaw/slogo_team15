@@ -1,8 +1,7 @@
 package front_end.view_modules.variableViewer;
 
-
 import back_end.model.states.IViewableVariableState;
-import integration.languages.Languages;
+import integration.languages.ILanguageSwitcher.Languages;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -33,12 +32,10 @@ class ConcreteVariableViewer implements IVariableViewer {
     private ObservableList<Variable> myVariables;
 
     ConcreteVariableViewer (int width, int height) {
-        myVariables = FXCollections.observableArrayList(
-                                                        new Variable("this is hardcoded", 7),
-                                                        new Variable("wow, also hardcoded", 1000.8),
-                                                        new Variable("much hardcoded", 9));
-
+        myVariables = FXCollections.observableArrayList();
         myVariableTable = new TableView<>();
+        myVariableTable.setPrefSize(width, height);
+        System.out.println("w: " + width + " H: " + height);
         myVariableViewer = new Pane();
         myVariableTable.setEditable(true);
         myNameColumn = new TableColumn<>("Name");
@@ -83,17 +80,11 @@ class ConcreteVariableViewer implements IVariableViewer {
         myVariables.clear();
     }
 
-    @Override
-    public void switchLanguage (Languages aLanguage) {
-        // TODO Auto-generated method stub
-
-    }
 
 	@Override
 	public void update() {
 		myVariables.clear();
-
-        for (String varName : myVariableState.getVariableKeySet()) {
+		for (String varName : myVariableState.getVariableKeySet()) {
             myVariables.add(new Variable(varName, myVariableState.getValue(varName)));
         }
 
@@ -101,9 +92,10 @@ class ConcreteVariableViewer implements IVariableViewer {
 	}
 
 	@Override
-	public void giveVariableState(IViewableVariableState aViewVariableState) {
+	public void giveVariables(IViewableVariableState aViewVariableState) {
 		myVariableState = aViewVariableState;
 		myVariableState.registerObserver(this);
 	}
+
 
 }

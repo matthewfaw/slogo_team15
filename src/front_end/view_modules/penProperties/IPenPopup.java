@@ -1,5 +1,6 @@
 package front_end.view_modules.penProperties;
 
+import front_end.view_modules.image_color_module.interfaces.IColorModule;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
@@ -7,7 +8,7 @@ import javafx.scene.input.MouseEvent;
 
 public interface IPenPopup {
 
-    public void initPopup ();
+    public void initPopup (IColorModule aColorModule);
     
     public Scene getScene();
     

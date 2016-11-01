@@ -6,7 +6,7 @@ public class VariableViewerFactory {
         // Does Nothing
     }
 
-    public static IVariableViewer buildVariableViewer (int aWidth, int aHeight) {
+    public static IVariableViewer build (int aWidth, int aHeight) {
         return new ConcreteVariableViewer(aWidth, aHeight);
     }
 

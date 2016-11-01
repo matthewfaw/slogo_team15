@@ -8,8 +8,8 @@ public class ImageColorModuleFactory {
 		// Does Nothing
 	}
 	
-	public static IImageColorModule build(){
-		return new ConcreteImageColorModule();
+	public static IImageColorModule build(int aWidth, int aHeight){
+		return new ConcreteImageColorModule(aWidth, aHeight);
 	}
 	
 }

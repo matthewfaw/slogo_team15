@@ -1,10 +1,19 @@
 package integration.observe;
 
+/**
+ *  This interface specifies the Observer property
+ *  
+ *  Design Pattern - Observer:
+ *  http://www.oodesign.com/observer-pattern.html
+ *  
+ *  It must implement update(), which ~updates~ the object with this property
+ *  
+ * @author George Bernard, Hannah Fuchsuber
+ */
 public interface IObserver {
 
     /**
-     * Every time update is called, the robot has changed state.
-     * And whatever observes this robot must adjust for it
+     * this method is called whenever the observer must be updated
      */
     void update ();
 

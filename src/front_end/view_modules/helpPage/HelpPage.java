@@ -1,6 +1,7 @@
 package front_end.view_modules.helpPage;
 
-import integration.languages.Languages;
+import java.net.URL;
+
 import javafx.scene.Node;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
@@ -21,8 +22,8 @@ public class HelpPage implements IHelpPage {
     public void loadHelpPage() {
         myView = new WebView();
         WebEngine webEngine = myView.getEngine();
-        //TODO: Change this file load to less hard coded approach
-        webEngine.load("file:///Users/kaylauser/Documents/workspace_fall16/slogo_team15/src/front_end/view_modules/helpPage/help_page.html");
+        URL url = this.getClass().getResource("help_page.html");
+        webEngine.load(url.toString());
     }
 
     @Override
@@ -35,12 +36,6 @@ public class HelpPage implements IHelpPage {
     public Node getInstanceAsNode () {
         //TODO: Kayla - check this
         return myView;
-    }
-
-    @Override
-    public void switchLanguage (Languages aLanguage) {
-        // TODO Auto-generated method stub
-        
     }
 
 }

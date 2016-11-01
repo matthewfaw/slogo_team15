@@ -6,11 +6,9 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import front_end.view_modules.image_color_module.interfaces.IImageModule;
-import integration.languages.Languages;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 
 class ConcreteImageModule implements IImageModule {
 
@@ -77,12 +75,6 @@ class ConcreteImageModule implements IImageModule {
 	public Node getInstanceAsNode() {
 		// TODO Auto-generated method stub
 		return myImageModuleBox;
-	}
-
-	@Override
-	public void switchLanguage(Languages aLanguage) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override

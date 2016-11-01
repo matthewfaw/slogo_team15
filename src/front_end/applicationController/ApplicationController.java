@@ -5,14 +5,17 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+
 import back_end.controller.ModelController;
 import back_end.model.exception.EmptyInputException;
+import back_end.model.exception.InvalidNodeUsageException;
 import back_end.model.exception.UnexpectedCharacterException;
 import back_end.model.exception.UnexpectedCommandException;
 import front_end.appScene.ApplicationScene;
 import front_end.view_modules.errorViewer.IErrorViewer;
-import front_end.view_modules.function_viewer.IScriptViewer;
+import front_end.view_modules.function_viewer.IFunctionViewer;
 import front_end.view_modules.helpPage.HelpPage;
+import front_end.view_modules.history.IHistoryModule;
 import front_end.view_modules.image_color_module.interfaces.IImageColorModule;
 import front_end.view_modules.penProperties.IPenPopup;
 import front_end.view_modules.penProperties.PenPopup;
@@ -21,7 +24,7 @@ import front_end.view_modules.toolbar.IToolbar;
 import front_end.view_modules.turtleBox.ITurtleBox;
 import front_end.view_modules.turtlestate.IAllRobotsStateBox;
 import front_end.view_modules.variableViewer.IVariableViewer;
-import integration.languages.Languages;
+import integration.languages.ILanguageSwitcher.Languages;
 import integration.router.IRouter;
 import integration.router.RouterFactory;
 import javafx.event.ActionEvent;
@@ -52,9 +55,10 @@ public class ApplicationController {
     private IErrorViewer myErrorViewer;
     private IVariableViewer myVariableViewer;
     private ITurtleBox myTurtleBox;
-    private IScriptViewer myScriptViewer;
-    private IImageColorModule myShapeColorModule;
+    private IFunctionViewer myScriptViewer;
+    private IImageColorModule myImageColorModule;
     private IAllRobotsStateBox myStatesBox;
+    private IHistoryModule myHistoryModule;
     private IPenPopup myPenPopup;
     
     
@@ -77,9 +81,10 @@ public class ApplicationController {
         myHelpPage = myAppScene.getMyHelpPage();
         myRoot = myAppScene.getMyRoot();
         myTurtleBox = myAppScene.getMyTurtleBox();
-        myScriptViewer = myAppScene.getMyScriptViewer();
-        myShapeColorModule = myAppScene.getMyShapeColorModule();
+        myScriptViewer = myAppScene.getMyFunctionViewer();
+        myImageColorModule = myAppScene.getMyShapeColorModule();
         myStatesBox = myAppScene.getMyStatesBox();
+        myHistoryModule = myAppScene.getMyHistoryModule();
         // TODO: Change this to interface - Kayla
         myPenPopup = new PenPopup();
     }
@@ -100,23 +105,30 @@ public class ApplicationController {
 
         try {
             myModel.userInputToModel(sb.toString());
+            myHistoryModule.giveHistory(sb.toString());
         }
-        catch (InstantiationException | IllegalAccessException | IllegalArgumentException
+        catch (InstantiationException 
+        		| IllegalAccessException 
+        		| IllegalArgumentException
                 | InvocationTargetException
-                | NoSuchMethodException | SecurityException | ClassNotFoundException
+                | NoSuchMethodException 
+                | SecurityException 
+                | ClassNotFoundException
                 | UnexpectedCharacterException
-                | UnexpectedCommandException | EmptyInputException e) {
-            myErrorViewer.giveErrorStructure(e);
+                | UnexpectedCommandException 
+                | EmptyInputException 
+                | InvalidNodeUsageException e) {
+            myErrorViewer.giveError(e);
         }
 
-        // TODO: Implement variable viewing
-        // myVariableViewer.showVariables(myModel.getVariableMap());
     }
 
     private void loadHelp () {
+    	Stage stage = new Stage();
         myHelpPage.loadHelpPage();
-        // TODO: Kayla - Change this to reflect a back button or new scene
-        myRoot.getChildren().add(myHelpPage.getMyView());
+        Scene scene = new Scene(myHelpPage.getMyView());
+        stage.setScene(scene);
+        stage.show();        
     }
 
     private void resetAll () {
@@ -125,7 +137,7 @@ public class ApplicationController {
         myTurtleBox.reset();
         myVariableViewer.reset();
         myScriptViewer.reset();
-        myShapeColorModule.reset();
+        myImageColorModule.reset();
         myStatesBox.reset();
     }
 
@@ -156,7 +168,7 @@ public class ApplicationController {
         myToolbar.onPenPress(e -> popupPenSelector());
 
         myToolbar.onBuildPress(e -> buildCommands());
-
+        
     }
 
     private void configurePenPopup (Stage stage) {
@@ -175,10 +187,10 @@ public class ApplicationController {
     private void buildCommands () {
         // TODO: Actually make this method
     }
-
+    
     private void popupPenSelector () {
         Stage stage = new Stage();
-        myPenPopup.initPopup();
+        myPenPopup.initPopup(myImageColorModule);
         Scene myScene = myPenPopup.getScene();
         stage.setScene(myScene);
         stage.show();

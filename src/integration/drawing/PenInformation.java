@@ -4,6 +4,7 @@ import integration.observe.Observable;
 
 public class PenInformation extends Observable {
 
+        private boolean penUp;
 	private LineStyleSpec myLineStyle;
 	private int myPenThickness;
 	private int myColorID;
@@ -47,6 +48,5 @@ public class PenInformation extends Observable {
 	public boolean isPenUp() {
 		return myPenUp; 
 	}
-	
 	
 }

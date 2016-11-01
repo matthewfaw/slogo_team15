@@ -2,8 +2,7 @@ package front_end.view_modules.textEditor;
 
 import java.util.ResourceBundle;
 
-import front_end.view_modules.ILanguageSwitcher;
-import integration.languages.Languages;
+import integration.languages.ILanguageSwitcher;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
@@ -61,7 +60,6 @@ class TextEditorToolbar implements ILanguageSwitcher {
     }
     
     private void initClearHighlightButton(){
-		String key = "ClearHighlightButton";
 		Button clearHighlight = new Button(myTextToolbarResources.getString(CLEAR_HIGHLIGHT_KEY));
 		clearHighlight.setOnMouseClicked(e -> {
 			for(int i = 0; i < myTextEditor.getEditorSize(); i++){

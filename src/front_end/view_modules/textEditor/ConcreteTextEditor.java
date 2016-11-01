@@ -1,9 +1,9 @@
 package front_end.view_modules.textEditor;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-import integration.languages.Languages;
-import java.util.ArrayList;
+
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
@@ -12,7 +12,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
@@ -41,17 +40,11 @@ class ConcreteTextEditor implements ITextEditor {
     private int myLastIndex;
     private boolean myRowsAdded;
 
-    private static final int NUM_START_ROWS = 5;
-    private static final int NEW_ROW_BURST = 5;
+    private static final int NUM_START_ROWS = 10;
+    private static final int NEW_ROW_BURST = 100;
     private static final int SPACING = 20;
 
     /******* API Defined Methods ********/
-
-    @Override
-    public void switchLanguage (Languages aLanguage) {
-        // TODO switch language of toolbar
-
-    }
     
     @Override
     public Node getInstanceAsNode () {
@@ -147,8 +140,8 @@ class ConcreteTextEditor implements ITextEditor {
         labelBox.getChildren().add(curLabel);
 
         TextField curTextField = new TextField();
-        curTextField.setMinWidth(myWidth - labelBox.getWidth() - curLabel.getWidth() - SPACING - 30);
-        curTextField.setMaxWidth(myWidth - labelBox.getWidth() - curLabel.getWidth() - SPACING - 30);
+        curTextField.setMinWidth(myWidth - labelBox.getWidth() - curLabel.getWidth() - SPACING - 40);
+        curTextField.setMaxWidth(myWidth - labelBox.getWidth() - curLabel.getWidth() - SPACING - 40);
         myTextFields.add(myLastIndex, curTextField);
 
         curTextField.setOnAction(e -> {
@@ -194,7 +187,7 @@ class ConcreteTextEditor implements ITextEditor {
 
         myTextEditor.setHbarPolicy(ScrollBarPolicy.NEVER);
         myTextEditor.setVbarPolicy(ScrollBarPolicy.ALWAYS);
-        myTextEditor.setPrefSize(myWidth + 5, myHeight);
+        myTextEditor.setPrefSize(myWidth, myHeight);
 
         myTextEditor.vvalueProperty().addListener(new ChangeListener<Number>() {
 

@@ -2,9 +2,8 @@ package front_end.view_modules.toolbar;
 
 import java.util.Map;
 
-import front_end.view_modules.ILanguageSwitcher;
 import front_end.view_modules.IViewModule;
-import integration.languages.Languages;
+import integration.languages.ILanguageSwitcher;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;

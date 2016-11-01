@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
 import java.util.Stack;
+
 import back_end.model.exception.EmptyInputException;
 import back_end.model.exception.UnexpectedCharacterException;
 import back_end.model.exception.UnexpectedCommandException;
@@ -12,7 +13,7 @@ import back_end.model.node.INode;
 import back_end.model.robot.IRobot;
 import back_end.model.states.Environment;
 import back_end.model.states.ScopeController;
-import integration.languages.Languages;
+import integration.languages.ILanguageSwitcher.Languages;
 
 
 /**

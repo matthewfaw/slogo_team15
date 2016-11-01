@@ -7,7 +7,6 @@ import front_end.view_modules.image_color_module.image.ImageModuleFactory;
 import front_end.view_modules.image_color_module.interfaces.IColorModule;
 import front_end.view_modules.image_color_module.interfaces.IImageColorModule;
 import front_end.view_modules.image_color_module.interfaces.IImageModule;
-import integration.languages.Languages;
 import javafx.scene.Node;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
@@ -63,6 +62,13 @@ class ConcreteImageColorModule implements IImageColorModule {
 		
 	}
 	
+	public ConcreteImageColorModule(int aWidth, int aHeight) {
+		this();
+		myWindow.setMinSize(aWidth, aHeight);
+		myWindow.setPrefSize(aWidth, aHeight);
+		myWindow.setMaxSize(aWidth, aHeight);
+	}
+
 	private void switchPalette(Palettes pal){
 		myModuleSwitchBox.getChildren().clear();
 		String name;		
@@ -126,8 +132,12 @@ class ConcreteImageColorModule implements IImageColorModule {
 	}
 
 	@Override
-	public void switchLanguage(Languages aLanguage) {
-		myImageModule.switchLanguage(aLanguage);
-		myColorModule.switchLanguage(aLanguage);
+	public int getColorAmount() {
+		return myColorModule.getColorAmount();
+	}
+
+	@Override
+	public void newColorRow(Color aColor) {
+		myColorModule.newColorRow(aColor);
 	}
 }

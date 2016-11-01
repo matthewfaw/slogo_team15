@@ -3,7 +3,6 @@ package front_end.view_modules.turtlestate;
 import back_end.model.robot.IViewableRobot;
 import front_end.view_modules.image_color_module.interfaces.IColorModule;
 import front_end.view_modules.image_color_module.interfaces.IImageModule;
-import integration.languages.Languages;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -92,12 +91,6 @@ public class ConcreteRobotStateBox implements IRobotStateBox {
 	}
 
 	@Override
-	public void switchLanguage(Languages aLanguage) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public void update() {
 		if(noRobot() || !myIsBuilt) return;
 		build();
@@ -115,7 +108,7 @@ public class ConcreteRobotStateBox implements IRobotStateBox {
 		myIDLabel.setText(myRobot.toString()); 
 		myCoordinatesLabel.setText( buildCoordinateString(myRobot.getCoordinate().getX(), myRobot.getCoordinate().getY()) );
 		myBearingLabel.setText("Angle: " + myRobot.getRotation() + " deg");
-		myPenDownButton.setSelected( myRobot.isPenDown() );
+		myPenDownButton.setSelected( !myRobot.getPenInformation().isPenUp() );
 		myVisibilityButton.setSelected( myRobot.isVisible() );
 		myRobotImage.setImage( new Image( myImageMap.getFile(0).toURI().toString() ) );
 		myIsBuilt = true;

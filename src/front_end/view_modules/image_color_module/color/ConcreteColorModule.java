@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import front_end.view_modules.image_color_module.interfaces.IColorModule;
-import integration.languages.Languages;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
@@ -60,7 +59,7 @@ class ConcreteColorModule implements IColorModule {
 	}
 	
 	private void addColorRow(){
-		myColorRowList.add(new ColorRow(myColorRowList.size()));
+		myColorRowList.add(new ColorRow(getColorAmount()));
 		setColumn();
 	}
 	
@@ -76,13 +75,18 @@ class ConcreteColorModule implements IColorModule {
 	}
 
 	@Override
-	public void switchLanguage(Languages aLanguage) {
-		// TODO Auto-generated method stub
+	public Color getColor(int aColorId) {
+		return myColorRowList.get(aColorId).getColor();
 	}
 
 	@Override
-	public Color getColor(int aColorId) {
-		return myColorRowList.get(aColorId).getColor();
+	public int getColorAmount() {
+		return myColorRowList.size();
+	}
+
+	@Override
+	public void newColorRow(Color aColor) {
+		myColorRowList.add(new ColorRow(getColorAmount(), aColor));
 	}
 
 	

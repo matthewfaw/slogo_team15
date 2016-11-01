@@ -2,6 +2,12 @@ package front_end.view_modules;
 
 import javafx.scene.Node;
 
+/**
+ * Specifies the view module property. 
+ * Every front end feature implements this.
+ * 
+ * @author George Bernard
+ */
 public interface IViewModule {
 
     /**

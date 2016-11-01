@@ -8,7 +8,7 @@ public class ErrorViewerFactory {
         // Does Nothing
     }
 
-    public static IErrorViewer buildErrorViewer (int aWidth, int aHeight, ITextEditor aTextEditor) {
+    public static IErrorViewer build (int aWidth, int aHeight, ITextEditor aTextEditor) {
         return new ConcreteErrorViewer(aWidth, aHeight, aTextEditor);
     }
 }

@@ -1,10 +1,9 @@
 package front_end.view_modules.image_color_module.interfaces;
 
-import front_end.view_modules.ILanguageSwitcher;
 import front_end.view_modules.IViewModule;
 import javafx.scene.paint.Color;
 
-public interface IColorModule extends IViewModule, ILanguageSwitcher {
+public interface IColorModule extends IViewModule {
 
 	/**
 	 * Returns current color mapped to the argument
@@ -15,5 +14,9 @@ public interface IColorModule extends IViewModule, ILanguageSwitcher {
 	 * @return
 	 */
 	public Color getColor(int aColorId);
+	
+	public int getColorAmount();
+	
+	public void newColorRow(Color aColor);
 	
 }

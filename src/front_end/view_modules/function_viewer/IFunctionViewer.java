@@ -1,6 +1,6 @@
 package front_end.view_modules.function_viewer;
 
-import front_end.view_modules.ILanguageSwitcher;
+import front_end.acceptor.IFunctionAcceptor;
 import front_end.view_modules.IViewModule;
 
 
@@ -11,9 +11,7 @@ import front_end.view_modules.IViewModule;
  *         and updates if any changes have been made.
  *
  */
-public interface IScriptViewer extends IViewModule, ILanguageSwitcher {
+public interface IFunctionViewer extends IViewModule, IFunctionAcceptor {
 
-    public void giveScriptStructure ();
-
-    public void onScriptPress ();
+	
 }
