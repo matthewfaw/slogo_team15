@@ -58,7 +58,7 @@ public class ApplicationScene {
 		myFunctionViewer = 		FunctionViewerFactory.build( aWidth / 4 , aHeight / 2 - aHeight/20 );
 		myShapeColorModule =  ImageColorModuleFactory.build( aWidth / 4 , aHeight / 4  );
 		myTurtleBox = 				 TurtleBoxFactory.build( aWidth / 2 ,  aHeight / 2, myShapeColorModule);
-		myStatesBox = new ConcreteAllRobotsStateBox(myShapeColorModule, myShapeColorModule);
+		myStatesBox = new ConcreteAllRobotsStateBox(myShapeColorModule);
 		myHelpPage = new HelpPage();
 
 		myRoot = new Group();

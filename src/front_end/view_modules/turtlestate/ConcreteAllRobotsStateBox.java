@@ -23,13 +23,11 @@ public class ConcreteAllRobotsStateBox implements IAllRobotsStateBox{
 	private ComboBox<String> mySwitchMenu;
 	private List<MenuItem> mySwitchList;
 	
-	private IColorModule myColorMap;
 	private IImageModule myImageMap;
 	
 	private static final String TAB_TEXT = "Turtle ID: ";
 	
-	public ConcreteAllRobotsStateBox( IColorModule aColorMap, IImageModule aImageMap){
-		myColorMap = aColorMap;
+	public ConcreteAllRobotsStateBox(IImageModule aImageMap){
 		myImageMap = aImageMap;
 		
 		myModule = new VBox(0);		
@@ -49,8 +47,8 @@ public class ConcreteAllRobotsStateBox implements IAllRobotsStateBox{
 		buildMenu();
 	}
 	
-	public ConcreteAllRobotsStateBox( int aWidth, int aHeight, IColorModule aColorMap, IImageModule aImageMap){
-		this(aColorMap, aImageMap);
+	public ConcreteAllRobotsStateBox( int aWidth, int aHeight, IImageModule aImageMap){
+		this(aImageMap);
 		myScroller.setMinSize(aWidth, aHeight);
 		myScroller.setMaxSize(aWidth, aHeight);
 	}
@@ -62,13 +60,13 @@ public class ConcreteAllRobotsStateBox implements IAllRobotsStateBox{
 		javafx.collections.ObservableList<String> tabs = FXCollections.observableArrayList();
 		
 		for(Integer i = 0; i < myStateBoxes.size(); i++ ){
-			tabs.add(TAB_TEXT + i);
+			tabs.add(TAB_TEXT + myStateBoxes.get(i).getRobotID());
 		}
 		
 		mySwitchMenu.setItems(tabs);
-				
-		mySwitchMenu.getSelectionModel().selectedIndexProperty().addListener( cl -> switchStateBox(mySwitchMenu.getSelectionModel().getSelectedIndex()) );
-		
+		mySwitchMenu.getSelectionModel()
+					.selectedIndexProperty()
+					.addListener( cl -> switchStateBox(mySwitchMenu.getSelectionModel().getSelectedIndex()) );
 		mySwitchMenu.getSelectionModel().select(0);
 		
 	}
@@ -90,8 +88,7 @@ public class ConcreteAllRobotsStateBox implements IAllRobotsStateBox{
 
 	@Override
 	public void giveRobot(IViewableRobot aViewRobot) {
-		IRobotStateBox stateBox = new ConcreteRobotStateBox( myColorMap, myImageMap );
-		stateBox.giveRobot(aViewRobot);
+		IRobotStateBox stateBox = new ConcreteRobotStateBox( myImageMap, aViewRobot );
 		myStateBoxes.add(stateBox);
 		buildMenu();
 	}
