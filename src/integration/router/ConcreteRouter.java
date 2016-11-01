@@ -8,7 +8,6 @@ import back_end.model.states.IViewableVariableState;
 import front_end.appScene.ApplicationScene;
 import front_end.view_modules.IRobotAcceptor;
 import front_end.view_modules.IViewVariableAcceptor;
-import integration.observe.IObserver;
 
 /**
  * @author George Bernard

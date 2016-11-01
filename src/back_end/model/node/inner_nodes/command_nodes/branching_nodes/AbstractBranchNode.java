@@ -6,7 +6,7 @@ import java.util.List;
 
 import back_end.model.command.ICommand;
 import back_end.model.command.ICommandBranch;
-import back_end.model.exception.ArgumentException;
+import back_end.model.exception.InvalidInputNumberException;
 import back_end.model.exception.InvalidNodeUsageException;
 import back_end.model.node.EvaluationState;
 import back_end.model.node.INode;
@@ -36,7 +36,7 @@ public abstract class AbstractBranchNode extends AbstractCommandNode {
     	return myEvaluationState;
     }
 	
-	protected void evalCondition(ICommandBranch aCommand) throws ArgumentException, InvalidNodeUsageException
+	protected void evalCondition(ICommandBranch aCommand) throws InvalidInputNumberException, InvalidNodeUsageException
 	{
 		INode[] inputs;
 		inputs = super.convertListToProperInputForm(myChildInputs);
@@ -48,7 +48,7 @@ public abstract class AbstractBranchNode extends AbstractCommandNode {
 			super.setState(NodeState.VISITED);
 		}
 	}
-	protected void eval(ICommandBranch aCommand) throws ArgumentException, InvalidNodeUsageException
+	protected void eval(ICommandBranch aCommand) throws InvalidInputNumberException, InvalidNodeUsageException
 	{
 		INode[] inputs;
 

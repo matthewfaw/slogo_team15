@@ -6,6 +6,7 @@ import back_end.model.robot.IRobot;
 import back_end.model.states.IModifiableEnvironmentState;
 
 public class RetrieveValueCommand implements ICommand {
+	
 	private IModifiableEnvironmentState myEnvironment;
 
     public RetrieveValueCommand(IRobot aRobot, IModifiableEnvironmentState  aEnvironment, String aCommandName) {

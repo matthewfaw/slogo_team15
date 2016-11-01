@@ -12,16 +12,18 @@ public class RobotController extends Observable implements IRobot {
 	private List<Turtle> myTurtles;
 	private int currentTurtle;
 	private List<Turtle> myActiveTurtles;
+	private List<Turtle> myTellActiveTurtles;
 	
 	public RobotController() {
 		myTurtles = new ArrayList<Turtle>();
+		myTellActiveTurtles = new ArrayList<Turtle>();
 		myActiveTurtles = new ArrayList<Turtle>();
 		currentTurtle = 1;
 		addTurtle(currentTurtle);
 	}
 	
 	@Override
-	public void setActiveTurtles(int[] aTurtleIDs) {
+	public void setActiveTurtles(int[] aTurtleIDs, boolean aTellCommand) {
 		for (int i = 0; i < aTurtleIDs.length; i++) {
 			if (aTurtleIDs[i] < getNumberOfTurtles()) {
 				addTurtle(aTurtleIDs.length);
@@ -30,8 +32,19 @@ public class RobotController extends Observable implements IRobot {
 		for (int i = 0; i < aTurtleIDs.length; i++) {
 			myActiveTurtles.add(myTurtles.get(aTurtleIDs[i]));
 		}
-		currentTurtle = aTurtleIDs[aTurtleIDs.length - 1];
+		if (aTellCommand) {
+			myTellActiveTurtles.clear();
+			myTellActiveTurtles.addAll(myActiveTurtles);
+			currentTurtle = aTurtleIDs[aTurtleIDs.length - 1];
+		}
 	}
+	
+	@Override
+	public void endTemporaryActiveTurtles() {
+		myActiveTurtles.clear();
+		myActiveTurtles.addAll(myTellActiveTurtles);
+	}
+	
 	
 	private void addTurtle(int aTurtleID) {
 		for (int i = myTurtles.size() - 1; i < aTurtleID; i++) {
@@ -92,16 +105,9 @@ public class RobotController extends Observable implements IRobot {
 	/**SETTERS**/ 
 	
 	@Override
-	public void setX(double x) {
+	public void setCoordinates(double x, double y) {
 		for (int i = 0; i < myActiveTurtles.size(); i++) {
-			myActiveTurtles.get(i).setX(x);
-		}
-	}
-
-	@Override
-	public void setY(double y) {
-		for (int i = 0; i < myActiveTurtles.size(); i++) {
-			myActiveTurtles.get(i).setY(y);
+			myActiveTurtles.get(i).setCoordinates(x, y);
 		}
 	}
 
@@ -130,13 +136,6 @@ public class RobotController extends Observable implements IRobot {
 	public void setImageID(int aImageID) {
 		for (int i = 0; i < myActiveTurtles.size(); i++) {
 			myActiveTurtles.get(i).setImageID(aImageID);
-		}
-	}
-
-	@Override
-	public void setTurtleID(int aTurtleID) {
-		for (int i = 0; i < myActiveTurtles.size(); i++) {
-			myActiveTurtles.get(i).setTurtleID(aTurtleID);
 		}
 	}
 

@@ -15,6 +15,7 @@ public class GetShapeCommand implements ICommand {
 	@Override
 	public double eval(IReadableInput... aList) {
 		//return myRobot.getShape();
+		//TODO
 		return 0;
 	}
 

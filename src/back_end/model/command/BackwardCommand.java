@@ -19,8 +19,7 @@ public class BackwardCommand extends MovementCommand {
     @Override
     public double eval (IReadableInput ... aList) throws InvalidNodeUsageException {
         Point p = getXYCoordinate(aList);
-        myRobot.setX(myRobot.getCoordinate().getX() - p.getX());
-        myRobot.setY(myRobot.getCoordinate().getY() - p.getY());
+        myRobot.setCoordinates(myRobot.getCoordinate().getX() - p.getX(), myRobot.getCoordinate().getY() - p.getY());
         return aList[0].getValue();
     }
 

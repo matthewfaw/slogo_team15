@@ -1,6 +1,6 @@
 package back_end.model.node;
 
-import back_end.model.exception.ArgumentException;
+import back_end.model.exception.InvalidInputNumberException;
 import back_end.model.exception.InvalidNodeUsageException;
 
 public interface INode extends IReadableInput {
@@ -12,6 +12,6 @@ public interface INode extends IReadableInput {
     public abstract boolean isVisited() throws InvalidNodeUsageException;
     public abstract void setState (NodeState aNodeState) throws InvalidNodeUsageException; 
 
-    public abstract void eval () throws ArgumentException, InvalidNodeUsageException;
+    public abstract void eval () throws InvalidInputNumberException, InvalidNodeUsageException;
 
 }

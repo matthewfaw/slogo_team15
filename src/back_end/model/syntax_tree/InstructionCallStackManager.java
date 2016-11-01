@@ -2,7 +2,7 @@ package back_end.model.syntax_tree;
 
 import java.util.Stack;
 
-import back_end.model.exception.ArgumentException;
+import back_end.model.exception.InvalidInputNumberException;
 import back_end.model.exception.InvalidNodeUsageException;
 import back_end.model.node.INode;
 import back_end.model.node.dummy_nodes.NullNode;
@@ -20,7 +20,7 @@ class InstructionCallStackManager {
 		myNodeFinder = new AvailableNodeFinder();
 	}
 	
-	void buildCallStackForNextInstruction(INode aNode) throws InvalidNodeUsageException, ArgumentException
+	void buildCallStackForNextInstruction(INode aNode) throws InvalidNodeUsageException, InvalidInputNumberException
 	{
 		if (aNode instanceof AbstractLeafNode) {
 			buildCallStackForNextInstruction((AbstractLeafNode) aNode);
@@ -40,13 +40,13 @@ class InstructionCallStackManager {
 		return myExpressionStack.pop();
 	}
 	
-	private void buildCallStackForNextInstruction(AbstractLeafNode aNode) throws InvalidNodeUsageException, ArgumentException
+	private void buildCallStackForNextInstruction(AbstractLeafNode aNode) throws InvalidNodeUsageException, InvalidInputNumberException
 	{
 		if (!aNode.isVisited()) {
 			aNode.eval();
 		}
 	}
-	private void buildCallStackForNextInstruction(AbstractInnerNode aNode) throws InvalidNodeUsageException, ArgumentException
+	private void buildCallStackForNextInstruction(AbstractInnerNode aNode) throws InvalidNodeUsageException, InvalidInputNumberException
 	{
 		if (!aNode.isVisited()) {
 			if (!myExpressionStack.contains(aNode)) {

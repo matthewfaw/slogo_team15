@@ -4,7 +4,7 @@ import java.util.List;
 
 import back_end.model.command.ICommand;
 import back_end.model.command.ICommandBranch;
-import back_end.model.exception.ArgumentException;
+import back_end.model.exception.InvalidInputNumberException;
 import back_end.model.exception.InvalidNodeUsageException;
 import back_end.model.node.INode;
 import back_end.model.node.inner_nodes.list_nodes.ListNode;
@@ -22,7 +22,7 @@ public class ControlFlowNode extends AbstractBranchNode {
 	}
     
 	@Override
-	public void eval() throws ArgumentException, InvalidNodeUsageException 
+	public void eval() throws InvalidInputNumberException, InvalidNodeUsageException 
 	{
 		switch (getEvaluationState()) {
 			case EVALUATING_INPUTS:

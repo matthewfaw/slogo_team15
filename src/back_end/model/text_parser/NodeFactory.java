@@ -1,6 +1,7 @@
 package back_end.model.text_parser;
 
 import java.lang.reflect.InvocationTargetException;
+import java.text.MessageFormat;
 import java.util.MissingResourceException;
 import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
@@ -22,21 +23,31 @@ import integration.languages.Languages;
  */
 public class NodeFactory {
 
-    private static final String PACKAGE_RESOURCE = "resources.commandtypes.";
+    private static final String PACKAGE_RESOURCE = "resources.";
+    private static final String PACKAGE_COMMAND = "commandtypes.";
+    private static final String PACKAGE_ERROR = "errormessages.";
     private static final String PACKAGE_NODE = "back_end.model.node.";
+    private static final String PACKAGE_INNER_NODE = "inner_nodes.command_nodes.";
+    private static final String PACKAGE_INPUT_NODE = "input_nodes.";
+    private static final String PACKAGE_BRANCH_NODE = "branching_nodes.";
+    private static final String PACKAGE_LEAF_NODE = "leaf_nodes.";
+    private static final String PACKAGE_DUMMY_NODE = "dummy_nodes.";
     private static final String TYPE = "CommandTypes";
+    private static final String ERROR = "ErrorMessages";
 
 	private ResourceBundle mySyntaxResources;
 	private ResourceBundle myCommandTypeResources;
+	private ResourceBundle myErrorMessageResources;
 	private CommandFactory myCommandFactory;
 	private Languages myLanguage;
 	private ScopeController myScopeController;
 	
 	public NodeFactory(ScopeController aScopeController, ResourceBundle aResource, Environment aEnvironment, IRobot aRobot) {
 		mySyntaxResources = aResource; 
-		myCommandTypeResources = PropertyResourceBundle.getBundle(PACKAGE_RESOURCE + TYPE);
+		myCommandTypeResources = PropertyResourceBundle.getBundle(PACKAGE_RESOURCE + PACKAGE_COMMAND + TYPE);
 		myCommandFactory = new CommandFactory(aEnvironment, aRobot);
 		myScopeController = aScopeController;
+		myErrorMessageResources = PropertyResourceBundle.getBundle(PACKAGE_RESOURCE + PACKAGE_ERROR + ERROR);
 	}
 	
 	public INode makeNode(String aUserInputWord) throws UnexpectedCharacterException, UnexpectedCommandException, 
@@ -44,65 +55,61 @@ public class NodeFactory {
 														InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException {
 			try {
 				String generalNodeCategory = translateInput(aUserInputWord, mySyntaxResources.getBaseBundleName());
-				ICommand commandClass = null;
-				int inputNumber = 0;
-				if (generalNodeCategory.equals("Command") || generalNodeCategory.equals("Variable")) {
-					String commandType = getCommandType(generalNodeCategory, aUserInputWord);
-					if (generalNodeCategory.equals("Command")) {
-						inputNumber = getInputNumber(commandType);
-						//aUserInputWord = translateInput(aUserInputWord, myLanguage.getFileLocation());
-					}
-					commandClass = myCommandFactory.makeCommand(aUserInputWord, commandType);
-					if (generalNodeCategory.equals("Command")) {
-						generalNodeCategory = myCommandTypeResources.getString(commandType);
-					}
+				String commandType = getCommandType(generalNodeCategory, aUserInputWord);
+				ICommand commandClass = makeCommandClass(commandType, generalNodeCategory, aUserInputWord);
+				int inputNumber = getInputNumber(commandType);
+				if (generalNodeCategory.equals("Command")) {
+					generalNodeCategory = myCommandTypeResources.getString(commandType);
 				}
-				//XXX: Refactor this ish
-				String packagePath = PACKAGE_NODE;
-				switch (generalNodeCategory) {
-					case "InputCommand": 
-						packagePath += "inner_nodes.command_nodes.input_nodes.";
-						break;
-					case "CommandDefinition":
-						packagePath += "inner_nodes.command_nodes.input_nodes.";
-						break;
-					case "Custom":
-						packagePath +="inner_nodes.command_nodes.branching_nodes.";
-						break;
-					case "ControlFlow":
-						packagePath += "inner_nodes.command_nodes.branching_nodes.";
-						break;
-					case "Constant":
-						packagePath += "leaf_nodes.";
-						break;
-					case "Variable":
-						packagePath += "leaf_nodes.";
-						break;
-					default:
-						packagePath += "dummy_nodes.";
-				}
+				String packagePath = getPackagePath(generalNodeCategory);
 				return (INode) Class.forName(packagePath + generalNodeCategory + "Node").getConstructor(ICommand.class, int.class, String.class, ScopeController.class).
 						newInstance(commandClass, inputNumber, aUserInputWord, myScopeController);
 			} catch (MissingResourceException e) {
-				e.addSuppressed(new UnexpectedCharacterException("The syntax expression: " + aUserInputWord + " is not associated to any known syntax in this language"));
+				e.addSuppressed(new UnexpectedCharacterException(MessageFormat.format(myErrorMessageResources.getString("UnexpectedCharacter"), aUserInputWord)));
 			}
-		throw new UnexpectedCharacterException("The syntax expression: " + aUserInputWord + " is not associated to any known syntax in this language");
+		throw new UnexpectedCharacterException(MessageFormat.format(myErrorMessageResources.getString("UnexpectedCharacter"), aUserInputWord));
 	}
+	
+    public void setLanguage (Languages aLanguage) {
+        myLanguage = aLanguage;
+    }
 	
 	private String translateInput(String aWord, String aInputFileLocation) { 
 		Translator translator = new Translator();
 		translator.addPatterns(aInputFileLocation);
 		return translator.getSymbol(aWord);
 	}
-
-    public void setLanguage (Languages aLanguage) {
-        myLanguage = aLanguage;
+    
+    private ICommand makeCommandClass(String aCommandType, String aGeneralNodeCategory, String aUserInputWord) throws InstantiationException, 
+    																						IllegalAccessException, IllegalArgumentException, 
+    																						InvocationTargetException, NoSuchMethodException, 
+    																						SecurityException, ClassNotFoundException {
+    	if (aGeneralNodeCategory.equals("Command") || aGeneralNodeCategory.equals("Variable")) {
+    		return myCommandFactory.makeCommand(aUserInputWord, aCommandType);
+    	}
+    	return null; 
     }
     
-    private String getCommandType(String aGeneralNodeCategory, String aUserInputWord) throws UnexpectedCommandException {
-		if (aGeneralNodeCategory.equals("Command")){
+    private String getPackagePath(String aGeneralNodeCategory) {
+    	String packagePath = PACKAGE_NODE;
+		switch (aGeneralNodeCategory) {
+			case "InputCommand": 
+			case "CommandDefinition":
+				return packagePath + PACKAGE_INNER_NODE + PACKAGE_INPUT_NODE;
+			case "Custom":
+			case "ControlFlow":
+				return packagePath + PACKAGE_INNER_NODE + PACKAGE_BRANCH_NODE;
+			case "Constant":
+			case "Variable":
+				return packagePath + PACKAGE_LEAF_NODE;
+			default:
+				return packagePath + PACKAGE_DUMMY_NODE;
+		}
+    }
+    
+    private String getCommandType(String aGeneralNodeCategory, String aUserInputWord) {
+		if (aGeneralNodeCategory.equals("Command")) {
 			String commandName = translateInput(aUserInputWord, myLanguage.getFileLocation());
-			//XXX: Change this to come from resource file
 			if (commandName.equals("NO MATCH")) {
 				return "Custom";
 			} else {
@@ -112,19 +119,13 @@ public class NodeFactory {
 		else if (aGeneralNodeCategory.equals("Variable")) {
 			return "RetrieveValue";
 		} 
-		//XXX: Pull this error message from a resource file
-		throw new UnexpectedCommandException("The command "+aUserInputWord+" from node category "+aGeneralNodeCategory+"does not exist");
+		return ""; 
     }
     
     private int getInputNumber(String aGeneralNodeCategory) {
-//		if (aGeneralNodeCategory == null) {
-//			// Custom command
-//			//XXX Move to resource file
-//			return 1;
-//		} else {
-			return Integer.parseInt(mySyntaxResources.getString(aGeneralNodeCategory)); 
-//		}
-		
+    	if (aGeneralNodeCategory.equals("")) return 0;
+    	if (aGeneralNodeCategory.equals("Command")) return Integer.parseInt(mySyntaxResources.getString(aGeneralNodeCategory)); 
+    	return 0;
     }
 
 }

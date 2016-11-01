@@ -19,8 +19,7 @@ public class SetPositionCommand implements ICommand {
         double posX = Math.abs(myRobot.getCoordinate().getX() - aList[0].getValue());
         double posY = Math.abs(myRobot.getCoordinate().getY() - aList[1].getValue());
         double returnVal = Math.sqrt(Math.pow(posX, 2) + Math.pow(posY, 2));
-        myRobot.setX(aList[0].getValue());
-        myRobot.setY(aList[1].getValue());
+        myRobot.setCoordinates(aList[0].getValue(), aList[1].getValue());
         return returnVal;
     }
 

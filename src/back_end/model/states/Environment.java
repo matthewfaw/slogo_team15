@@ -8,7 +8,7 @@ import java.util.Map;
 import back_end.model.exception.InvalidNodeUsageException;
 import back_end.model.node.IReadableInput;
 import back_end.model.states.background.BackgroundInformation;
-import back_end.model.states.background.IViewableBackground;
+import back_end.model.states.background.IModifiableBackground;
 import integration.observe.Observable;
 
 /**
@@ -22,7 +22,9 @@ import integration.observe.Observable;
  * @author hannahfuchshuber && matthewfaw
  *
  */
-public class Environment extends Observable implements IModifiableEnvironmentState, IViewableVariableState, IViewableBackground {
+
+
+public class Environment extends Observable implements IModifiableEnvironmentState, IViewableVariableState, IModifiableBackground {
 
 	public static final Environment INSTANCE = new Environment();
 	
@@ -39,6 +41,8 @@ public class Environment extends Observable implements IModifiableEnvironmentSta
 		return INSTANCE;
 	}
 	
+	/**SCOPE CONTROLLING**/
+	
 	void addNestedScope() {
 		myCurrentScope.addNestedScope();
 	}
@@ -52,22 +56,28 @@ public class Environment extends Observable implements IModifiableEnvironmentSta
 		myCurrentScope = aCurrentScope;
 	}
 	
+	/**VARIABLES**/
+	
 	public boolean containsVariable(String name) {
 		return myCurrentScope.containsVariable(name);
-	}
-	
-	public double getVariableValue(String aVariable) {
-		return myCurrentScope.getVariableValue(aVariable);
-	}
-	
-	public Collection<String> getVariablesInScope() {
-		return myCurrentScope.getVariablesInScope();
 	}
 
 	public void assignVariable(String aName, double aValue) {
 		myCurrentScope.assignVariable(aName, aValue);
 		notifyObservers();
 	}
+	
+	@Override
+	public Collection<String> getVariableKeySet() {
+		return myCurrentScope.getVariableKeySet();
+	}
+	
+	@Override
+	public double getValue(String aVariable) {
+		return myCurrentScope.getVariableValue(aVariable);
+	}
+	
+	/**METHOD**/
 	
 	public void assignMethod(String aMethodName, IReadableInput aNode, IReadableInput...aVariableInputs) {
 		Method methodState = new Method();
@@ -99,25 +109,22 @@ public class Environment extends Observable implements IModifiableEnvironmentSta
 		}	
 	}
 	
+	/**BACKGROUND INFORMATION**/
+	
+	@Override
 	public int getBackgroundColor() {
 		return myBackgroundInformation.getBackgroundColor();
 	}
 	
+	@Override
 	public void setBackgroundColor(int aColor) {
 		myBackgroundInformation.setBackgroundColor(aColor);
 	}
 	
 	@Override
-	public Collection<String> getVariableKeySet() {
-		return myCurrentScope.getVariableKeySet();
+	public BackgroundInformation getBackgroundInformation() {
+		return myBackgroundInformation;
 	}
-	
-	
-	@Override
-	public double getValue(String aVariable) {
-		return myCurrentScope.getVariableValue(aVariable);
-	}
-	
-	
+
 
 }

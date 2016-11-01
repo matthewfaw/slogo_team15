@@ -13,9 +13,7 @@ public interface IRobot extends IViewableRobot {
 
     /** SETTERS **/
 
-    public void setX (double x);
-    
-    public void setY (double y);
+    public void setCoordinates (double x, double y);
 
     public void setRotation (double r);
 
@@ -25,13 +23,15 @@ public interface IRobot extends IViewableRobot {
         
     public void setImageID (int aImageID);
 
-	public void setTurtleID(int aTurtleID);
+	//public void setTurtleID(int aTurtleID);
 	
 	public int getCurrentID();
 	
 	public int getNumberOfTurtles();
-
-	public void setActiveTurtles(int[] aTurtleIDs);
 	
 	public Turtle getTurtle(int aTurtleID);
+
+	void setActiveTurtles(int[] aTurtleIDs, boolean aTellCommand);
+
+	void endTemporaryActiveTurtles();
 }

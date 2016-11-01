@@ -1,32 +1,25 @@
 package back_end.model.states.methodhistory;
 
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
-import back_end.model.node.INode;
-import back_end.model.syntax_tree.AbstractSyntaxTree;
 import integration.observe.Observable;
 
-public class UserInputHistory extends Observable {
+public class UserInputHistory extends Observable implements IViewableUserInputHistory {
 	
-	private Map<String, AbstractSyntaxTree> myUserHistory; 
+	private List<String> myUserHistory; 
 	
 	public UserInputHistory() { 
-		myUserHistory = new HashMap<String, AbstractSyntaxTree>();
+		myUserHistory = new ArrayList<String>();
 	}
 	
-	public void storeMethod(String aUserInputString, AbstractSyntaxTree aTree) {
-		myUserHistory.put(aUserInputString, aTree);
-		notifyObservers();
+	public void storeMethod(String aUserInputString) {
+		myUserHistory.add(aUserInputString);
 	}
 	
 	public Collection<String> getHistoryOfUserInputStrings() {
-		return myUserHistory.keySet();
-	}
-	
-	public AbstractSyntaxTree getSyntaxTree(String aUserInput) {
-		return myUserHistory.get(aUserInput);
+		return myUserHistory;
 	}
 
 

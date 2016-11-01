@@ -3,10 +3,11 @@ package back_end.model.command;
 import back_end.model.node.IReadableInput;
 import back_end.model.node.inner_nodes.list_nodes.ListNode;
 import back_end.model.robot.IRobot;
-import back_end.model.states.Environment;
 import back_end.model.states.IModifiableEnvironmentState;
 
+import back_end.model.exception.InvalidInputNumberException;
 import back_end.model.exception.InvalidNodeUsageException;
+
 public class CustomCommand extends ICommandBranch {
 	
 	private IModifiableEnvironmentState myEnvironment;
@@ -16,26 +17,21 @@ public class CustomCommand extends ICommandBranch {
 		myEnvironment = aEnvironment;
 		myName = aCommandName;
 	}
+	
+	public IReadableInput getFunction() {
+		return myEnvironment.getMethodExecutionNode(myName);
+	}
 
 	@Override
-	public int evalCondition(IReadableInput... aList) {
+	protected int evalConditionInNode(IReadableInput... aList)
+			throws InvalidInputNumberException, InvalidNodeUsageException {
 		int counter = 0;
-		//for (String variable: myEnvironment.getVariablesInScope()) {
-			//myEnvironment.assignVariable(variable, aList[counter].getValue());
+		for (String variable: myEnvironment.getVariableKeySet()) {
+			myEnvironment.assignVariable(variable, aList[counter].getValue());
 			++counter;
-		//}
-//		IReadableInput[] variableList = myScope.getVariablesInMethod(myName);
-//		for (int i = 0; i < variableList.length; i++) {
-//			myScope.assignVariable(variableList[i].getName(), aList[i].getValue());
-//		}
+		}
+		errorCheckForTooManyInputs(aList.length, counter + 1);
 		return 0;
 	}
 	
-	public IReadableInput getFunction() {
-		//return myEnvironment.getMethodToEvaluate(myName);
-		//XXX: remove this--temporary fix until merge
-		return new ListNode();
-	}
-	
-
 }
