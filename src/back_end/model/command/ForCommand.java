@@ -22,9 +22,9 @@ public class ForCommand extends ICommandBranch {
         	myFirst = false;
         	myEnvironment.assignVariable(aList[0].getName(), aList[1].getValue());
     	}
-    	if (myEnvironment.getVariableValue(aList[0].getName()) < aList[2].getValue()) {
+    	if (myEnvironment.getValue(aList[0].getName()) < aList[2].getValue()) {
     		myEnvironment.assignVariable(aList[0].getName(),
-                               (myEnvironment.getVariableValue(aList[0].getName()) + aList[3].getValue()));
+                               (myEnvironment.getValue(aList[0].getName()) + aList[3].getValue()));
         	return 0;
     	}
     	return -1;

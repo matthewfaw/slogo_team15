@@ -61,10 +61,6 @@ public class Environment extends Observable implements IModifiableEnvironmentSta
 	public boolean containsVariable(String name) {
 		return myCurrentScope.containsVariable(name);
 	}
-	
-	public double getVariableValue(String aVariable) {
-		return myCurrentScope.getVariableValue(aVariable);
-	}
 
 	public void assignVariable(String aName, double aValue) {
 		myCurrentScope.assignVariable(aName, aValue);
