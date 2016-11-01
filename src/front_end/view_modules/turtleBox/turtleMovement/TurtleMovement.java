@@ -18,14 +18,16 @@ public class TurtleMovement implements IObserver {
     private ImageView myTurtle;
     private int myWidth;
     private int myHeight;
+    private PenMovement myPenMovement;
 
     public static final int FRAMES_PER_SECOND = 60;
     private ITurtleBox myTurtleBox;
 
-    public TurtleMovement (ITurtleBox myConTurt, IViewRobot aRobot, int width, int height) {
-        myTurtleBox = myConTurt;
-        myWidth = width;
-        myHeight = height;
+    public TurtleMovement (ITurtleBox aConTurt, IViewRobot aRobot, int aWidth, int aHeight) {
+        myPenMovement = new PenMovement(this);
+        myTurtleBox = aConTurt;
+        myWidth = aWidth;
+        myHeight = aHeight;
         myRobot = aRobot;
         myRobot.registerObserver(this);
     }
@@ -37,8 +39,7 @@ public class TurtleMovement implements IObserver {
         myRobot = myTurtleBox.getRobot();
 
         checkVisibility();
-        // This is a problem: what if turtle needs to rotate first?
-        // Unless that is the function of observer/observable
+
         updateTurtlePosition();
 
         updateTurtleRotation();
@@ -53,6 +54,7 @@ public class TurtleMovement implements IObserver {
         moveTurtleY();
         if (myRobot.isPenDown()) {
             // TODO: Get this to access pen movement class
+            myPenMovement.drawWithPen(myTurtleBox);
         }
     }
 

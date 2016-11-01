@@ -48,7 +48,6 @@ class ConcreteTurtleBox implements ITurtleBox {
         myWidth = width;
         myHeight = height;
         myShapeColorMap = aShapeColorMap;
-        //HERE IS THE PROBLEM
         
         root = new Group();
         drawingCanvas = new Canvas(width, height);
