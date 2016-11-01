@@ -16,7 +16,7 @@ public class XCoordinateCommand implements ICommand {
 
     @Override
     public double eval (IReadableInput ... aList) throws InvalidNodeUsageException {
-        return myRobot.getCoordinate().getX();
+        return myRobot.getCurrentCoordinate().getX();
     }
 
 }

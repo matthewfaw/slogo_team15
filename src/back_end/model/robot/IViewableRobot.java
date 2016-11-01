@@ -17,7 +17,9 @@ public interface IViewableRobot extends IObservable {
 
     /** GETTERS **/
 
-    public Point getCoordinate ();
+    public Point getCurrentCoordinate ();
+
+    public Point getPreviousCoordinate ();
            
     public int getImageID ();
     

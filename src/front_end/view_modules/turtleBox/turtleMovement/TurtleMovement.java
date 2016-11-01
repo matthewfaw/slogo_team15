@@ -68,11 +68,11 @@ public class TurtleMovement implements IObserver {
     }
 
     private double translatedXCoordinate () {
-        return myRobot.getCoordinate().getX() + myWidth / 2;
+        return myRobot.getCurrentCoordinate().getX() + myWidth / 2;
     }
 
     private double translatedYCoordinate () {
-        return -myRobot.getCoordinate().getY() + myHeight / 2;
+        return -myRobot.getCurrentCoordinate().getY() + myHeight / 2;
     }
 
     private void moveTurtleX () {

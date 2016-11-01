@@ -16,8 +16,8 @@ public class SetPositionCommand implements ICommand {
 
 	@Override
     public double eval (IReadableInput ... aList) throws InvalidNodeUsageException {
-        double posX = Math.abs(myRobot.getCoordinate().getX() - aList[0].getValue());
-        double posY = Math.abs(myRobot.getCoordinate().getY() - aList[1].getValue());
+        double posX = Math.abs(myRobot.getCurrentCoordinate().getX() - aList[0].getValue());
+        double posY = Math.abs(myRobot.getCurrentCoordinate().getY() - aList[1].getValue());
         double returnVal = Math.sqrt(Math.pow(posX, 2) + Math.pow(posY, 2));
         myRobot.setCoordinates(aList[0].getValue(), aList[1].getValue());
         return returnVal;
