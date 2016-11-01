@@ -78,7 +78,7 @@ public abstract class AbstractBranchNode extends AbstractCommandNode {
 		}
 	}
 
-	private boolean hasActiveBranch()
+	protected boolean hasActiveBranch()
 	{
 		return myActiveBranchIndex != -1;
 	}

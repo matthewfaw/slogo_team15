@@ -19,8 +19,8 @@ public class MakeUserInstructionCommand implements ICommand {
 
 	@Override
 	public double eval(IReadableInput... aList) throws InvalidNodeUsageException {
-		IReadableInput[] variableList = Arrays.copyOfRange(aList, 2, aList.length);
-		myEnvironment.assignMethod(aList[0].getName(), aList[1], variableList);
+		IReadableInput[] variableList = Arrays.copyOfRange(aList, 1, aList.length - 1);
+		myEnvironment.assignMethod(aList[0].getName(), variableList, aList[aList.length - 1]);
 		return 1;
 	}
 

@@ -30,7 +30,9 @@ public class CustomNode extends AbstractBranchNode {
 		switch (getEvaluationState()) {
 			case EVALUATING_INPUTS:
 				super.evalCondition(myCommand);
-				initializeBranch();
+				if (super.hasActiveBranch()) {
+					initializeBranch();
+				} 
 				break;
 			case EVALUATING_BRANCH:
 				super.eval(myCommand);
@@ -51,9 +53,11 @@ public class CustomNode extends AbstractBranchNode {
 	
 	private void initializeBranch() throws InvalidNodeUsageException
 	{
-		ListNode methodBody = (ListNode) myCommand.getFunction();
-		methodBody.setState(NodeState.AVAILABLE);
-		super.setBranch(0, (ListNode) myCommand.getFunction());
+		if (super.hasActiveBranch()) {
+			ListNode methodBody = (ListNode) myCommand.getFunction();
+			methodBody.setState(NodeState.AVAILABLE);
+			super.setBranch(0, (ListNode) myCommand.getFunction());
+		} 
 	}
 	
 }
