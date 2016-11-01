@@ -35,10 +35,13 @@ public class NodeFactory {
     private static final String PACKAGE_DUMMY_NODE = "dummy_nodes.";
     private static final String TYPE = "CommandTypes";
     private static final String ERROR = "ErrorMessages";
+    private static final String NUMBER_OF_INPUTS = "syntax.NumberOfInputs";
+ 
 
 	private ResourceBundle mySyntaxResources;
 	private ResourceBundle myCommandTypeResources;
 	private ResourceBundle myErrorMessageResources;
+	private ResourceBundle myNumberOfInputsResources;
 	private CommandFactory myCommandFactory;
 	private Languages myLanguage;
 	private ScopeController myScopeController;
@@ -49,6 +52,7 @@ public class NodeFactory {
 		myCommandFactory = new CommandFactory(aEnvironment, aRobot);
 		myScopeController = aScopeController;
 		myErrorMessageResources = PropertyResourceBundle.getBundle(PACKAGE_RESOURCE + PACKAGE_ERROR + ERROR);
+		myNumberOfInputsResources = PropertyResourceBundle.getBundle(PACKAGE_RESOURCE + NUMBER_OF_INPUTS);
 	}
 	
 	public INode makeNode(String aUserInputWord) throws UnexpectedCharacterException, UnexpectedCommandException, 
@@ -131,7 +135,7 @@ public class NodeFactory {
     
     private int getInputNumber(String aGeneralNodeCategory, String aCommandType) {
     	if (aGeneralNodeCategory.equals("Command")) {
-    		return Integer.parseInt(mySyntaxResources.getString(aCommandType));
+    		return Integer.parseInt(myNumberOfInputsResources.getString(aCommandType));
     	} 
     	return 0;
     }
