@@ -19,14 +19,15 @@ public class RobotController extends Observable implements IRobot {
 		myTellActiveTurtles = new ArrayList<Turtle>();
 		myActiveTurtles = new ArrayList<Turtle>();
 		currentTurtle = 1;
-		addTurtle(currentTurtle);
+		//addTurtle(currentTurtle);
+		setActiveTurtles(new int[]{1}, true);
 	}
 	
 	@Override
 	public void setActiveTurtles(int[] aTurtleIDs, boolean aTellCommand) {
 		for (int i = 0; i < aTurtleIDs.length; i++) {
-			if (aTurtleIDs[i] < getNumberOfTurtles()) {
-				addTurtle(aTurtleIDs.length);
+			if (aTurtleIDs[i] >= getNumberOfTurtles()) {
+				addTurtle(aTurtleIDs[i]);
 			}
 		}
 		for (int i = 0; i < aTurtleIDs.length; i++) {
@@ -48,9 +49,13 @@ public class RobotController extends Observable implements IRobot {
 	
 	private void addTurtle(int aTurtleID) {
 		for (int i = myTurtles.size() - 1; i < aTurtleID; i++) {
-			Turtle turtle = new Turtle();
+			Turtle turtle = new Turtle(i);
 			myTurtles.add(turtle);
 		}
+	}
+	
+	public IViewableRobot getMostRecentRobot(){
+		return myTurtles.get( getCurrentID());
 	}
 	
 	/**GETTERS**/

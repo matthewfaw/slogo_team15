@@ -22,6 +22,8 @@ public interface IRobot extends IViewableRobot {
     public void setPenInformation (PenInformation aPenInformation);
         
     public void setImageID (int aImageID);
+    
+    public IViewableRobot getMostRecentRobot();
 
 	//public void setTurtleID(int aTurtleID);
 	

@@ -69,7 +69,7 @@ public class ModelController {
 		myRobot = new RobotController();
 		myBackgroundInformation = myEnvironment.getBackgroundInformation();
 		myUserInputHistory = new UserInputHistory();
-		distributeRobot(myRobot);
+		distributeRobot(myRobot.getMostRecentRobot());
 		distributeVariableState(myEnvironment);
 		distributeBackgroundInformation(myBackgroundInformation);
 		distributeUserInputHistory(myUserInputHistory);

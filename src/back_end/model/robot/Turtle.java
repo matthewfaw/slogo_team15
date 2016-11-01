@@ -8,7 +8,7 @@ import integration.drawing.PenInformation;
 import integration.observe.Observable;
 
 
-public class Turtle extends Observable {
+public class Turtle extends Observable implements IViewableRobot {
 	
 	private static final String DEFAULT = "resources.defaultvalues.DefaultValues";
 
@@ -16,17 +16,19 @@ public class Turtle extends Observable {
     private double myYpos;
     private double myRotation;
     private boolean myVisibility;
+    private int myTurtleID;
     private int myImageID;
     private PenInformation myPenInformation;
     private ResourceBundle myDefaultResource;
 
-    public Turtle () {
+    public Turtle (int aID) {
         myDefaultResource = PropertyResourceBundle.getBundle(DEFAULT);
         myVisibility = Boolean.parseBoolean(myDefaultResource.getString("TurtleVisibility"));
         myXpos = Double.parseDouble(myDefaultResource.getString("TurtleXpos"));
         myYpos = Double.parseDouble(myDefaultResource.getString("TurtleYpos"));
         myPenInformation = new PenInformation();
         myImageID = Integer.parseInt(myDefaultResource.getString("TurtleImageID"));
+        myTurtleID = aID;
     }
 
     /** SETTERS **/
@@ -81,6 +83,11 @@ public class Turtle extends Observable {
     public boolean isVisible () {
         return myVisibility;
     }
+
+	@Override
+	public int getTurtleID() {
+		return myTurtleID;
+	}
     
 
 

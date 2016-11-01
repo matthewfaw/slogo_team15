@@ -9,6 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.SpinnerValueFactory.IntegerSpinnerValueFactory;
 import javafx.scene.image.*;
 import javafx.scene.layout.VBox;
 
@@ -105,7 +106,7 @@ public class ConcreteRobotStateBox implements IRobotStateBox {
 
 	private void build(){
 		if(noRobot()) return;
-		myIDLabel.setText(myRobot.toString()); 
+		myIDLabel.setText( "ID: " + Integer.toString( myRobot.getTurtleID() ) ); 
 		myCoordinatesLabel.setText( buildCoordinateString(myRobot.getCoordinate().getX(), myRobot.getCoordinate().getY()) );
 		myBearingLabel.setText("Angle: " + myRobot.getRotation() + " deg");
 		myPenDownButton.setSelected( !myRobot.getPenInformation().isPenUp() );
