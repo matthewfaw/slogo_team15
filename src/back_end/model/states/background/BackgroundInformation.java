@@ -3,20 +3,26 @@ package back_end.model.states.background;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.PropertyResourceBundle;
+import java.util.ResourceBundle;
 
 import integration.observe.Observable;
 
-public class BackgroundInformation extends Observable {
+public class BackgroundInformation extends Observable implements IViewableBackground, IModifiableBackground {
 	
+	private static final String DEFAULT = "resources.defaultvalues.DefaultValues";
+	
+	private ResourceBundle myDefaultValues;
 	private int myBackgroundColor;
 	private Map<Integer, String> myPaletteColors;
 	private int myWidth;
 	private int myHeight; 
 	
 	public BackgroundInformation() {
-		myWidth = 100;
-		myHeight = 70; 
-		myBackgroundColor = 1; 
+		myDefaultValues = PropertyResourceBundle.getBundle(DEFAULT);
+		myWidth = Integer.parseInt(myDefaultValues.getString("Width"));
+		myHeight = Integer.parseInt(myDefaultValues.getString("Height")); 
+		myBackgroundColor = Integer.parseInt(myDefaultValues.getString("BackgroundColor")); 
 		myPaletteColors = new HashMap<Integer, String>();
 	}
 	

@@ -35,14 +35,6 @@ public class FunctionScope {
 		myNestedVariableStates.peek().assignVariable(aVariable, 0); 
 		return 0;
 	}
-	
-	public Collection<String> getVariablesInScope() {
-		Set<String> keySet = new HashSet<String>(); 
-		for (VariableState variableState : myNestedVariableStates) {
-			keySet.addAll(variableState.getVariableKeySet()); 
-		}
-		return keySet;
-	}
 
 	public void assignVariable(String aName, double aValue) {
 		for (VariableState variableState : myNestedVariableStates) {

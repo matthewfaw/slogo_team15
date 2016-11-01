@@ -19,7 +19,7 @@ public class TellCommand implements ICommand {
 		for (int i = 0; i < aList.length; i++) {
 			array[i] = (int) aList[i].getValue();
 		}
-		myRobot.setActiveTurtles(array);
+		myRobot.setActiveTurtles(array, true);
 		return aList[0].getValue();
 	}
 
