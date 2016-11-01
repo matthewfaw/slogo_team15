@@ -14,10 +14,7 @@ public interface IHistoryAcceptor {
 	/**
 	 * Pushes specified History to robots
 	 */
-<<<<<<< Updated upstream
+
 	public void giveHistory(String aHistory);
-=======
-	public void giveHistory(String myMethod);
->>>>>>> Stashed changes
 	
 }
