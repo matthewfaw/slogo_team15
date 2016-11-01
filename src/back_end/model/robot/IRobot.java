@@ -24,16 +24,9 @@ public interface IRobot extends IViewableRobot {
     public void setImageID (int aImageID);
     
     public IViewableRobot getMostRecentRobot();
-
-	//public void setTurtleID(int aTurtleID);
-	
-	public int getCurrentID();
 	
 	public int getNumberOfTurtles();
 	
 	public Turtle getTurtle(int aTurtleID);
 
-	//void setActiveTurtles(int[] aTurtleIDs, boolean aTellCommand);
-
-	//void endTemporaryActiveTurtles();
 }

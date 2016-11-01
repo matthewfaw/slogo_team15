@@ -6,7 +6,7 @@ import back_end.model.states.IModifiableEnvironmentState;
 
 
 import back_end.model.exception.InvalidNodeUsageException;
-public class SetHeadingCommand extends RotationCommand {
+public class SetHeadingCommand extends RotationCommand implements ICommandTurtle {
 
     private IRobot myRobot;
 

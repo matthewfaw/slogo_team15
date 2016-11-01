@@ -6,7 +6,7 @@ import back_end.model.node.IReadableInput;
 import back_end.model.robot.IRobot;
 import back_end.model.states.IModifiableEnvironmentState;
 
-public class AskCommand extends ICommandBranch {
+public class AskCommand extends ICommandBranch implements ICommandTurtle {
 	
 	private IRobot myRobot;
 	
@@ -16,7 +16,7 @@ public class AskCommand extends ICommandBranch {
 	
 	@Override
 	public double eval(IReadableInput...aList) throws InvalidNodeUsageException {
-		myRobot.endTemporaryActiveTurtles();
+		//myRobot.endTemporaryActiveTurtles();
 		return super.eval(aList);
 	}
 
@@ -26,7 +26,7 @@ public class AskCommand extends ICommandBranch {
 		for (int i = 0; i < aList.length; i++) {
 			array[i] = (int) aList[i].getValue();
 		}
-		myRobot.setActiveTurtles(array, false);
+		//myRobot.setActiveTurtles(array, false);
 		return 1;
 	}
 

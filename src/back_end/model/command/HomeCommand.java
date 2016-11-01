@@ -5,7 +5,7 @@ import back_end.model.node.leaf_nodes.ConstantNode;
 import back_end.model.robot.IRobot;
 import back_end.model.states.IModifiableEnvironmentState;
 import back_end.model.exception.InvalidNodeUsageException;
-public class HomeCommand extends SetPositionCommand {
+public class HomeCommand extends SetPositionCommand implements ICommandTurtle {
 
     public HomeCommand(IRobot aRobot, IModifiableEnvironmentState aEnvironment, String aCommandName) {
         super(aRobot, aEnvironment, aCommandName);

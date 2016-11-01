@@ -6,7 +6,7 @@ import back_end.model.states.IModifiableEnvironmentState;
 
 
 import back_end.model.exception.InvalidNodeUsageException;
-public class SetPositionCommand implements ICommand {
+public class SetPositionCommand implements ICommand, ICommandTurtle {
 
     private IRobot myRobot;
 

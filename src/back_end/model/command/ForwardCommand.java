@@ -6,7 +6,7 @@ import back_end.model.robot.IRobot;
 import back_end.model.states.IModifiableEnvironmentState;
 
 import back_end.model.exception.InvalidNodeUsageException;
-public class ForwardCommand extends MovementCommand {
+public class ForwardCommand extends MovementCommand implements ICommandTurtle {
 
     private IRobot myRobot;
 
