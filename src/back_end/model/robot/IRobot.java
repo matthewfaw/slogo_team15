@@ -33,7 +33,7 @@ public interface IRobot extends IViewableRobot {
 	
 	public Turtle getTurtle(int aTurtleID);
 
-	void setActiveTurtles(int[] aTurtleIDs, boolean aTellCommand);
+	//void setActiveTurtles(int[] aTurtleIDs, boolean aTellCommand);
 
-	void endTemporaryActiveTurtles();
+	//void endTemporaryActiveTurtles();
 }

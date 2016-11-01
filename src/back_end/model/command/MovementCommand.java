@@ -17,12 +17,12 @@ public abstract class MovementCommand implements ICommand {
     }
 
 	public Point getXYCoordinate (IReadableInput ... aList) throws InvalidNodeUsageException {
-        double XPos = Math.sin(myRobot.getRotation()) * aList[0].getValue();
-        double YPos = Math.cos(myRobot.getRotation()) * aList[0].getValue();
-        if (myRobot.getRotation() > 90 && myRobot.getRotation() < 360) {
-            XPos = 0 - XPos;
-            YPos = 0 - YPos;
-        }
+        double XPos = Math.cos(Math.PI / 180 * myRobot.getRotation() + Math.PI/2) * aList[0].getValue();
+        double YPos = Math.sin(Math.PI / 180 * myRobot.getRotation() + Math.PI/2) * aList[0].getValue();
+//        if (myRobot.getRotation() > 90 && myRobot.getRotation() < 360) {
+//            XPos = 0 - XPos;
+//            YPos = 0 - YPos;
+//        }
         Point p = new Point();
         p.setLocation(XPos, YPos);
         return p;

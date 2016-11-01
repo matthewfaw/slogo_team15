@@ -12,9 +12,9 @@ public abstract class RotationCommand implements ICommand {
 
     public double getRotation (IReadableInput ... aList) throws InvalidNodeUsageException {
         double rotationValue = aList[0].getValue() % 360;
-        if (rotationValue < 0) {
-            rotationValue = 360 + rotationValue;
-        }
+//        if (rotationValue < 0) {
+//            rotationValue = 360 + rotationValue;
+//        }
         return rotationValue;
 
     }

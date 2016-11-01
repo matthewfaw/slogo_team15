@@ -29,12 +29,14 @@ public class Turtle extends Observable implements IViewableRobot {
         myPenInformation = new PenInformation();
         myImageID = Integer.parseInt(myDefaultResource.getString("TurtleImageID"));
         myTurtleID = aID;
+        myRotation = Double.parseDouble(myDefaultResource.getString("TurtleRotation"));
     }
 
     /** SETTERS **/
 
     public void setCoordinates (double x, double y) {
         myXpos = x;
+        myYpos = y;
         notifyObservers();
 
     }

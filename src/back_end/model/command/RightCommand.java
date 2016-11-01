@@ -18,7 +18,7 @@ public class RightCommand extends RotationCommand {
     @Override
     public double eval (IReadableInput ... aList) throws InvalidNodeUsageException {
         double rotation = getRotation(aList);
-        myRobot.setRotation(myRobot.getRotation() + rotation);
+        myRobot.setRotation(myRobot.getRotation() - rotation);
         return aList[0].getValue();
     }
 

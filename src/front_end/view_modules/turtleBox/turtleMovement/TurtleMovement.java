@@ -46,7 +46,7 @@ public class TurtleMovement implements IObserver {
     }
 
     private void updateTurtleRotation () {
-        myTurtle.setRotate(myRobot.getRotation());
+        myTurtle.setRotate(-myRobot.getRotation());
     }
 
     private void updateTurtlePosition () {
