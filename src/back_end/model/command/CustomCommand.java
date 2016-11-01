@@ -29,8 +29,8 @@ public class CustomCommand extends ICommandBranch {
 			throws InvalidInputNumberException, InvalidNodeUsageException {
 		if (myFirstExecution) {
 			int counter = 0;
-			for (String variable: myEnvironment.getVariableKeySet()) {
-				myEnvironment.assignVariable(variable, aList[counter].getValue());
+			for (IReadableInput variable: myEnvironment.getMethodVariables(myName)) {
+				myEnvironment.assignVariable(variable.getName(), aList[counter].getValue());
 				++counter;
 			}
 			errorCheckForTooManyInputs(aList.length, counter + 1);
