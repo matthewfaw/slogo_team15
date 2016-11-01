@@ -104,7 +104,7 @@ public class ApplicationController {
 
         try {
             myModel.userInputToModel(sb.toString());
-            myScriptViewer.giveFunction(sb.toString());
+            myHistoryModule.giveHistory(sb.toString());
         }
         catch (InstantiationException | IllegalAccessException | IllegalArgumentException
                 | InvocationTargetException
