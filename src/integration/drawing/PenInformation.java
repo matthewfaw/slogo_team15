@@ -1,16 +1,27 @@
 package integration.drawing;
 
+import java.util.PropertyResourceBundle;
+import java.util.ResourceBundle;
+
 import integration.observe.Observable;
 
 public class PenInformation extends Observable {
+	
+	private static final String DEFAULT = "resources.defaultvalues.DefaultValues";
 
-        private boolean penUp;
+    private ResourceBundle myDefaultValues;
 	private LineStyleSpec myLineStyle;
 	private int myPenThickness;
 	private int myColorID;
 	private boolean myPenUp;
 	
-	public PenInformation(){}
+	public PenInformation(){
+		myDefaultValues = PropertyResourceBundle.getBundle(DEFAULT);
+		myPenUp = Boolean.parseBoolean(myDefaultValues.getString("PenUp"));
+		myLineStyle = LineStyleSpec.SOLID;
+		myPenThickness = Integer.parseInt(myDefaultValues.getString("PenThickness"));
+		myColorID = Integer.parseInt(myDefaultValues.getString("ColorID"));
+	}
 	
 	/**SETTERS**/
 	
