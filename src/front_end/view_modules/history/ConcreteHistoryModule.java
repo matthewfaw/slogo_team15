@@ -72,6 +72,7 @@ class ConcreteHistoryModule implements IHistoryModule {
     private void getFiveFuncs () {
         int i = 0;
         Iterator<String> myIterator = myFunctions.iterator();
+        myHistoryColumn.getChildren().clear();
         while (myIterator.hasNext() && i < 5) {
             String temp = myIterator.next();
             HBox myHBox = createHBox(temp);
