@@ -1,25 +1,22 @@
 package back_end.model.syntax_tree;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Stack;
 
+import back_end.model.exception.InvalidNodeUsageException;
 import back_end.model.node.INode;
 import back_end.model.node.dummy_nodes.ListEndNode;
 import back_end.model.node.dummy_nodes.ListStartNode;
 import back_end.model.node.inner_nodes.command_nodes.AbstractCommandNode;
-import back_end.model.node.inner_nodes.command_nodes.CustomNode;
-import back_end.model.node.inner_nodes.command_nodes.branching_nodes.AbstractBranchNode;
-import back_end.model.node.inner_nodes.command_nodes.input_nodes.CommandDefinitionNode;
 import back_end.model.node.inner_nodes.list_nodes.ListNode;
-import back_end.model.node.leaf_nodes.VariableNode;
-
 
 public class AbstractSyntaxTree {
-	private INode myRoot;
+	private ListNode myRoot;
 	
 	//XXX: These should be moved to another class. Visitor pattern might work here?
 	
-	public AbstractSyntaxTree(Stack<INode> aNodeStack)
+	public AbstractSyntaxTree(Stack<INode> aNodeStack) throws InvalidNodeUsageException
 	{
 		myRoot = constructTree(aNodeStack);
 	}
@@ -28,7 +25,7 @@ public class AbstractSyntaxTree {
 		return myRoot;
 	}
 	
-	private INode constructTree(Stack<INode> aNodeStack)
+	private ListNode constructTree(Stack<INode> aNodeStack) throws InvalidNodeUsageException
 	{
 		Stack<INode> inputStack = new Stack<INode>();
 		
@@ -37,42 +34,44 @@ public class AbstractSyntaxTree {
 			
 			updateList(node, aNodeStack, inputStack);
 		}
-		INode rootNode = connectSubtrees(inputStack);
+		ListNode rootNode = connectSubtrees(inputStack);
 
 		return rootNode;
 	}
-	private INode connectSubtrees(Stack<INode> aInputStack)
+	private ListNode connectSubtrees(Stack<INode> aInputStack)
 	{
 		ListNode root = new ListNode();
 		
+		List<INode> children = new ArrayList<INode>();
 		while(!aInputStack.isEmpty()) {
-			root.addChild(aInputStack.pop());
+			children.add(aInputStack.pop());
 		}
+		root.setChildren(children);
 
 		return root;
 	}
 	
-	private void updateList(INode aNode, Stack<INode> aOriginalNodeStack, Stack<INode> aCurrentInputStack)
+	private void updateList(INode aNode, Stack<INode> aOriginalNodeStack, Stack<INode> aCurrentInputStack) throws InvalidNodeUsageException
 	{
 		if (aNode instanceof AbstractCommandNode) {
 			populateCommandNode((AbstractCommandNode) aNode, aOriginalNodeStack, aCurrentInputStack);
 		} else if (aNode instanceof ListStartNode) {
-			populateBracketNode((ListStartNode) aNode, aOriginalNodeStack, aCurrentInputStack);
+			populateListNode((ListStartNode) aNode, aOriginalNodeStack, aCurrentInputStack);
 		} else {
 			aCurrentInputStack.push(aNode);
 		}
 	}
-	private void populateCommandNode(AbstractCommandNode aNode, Stack<INode> aOriginalNodeStack, Stack<INode> aCurrentInputStack)
+	private void populateCommandNode(AbstractCommandNode aNode, Stack<INode> aOriginalNodeStack, Stack<INode> aCurrentInputStack) throws InvalidNodeUsageException
 	{
 		ArrayList<INode> inputList = new ArrayList<INode>();
 		for (int i=0; i<aNode.getNumberOfInputs(); ++i) {
 			INode inputNode = aCurrentInputStack.pop();
 			inputList.add(inputNode);
 		}
-		aNode.addChild(inputList);
+		aNode.setChildren(inputList);
 		aCurrentInputStack.push(aNode);
 	}
-	private void populateBracketNode(ListStartNode aNode, Stack<INode> aOriginalNodeStack, Stack<INode> aCurrentInputStack)
+	private void populateListNode(ListStartNode aNode, Stack<INode> aOriginalNodeStack, Stack<INode> aCurrentInputStack)
 	{
 		ListNode listNode = new ListNode();
 		
@@ -83,7 +82,7 @@ public class AbstractSyntaxTree {
 			inputList.add(inputNode);
 			inputNode = aCurrentInputStack.pop();
 		}
-		listNode.addChild(inputList);
+		listNode.setChildren(inputList);
 		aCurrentInputStack.push(listNode);
 	}
 	

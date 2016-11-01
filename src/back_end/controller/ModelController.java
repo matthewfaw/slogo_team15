@@ -3,6 +3,7 @@ package back_end.controller;
 import java.lang.reflect.InvocationTargetException;
 import back_end.model.exception.ArgumentException;
 import back_end.model.exception.EmptyInputException;
+import back_end.model.exception.InvalidNodeUsageException;
 import back_end.model.exception.UnexpectedCharacterException;
 import back_end.model.exception.UnexpectedCommandException;
 import back_end.model.robot.IViewableRobot;
@@ -29,7 +30,7 @@ public class ModelController {
 	private TextParser myParser;
 	private IRouter myRouter;
 	
-	public static void main(String[] args)
+	public static void main(String[] args) throws InvalidNodeUsageException
 	{
 		Environment environment = Environment.getInstance();
 		IRobot robot = new RobotController();
@@ -69,7 +70,7 @@ public class ModelController {
 		myParser = new TextParser(myScopeController, myEnvironment, (IRobot) myRobot);
 	}
 	
-	public void userInputToModel(String aString) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException, UnexpectedCharacterException, UnexpectedCommandException, EmptyInputException {
+	public void userInputToModel(String aString) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException, UnexpectedCharacterException, UnexpectedCommandException, EmptyInputException, InvalidNodeUsageException {
 		AbstractSyntaxTree ast = new AbstractSyntaxTree(myParser.getNodeStack(aString));
 		TreeEvaluator treeEvaluator = new TreeEvaluator(ast);
 		try {

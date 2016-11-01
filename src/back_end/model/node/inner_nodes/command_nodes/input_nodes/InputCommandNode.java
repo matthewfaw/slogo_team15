@@ -18,9 +18,9 @@ public class InputCommandNode extends AbstractInputCommandNode {
 	public void setChildren(List<INode> aChildren) throws InvalidNodeUsageException 
 	{
 		super.addChildren(aChildren);
-		for (INode child: aChildren) {
-			super.addChild(child);
-		}
+//		for (INode child: aChildren) {
+//			super.addChild(child);
+//		}
 	}
 
 }
