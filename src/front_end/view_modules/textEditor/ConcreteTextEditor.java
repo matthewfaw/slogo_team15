@@ -40,8 +40,8 @@ class ConcreteTextEditor implements ITextEditor {
     private int myLastIndex;
     private boolean myRowsAdded;
 
-    private static final int NUM_START_ROWS = 5;
-    private static final int NEW_ROW_BURST = 5;
+    private static final int NUM_START_ROWS = 10;
+    private static final int NEW_ROW_BURST = 100;
     private static final int SPACING = 20;
 
     /******* API Defined Methods ********/
@@ -146,8 +146,8 @@ class ConcreteTextEditor implements ITextEditor {
         labelBox.getChildren().add(curLabel);
 
         TextField curTextField = new TextField();
-        curTextField.setMinWidth(myWidth - labelBox.getWidth() - curLabel.getWidth() - SPACING - 30);
-        curTextField.setMaxWidth(myWidth - labelBox.getWidth() - curLabel.getWidth() - SPACING - 30);
+        curTextField.setMinWidth(myWidth - labelBox.getWidth() - curLabel.getWidth() - SPACING - 40);
+        curTextField.setMaxWidth(myWidth - labelBox.getWidth() - curLabel.getWidth() - SPACING - 40);
         myTextFields.add(myLastIndex, curTextField);
 
         curTextField.setOnAction(e -> {
@@ -193,7 +193,7 @@ class ConcreteTextEditor implements ITextEditor {
 
         myTextEditor.setHbarPolicy(ScrollBarPolicy.NEVER);
         myTextEditor.setVbarPolicy(ScrollBarPolicy.ALWAYS);
-        myTextEditor.setPrefSize(myWidth + 5, myHeight);
+        myTextEditor.setPrefSize(myWidth, myHeight);
 
         myTextEditor.vvalueProperty().addListener(new ChangeListener<Number>() {
 

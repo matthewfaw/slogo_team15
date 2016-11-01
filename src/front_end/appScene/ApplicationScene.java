@@ -54,12 +54,12 @@ public class ApplicationScene {
 	public ApplicationScene (int aWidth, int aHeight) {
 		myApplicationView = new GridPane();
 
-		myHistoryModule = 		 HistoryModuleFactory.build( aWidth / 3 , aHeight / 2  - aHeight/10 );
+		myHistoryModule = 		 HistoryModuleFactory.build( aWidth / 3 , 5 * aHeight / 12 );
 		myToolbar = 				   ToolbarFactory.build( aWidth		, aHeight / 20 );
-		myTextEditor = 	 			TextEditorFactory.build( aWidth / 2 , aHeight / 2  - aHeight/20 );
-		myErrorViewer = 		   ErrorViewerFactory.build( aWidth / 2 , aHeight / 6  - aHeight/10 , myTextEditor);
-		myVariableViewer = 		VariableViewerFactory.build( aWidth / 4 , aHeight / 2  );
-		myFunctionViewer = 		FunctionViewerFactory.build( aWidth / 4 , aHeight / 2  );
+		myTextEditor = 	 			TextEditorFactory.build( aWidth / 2 , aHeight / 2);
+		myErrorViewer = 		   ErrorViewerFactory.build( aWidth / 2 , aHeight / 12 , myTextEditor);
+		myVariableViewer = 		VariableViewerFactory.build( aWidth / 4 , aHeight / 2 - aHeight/20 );
+		myFunctionViewer = 		FunctionViewerFactory.build( aWidth / 4 , aHeight / 2 - aHeight/20 );
 		myShapeColorModule =  ImageColorModuleFactory.build( aWidth / 4 , aHeight / 4  );
 		myTurtleBox = 				 TurtleBoxFactory.build( aWidth / 2 ,  aHeight / 2, myShapeColorModule);
 		myStatesBox = new ConcreteAllRobotsStateBox(myShapeColorModule, myShapeColorModule);
@@ -73,14 +73,15 @@ public class ApplicationScene {
 		myApplicationView.add(myTextEditor.getInstanceAsNode(), 		0, 2, 1, 1);
 		myApplicationView.add(join(myStatesBox.getInstanceAsNode(), 
 							  myShapeColorModule.getInstanceAsNode()), 	1, 1, 1, 1);
-		myApplicationView.add(joinSwitch(myVariableViewer.getInstanceAsNode(), myFunctionViewer.getInstanceAsNode()), 2, 1, 1, 1);
+		myApplicationView.add(joinSwitch(myVariableViewer.getInstanceAsNode(), myFunctionViewer.getInstanceAsNode(), aHeight / 2, aWidth/4), 2, 1, 1, 1);
 		myApplicationView.add(join(myErrorViewer.getInstanceAsNode(),
 								 myHistoryModule.getInstanceAsNode()),	1, 2, 2, 1 );
 
 	}
 	
-	private Node joinSwitch(Node aVarViewer, Node aFunctionViewer){
+	private Node joinSwitch(Node aVarViewer, Node aFunctionViewer, int aHeight, int aWidth){
 	StackPane pane = new StackPane();
+	pane.setMaxSize(aWidth, aHeight);
 	VBox box = new VBox(0);
 	pane.getChildren().add(box);
 	
