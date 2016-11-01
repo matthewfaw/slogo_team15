@@ -1,21 +1,19 @@
 package front_end.view_modules.turtlestate;
 
 import back_end.model.robot.IViewableRobot;
-import front_end.view_modules.image_color_module.interfaces.IColorModule;
 import front_end.view_modules.image_color_module.interfaces.IImageModule;
-import javafx.beans.value.ObservableValue;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.control.Toggle;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.control.SpinnerValueFactory.IntegerSpinnerValueFactory;
-import javafx.scene.image.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 public class ConcreteRobotStateBox implements IRobotStateBox {
 
-	private IColorModule myColorMap;
 	private IImageModule myImageMap;
 	private IViewableRobot myRobot;
 
@@ -24,19 +22,24 @@ public class ConcreteRobotStateBox implements IRobotStateBox {
 	private Label myIDLabel;
 	private Label myCoordinatesLabel;
 	private Label myBearingLabel;
+	
+	private ToggleGroup myPenGroup;
 	private ToggleButton myPenDownButton;
+	private ToggleButton myPenUpButton;
+	
+	private ToggleGroup  myVisibilityGroup;
 	private ToggleButton myVisibilityButton;
+	private ToggleButton myInvisibilityButton;
 	private ImageView myRobotImage;
-
-	private boolean myIsBuilt;
 
 	private static final int CHARACTER_SIZE = 20;
 	
-	ConcreteRobotStateBox( IColorModule aColorMap, IImageModule aImageMap ){
-		myColorMap = aColorMap;
+	ConcreteRobotStateBox( IImageModule aImageMap, IViewableRobot aViewRobot ){
 		myImageMap = aImageMap;
+		myRobot = aViewRobot;
+		myRobot.registerObserver(this);
+		
 		myBox = new VBox(0);
-		myIsBuilt = false;
 
 		myIDLabel = new Label("n/a");
 		myCoordinatesLabel = new Label("n/a");
@@ -45,36 +48,28 @@ public class ConcreteRobotStateBox implements IRobotStateBox {
 		myRobotImage.setFitHeight(CHARACTER_SIZE);
 		myRobotImage.setFitWidth(CHARACTER_SIZE);
 		
-		myPenDownButton = new ToggleButton("Pen Up");
-
-		ToggleGroup group1 = new ToggleGroup();
-		group1.selectedToggleProperty() 
-		// Set Change Text if toggled
-		.addListener( (ObservableValue<? extends Toggle> ov,Toggle old_toggle, Toggle new_toggle) -> {
-			myPenDownButton.setText("Pen Up");
-			if(new_toggle == null) return;
-			if(new_toggle.isSelected()) myPenDownButton.setText("Pen Down");
-		});
-		myPenDownButton.setToggleGroup(group1);
+		myPenDownButton = new RadioButton("Pen Down");
+		myPenUpButton = new RadioButton("Pen Up");
+		myPenGroup = new ToggleGroup();
+		myPenGroup.selectedToggleProperty().addListener( t -> {});
+		myPenDownButton.setToggleGroup(myPenGroup);
+		myPenUpButton.setToggleGroup(myPenGroup);
 		
-		myVisibilityButton = new ToggleButton("Visible");
-		ToggleGroup group2 = new ToggleGroup();
-		group2.selectedToggleProperty()
-		// Set Change Text if toggled
-		.addListener( (ObservableValue<? extends Toggle> ov,Toggle old_toggle, Toggle new_toggle) -> {
-			myVisibilityButton.setText("Visible");
-			if(new_toggle == null) return;
-			if(new_toggle.isSelected()) myVisibilityButton.setText("Invisible");
-			}
-		);
-		myVisibilityButton.setToggleGroup(group2);
+		myVisibilityButton = new RadioButton("Visible");
+		myInvisibilityButton = new RadioButton("Invisible");
+		myVisibilityGroup = new ToggleGroup();
+		myVisibilityGroup.selectedToggleProperty().addListener( t -> {});
+		myVisibilityButton.setToggleGroup(myVisibilityGroup);
+		myInvisibilityButton.setToggleGroup(myVisibilityGroup);
 
+		myPenGroup.selectToggle(myPenUpButton);
+		
 		myBox.getChildren().addAll(	myIDLabel,
 			   	myCoordinatesLabel,
 			   	myBearingLabel,
 			   	myRobotImage,
-			   	myPenDownButton,
-			   	myVisibilityButton);
+			   	new HBox(myPenDownButton, myPenUpButton),
+			   	new HBox(myVisibilityButton, myInvisibilityButton));
 	
 		build();
 	}
@@ -93,40 +88,35 @@ public class ConcreteRobotStateBox implements IRobotStateBox {
 
 	@Override
 	public void update() {
-		if(noRobot() || !myIsBuilt) return;
-		build();
-	}
-
-	@Override
-	public void giveRobot(IViewableRobot aViewRobot) {
-		myRobot = aViewRobot;
-		myRobot.registerObserver(this);
 		build();
 	}
 
 	private void build(){
-		if(noRobot()) return;
 		myIDLabel.setText( "ID: " + Integer.toString( myRobot.getTurtleID() ) ); 
 		myCoordinatesLabel.setText( buildCoordinateString(myRobot.getCoordinate().getX(), myRobot.getCoordinate().getY()) );
 		myBearingLabel.setText("Angle: " + myRobot.getRotation() + " deg");
-		myPenDownButton.setSelected( !myRobot.getPenInformation().isPenUp() );
-		myVisibilityButton.setSelected( myRobot.isVisible() );
+		
+		if(myRobot.getPenInformation().isPenUp())
+			myPenGroup.selectToggle(myPenUpButton);
+		else 
+			myPenGroup.selectToggle(myPenDownButton);
+		
+		if(myRobot.isVisible())
+			myVisibilityGroup.selectToggle(myVisibilityButton);
+		else 
+			myVisibilityGroup.selectToggle(myInvisibilityButton);
+		
 		myRobotImage.setImage( new Image( myImageMap.getFile(0).toURI().toString() ) );
-		myIsBuilt = true;
 	}
 
 	private String buildCoordinateString(Number aX, Number aY){
 		return "Coord: (" + aX + ", " + aY + ")";
 	}
 
-	private boolean noRobot() {
-		return (myRobot == null);
-	}
-
 	@Override
 	public int getRobotID() {
 		// TODO Auto-generated method stub
-		return 0;
+		return myRobot.getTurtleID();
 	}
 
 
