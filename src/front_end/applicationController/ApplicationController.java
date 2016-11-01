@@ -29,6 +29,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 
@@ -160,7 +161,7 @@ public class ApplicationController {
         myToolbar.onPenPress(e -> popupPenSelector());
 
         myToolbar.onBuildPress(e -> buildCommands());
-
+        
     }
 
     private void configurePenPopup (Stage stage) {

@@ -1,13 +1,16 @@
 package front_end.view_modules.function_viewer;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
+import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -24,6 +27,7 @@ class ConcreteFunctionViewer implements IFunctionViewer {
     private LinkedList<String> myFunctions;
     private List<String> fiveShownFunctions;
     private VBox myFunctionVBox;
+    private List<String> myCurFunction;
 
     ConcreteFunctionViewer (int aWidth, int aHeight) {
         myScriptViewer = new Pane();
@@ -31,6 +35,7 @@ class ConcreteFunctionViewer implements IFunctionViewer {
         myScriptViewer.setPrefSize(aWidth, aHeight);
         myFunctionVBox = new VBox(SPACING);
         myScriptViewer.getChildren().add(myFunctionVBox);
+        myCurFunction = new ArrayList<String>();
     }
     
     @Override
@@ -52,9 +57,18 @@ class ConcreteFunctionViewer implements IFunctionViewer {
     private HBox createHBox(String myString) {
         HBox myHBox = new HBox(SPACING);
         Label myLabel = new Label(myString);
-        Button myButton = makeButton();
+        Button myButton = makeButton(myString);
+        myButton.setOnMouseClicked(e -> load(myString));
         myHBox.getChildren().addAll(myLabel, myButton);
         return myHBox;
+    }
+    
+    private void load(String myString) {
+        myCurFunction = Arrays.asList(myString.split("\n"));
+    }
+    
+    public List<String> getCurFunction() {
+        return myCurFunction;
     }
     
     private void getFiveFuncs() {
@@ -71,7 +85,7 @@ class ConcreteFunctionViewer implements IFunctionViewer {
         }
     }
     
-    private Button makeButton () {
+    private Button makeButton (String myFunctionString) {
         Button myButton = new Button("Press for Function");
         return myButton;
     }

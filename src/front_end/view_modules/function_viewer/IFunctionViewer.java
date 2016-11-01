@@ -1,8 +1,10 @@
 package front_end.view_modules.function_viewer;
 
+import java.util.List;
 import front_end.acceptor.IFunctionAcceptor;
 import front_end.view_modules.IViewModule;
 import integration.languages.ILanguageSwitcher;
+import javafx.scene.control.Button;
 
 
 /**
@@ -13,5 +15,6 @@ import integration.languages.ILanguageSwitcher;
  *
  */
 public interface IFunctionViewer extends IViewModule, ILanguageSwitcher, IFunctionAcceptor {
+
 	
 }
