@@ -2,9 +2,9 @@ package front_end.view_modules.penProperties;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import front_end.view_modules.image_color_module.interfaces.IColorModule;
 import integration.drawing.LineStyleSpec;
-import integration.drawing.PenInformation;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;

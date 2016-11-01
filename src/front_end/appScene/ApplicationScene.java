@@ -1,9 +1,5 @@
 package front_end.appScene;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.stream.Collectors;
-
 import front_end.view_modules.errorViewer.ErrorViewerFactory;
 import front_end.view_modules.errorViewer.IErrorViewer;
 import front_end.view_modules.function_viewer.FunctionViewerFactory;

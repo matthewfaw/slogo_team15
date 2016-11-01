@@ -9,7 +9,6 @@ import front_end.view_modules.image_color_module.interfaces.IImageModule;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 
 class ConcreteImageModule implements IImageModule {
 
