@@ -62,6 +62,13 @@ class ConcreteImageColorModule implements IImageColorModule {
 		
 	}
 	
+	public ConcreteImageColorModule(int aWidth, int aHeight) {
+		this();
+		myWindow.setMinSize(aWidth, aHeight);
+		myWindow.setPrefSize(aWidth, aHeight);
+		myWindow.setMaxSize(aWidth, aHeight);
+	}
+
 	private void switchPalette(Palettes pal){
 		myModuleSwitchBox.getChildren().clear();
 		String name;		

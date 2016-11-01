@@ -33,6 +33,11 @@ class ConcreteHistoryModule implements IHistoryModule {
 		
 	}
 	
+	public ConcreteHistoryModule(int aWidth, int aHeight) {
+		this();
+		myScroller.setPrefSize(aWidth, aHeight);
+	}
+
 	@Override
 	public void reset() {
 		myHistoryColumn.getChildren().clear();

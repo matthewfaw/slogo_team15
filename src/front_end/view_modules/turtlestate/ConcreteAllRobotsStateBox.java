@@ -6,8 +6,9 @@ import java.util.List;
 import back_end.model.robot.IViewRobot;
 import front_end.view_modules.image_color_module.interfaces.IColorModule;
 import front_end.view_modules.image_color_module.interfaces.IImageModule;
+import javafx.collections.FXCollections;
 import javafx.scene.Node;
-import javafx.scene.control.MenuButton;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
@@ -19,7 +20,7 @@ public class ConcreteAllRobotsStateBox implements IAllRobotsStateBox{
 	private VBox myModule;
 	private VBox myStateBox;
 	private List<IRobotStateBox> myStateBoxes;
-	private MenuButton mySwitchMenu;
+	private ComboBox<String> mySwitchMenu;
 	private List<MenuItem> mySwitchList;
 	
 	private IColorModule myColorMap;
@@ -36,7 +37,7 @@ public class ConcreteAllRobotsStateBox implements IAllRobotsStateBox{
 		myScroller = new ScrollPane();
 		myStateBoxes = new ArrayList<>();
 		
-		mySwitchMenu = new MenuButton(TAB_TEXT);
+		mySwitchMenu = new ComboBox<>();
 		mySwitchList = new ArrayList<>();
 		myModule.getChildren().addAll(mySwitchMenu, myStateBox);
 		
@@ -48,23 +49,33 @@ public class ConcreteAllRobotsStateBox implements IAllRobotsStateBox{
 		buildMenu();
 	}
 	
+	public ConcreteAllRobotsStateBox( int aWidth, int aHeight, IColorModule aColorMap, IImageModule aImageMap){
+		this(aColorMap, aImageMap);
+		myScroller.setMinSize(aWidth, aHeight);
+		myScroller.setMaxSize(aWidth, aHeight);
+	}
+	
 	private void buildMenu(){
 		mySwitchList.clear();
 		mySwitchMenu.getItems().clear();
 		
+		javafx.collections.ObservableList<String> tabs = FXCollections.observableArrayList();
+		
 		for(Integer i = 0; i < myStateBoxes.size(); i++ ){
-			MenuItem tab = new MenuItem("Turtle " + Integer.toString(i));
-			mySwitchMenu.getItems().add(tab);
-			IRobotStateBox stateBox = myStateBoxes.get(i);
-			tab.setOnAction( event -> switchStateBox(stateBox ));
+			tabs.add(TAB_TEXT + i);
 		}
+		
+		mySwitchMenu.setItems(tabs);
+				
+		mySwitchMenu.getSelectionModel().selectedIndexProperty().addListener( cl -> switchStateBox(mySwitchMenu.getSelectionModel().getSelectedIndex()) );
+		
+		mySwitchMenu.getSelectionModel().select(0);
 		
 	}
 	
-	private void switchStateBox(IRobotStateBox aStateBox){
+	private void switchStateBox(int aIndex){
 		myStateBox.getChildren().clear();
-		mySwitchMenu.setText(TAB_TEXT + Integer.toString(aStateBox.getRobotID()));
-		myStateBox.getChildren().add(aStateBox.getInstanceAsNode());
+		myStateBox.getChildren().add(myStateBoxes.get(aIndex).getInstanceAsNode());
 	}
 	
 	@Override
@@ -95,7 +106,7 @@ public class ConcreteAllRobotsStateBox implements IAllRobotsStateBox{
 	@Override
 	public void switchRobotTabs(int aRobotID) {
 		if(aRobotID >= myStateBoxes.size()) return;
-		switchStateBox(myStateBoxes.get(aRobotID));		
+		switchStateBox(aRobotID);		
 	}
 	
 	

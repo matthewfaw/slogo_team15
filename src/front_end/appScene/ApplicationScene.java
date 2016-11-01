@@ -54,20 +54,20 @@ public class ApplicationScene {
 	public ApplicationScene (int aWidth, int aHeight) {
 		myApplicationView = new GridPane();
 
-		myHistoryModule = HistoryModuleFactory.build(); // TODO: Actually implement this
-		myToolbar = ToolbarFactory.build(aWidth, aHeight / 20);
-		myTextEditor = TextEditorFactory.build( aWidth / 2, aHeight / 2);
-		myErrorViewer = ErrorViewerFactory.build( aWidth / 2, aHeight / 6, myTextEditor);
-		myVariableViewer = VariableViewerFactory.build( aWidth / 4, aHeight / 2);
-		myFunctionViewer = FunctionViewerFactory.build( aWidth / 4, aHeight / 2);
-		myShapeColorModule = ImageColorModuleFactory.build();
-		myTurtleBox = TurtleBoxFactory.build( aWidth / 2 ,  aHeight / 2, myShapeColorModule);
+		myHistoryModule = 		 HistoryModuleFactory.build( aWidth / 3 , aHeight / 2  - aHeight/10 );
+		myToolbar = 				   ToolbarFactory.build( aWidth		, aHeight / 20 );
+		myTextEditor = 	 			TextEditorFactory.build( aWidth / 2 , aHeight / 2  - aHeight/20 );
+		myErrorViewer = 		   ErrorViewerFactory.build( aWidth / 2 , aHeight / 6  - aHeight/10 , myTextEditor);
+		myVariableViewer = 		VariableViewerFactory.build( aWidth / 4 , aHeight / 2  );
+		myFunctionViewer = 		FunctionViewerFactory.build( aWidth / 4 , aHeight / 2  );
+		myShapeColorModule =  ImageColorModuleFactory.build( aWidth / 4 , aHeight / 4  );
+		myTurtleBox = 				 TurtleBoxFactory.build( aWidth / 2 ,  aHeight / 2, myShapeColorModule);
 		myStatesBox = new ConcreteAllRobotsStateBox(myShapeColorModule, myShapeColorModule);
 		myHelpPage = new HelpPage();
 
 		myRoot = new Group();
 		myRoot.getChildren().addAll(myApplicationView);
-		myScene = new Scene(myRoot, aWidth, aHeight, Color.WHITE);
+		myScene = new Scene(myRoot, aWidth, aHeight + aHeight/20, Color.WHITE);
 		myApplicationView.add(myToolbar.getInstanceAsNode(), 			0, 0, GridPane.REMAINING, 1);
 		myApplicationView.add(myTurtleBox.getInstanceAsNode(), 			0, 1, 1, 1);
 		myApplicationView.add(myTextEditor.getInstanceAsNode(), 		0, 2, 1, 1);

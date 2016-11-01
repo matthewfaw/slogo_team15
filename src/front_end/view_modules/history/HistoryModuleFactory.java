@@ -9,5 +9,9 @@ public class HistoryModuleFactory {
 	public static IHistoryModule build(){
 		return new ConcreteHistoryModule();
 	}
+
+	public static IHistoryModule build(int aWidth, int aHeight) {
+		return new ConcreteHistoryModule(aWidth,aHeight);
+	}
 	
 }
