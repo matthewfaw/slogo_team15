@@ -40,7 +40,8 @@ public class ModelController {
 //		ScopeController scopeController = new ScopeController();
 //		TextParser textParser = new TextParser(scopeController, environment, robot);
 //
-//		String aString = "if [ make :x 5 ] [ to :haha [ :a ] [ fd :a ] ] haha [ fd 50 ]";
+////		String aString = "if [ make :x 5 ] [ to :haha [ :a ] [ fd :a ] ] haha [ fd 50 ]";
+//		String aString = "to :derp [ :a :b ] [ make :c :a make :d :b ] derp [ 13 56 ]";
 //		
 //		
 //		AbstractSyntaxTree ast;
