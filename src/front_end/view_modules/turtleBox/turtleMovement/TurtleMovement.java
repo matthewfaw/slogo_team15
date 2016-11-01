@@ -15,7 +15,7 @@ public class TurtleMovement implements IObserver {
 
     IViewableRobot myRobot;
 
-    private ImageView myTurtle;
+    private ImageView myImage;
     private int myWidth;
     private int myHeight;
     private PenMovement myPenMovement;
@@ -23,38 +23,32 @@ public class TurtleMovement implements IObserver {
     public static final int FRAMES_PER_SECOND = 60;
     private ITurtleBox myTurtleBox;
 
-    public TurtleMovement (ITurtleBox aConTurt, IViewableRobot aRobot, int aWidth, int aHeight) {
-        myPenMovement = new PenMovement(this);
-        myTurtleBox = aConTurt;
+    public TurtleMovement (ITurtleBox aTurtleBox, ImageView aImage, IViewableRobot aRobot, int aWidth, int aHeight) {
+        myPenMovement = new PenMovement(this, aRobot);
+        myTurtleBox = aTurtleBox;
         myWidth = aWidth;
         myHeight = aHeight;
         myRobot = aRobot;
+        myImage = aImage;
         myRobot.registerObserver(this);
     }
 
     @Override
     public void update () {
-
-        myTurtle = myTurtleBox.getTurtle();
-        myRobot = myTurtleBox.getRobot();
-
         checkVisibility();
-
         updateTurtlePosition();
-
         updateTurtleRotation();
     }
 
     private void updateTurtleRotation () {
-        myTurtle.setRotate(-myRobot.getRotation());
+        myImage.setRotate(-myRobot.getRotation());
     }
 
     private void updateTurtlePosition () {
         moveTurtleX();
         moveTurtleY();
-        if (!myRobot.getPenInformation().isPenUp()) {
-            // TODO: Get this to access pen movement class
-            myPenMovement.drawWithPen(myTurtleBox);
+        if (myRobot.getPenInformation().isPenUp()) {
+        	myPenMovement.drawWithPen(myTurtleBox);
         }
     }
 
@@ -67,20 +61,28 @@ public class TurtleMovement implements IObserver {
         }
     }
 
-    private double translatedXCoordinate () {
+    double translatedXCoordinate () {
         return myRobot.getCoordinate().getX() + myWidth / 2;
     }
 
-    private double translatedYCoordinate () {
+    double translateXCoordinate(double aX) {
+    	return aX + myWidth / 2;
+    }
+    
+    double translatedYCoordinate () {
         return -myRobot.getCoordinate().getY() + myHeight / 2;
+    }
+    
+    double translateYCoordinate(double aY){
+    	return - aY + myHeight / 2;
     }
 
     private void moveTurtleX () {
-        myTurtle.setX(translatedXCoordinate());
+        myImage.setX(translatedXCoordinate());
     }
 
     private void moveTurtleY () {
-        myTurtle.setY(translatedYCoordinate());
+        myImage.setY(translatedYCoordinate());
     }
 
 }
