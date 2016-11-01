@@ -15,15 +15,11 @@ public class SetTowardsCommand implements ICommand {
 
     @Override
     public double eval (IReadableInput ... aList) throws InvalidNodeUsageException {
-        double adj = aList[0].getValue() - myRobot.getCoordinate().getX();
-        double opp = aList[1].getValue() - myRobot.getCoordinate().getY();
-        double returnVal = 180 - Math.abs(myRobot.getRotation() - Math.atan(opp / adj));
-        if (aList[0].getValue() > myRobot.getCoordinate().getX()) {
-            myRobot.setRotation(myRobot.getRotation() - returnVal);
-        }
-        else {
-            myRobot.setRotation(myRobot.getRotation() + returnVal);
-        }
+        double adj = Math.abs(aList[0].getValue() - myRobot.getCoordinate().getX());
+        double opp = Math.abs(aList[1].getValue() - myRobot.getCoordinate().getY());
+        double turn = Math.abs(Math.atan(opp / adj)) * (180 / Math.PI);
+        double returnVal = myRobot.getRotation() - turn;
+        myRobot.setRotation(turn);
         return returnVal;
     }
 }
