@@ -42,7 +42,7 @@ public class Turtle extends Observable implements IViewableRobot {
     }
 
     public void setRotation (double r) {
-        myRotation = r;
+        myRotation = r % 360;
         notifyObservers();
 
     }
