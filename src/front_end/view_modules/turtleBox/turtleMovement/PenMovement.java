@@ -23,10 +23,10 @@ public class PenMovement {
         gc = myTurtleBox.getGC();
         gc.setStroke(Color.BLACK);
         gc.setLineWidth(5);
-        gc.strokeLine(	myMovement.translatedXCoordinate(), 
-  			  			myMovement.translatedYCoordinate(), 
-  			  			myMovement.translateXCoordinate(myRobot.getCoordinate().getX()), 
-			  			myMovement.translateYCoordinate(myRobot.getCoordinate().getY()));
+        gc.strokeLine(	myMovement.translateXCoordinate(myRobot.getPreviousCoordinate().getX()), 
+  			  			myMovement.translateYCoordinate(myRobot.getPreviousCoordinate().getX()), 
+  			  			myMovement.translateXCoordinate(myRobot.getCurrentCoordinate().getX()), 
+			  			myMovement.translateYCoordinate(myRobot.getCurrentCoordinate().getY()));
     }
 
 }

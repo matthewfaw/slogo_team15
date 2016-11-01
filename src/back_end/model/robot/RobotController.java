@@ -96,9 +96,15 @@ public class RobotController extends Observable implements IRobot {
 	
 
 	@Override
-	public Point getCoordinate() {
-		return myCurrentlyActiveTurtle.getCoordinate();
+	public Point getCurrentCoordinate() {
+		return myCurrentlyActiveTurtle.getCurrentCoordinate();
 	}
+
+	@Override
+	public Point getPreviousCoordinate() {
+		return myCurrentlyActiveTurtle.getPreviousCoordinate();
+	}
+
 
 	@Override
 	public int getImageID() {
