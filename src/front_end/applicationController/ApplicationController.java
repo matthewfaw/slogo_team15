@@ -103,6 +103,7 @@ public class ApplicationController {
 
         try {
             myModel.userInputToModel(sb.toString());
+            myScriptViewer.giveFunction(sb.toString());
         }
         catch (InstantiationException | IllegalAccessException | IllegalArgumentException
                 | InvocationTargetException
@@ -113,7 +114,7 @@ public class ApplicationController {
         }
 
         myVariableViewer.giveVariables(myModel.getVariableMap());
-        myScriptViewer.giveFunction(sb.toString());
+        //myScriptViewer.giveFunction(sb.toString());
     }
 
     private void loadHelp () {

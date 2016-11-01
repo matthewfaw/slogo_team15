@@ -1,6 +1,10 @@
 package front_end.view_modules.function_viewer;
 
-
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -8,34 +12,34 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
-
+/**
+ * 
+ * @author Kayla Schulz
+ *
+ */
 class ConcreteFunctionViewer implements IFunctionViewer {
 
     private Pane myScriptViewer;
     private final int SPACING = 10;
-    private Label myFirstFunction;
+    private LinkedList<String> myFunctions;
+    private List<String> fiveShownFunctions;
+    private VBox myFunctionVBox;
 
     ConcreteFunctionViewer (int aWidth, int aHeight) {
         myScriptViewer = new Pane();
+        myFunctions = new LinkedList<String>();
         myScriptViewer.setPrefSize(aWidth, aHeight);
-        VBox myFunctionList = new VBox(SPACING);
-        HBox myBox = new HBox(SPACING);
-        Button myFirstButton = new Button("Press me");
-        myFirstFunction = new Label("cats");
-        myBox.getChildren().addAll(myFirstFunction, myFirstButton);
-        myFunctionList.getChildren().add(myBox);
-        myScriptViewer.getChildren().add(myFunctionList);
+        myFunctionVBox = new VBox(SPACING);
+        myScriptViewer.getChildren().add(myFunctionVBox);
     }
-
+    
     @Override
     public void reset () {
-        // TODO Auto-generated method stub
-
+        myFunctionVBox.getChildren().clear();
     }
 
     @Override
     public Node getInstanceAsNode () {
-        // TODO Auto-generated method stub
         return myScriptViewer;
     }
 
@@ -44,10 +48,42 @@ class ConcreteFunctionViewer implements IFunctionViewer {
         // TODO Auto-generated method stub
 
     }
+    
+    private HBox createHBox(String myString) {
+        HBox myHBox = new HBox(SPACING);
+        Label myLabel = new Label(myString);
+        Button myButton = makeButton();
+        myHBox.getChildren().addAll(myLabel, myButton);
+        return myHBox;
+    }
+    
+    private void getFiveFuncs() {
+        int i = 0;
+        Iterator<String> myIterator = myFunctions.iterator();
+        fiveShownFunctions = new ArrayList<String>();
+        myFunctionVBox.getChildren().clear();
+        while(myIterator.hasNext() && i < 5) {
+            String temp = myIterator.next();
+            fiveShownFunctions.add(temp);
+            HBox myHBox = createHBox(temp);
+            myFunctionVBox.getChildren().add(myHBox);
+            i++;
+        }
+    }
+    
+    private Button makeButton () {
+        Button myButton = new Button("Press for Function");
+        return myButton;
+    }
 
-	@Override
-	public void giveFunction(String myFunction) {
-	    myFirstFunction.setText(myFunction.trim());
-	}
+    @Override
+    public void giveFunction (String myFunction) {
+        myFunction = myFunction.trim();
+        if (!myFunctions.contains(myFunction)) {
+            myFunctions.addFirst(myFunction);
+            getFiveFuncs();
+        }
+        System.out.println(myFunctions.size());
+    }
 
 }
