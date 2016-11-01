@@ -24,9 +24,11 @@ public abstract class AbstractCommandNode extends AbstractInnerNode {
     
     protected INode[] convertListToProperInputForm(List<INode> aList) throws ArgumentException
     {
-        if (aList.size() != myNumberOfInputs) {
-            throw new ArgumentException("Invalid number of arguments");
-        }
+    	//XXX: Removing because we can't check for this here since we don't have enough info
+    	// about how the methods are implemented -- ex: For loop evalCondition
+		// if (aList.size() != myNumberOfInputs) {
+		//     throw new ArgumentException("Invalid number of arguments");
+		// }
         INode[] inputList = aList.toArray(new INode[aList.size()]);
         
         return inputList;

@@ -1,6 +1,7 @@
 package back_end.model.command;
 
 import back_end.model.node.IReadableInput;
+import back_end.model.node.inner_nodes.list_nodes.ListNode;
 import back_end.model.robot.IRobot;
 import back_end.model.states.Environment;
 import back_end.model.states.IModifiableEnvironmentState;
@@ -27,12 +28,14 @@ public class CustomCommand extends ICommandBranch {
 //		for (int i = 0; i < variableList.length; i++) {
 //			myScope.assignVariable(variableList[i].getName(), aList[i].getValue());
 //		}
-		return 1;
+		return 0;
 	}
 	
-	//public IReadableInput getFunction() {
+	public IReadableInput getFunction() {
 		//return myEnvironment.getMethodToEvaluate(myName);
-	//}
+		//XXX: remove this--temporary fix until merge
+		return new ListNode();
+	}
 	
 
 }

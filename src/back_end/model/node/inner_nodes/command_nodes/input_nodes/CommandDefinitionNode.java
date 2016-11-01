@@ -7,6 +7,7 @@ import back_end.model.command.ICommand;
 import back_end.model.exception.ArgumentException;
 import back_end.model.exception.InvalidNodeUsageException;
 import back_end.model.node.INode;
+import back_end.model.node.NodeState;
 import back_end.model.node.inner_nodes.command_nodes.branching_nodes.AbstractBranchNode;
 import back_end.model.node.inner_nodes.list_nodes.ListNode;
 import back_end.model.node.leaf_nodes.VariableNode;
@@ -32,6 +33,9 @@ public class CommandDefinitionNode extends AbstractInputCommandNode {
 		INode methodName = aChildren.get(NAME_INDEX);
 		ListNode methodInputNames = getListNode(aChildren.get(INPUTS_INDEX));
 		ListNode methodBody = getListNode(aChildren.get(METHOD_BODY_INDEX));
+		//XXX: Must initially mark this node as visited so that the method
+		// definition body doesn't get evaluated
+		methodBody.setState(NodeState.VISITED);
 		
 		
 		super.addChild(methodName);

@@ -49,6 +49,7 @@ public abstract class AbstractInputCommandNode extends AbstractCommandNode {
 
         myValue = myCommand.eval(inputList);
         myEvaluationState = EvaluationState.EVALUATED;
+        super.setState(NodeState.VISITED);
 	}
 
 	@Override

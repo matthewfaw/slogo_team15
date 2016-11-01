@@ -10,6 +10,7 @@ import back_end.model.exception.ArgumentException;
 import back_end.model.exception.InvalidNodeUsageException;
 import back_end.model.node.EvaluationState;
 import back_end.model.node.INode;
+import back_end.model.node.NodeState;
 import back_end.model.node.inner_nodes.command_nodes.AbstractCommandNode;
 import back_end.model.node.inner_nodes.list_nodes.ListNode;
 
@@ -17,45 +18,43 @@ public abstract class AbstractBranchNode extends AbstractCommandNode {
     private EvaluationState myEvaluationState;
     private List<INode> myChildInputs;
     private HashMap<Integer, List<INode>> myChildBranches;
-    private ICommandBranch myCommand;
 
 	private double myReturnValue;
 	private int myActiveBranchIndex;
 
-    protected AbstractBranchNode (ICommand aCommand, int aNumberOfInputs) {
+    protected AbstractBranchNode (int aNumberOfInputs) {
         super(aNumberOfInputs);
 
         myEvaluationState = EvaluationState.EVALUATING_INPUTS;
 
         myChildInputs = new ArrayList<INode>();
         myChildBranches = new HashMap<Integer, List<INode>>();
-        myCommand = (ICommandBranch) aCommand;
     }
     
-	@Override
-	public void eval() throws ArgumentException, InvalidNodeUsageException {
+    protected EvaluationState getEvaluationState()
+    {
+    	return myEvaluationState;
+    }
+	
+	protected void evalCondition(ICommandBranch aCommand) throws ArgumentException, InvalidNodeUsageException
+	{
+		INode[] inputs;
+		inputs = super.convertListToProperInputForm(myChildInputs);
+		myActiveBranchIndex = aCommand.evalCondition(inputs);
+		if (hasActiveBranch()) {
+			myEvaluationState = EvaluationState.EVALUATING_BRANCH;
+		} else {
+			myEvaluationState = EvaluationState.EVALUATED;
+			super.setState(NodeState.VISITED);
+		}
+	}
+	protected void eval(ICommandBranch aCommand) throws ArgumentException, InvalidNodeUsageException
+	{
 		INode[] inputs;
 
-		switch (myEvaluationState) {
-			case EVALUATING_INPUTS:
-				inputs = super.convertListToProperInputForm(myChildInputs);
-				myActiveBranchIndex = myCommand.evalCondition(inputs);
-				if (hasActiveBranch()) {
-					myEvaluationState = EvaluationState.EVALUATING_BRANCH;
-				} else {
-					myEvaluationState = EvaluationState.EVALUATED;
-				}
-				break;
-			case EVALUATING_BRANCH:
-				inputs = super.convertListToProperInputForm(myChildBranches.get(myActiveBranchIndex));
-				myReturnValue = myCommand.eval(inputs);
-				myEvaluationState = EvaluationState.EVALUATING_INPUTS;
-				break;
-			case EVALUATED:
-				// do nothing
-			default:
-				throw new InvalidNodeUsageException("Node state" + myEvaluationState + "is invalid!");
-		}
+		inputs = super.convertListToProperInputForm(myChildBranches.get(myActiveBranchIndex));
+		myReturnValue = aCommand.eval(inputs);
+		myEvaluationState = EvaluationState.EVALUATING_INPUTS;
 	}
 
 	@Override
@@ -81,7 +80,7 @@ public abstract class AbstractBranchNode extends AbstractCommandNode {
 
 	private boolean hasActiveBranch()
 	{
-		return myActiveBranchIndex == -1;
+		return myActiveBranchIndex != -1;
 	}
 
     protected void setInputs(INode aInputs) throws InvalidNodeUsageException
