@@ -3,7 +3,6 @@ package front_end.view_modules.turtleBox.turtleMovement;
 import front_end.view_modules.turtleBox.ITurtleBox;
 import integration.observe.IObserver;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
 
 
 public class PenMovement implements IObserver {

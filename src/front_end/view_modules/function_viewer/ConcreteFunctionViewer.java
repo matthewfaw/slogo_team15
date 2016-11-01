@@ -44,28 +44,13 @@ class ConcreteFunctionViewer implements IFunctionViewer {
     public Node getInstanceAsNode () {
         return myScriptViewer;
     }
-
-    @Override
-    public void switchLanguage (Languages aLanguage) {
-        // TODO Auto-generated method stub
-
-    }
     
     private HBox createHBox(String myString) {
         HBox myHBox = new HBox(SPACING);
         Label myLabel = new Label(myString);
         Button myButton = makeButton(myString);
-        myButton.setOnMouseClicked(e -> load(myString));
         myHBox.getChildren().addAll(myLabel, myButton);
         return myHBox;
-    }
-    
-    private void load(String myString) {
-        myCurFunction = Arrays.asList(myString.split("\n"));
-    }
-    
-    public List<String> getCurFunction() {
-        return myCurFunction;
     }
     
     private void getFiveFuncs() {

@@ -45,12 +45,6 @@ class ConcreteTextEditor implements ITextEditor {
     private static final int SPACING = 20;
 
     /******* API Defined Methods ********/
-
-    @Override
-    public void switchLanguage (Languages aLanguage) {
-        // TODO switch language of toolbar
-
-    }
     
     @Override
     public Node getInstanceAsNode () {

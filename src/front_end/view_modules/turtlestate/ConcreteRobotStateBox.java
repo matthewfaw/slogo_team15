@@ -91,12 +91,6 @@ public class ConcreteRobotStateBox implements IRobotStateBox {
 	}
 
 	@Override
-	public void switchLanguage(Languages aLanguage) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public void update() {
 		if(noRobot() || !myIsBuilt) return;
 		build();

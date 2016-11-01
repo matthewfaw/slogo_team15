@@ -38,10 +38,4 @@ public class HelpPage implements IHelpPage {
         return myView;
     }
 
-    @Override
-    public void switchLanguage (Languages aLanguage) {
-        // TODO Auto-generated method stub
-        
-    }
-
 }

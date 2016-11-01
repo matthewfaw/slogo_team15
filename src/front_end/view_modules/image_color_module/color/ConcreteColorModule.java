@@ -75,11 +75,6 @@ class ConcreteColorModule implements IColorModule {
 	}
 
 	@Override
-	public void switchLanguage(Languages aLanguage) {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
 	public Color getColor(int aColorId) {
 		return myColorRowList.get(aColorId).getColor();
 	}

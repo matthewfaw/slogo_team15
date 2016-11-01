@@ -7,7 +7,7 @@ import integration.languages.ILanguageSwitcher;
 import javafx.scene.paint.Color;
 
 
-public interface ITextEditor extends IViewModule, ILanguageSwitcher {
+public interface ITextEditor extends IViewModule {
 
     /**
      * Highlight a line in the text editor - will be used by either

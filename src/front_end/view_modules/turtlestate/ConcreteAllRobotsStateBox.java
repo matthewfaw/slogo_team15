@@ -90,12 +90,6 @@ public class ConcreteAllRobotsStateBox implements IAllRobotsStateBox{
 	}
 
 	@Override
-	public void switchLanguage(Languages aLanguage) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public void giveRobot(IViewRobot aViewRobot) {
 		IRobotStateBox stateBox = new ConcreteRobotStateBox( myColorMap, myImageMap );
 		stateBox.giveRobot(aViewRobot);

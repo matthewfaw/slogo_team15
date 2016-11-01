@@ -78,12 +78,6 @@ class ConcreteImageModule implements IImageModule {
 	}
 
 	@Override
-	public void switchLanguage(Languages aLanguage) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public File getFile(int aImageId) {
 		return myImageRowList.get(aImageId).getFile();
 	}

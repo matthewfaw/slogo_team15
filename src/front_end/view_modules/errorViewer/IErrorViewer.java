@@ -2,7 +2,6 @@ package front_end.view_modules.errorViewer;
 
 import front_end.acceptor.IErrorAcceptor;
 import front_end.view_modules.IViewModule;
-import integration.languages.ILanguageSwitcher;
 
 
 /**
@@ -11,6 +10,6 @@ import integration.languages.ILanguageSwitcher;
  * 
  * @author George Bernard
  */
-public interface IErrorViewer extends IViewModule, ILanguageSwitcher, IErrorAcceptor {
+public interface IErrorViewer extends IViewModule, IErrorAcceptor {
 
 }

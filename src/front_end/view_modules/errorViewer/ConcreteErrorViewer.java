@@ -88,10 +88,4 @@ class ConcreteErrorViewer implements IErrorViewer {
         return columnBox;
     }
 
-    @Override
-    public void switchLanguage (Languages aLanguage) {
-        // TODO Auto-generated method stub
-
-    }
-
 }

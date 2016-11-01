@@ -89,10 +89,4 @@ class ConcreteVariableViewer implements IVariableViewer {
         myVariableTable.setItems(myVariables);
     }
 
-    @Override
-    public void switchLanguage (Languages aLanguage) {
-        // TODO Auto-generated method stub
-
-    }
-
 }
