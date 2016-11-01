@@ -27,8 +27,8 @@ public class ListNode extends AbstractInnerNode {
 	}
 
 	@Override
-	public void eval() throws ArgumentException {
-		// do nothing
+	public void eval() throws ArgumentException, InvalidNodeUsageException {
+		super.setState(NodeState.VISITED);
 	}
 
 	@Override

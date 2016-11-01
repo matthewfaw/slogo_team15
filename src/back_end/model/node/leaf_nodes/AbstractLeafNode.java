@@ -18,6 +18,12 @@ public abstract class AbstractLeafNode implements INode {
 	public NodeState getState() {
 		return myNodeState;
 	}
+	
+	@Override
+	public boolean isVisited()
+	{
+		return myNodeState == NodeState.VISITED;
+	}
 
 	@Override
 	public void setState(NodeState aNodeState) throws InvalidNodeUsageException {

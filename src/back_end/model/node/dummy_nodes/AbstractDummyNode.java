@@ -16,10 +16,16 @@ public abstract class AbstractDummyNode implements INode {
 	}
 
 	@Override
-    public NodeState getState () 
+    public NodeState getState () throws InvalidNodeUsageException 
     {
-    	return NodeState.VISITED;
+		throw new InvalidNodeUsageException("You shouldn't be accessing Dummy node states");
     }
+	
+	@Override
+	public boolean isVisited() throws InvalidNodeUsageException
+	{
+		throw new InvalidNodeUsageException("You shouldn't be accessing Dummy node states");
+	}
 
 	@Override
     public void setState (NodeState aNodeState) throws InvalidNodeUsageException

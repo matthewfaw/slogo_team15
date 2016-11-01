@@ -20,7 +20,7 @@ public class AbstractSyntaxTree {
 	{
 		myRoot = constructTree(aNodeStack);
 	}
-	INode getRoot()
+	ListNode getRoot()
 	{
 		return myRoot;
 	}

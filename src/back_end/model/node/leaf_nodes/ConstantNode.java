@@ -3,6 +3,7 @@ package back_end.model.node.leaf_nodes;
 import back_end.model.command.ICommand;
 import back_end.model.exception.ArgumentException;
 import back_end.model.exception.InvalidNodeUsageException;
+import back_end.model.node.NodeState;
 import back_end.model.states.ScopeController;
 
 
@@ -17,8 +18,8 @@ public class ConstantNode extends AbstractLeafNode {
     }
 
 	@Override
-	public void eval() throws ArgumentException {
-		// do nothing
+	public void eval() throws ArgumentException, InvalidNodeUsageException {
+		super.setState(NodeState.VISITED);
 	}
 
 	@Override

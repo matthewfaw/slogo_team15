@@ -16,11 +16,28 @@ public abstract class AbstractInnerNode implements INode {
 
 	public abstract List<INode> getChildren() throws InvalidNodeUsageException;
 	public abstract void setChildren(List<INode> aChildren) throws InvalidNodeUsageException;
+	
+	public boolean allChildrenAreEvaluated() throws InvalidNodeUsageException
+	{
+		for (INode child: getChildren()) {
+			if (!child.isVisited()) {
+				return false;
+			}
+		}
+		return true;
+	}
 
 	@Override
 	public NodeState getState() {
 		return myState;
 	}
+	
+	@Override
+	public boolean isVisited()
+	{
+		return myState == NodeState.VISITED;
+	}
+
 
 	@Override
 	public void setState(NodeState aNodeState) throws InvalidNodeUsageException {

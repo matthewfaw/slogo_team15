@@ -8,7 +8,8 @@ public interface INode extends IReadableInput {
 //        myState = NodeState.AVAILABLE;
 //    }
 //
-    public abstract NodeState getState (); 
+    public abstract NodeState getState () throws InvalidNodeUsageException; 
+    public abstract boolean isVisited() throws InvalidNodeUsageException;
     public abstract void setState (NodeState aNodeState) throws InvalidNodeUsageException; 
 
     public abstract void eval () throws ArgumentException, InvalidNodeUsageException;
