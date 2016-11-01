@@ -79,7 +79,7 @@ public class Environment extends Observable implements IModifiableEnvironmentSta
 	
 	/**METHOD**/
 	
-	public void assignMethod(String aMethodName, IReadableInput aNode, IReadableInput...aVariableInputs) {
+	public void assignMethod(String aMethodName, IReadableInput[] aVariableInputs, IReadableInput aNode) {
 		Method methodState = new Method();
 		methodState.assignMethod(aMethodName, aNode, aVariableInputs);
 		myMethodMap.put(aMethodName, methodState);

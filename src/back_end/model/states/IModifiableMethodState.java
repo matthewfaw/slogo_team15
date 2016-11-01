@@ -6,7 +6,7 @@ import back_end.model.node.IReadableInput;
 
 public interface IModifiableMethodState extends IViewableMethodState {
 	
-	public void assignMethod(String aMethodName, IReadableInput aNode, IReadableInput...aVariableInputs);
+	public void assignMethod(String aMethodName, IReadableInput[] aVariableInputs, IReadableInput aNode);
 	
 	public Collection<IReadableInput> getMethodVariables(String aMethodName);
 	

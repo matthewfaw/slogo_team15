@@ -12,10 +12,12 @@ public class CustomCommand extends ICommandBranch {
 	
 	private IModifiableEnvironmentState myEnvironment;
 	private String myName;
+	private boolean myFirstExecution;
 	
 	public CustomCommand(IRobot aRobot, IModifiableEnvironmentState aEnvironment, String aCommandName) {
 		myEnvironment = aEnvironment;
 		myName = aCommandName;
+		myFirstExecution = true;
 	}
 	
 	public IReadableInput getFunction() {
@@ -25,13 +27,17 @@ public class CustomCommand extends ICommandBranch {
 	@Override
 	protected int evalConditionInNode(IReadableInput... aList)
 			throws InvalidInputNumberException, InvalidNodeUsageException {
-		int counter = 0;
-		for (String variable: myEnvironment.getVariableKeySet()) {
-			myEnvironment.assignVariable(variable, aList[counter].getValue());
-			++counter;
+		if (myFirstExecution) {
+			int counter = 0;
+			for (String variable: myEnvironment.getVariableKeySet()) {
+				myEnvironment.assignVariable(variable, aList[counter].getValue());
+				++counter;
+			}
+			errorCheckForTooManyInputs(aList.length, counter + 1);
+			myFirstExecution = false;
+			return 0;
 		}
-		errorCheckForTooManyInputs(aList.length, counter + 1);
-		return 0;
+		return -1;
 	}
 	
 }

@@ -58,11 +58,17 @@ public class NodeFactory {
 				String generalNodeCategory = translateInput(aUserInputWord, mySyntaxResources.getBaseBundleName());
 				String commandType = getCommandType(generalNodeCategory, aUserInputWord);
 				ICommand commandClass = makeCommandClass(commandType, generalNodeCategory, aUserInputWord);
-				int inputNumber = getInputNumber(commandType);
+				int inputNumber;
+				if (generalNodeCategory.equals("Variable") || generalNodeCategory.equals("Command")) {
+					inputNumber = getInputNumber(generalNodeCategory, commandType);
+				} else {
+					inputNumber = 0;
+				}
 				if (generalNodeCategory.equals("Command")) {
 					generalNodeCategory = myCommandTypeResources.getString(commandType);
 				}
 				String packagePath = getPackagePath(generalNodeCategory);
+				aUserInputWord = aUserInputWord.replaceAll(":", "");
 				return (INode) Class.forName(packagePath + generalNodeCategory + "Node").getConstructor(ICommand.class, int.class, String.class, ScopeController.class).
 						newInstance(commandClass, inputNumber, aUserInputWord, myScopeController);
 			} catch (MissingResourceException e) {
@@ -123,9 +129,10 @@ public class NodeFactory {
 		return ""; 
     }
     
-    private int getInputNumber(String aGeneralNodeCategory) {
-    	if (aGeneralNodeCategory.equals("")) return 0;
-    	if (aGeneralNodeCategory.equals("Command")) return Integer.parseInt(mySyntaxResources.getString(aGeneralNodeCategory)); 
+    private int getInputNumber(String aGeneralNodeCategory, String aCommandType) {
+    	if (aGeneralNodeCategory.equals("Command")) {
+    		return Integer.parseInt(mySyntaxResources.getString(aCommandType));
+    	} 
     	return 0;
     }
 

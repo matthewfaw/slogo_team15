@@ -33,35 +33,35 @@ public class ModelController {
 	private IViewableBackground myBackgroundInformation;
 	private IViewableUserInputHistory myUserInputHistory; 
 	
-	public static void main(String[] args) throws InvalidNodeUsageException
-	{
-		Environment environment = Environment.getInstance();
-		IRobot robot = new RobotController();
-		ScopeController scopeController = new ScopeController();
-		TextParser textParser = new TextParser(scopeController, environment, robot);
-
-		String aString = "if [ make :x 5 ] [ to :haha [ :a ] [ fd :a ] ] haha [ fd 50 ]";
-		
-		
-		AbstractSyntaxTree ast;
-		try {
-			ast = new AbstractSyntaxTree(textParser.getNodeStack(aString));
-			TreeEvaluator treeEvaluator = new TreeEvaluator(ast);
-			try {
-				while (treeEvaluator.hasNextInstruction()) {
-					treeEvaluator.executeNextInstruction();
-				}
-			} catch (InvalidInputNumberException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
-				| NoSuchMethodException | SecurityException | ClassNotFoundException | UnexpectedCharacterException
-				| UnexpectedCommandException | EmptyInputException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-	}
+//	public static void main(String[] args) throws InvalidNodeUsageException
+//	{
+//		Environment environment = Environment.getInstance();
+//		IRobot robot = new RobotController();
+//		ScopeController scopeController = new ScopeController();
+//		TextParser textParser = new TextParser(scopeController, environment, robot);
+//
+//		String aString = "if [ make :x 5 ] [ to :haha [ :a ] [ fd :a ] ] haha [ fd 50 ]";
+//		
+//		
+//		AbstractSyntaxTree ast;
+//		try {
+//			ast = new AbstractSyntaxTree(textParser.getNodeStack(aString));
+//			TreeEvaluator treeEvaluator = new TreeEvaluator(ast);
+//			try {
+//				while (treeEvaluator.hasNextInstruction()) {
+//					treeEvaluator.executeNextInstruction();
+//				}
+//			} catch (InvalidInputNumberException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
+//				| NoSuchMethodException | SecurityException | ClassNotFoundException | UnexpectedCharacterException
+//				| UnexpectedCommandException | EmptyInputException e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		}
+//	}
 
 	public ModelController(IRouter aRobotRouter) {
 		myRouter = aRobotRouter;

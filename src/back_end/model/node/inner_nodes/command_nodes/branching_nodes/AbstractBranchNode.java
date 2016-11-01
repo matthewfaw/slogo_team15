@@ -78,7 +78,7 @@ public abstract class AbstractBranchNode extends AbstractCommandNode {
 		}
 	}
 
-	private boolean hasActiveBranch()
+	protected boolean hasActiveBranch()
 	{
 		return myActiveBranchIndex != -1;
 	}
@@ -101,94 +101,4 @@ public abstract class AbstractBranchNode extends AbstractCommandNode {
     	myChildBranches.put(aBranchIndex, aInputs.getChildren());
     }
     	
-//    @Override
-//    public double eval () throws ArgumentException {
-//        List<INode> currentBranch = myChildBranches.get(myActiveBranchIndex);
-//        INode[] inputList = currentBranch.toArray(new INode[currentBranch.size()]);
-//        myReturnValue = myCommand.eval(inputList);
-//        return myReturnValue;
-//    }
-//
-//    public int evalCondition () {
-//        INode[] inputList = myChildConditions.toArray(new INode[myChildConditions.size()]);
-//        myConditionReturnValue = myCommand.evalCondition(inputList);
-//        if (myConditionReturnValue == -1) {
-//            myReturnValue = myConditionReturnValue;
-//        }
-//        // myEvaluationState = NodeState.EVALUATING_BRANCH;
-//        myActiveBranchIndex = myConditionReturnValue;
-//        return myConditionReturnValue;
-//    }
-//
-//    @Override
-//    public List<INode> getChildren () {
-//        switch (myEvaluationState) {
-//            case EVALUATING_INPUTS:
-//                return myChildConditions;
-//            case EVALUATING_BRANCH:
-//                return myChildBranches.get(myActiveBranchIndex);
-//            default:
-//                // XXX: Change to throw an error;
-//                return null;
-//        }
-//    }
-//
-//    @Override
-//    public void addChild (INode aNode) {
-//        // XXX: remove this
-//        throw new RuntimeException("Do not use this method");
-//    }
-//
-//    public void addConditions (INode aNode) {
-//        if (aNode instanceof ListNode) {
-//            addConditions((ListNode) aNode);
-//        }
-//        else {
-//            myChildConditions.add(aNode);
-//        }
-//    }
-//
-//    private void addConditions (ListNode aList) {
-//        for (INode child : aList.getChildren()) {
-//            myChildConditions.add(child);
-//        }
-//    }
-//
-//    public void addBranchChildren (int aBranchId, ListNode aListNode) {
-//        if (!myChildBranches.containsKey(aBranchId)) {
-//            myChildBranches.put(aBranchId, new ArrayList<INode>());
-//        }
-//        for (INode child : aListNode.getChildren()) {
-//            myChildBranches.get(aBranchId).add(child);
-//        }
-//    }
-//
-//    public void unmarkAllChildren () {
-//        // Unmark all conditions
-//        for (INode child : myChildConditions) {
-//            child.setState(NodeState.AVAILABLE);
-//            unmarkAllChildren(child);
-//        }
-//
-//        // Unmark all branches
-//        for (int branchId : myChildBranches.keySet()) {
-//            for (INode child : myChildBranches.get(branchId)) {
-//                child.setState(NodeState.AVAILABLE);
-//                unmarkAllChildren(child);
-//            }
-//        }
-//    }
-//
-//    private void unmarkAllChildren (INode aParent) {
-//        if (aParent instanceof AbstractBranchNode) {
-//            ((AbstractBranchNode) aParent).unmarkAllChildren();
-//        }
-//        else {
-//            for (INode child : aParent.getChildren()) {
-//                child.setState(NodeState.AVAILABLE);
-//                unmarkAllChildren(child);
-//            }
-//        }
-//    }
-
 }
