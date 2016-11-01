@@ -6,7 +6,7 @@ public class ToolbarFactory {
         // Does Nothing
     }
 
-    public static IToolbar buildToolbar (int aWidth, int aHeight) {
+    public static IToolbar build (int aWidth, int aHeight) {
         return new ConcreteToolbar(aWidth, aHeight);
     }
 

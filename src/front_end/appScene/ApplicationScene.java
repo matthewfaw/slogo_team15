@@ -1,9 +1,13 @@
 package front_end.appScene;
 
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.stream.Collectors;
+
 import front_end.view_modules.errorViewer.ErrorViewerFactory;
 import front_end.view_modules.errorViewer.IErrorViewer;
-import front_end.view_modules.function_viewer.IFunctionViewer;
 import front_end.view_modules.function_viewer.FunctionViewerFactory;
+import front_end.view_modules.function_viewer.IFunctionViewer;
 import front_end.view_modules.helpPage.HelpPage;
 import front_end.view_modules.history.HistoryModuleFactory;
 import front_end.view_modules.history.IHistoryModule;
@@ -19,16 +23,22 @@ import front_end.view_modules.turtlestate.ConcreteAllRobotsStateBox;
 import front_end.view_modules.turtlestate.IAllRobotsStateBox;
 import front_end.view_modules.variableViewer.IVariableViewer;
 import front_end.view_modules.variableViewer.VariableViewerFactory;
+import javafx.collections.FXCollections;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.ComboBox;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
 
 public class ApplicationScene {
 
 	private GridPane myApplicationView;
-	private Scene myScene;
+	private Scene myScene;	
 	private Group myRoot;
 	private IToolbar myToolbar;
 	private ITextEditor myTextEditor;
@@ -45,31 +55,70 @@ public class ApplicationScene {
 		myApplicationView = new GridPane();
 
 		myHistoryModule = HistoryModuleFactory.build(); // TODO: Actually implement this
-		myToolbar = ToolbarFactory.buildToolbar(aWidth, aHeight / 20);
-		myTextEditor = TextEditorFactory.buildTextEditor(2 * aWidth / 3, aHeight / 3);
-		myErrorViewer = ErrorViewerFactory.buildErrorViewer(aWidth / 3, aHeight / 3, myTextEditor);
-		myVariableViewer = VariableViewerFactory.buildVariableViewer(aWidth / 6, 2*aHeight / 3);
-		myFunctionViewer = FunctionViewerFactory.build(aWidth / 6, 2*aHeight / 3);
+		myToolbar = ToolbarFactory.build(aWidth, aHeight / 20);
+		myTextEditor = TextEditorFactory.build( aWidth / 2, aHeight / 2);
+		myErrorViewer = ErrorViewerFactory.build( aWidth / 2, aHeight / 6, myTextEditor);
+		myVariableViewer = VariableViewerFactory.build( aWidth / 4, aHeight / 2);
+		myFunctionViewer = FunctionViewerFactory.build( aWidth / 4, aHeight / 2);
 		myShapeColorModule = ImageColorModuleFactory.build();
-		myTurtleBox = TurtleBoxFactory.buildTurtleBox(2 * aWidth / 3, 2 * aHeight / 3, myShapeColorModule);
+		myTurtleBox = TurtleBoxFactory.build( aWidth / 2 ,  aHeight / 2, myShapeColorModule);
 		myStatesBox = new ConcreteAllRobotsStateBox(myShapeColorModule, myShapeColorModule);
 		myHelpPage = new HelpPage();
 
 		myRoot = new Group();
 		myRoot.getChildren().addAll(myApplicationView);
-		myScene = new Scene(myRoot, aWidth, aHeight + aHeight / 20 + 10, Color.WHITE);
-		myApplicationView.add(myToolbar.getInstanceAsNode(), 0, 0, GridPane.REMAINING, 1);
-		myApplicationView.add(myTurtleBox.getInstanceAsNode(), 0, 1, 1, 1);
-		myApplicationView.add(myTextEditor.getInstanceAsNode(), 0, 2, 1, 1);
-		myApplicationView.add(myVariableViewer.getInstanceAsNode(), 1, 1, 1, 1);
-		myApplicationView.add(myFunctionViewer.getInstanceAsNode(), 2, 1, 1, 1);
-		myApplicationView.add(myErrorViewer.getInstanceAsNode(), 1, 2, 2, 1);
-		myApplicationView.add(myShapeColorModule.getInstanceAsNode(), 2, 2);
-		myApplicationView.add(myStatesBox.getInstanceAsNode(), 2, 3);
-		myApplicationView.add(myHistoryModule.getInstanceAsNode(), 1, 3);
+		myScene = new Scene(myRoot, aWidth, aHeight, Color.WHITE);
+		myApplicationView.add(myToolbar.getInstanceAsNode(), 			0, 0, GridPane.REMAINING, 1);
+		myApplicationView.add(myTurtleBox.getInstanceAsNode(), 			0, 1, 1, 1);
+		myApplicationView.add(myTextEditor.getInstanceAsNode(), 		0, 2, 1, 1);
+		myApplicationView.add(join(myStatesBox.getInstanceAsNode(), 
+							  myShapeColorModule.getInstanceAsNode()), 	1, 1, 1, 1);
+		myApplicationView.add(joinSwitch(myVariableViewer.getInstanceAsNode(), myFunctionViewer.getInstanceAsNode()), 2, 1, 1, 1);
+		myApplicationView.add(join(myErrorViewer.getInstanceAsNode(),
+								 myHistoryModule.getInstanceAsNode()),	1, 2, 2, 1 );
 
 	}
+	
+	private Node joinSwitch(Node aVarViewer, Node aFunctionViewer){
+	StackPane pane = new StackPane();
+	VBox box = new VBox(0);
+	pane.getChildren().add(box);
+	
+	HBox toolbar = new HBox(0);
+	VBox column = new VBox(0);
+	box.getChildren().addAll(toolbar, column);
+	
+	String var = "Variables";
+	String fun = "Functions";
+	
+	javafx.collections.ObservableList<String> tabs = FXCollections.observableArrayList("Variables", "Functions");
+	
+	ComboBox<String> switchTabs = new ComboBox<>(tabs);
+	switchTabs.getSelectionModel().selectedItemProperty().addListener( (Ov, old, neu) -> {
+		column.getChildren().clear();
+		if(neu.equals(var)) column.getChildren().add(aVarViewer);
+		if(neu.equals(fun)) column.getChildren().add(aFunctionViewer);
+		});
+	toolbar.getChildren().add(switchTabs);
+	
+	switchTabs.getSelectionModel().select(fun);
 
+	return pane;
+	}
+	
+	private Node join(Node... nodes){
+		StackPane pane = new StackPane();
+		VBox join = new VBox(0);
+		pane.getChildren().add(join);
+		
+		for (Node node : nodes) {
+			join.getChildren().add(node);
+		}
+		
+		return pane;
+	} 
+	
+	
 	public Scene getScene () {
 		return myScene;
 	}

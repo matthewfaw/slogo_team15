@@ -6,7 +6,7 @@ public class TextEditorFactory {
         // Does Nothing
     }
 
-    public static ITextEditor buildTextEditor (int aWidth, int aHeight) {
+    public static ITextEditor build (int aWidth, int aHeight) {
         return new ConcreteTextEditor(aWidth, aHeight);
     }
 

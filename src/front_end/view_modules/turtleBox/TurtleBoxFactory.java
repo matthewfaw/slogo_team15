@@ -8,7 +8,7 @@ public class TurtleBoxFactory {
         // Does Nothing
     }
 
-    public static ITurtleBox buildTurtleBox (int aWidth, int aHeight, IImageColorModule aShapeColorMap) {
+    public static ITurtleBox build (int aWidth, int aHeight, IImageColorModule aShapeColorMap) {
         return new ConcreteTurtleBox(aWidth, aHeight, aShapeColorMap);
     }
 }
