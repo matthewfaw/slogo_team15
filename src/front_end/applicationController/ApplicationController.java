@@ -118,9 +118,11 @@ public class ApplicationController {
     }
 
     private void loadHelp () {
+    	Stage stage = new Stage();
         myHelpPage.loadHelpPage();
-        // TODO: Kayla - Change this to reflect a back button or new scene
-        myRoot.getChildren().add(myHelpPage.getMyView());
+        Scene scene = new Scene(myHelpPage.getMyView());
+        stage.setScene(scene);
+        stage.show();        
     }
 
     private void resetAll () {
@@ -179,7 +181,7 @@ public class ApplicationController {
     private void buildCommands () {
         // TODO: Actually make this method
     }
-
+    
     private void popupPenSelector () {
         Stage stage = new Stage();
         myPenPopup.initPopup(myImageColorModule);
