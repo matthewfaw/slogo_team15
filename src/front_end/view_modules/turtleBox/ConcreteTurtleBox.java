@@ -33,7 +33,7 @@ class ConcreteTurtleBox implements ITurtleBox {
     IImageColorModule myShapeColorMap;
     
     IViewableRobot myRobot;
-    ImageView myTurtle;
+    ImageView myImage;
     Group root;
     Canvas drawingCanvas;
     GraphicsContext gc;
@@ -73,15 +73,15 @@ class ConcreteTurtleBox implements ITurtleBox {
     }
 
     public ImageView getTurtle () {
-        return myTurtle;
+        return myImage;
     }
     
     public double getTurtleHeight() {
-        return myTurtle.getFitHeight();
+        return myImage.getFitHeight();
     }
     
     public double getTurtleWidth() {
-        return myTurtle.getFitWidth();
+        return myImage.getFitWidth();
     }
 
     @Override
@@ -92,13 +92,13 @@ class ConcreteTurtleBox implements ITurtleBox {
 
     public void loadDefaultTurtle (int width, int height) {
         Image character = new Image( myShapeColorMap.getFile(0).toURI().toString() );
-        myTurtle = new ImageView(character);
-        myTurtle.setFitHeight(CHARACTER_SIZE);
-        myTurtle.setFitWidth(CHARACTER_SIZE);
-        myTurtle.setX(width / 2);
-        myTurtle.setY(height / 2);
+        myImage = new ImageView(character);
+        myImage.setFitHeight(CHARACTER_SIZE);
+        myImage.setFitWidth(CHARACTER_SIZE);
+        myImage.setX(width / 2);
+        myImage.setY(height / 2);
         turtDisplayed = true;
-        mySandbox.getChildren().add(myTurtle);
+        mySandbox.getChildren().add(myImage);
     }
 
     @Override
@@ -113,7 +113,7 @@ class ConcreteTurtleBox implements ITurtleBox {
     //TODO: Change this to reflect multiple turtles
     public void showTurtle () {
         if (!turtDisplayed) {
-            mySandbox.getChildren().add(myTurtle);
+            mySandbox.getChildren().add(myImage);
         }
         turtDisplayed = true;
     }
@@ -121,7 +121,7 @@ class ConcreteTurtleBox implements ITurtleBox {
     public void removeTurtle () {
         System.out.println("b");
         turtDisplayed = false;
-        mySandbox.getChildren().remove(myTurtle);
+        mySandbox.getChildren().remove(myImage);
     }
 
     @Override
@@ -134,7 +134,7 @@ class ConcreteTurtleBox implements ITurtleBox {
         myRobot = aRobot;
         aRobot.registerObserver(this);
         
-        myTurtMove = new TurtleMovement(this, getRobot(), myWidth, myHeight);
+        myTurtMove = new TurtleMovement(this, myImage, getRobot(), myWidth, myHeight);
     }
 
     public IViewableRobot getRobot () {

@@ -12,6 +12,9 @@ public class Turtle extends Observable implements IViewableRobot {
 	
 	private static final String DEFAULT = "resources.defaultvalues.DefaultValues";
 
+	private double myPreviousXPosition;
+	private double myPreviousYPosition;
+	
     private double myXpos;
     private double myYpos;
     private double myRotation;
@@ -24,6 +27,8 @@ public class Turtle extends Observable implements IViewableRobot {
     public Turtle (int aID) {
         myDefaultResource = PropertyResourceBundle.getBundle(DEFAULT);
         myVisibility = Boolean.parseBoolean(myDefaultResource.getString("TurtleVisibility"));
+        myPreviousXPosition = Double.parseDouble(myDefaultResource.getString("TurtleXpos"));
+        myPreviousYPosition = Double.parseDouble(myDefaultResource.getString("TurtleYpos"));
         myXpos = Double.parseDouble(myDefaultResource.getString("TurtleXpos"));
         myYpos = Double.parseDouble(myDefaultResource.getString("TurtleYpos"));
         myPenInformation = new PenInformation();
@@ -35,6 +40,9 @@ public class Turtle extends Observable implements IViewableRobot {
     /** SETTERS **/
 
     public void setCoordinates (double x, double y) {
+    	myPreviousXPosition = myXpos;
+    	myPreviousYPosition = myYpos;
+
         myXpos = x;
         myYpos = y;
         notifyObservers();
@@ -64,11 +72,21 @@ public class Turtle extends Observable implements IViewableRobot {
 
     /** GETTERS **/
 
-    public Point getCoordinate () {
-    	Point coordinates = new Point(); 
-    	coordinates.setLocation(myXpos, myYpos);
-        return coordinates;
+    public Point getCurrentCoordinate () {
+    	return getNewPoint(myXpos, myYpos);
     }
+
+	@Override
+	public Point getPreviousCoordinate() {
+		return getNewPoint(myPreviousXPosition, myPreviousYPosition);
+	}
+	private Point getNewPoint(double aX, double aY)
+	{
+    	Point coordinates = new Point(); 
+    	coordinates.setLocation(aX, aY);
+        return coordinates;
+	}
+    
     
 	public int getImageID() {
 		return myImageID;
@@ -90,7 +108,7 @@ public class Turtle extends Observable implements IViewableRobot {
 	public int getTurtleID() {
 		return myTurtleID;
 	}
-    
+
 
 
 

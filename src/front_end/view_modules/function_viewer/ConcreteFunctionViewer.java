@@ -8,6 +8,7 @@ import java.util.List;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -19,7 +20,7 @@ import javafx.scene.layout.VBox;
  */
 class ConcreteFunctionViewer implements IFunctionViewer {
 
-    private Pane myScriptViewer;
+    private ScrollPane myScriptViewer;
     private final int SPACING = 10;
     private LinkedList<String> myFunctions;
     private List<String> fiveShownFunctions;
@@ -27,11 +28,14 @@ class ConcreteFunctionViewer implements IFunctionViewer {
     private List<String> myCurFunction;
 
     ConcreteFunctionViewer (int aWidth, int aHeight) {
-        myScriptViewer = new Pane();
+        myScriptViewer = new ScrollPane();
+        myScriptViewer.setHbarPolicy( ScrollPane.ScrollBarPolicy.NEVER  );
+        myScriptViewer.setVbarPolicy( ScrollPane.ScrollBarPolicy.ALWAYS );
+        
         myFunctions = new LinkedList<String>();
         myScriptViewer.setPrefSize(aWidth, aHeight);
         myFunctionVBox = new VBox(SPACING);
-        myScriptViewer.getChildren().add(myFunctionVBox);
+        myScriptViewer.setContent(myFunctionVBox);
         myCurFunction = new ArrayList<String>();
     }
     
