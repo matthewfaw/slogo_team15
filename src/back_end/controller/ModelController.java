@@ -20,10 +20,11 @@ import back_end.model.syntax_tree.AbstractSyntaxTree;
 import back_end.model.syntax_tree.TreeEvaluator;
 import back_end.model.text_parser.TextParser;
 import integration.languages.ILanguageSwitcher.Languages;
+import integration.observe.IObserver;
 import integration.router.IRouter;
 
 
-public class ModelController {
+public class ModelController implements IObserver {
 	
 	private Environment myEnvironment; 
 	private ScopeController myScopeController;
@@ -68,6 +69,7 @@ public class ModelController {
 		myRouter = aRobotRouter;
 		myEnvironment = Environment.getInstance();
 		myRobot = new RobotController();
+		myRobot.registerObserver(this);
 		myBackgroundInformation = myEnvironment.getBackgroundInformation();
 		myUserInputHistory = new UserInputHistory();
 		distributeRobot(myRobot.getMostRecentRobot());
@@ -109,6 +111,11 @@ public class ModelController {
 	
 	public void setLanguage(Languages aLanguage) {
 		myParser.setLanguage(aLanguage);
+	}
+
+	@Override
+	public void update() {
+		myRouter.distributeRobot(myRobot.getMostRecentRobot());
 	}
 	
 }
