@@ -14,8 +14,6 @@ import back_end.model.node.inner_nodes.list_nodes.ListNode;
 public class AbstractSyntaxTree {
 	private ListNode myRoot;
 	
-	//XXX: These should be moved to another class. Visitor pattern might work here?
-	
 	public AbstractSyntaxTree(Stack<INode> aNodeStack) throws InvalidNodeUsageException
 	{
 		myRoot = constructTree(aNodeStack);
@@ -85,71 +83,4 @@ public class AbstractSyntaxTree {
 		listNode.setChildren(inputList);
 		aCurrentInputStack.push(listNode);
 	}
-	
-	/*
-	private void updateList(Node aNode, Stack<Node> aOriginalNodeStack, Stack<Node> aCurrentInputStack)
-	{
-		if (aNode instanceof CommandNode) {
-			updateList((CommandNode) aNode, aOriginalNodeStack, aCurrentInputStack);
-		} else if (aNode instanceof ToNode) {
-			updateList((ToNode) aNode, aOriginalNodeStack, aCurrentInputStack);
-		} else if (aNode instanceof CustomNode) {
-			updateList((CustomNode) aNode, aOriginalNodeStack, aCurrentInputStack);
-		} else if (aNode instanceof BranchNode) {
-			updateList((BranchNode) aNode, aOriginalNodeStack, aCurrentInputStack);
-		} else if (aNode instanceof ListStartNode) {
-			updateList((ListStartNode) aNode, aOriginalNodeStack, aCurrentInputStack);
-		} else {
-			aCurrentInputStack.push(aNode);
-		}
-	}
-
-	private void updateList(CommandNode aNode, Stack<Node> aOriginalNodeStack, Stack<Node> aCurrentInputStack)
-	{
-		for (int i=0; i<aNode.getNumberOfInputs(); ++i) {
-			Node inputNode = aCurrentInputStack.pop();
-			aNode.addChild(inputNode);
-		}
-		aCurrentInputStack.push(aNode);
-	}
-	//XXX: This seems kinda hacky, since number of arguments is hard coded, consider changing to be more flexible
-	private void updateList(ToNode aNode, Stack<Node> aOriginalNodeStack, Stack<Node> aCurrentInputStack)
-	{
-		aNode.addNameNode((VariableNode) aCurrentInputStack.pop());
-		aNode.addInputVariables((ListNode) aCurrentInputStack.pop());
-		aNode.addCustomMethod((ListNode) aCurrentInputStack.pop());
-
-		aCurrentInputStack.push(aNode);
-	}
-	//XXX: This seems kinda hacky, since number of arguments is hard coded, consider changing to be more flexible
-	private void updateList(CustomNode aNode, Stack<Node> aOriginalNodeStack, Stack<Node> aCurrentInputStack)
-	{
-		aNode.addChildInputs((ListNode) aCurrentInputStack.pop());
-
-		aCurrentInputStack.push(aNode);
-	}
-	//TODO: add error throwing when the casting fails
-	private void updateList(BranchNode aNode, Stack<Node> aOriginalNodeStack, Stack<Node> aCurrentInputStack)
-	{
-		// Set up conditions
-		aNode.addConditions(aCurrentInputStack.pop());
-		// Set up branches
-		for (int i=1; i<aNode.getNumberOfInputs(); ++i) {
-			ListNode inputNode = (ListNode) aCurrentInputStack.pop();
-			aNode.addBranchChildren(i - 1, inputNode);
-		}
-		aCurrentInputStack.push(aNode);
-	}
-	private void updateList(ListStartNode aNode, Stack<Node> aOriginalNodeStack, Stack<Node> aCurrentInputStack)
-	{
-		ListNode listNode = new ListNode();
-		Node inputNode = aCurrentInputStack.pop();
-		while (!(inputNode instanceof ListEndNode)) {
-			listNode.addChild(inputNode);
-			inputNode = aCurrentInputStack.pop();
-		}
-//		aCurrentInputStack.pop();
-		aCurrentInputStack.push(listNode);
-	}
-	*/
 }

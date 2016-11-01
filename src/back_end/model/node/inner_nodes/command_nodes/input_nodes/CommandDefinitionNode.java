@@ -52,46 +52,4 @@ public class CommandDefinitionNode extends AbstractInputCommandNode {
 		}
 		
 	}
-//	public int getNumberOfInputs()
-//	{
-//		return myNumberOfInputs;
-//	}
-//	public void addNameNode(VariableNode aNode)
-//	{
-//		myNameNode = aNode;
-//	}
-//	public void addInputVariables(ListNode aListNode)
-//	{
-//		myInputVariables = aListNode.getChildren();
-//	}
-//	public void addCustomMethod(ListNode aListNode)
-//	{
-//		myCustomMethod = aListNode;
-//	}
-//
-//	@Override
-//	public String getName() {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
-//
-//	@Override
-//	public double getValue() {
-//		return returnValue;
-//	}
-//
-//	@Override
-//	public double eval() throws ArgumentException {
-//		ArrayList<INode> allInputs = new ArrayList<INode>(myInputVariables);
-//		allInputs.add(0, myNameNode);
-//		allInputs.add(1, myCustomMethod);
-//		
-//		INode[] allInputsArray = allInputs.toArray(new INode[allInputs.size()]);
-//
-//		returnValue = myMethod.eval(allInputsArray);
-//		
-//		return returnValue;
-//	}
-//
-
 }

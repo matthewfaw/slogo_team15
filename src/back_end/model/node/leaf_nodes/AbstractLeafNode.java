@@ -1,11 +1,8 @@
 package back_end.model.node.leaf_nodes;
 
-import back_end.model.command.ICommand;
-import back_end.model.exception.InvalidInputNumberException;
 import back_end.model.exception.InvalidNodeUsageException;
 import back_end.model.node.INode;
 import back_end.model.node.NodeState;
-import back_end.model.states.ScopeController;
 
 public abstract class AbstractLeafNode implements INode {
 	private NodeState myNodeState;
