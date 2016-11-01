@@ -30,7 +30,7 @@ public class CustomCommand extends ICommandBranch {
 			++counter;
 		}
 		errorCheckForTooManyInputs(aList.length, counter + 1);
-		return 1;
+		return 0;
 	}
 	
 
