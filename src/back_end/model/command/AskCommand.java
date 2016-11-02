@@ -6,7 +6,7 @@ import back_end.model.node.IReadableInput;
 import back_end.model.robot.IRobot;
 import back_end.model.states.IModifiableEnvironmentState;
 
-public class AskCommand extends ICommandBranch implements ICommandTurtle {
+public class AskCommand extends ICommandBranch {
 	
 	private IRobot myRobot;
 	

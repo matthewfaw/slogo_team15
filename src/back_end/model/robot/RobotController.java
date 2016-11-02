@@ -44,12 +44,11 @@ public class RobotController extends Observable implements IRobot {
 		myCurrentlyActiveTurtle = myActiveTurtles.get(aActiveTurtleIndex);
 	}
 	
-	public List<Turtle> getCurrentlyActiveTurtles()
-	{
+	public List<Turtle> getCurrentlyActiveTurtles() {
 		return myActiveTurtles;
 	}
-	public Turtle getCurrentTurtle()
-	{
+	
+	public Turtle getCurrentTurtle() {
 		return myCurrentlyActiveTurtle;
 	}
 	
@@ -59,9 +58,17 @@ public class RobotController extends Observable implements IRobot {
 		setTurtleAsCurrentlyActive(newIndex);
 	}
 	
+	public int numberOfTurtlesCreated() {
+		return myTurtles.keySet().size();
+	}
+	
 	public boolean activeTurtleIndexHasBeenSetToStart()
 	{
 		return myCurrentlyActiveTurtleIndex == 0;
+	}
+	
+	public boolean containsTurtles(int aIndex) {
+		return myTurtles.containsKey(aIndex);
 	}
 	
 	
