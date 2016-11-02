@@ -71,8 +71,8 @@ public class ModelController implements IObserver {
 
 	public ModelController(IRouter aRobotRouter) {
 		myRouter = aRobotRouter;
-		myEnvironment = new Environment();
 		myRobot = new RobotController();
+		myEnvironment = new Environment(myRobot);
 		myRobot.registerObserver(this);
 		myBackgroundInformation = myEnvironment.getBackgroundInformation();
 		myUserInputHistory = new UserInputHistory();

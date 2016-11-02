@@ -14,4 +14,10 @@ public interface IModifiableEnvironmentState extends IViewableVariableState, IMo
 	
 	public BackgroundInformation getBackgroundInformation();
 
+	public void clearActiveTurtles();
+	
+	public void addActiveTurtle(int aTotalTurtleID);
+	
+	public void addTurtle(int aTurtleID);
+	
 }
