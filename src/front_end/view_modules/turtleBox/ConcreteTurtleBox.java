@@ -139,15 +139,6 @@ class ConcreteTurtleBox implements ITurtleBox {
         return myRobot;
     }
 
-    @Override
-    public void update () {
-        if (myRobot == null) {
-            return;
-        }
-
-        myTurtMove.update();
-    }
-
     private void initColorPicker () {
         myBackgroundColorPicker = new ColorPicker();
         myBackgroundColorPicker.setOnAction(

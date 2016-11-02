@@ -21,7 +21,7 @@ class LineDrawer {
 	}
 	
 	void draw() {
-		myGC.setStroke( Color.BLACK ); //myColorMap.getColor(myRobot.getPenInformation().getColorID()));
+		myGC.setStroke(myColorMap.getColor(myRobot.getPenInformation().getColorID())); //myColorMap.getColor(myRobot.getPenInformation().getColorID()));
 		myGC.setLineWidth(5);
 		myGC.strokeLine(
 				myMoveCalc.translateXCoordinate(myRobot.getPreviousCoordinate().getX()),
