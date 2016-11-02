@@ -84,16 +84,17 @@ public class ModelController implements IObserver {
 		myParser = new TextParser(myScopeController, myEnvironment, (IRobot) myRobot);
 	}
 	
-	public void userInputToModel(String aString) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException, UnexpectedCharacterException, UnexpectedCommandException, EmptyInputException, InvalidNodeUsageException {
-		AbstractSyntaxTree ast = new AbstractSyntaxTree(myParser.getNodeStack(aString));
-		TreeEvaluator treeEvaluator = new TreeEvaluator(ast);
+	public void userInputToModel(String aString) {
+		AbstractSyntaxTree ast;
 		try {
+			ast = new AbstractSyntaxTree(myParser.getNodeStack(aString));
+			TreeEvaluator treeEvaluator = new TreeEvaluator(ast);
 			while (treeEvaluator.hasNextInstruction()) {
 				treeEvaluator.executeNextInstruction();
 			}
-		} catch (InvalidInputNumberException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} catch (InvalidNodeUsageException | EmptyInputException | UnexpectedCharacterException
+				| UnexpectedCommandException | InvalidInputNumberException e) {
+				myRouter.distributeError(e);
 		}
 		myUserInputHistory.storeMethod(aString);
 	}

@@ -3,6 +3,7 @@ package integration.router;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import back_end.model.exception.IExceptionDebugger;
 import back_end.model.robot.IViewableRobot;
 import back_end.model.states.IViewableVariableState;
 import back_end.model.states.background.IViewableBackground;
@@ -111,7 +112,7 @@ class ConcreteRouter implements IRouter {
 	}
 
 		
-	public void distributeError(Exception aException) {
+	public void distributeError(IExceptionDebugger aException) {
 		myErrorAcceptors.forEach( c -> c.giveError(aException) );
 	}
 

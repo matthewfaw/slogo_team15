@@ -22,4 +22,8 @@ public class InvalidNodeUsageException extends Exception implements IExceptionDe
 	public int getErrorLineNumber() {
 		return myLineNumber;
 	}
+	
+	public String getErrorMessage() {
+		return super.getMessage();
+	}
 }

@@ -27,4 +27,8 @@ public class UnexpectedCharacterException extends Exception implements IExceptio
 		return myLineNumber;
 	}
 	
+	public String getErrorMessage() {
+		return super.getMessage();
+	}
+	
 }
