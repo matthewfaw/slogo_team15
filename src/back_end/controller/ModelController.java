@@ -7,6 +7,7 @@ import back_end.model.exception.UnexpectedCharacterException;
 import back_end.model.exception.UnexpectedCommandException;
 import back_end.model.robot.IViewableRobot;
 import back_end.model.robot.RobotController;
+import back_end.model.robot.Turtle;
 import back_end.model.states.Environment;
 import back_end.model.states.IViewableVariableState;
 import back_end.model.states.ScopeController;
@@ -92,8 +93,8 @@ public class ModelController implements IObserver, IColorSender, IRobotSender {
 	/**SETTERS TO TALK TO FRONT **/
 	@Override
 	public void setPenInformation(int aTurtleID, PenInformation aPenInfo) {
-		myRobot.setTurtleAsCurrentlyActive(aTurtleID);
-		myRobot.setPenInformation(aPenInfo);
+		Turtle requestedRobot = myRobot.getTurtle(aTurtleID);
+		requestedRobot.setPenInformation(aPenInfo);
 	}
 	
 	@Override
@@ -108,8 +109,8 @@ public class ModelController implements IObserver, IColorSender, IRobotSender {
 
 	@Override
 	public void setVisibility(int aID, boolean aVisibility) {
-		myRobot.setTurtleAsCurrentlyActive(aID);
-		myRobot.setVisible(aVisibility);
+		Turtle turtle = myRobot.getTurtle(aID);
+		turtle.setVisible(aVisibility);
 	}
 	
 	@Override
