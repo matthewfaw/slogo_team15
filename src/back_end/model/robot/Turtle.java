@@ -42,7 +42,7 @@ public class Turtle extends Observable implements IViewableRobot {
     public void setCoordinates (double x, double y) {
     	myPreviousXPosition = myXpos;
     	myPreviousYPosition = myYpos;
-
+    	myPreviousRotation = myRotation;
         myXpos = x;
         myYpos = y;
         notifyObservers();
@@ -50,6 +50,8 @@ public class Turtle extends Observable implements IViewableRobot {
     }
 
     public void setRotation (double r) {
+    	myPreviousXPosition = myXpos;
+    	myPreviousYPosition = myYpos;
     	myPreviousRotation = myRotation;
         myRotation = r % 360;
         notifyObservers();

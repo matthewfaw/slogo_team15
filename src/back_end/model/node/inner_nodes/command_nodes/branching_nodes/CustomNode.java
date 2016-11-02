@@ -14,16 +14,20 @@ import back_end.model.states.ScopeController;
 public class CustomNode extends AbstractBranchNode {
 	private static final int CONDITION_INDEX = 0;
 
-	private ScopeController myScopeController;  
 	private CustomCommand myCommand;
 
 	public CustomNode(ICommand aCommand, int aNumberOfInputs, String aUserInput, ScopeController aScopeController) {
-		super(aNumberOfInputs);
+		super(aNumberOfInputs, aScopeController);
 		
-		myScopeController = aScopeController;
 		myCommand = (CustomCommand) aCommand;
 	}
-
+	
+	@Override
+	protected ICommand getCommand()
+	{
+		return myCommand;
+	}
+	
 	@Override
 	public void eval() throws InvalidInputNumberException, InvalidNodeUsageException {
 
@@ -59,5 +63,5 @@ public class CustomNode extends AbstractBranchNode {
 			super.setBranch(0, (ListNode) myCommand.getFunction());
 		} 
 	}
-	
+
 }

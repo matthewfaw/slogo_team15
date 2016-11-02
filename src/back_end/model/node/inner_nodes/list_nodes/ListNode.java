@@ -47,4 +47,9 @@ public class ListNode extends AbstractInnerNode {
 		myChildren = aChildren;
 	}
 
+	@Override
+	public void resetStates() throws InvalidNodeUsageException {
+		super.setState(NodeState.AVAILABLE);
+	}
+
 }

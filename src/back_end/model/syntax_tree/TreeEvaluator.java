@@ -5,6 +5,7 @@ import back_end.model.exception.InvalidInputNumberException;
 import back_end.model.node.INode;
 import back_end.model.node.NodeState;
 import back_end.model.node.inner_nodes.AbstractInnerNode;
+import back_end.model.node.inner_nodes.command_nodes.AbstractCommandNode;
 
 public class TreeEvaluator {
 	private AbstractSyntaxTree myAST;

@@ -30,22 +30,23 @@ public class ModelController implements IObserver {
 	
 	private Environment myEnvironment; 
 	private ScopeController myScopeController;
-	private IRobot myRobot; 
+	private RobotController myRobot; 
 	private TextParser myParser;
 	private IRouter myRouter;
 	private BackgroundInformation myBackgroundInformation;
 	private UserInputHistory myUserInputHistory; 
 	
-/*	public static void main(String[] args) throws InvalidNodeUsageException
+	/*public static void main(String[] args) throws InvalidNodeUsageException
 	{
-		Environment environment = Environment.getInstance();
-		IRobot robot = new RobotController();
-		ScopeController scopeController = new ScopeController();
+		Environment environment = new Environment();
+		RobotController robot = new RobotController();
+		ScopeController scopeController = new ScopeController(environment, robot);
 		TextParser textParser = new TextParser(scopeController, environment, robot);
 
 //		String aString = "if [ make :x 5 ] [ to :haha [ :a ] [ fd :a ] ] haha [ fd 50 ]";
 //		String aString = "to :derp [ :a :b ] [ make :c :a make :d :b ] derp [ 13 56 ]";
-		String aString = "showturtle";
+//		String aString = "showturtle";
+		String aString = "fd 50";
 		
 		
 		AbstractSyntaxTree ast;
@@ -70,8 +71,8 @@ public class ModelController implements IObserver {
 
 	public ModelController(IRouter aRobotRouter) {
 		myRouter = aRobotRouter;
-		myEnvironment = Environment.getInstance();
 		myRobot = new RobotController();
+		myEnvironment = new Environment(myRobot);
 		myRobot.registerObserver(this);
 		myBackgroundInformation = myEnvironment.getBackgroundInformation();
 		myUserInputHistory = new UserInputHistory();
@@ -80,8 +81,8 @@ public class ModelController implements IObserver {
 		distributeBackground(myBackgroundInformation);
 		distributeColorPalette(myBackgroundInformation);
 		distributeHistory(myUserInputHistory);
-		myScopeController = new ScopeController();
-		myParser = new TextParser(myScopeController, myEnvironment, (IRobot) myRobot);
+		myScopeController = new ScopeController(myEnvironment, myRobot);
+		myParser = new TextParser(myScopeController, myEnvironment, myRobot);
 	}
 	
 	public void userInputToModel(String aString) {
