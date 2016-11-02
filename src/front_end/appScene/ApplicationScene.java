@@ -64,6 +64,7 @@ public class ApplicationScene {
 		myRoot = new Group();
 		myRoot.getChildren().addAll(myApplicationView);
 		myScene = new Scene(myRoot, aWidth, aHeight + aHeight/20, Color.WHITE);
+		
 		myApplicationView.add(myToolbar.getInstanceAsNode(), 			0, 0, GridPane.REMAINING, 1);
 		myApplicationView.add(myTurtleBox.getInstanceAsNode(), 			0, 1, 1, 1);
 		myApplicationView.add(myTextEditor.getInstanceAsNode(), 		0, 2, 1, 1);

@@ -24,7 +24,7 @@ public class PenMovement {
         gc.setStroke(Color.BLACK);
         gc.setLineWidth(5);
         gc.strokeLine(	myMovement.translateXCoordinate(myRobot.getPreviousCoordinate().getX()), 
-  			  			myMovement.translateYCoordinate(myRobot.getPreviousCoordinate().getX()), 
+  			  			myMovement.translateYCoordinate(myRobot.getPreviousCoordinate().getY()), 
   			  			myMovement.translateXCoordinate(myRobot.getCurrentCoordinate().getX()), 
 			  			myMovement.translateYCoordinate(myRobot.getCurrentCoordinate().getY()));
     }

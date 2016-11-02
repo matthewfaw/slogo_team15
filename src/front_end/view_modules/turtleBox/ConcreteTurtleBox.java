@@ -104,7 +104,6 @@ class ConcreteTurtleBox implements ITurtleBox {
     @Override
     public void reset () {
         gc.clearRect(0, 0, myWidth, myHeight);
-        System.out.println("a");
         removeTurtle();
         mySandbox.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
         initBox(myWidth, myHeight);
@@ -132,7 +131,6 @@ class ConcreteTurtleBox implements ITurtleBox {
     @Override
     public void giveRobot (IViewableRobot aRobot) {
         myRobot = aRobot;
-        aRobot.registerObserver(this);
         
         myTurtMove = new TurtleMovement(this, myImage, getRobot(), myWidth, myHeight);
     }
