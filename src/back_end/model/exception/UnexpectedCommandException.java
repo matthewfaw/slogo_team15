@@ -1,25 +1,31 @@
 package back_end.model.exception;
 
-public class UnexpectedCommandException extends Exception {
+public class UnexpectedCommandException extends Exception implements IExceptionDebugger {
 
     /**
      * 
      */
     private static final long serialVersionUID = 1L;
+    
+    private int myLineNumber;
 
     public UnexpectedCommandException () {
     }
 
-    public UnexpectedCommandException (String message) {
-        super(message);
+    public UnexpectedCommandException (String aMessage) {
+        super(aMessage);
     }
 
-    public UnexpectedCommandException (Throwable cause) {
-        super(cause);
+    public UnexpectedCommandException (String aMessage, int aLineNumber) {
+    	super(aMessage);
+    	myLineNumber = aLineNumber;
     }
+    
 
-    public UnexpectedCommandException (String message, Throwable cause) {
-        super(message, cause);
-    }
+	@Override
+	public int getErrorLineNumber() {
+		return myLineNumber;
+	}
+	
 
 }

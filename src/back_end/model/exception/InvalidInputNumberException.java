@@ -1,25 +1,28 @@
 package back_end.model.exception;
 
-public class InvalidInputNumberException extends Exception {
+public class InvalidInputNumberException extends Exception implements IExceptionDebugger {
 
     /**
      * 
      */
     private static final long serialVersionUID = 1L;
+    
+    private int myLineNumber;
 
     public InvalidInputNumberException () {
     }
 
-    public InvalidInputNumberException (String message) {
-        super(message);
+    public InvalidInputNumberException (String aMessage) {
+        super(aMessage);
     }
-
-    public InvalidInputNumberException (Throwable cause) {
-        super(cause);
+    
+    public InvalidInputNumberException (String aMessage, int aLineNumber) {
+        super(aMessage);
+        myLineNumber = aLineNumber;
     }
-
-    public InvalidInputNumberException (String message, Throwable cause) {
-        super(message, cause);
+    
+    public int getErrorLineNumber() {
+    	return myLineNumber;
     }
 
 }

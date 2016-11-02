@@ -108,11 +108,6 @@ public class RobotController extends Observable implements IRobot {
 	
 	
 	@Override
-	public int getCurrentID() {
-		return myCurrentlyActiveTurtle.getTurtleID();
-	}
-	
-	@Override
 	public int getNumberOfTurtles() {
 		return myTurtles.size();
 	}
@@ -195,5 +190,6 @@ public class RobotController extends Observable implements IRobot {
 //		}
 		myCurrentlyActiveTurtle.setImageID(aImageID);
 	}
+
 
 }

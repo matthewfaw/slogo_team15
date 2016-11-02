@@ -2,6 +2,9 @@ package back_end.model.text_parser;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
 import java.util.Stack;
@@ -93,14 +96,17 @@ public class TextParser {
                                             NoSuchMethodException, SecurityException,
                                             ClassNotFoundException, UnexpectedCharacterException,
                                             UnexpectedCommandException {
-        ArrayList<String> wordList = makeExecutableList(aText);
-        for (String word : wordList) {
-            myNodes.push(getNode(word));
+        Map<Integer, List<String>> wordMap = makeExecutableList(aText);
+        for (Integer lineNumber : wordMap.keySet()) {
+        	for (String word : wordMap.get(lineNumber)) {
+        		myNodes.push(getNode(lineNumber, word));
+        	}
         }
     }
 
     /**
      * This method generates the Node appropriate for the word parsed in
+     * @param lineNumber 
      * 
      * @param word
      * @return
@@ -114,12 +120,12 @@ public class TextParser {
      * @throws IllegalAccessException
      * @throws InstantiationException
      */
-    private INode getNode (String aWord) throws InstantiationException, IllegalAccessException,
+    private INode getNode (Integer aLineNumber, String aWord) throws InstantiationException, IllegalAccessException,
                                         IllegalArgumentException, InvocationTargetException,
                                         NoSuchMethodException, SecurityException,
                                         ClassNotFoundException, UnexpectedCharacterException,
                                         UnexpectedCommandException {
-        return myFactory.makeNode(aWord);
+        return myFactory.makeNode(aLineNumber, aWord);
     }
 
     /**
@@ -128,19 +134,21 @@ public class TextParser {
      * @param text
      * @return
      */
-    private ArrayList<String> makeExecutableList (String aText) {
+    private Map<Integer, List<String>> makeExecutableList (String aText) {
         String[] wordList = aText.split(mySyntaxResources.getString("Line"));
-        ArrayList<String> executableList = new ArrayList<String>();
+        Map<Integer, List<String>> executableMap = new HashMap<Integer, List<String>>();
         for (int i = 0; i < wordList.length; i++) {
             if (wordList[i].length() > 0 &&
                 wordList[i].charAt(0) != mySyntaxResources.getString("Comment").charAt(0)) {
                 String[] temp = wordList[i].split(mySyntaxResources.getString("Space"));
+                List<String> temporaryStrings = new ArrayList<String>();
                 for (int j = 0; j < temp.length; j++) {
-                    executableList.add(temp[j]);
+                    temporaryStrings.add(temp[j]);
                 }
+                executableMap.put(i, temporaryStrings);
             }
         }
-        return executableList;
+        return executableMap;
     }
 
 }

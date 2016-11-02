@@ -78,7 +78,7 @@ public class ConcreteAllRobotsStateBox implements IAllRobotsStateBox{
 	
 	@Override
 	public void reset() {
-		buildMenu();
+		//buildMenu();
 	}
 
 	@Override

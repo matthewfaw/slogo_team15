@@ -5,7 +5,7 @@ import back_end.model.node.IReadableInput;
 import back_end.model.robot.IRobot;
 import back_end.model.states.IModifiableEnvironmentState;
 
-public class SetShapeCommand implements ICommand {
+public class SetShapeCommand implements ICommand, ICommandTurtle {
 	
 	private IRobot myRobot;
 	

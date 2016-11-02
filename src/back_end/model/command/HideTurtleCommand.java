@@ -6,7 +6,7 @@ import back_end.model.states.IModifiableEnvironmentState;
 
 import back_end.model.exception.InvalidNodeUsageException;
 
-public class HideTurtleCommand implements ICommand {
+public class HideTurtleCommand implements ICommand, ICommandTurtle {
 
     private IRobot myRobot;
 
