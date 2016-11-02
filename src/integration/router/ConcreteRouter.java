@@ -5,6 +5,7 @@ import java.util.Collection;
 
 import back_end.model.exception.IExceptionDebugger;
 import back_end.model.robot.IViewableRobot;
+import back_end.model.states.IViewableMethodState;
 import back_end.model.states.IViewableVariableState;
 import back_end.model.states.background.IViewableBackground;
 import back_end.model.states.background.IViewableColorPalette;
@@ -33,6 +34,7 @@ class ConcreteRouter implements IRouter {
 	private Collection<IHistoryAcceptor> myHistoryAcceptors;
 	private Collection<IBackgroundAcceptor> myBackgroundAcceptors;
 	private Collection<IColorPaletteAcceptor> myColorAcceptors;
+	//private Collection<IMethodAcceptors> myMethodAcceptors;
 	ApplicationScene myAppScene;
 	
 	/******* Initializing methods *********/
@@ -86,6 +88,11 @@ class ConcreteRouter implements IRouter {
 		myColorAcceptors.add(myAppScene.getMyShapeColorModule());
 	}
 	
+	//private void setMethodAcceptors() {
+	//    myMethodAcceptors = new ArrayList<>();
+	//    myMethodAcceptors.add();
+	//}
+	
 	/******* API methods *********/
 	
 	@Override
@@ -107,8 +114,8 @@ class ConcreteRouter implements IRouter {
 	
 	
 	@Override
-	public void distributeFunction() {
-		//myFunctionAcceptors.forEach( c -> c.giveFunction() );		
+	public void distributeFunction(IViewableMethodState aMethod) {
+		myFunctionAcceptors.forEach( c -> c.giveFunction(aMethod) );		
 	}
 
 		
@@ -125,5 +132,11 @@ class ConcreteRouter implements IRouter {
 	public void distributeColorPalette(IViewableColorPalette aViewColorPalette) {
 		myColorAcceptors.forEach(c -> c.giveColorPalette(aViewColorPalette));
 	}
+
+    @Override
+    public void distributeMethods (IViewableMethodState aViewableMethods) {
+        //myMethodAcceptors.forEach(c -> c.giveMethodState(aViewableMethods));
+        
+    }
 
 }

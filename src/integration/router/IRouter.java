@@ -2,6 +2,7 @@ package integration.router;
 
 import back_end.model.exception.IExceptionDebugger;
 import back_end.model.robot.IViewableRobot;
+import back_end.model.states.IViewableMethodState;
 import back_end.model.states.IViewableVariableState;
 import back_end.model.states.background.IViewableBackground;
 import back_end.model.states.background.IViewableColorPalette;
@@ -38,7 +39,7 @@ public interface IRouter {
 	/**
 	 * distributes Function to modules decided upon inside Router
 	 */
-	public void distributeFunction(/**TODO Function Object (no observer relation) **/);
+	public void distributeFunction(IViewableMethodState aMethod);
 	
 	/**
 	 * distributes Error to modules decided upon inside Router
@@ -50,4 +51,7 @@ public interface IRouter {
 	public void distributeBackground( IViewableBackground aViewBackground );
 	
 	public void distributeColorPalette( IViewableColorPalette aViewColorPalette ); 
+	
+	public void distributeMethods ( IViewableMethodState aViewableMethods ); 
+	
 }

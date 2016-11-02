@@ -11,6 +11,7 @@ import back_end.model.robot.IRobot;
 import back_end.model.robot.IViewableRobot;
 import back_end.model.robot.RobotController;
 import back_end.model.states.Environment;
+import back_end.model.states.IViewableMethodState;
 import back_end.model.states.IViewableVariableState;
 import back_end.model.states.ScopeController;
 import back_end.model.states.background.BackgroundInformation;
@@ -81,6 +82,7 @@ public class ModelController implements IObserver {
 		distributeBackground(myBackgroundInformation);
 		distributeColorPalette(myBackgroundInformation);
 		distributeHistory(myUserInputHistory);
+		distributeMethods(myEnvironment);
 		myScopeController = new ScopeController(myEnvironment, myRobot);
 		myParser = new TextParser(myScopeController, myEnvironment, myRobot);
 	}
@@ -93,11 +95,16 @@ public class ModelController implements IObserver {
 			while (treeEvaluator.hasNextInstruction()) {
 				treeEvaluator.executeNextInstruction();
 			}
+			myUserInputHistory.storeMethod(aString);
 		} catch (InvalidNodeUsageException | EmptyInputException | UnexpectedCharacterException
 				| UnexpectedCommandException | InvalidInputNumberException e) {
 				myRouter.distributeError(e);
 		}
-		myUserInputHistory.storeMethod(aString);
+		//myUserInputHistory.storeMethod(aString);
+	}
+	
+	private void distributeMethods( IViewableMethodState aMethodState ) {
+	    myRouter.distributeMethods(aMethodState);
 	}
 	
 	private void distributeHistory( IViewableUserInputHistory aUserInputHistory ) {
