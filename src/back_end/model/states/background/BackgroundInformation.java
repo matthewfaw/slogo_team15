@@ -36,7 +36,7 @@ public class BackgroundInformation extends Observable implements IViewableBackgr
 		Enumeration<String> iter = myDefaultColors.getKeys();
 		int colorNumber = 0;
         while (iter.hasMoreElements()) {
-        	myPaletteColors.put(colorNumber++, myDefaultColors.getString(iter.nextElement()));
+        	myPaletteColors.put(colorNumber++, new String(myDefaultColors.getString(iter.nextElement())));
         }
 	}
 	

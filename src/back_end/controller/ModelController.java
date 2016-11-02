@@ -107,7 +107,7 @@ public class ModelController implements IObserver {
 	}
 	
 	private void distributeColorPalette( IViewableColorPalette aColorPalette ) {
-		//myRouter.distributeColorPalette(aColorPalette);
+		myRouter.distributeColorPalette(aColorPalette);
 	}
 			
 	private void distributeRobot( IViewableRobot aRobot ){

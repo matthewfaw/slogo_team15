@@ -2,23 +2,21 @@ package front_end.view_modules.image_color_module.color;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ResourceBundle;
 
+import back_end.model.states.background.IViewableColorPalette;
 import front_end.view_modules.image_color_module.interfaces.IColorModule;
+import integration.observe.IObserver;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
-class ConcreteColorModule implements IColorModule {
+class ConcreteColorModule implements IColorModule, IObserver {
 
 	private List<ColorRow> myColorRowList;
+	private IViewableColorPalette myViewPalette;
 	private VBox myColorModuleBox;
 	private VBox myColumn;
-	private ResourceBundle myDefaultBundle;
-	
-	private static final String INIT_FILE = "resources.frontend.color_module.";
-	private static final String FILENAME = "DefaultColors";
 	
 	ConcreteColorModule(){
 		myColorRowList = new ArrayList<>();
@@ -28,23 +26,16 @@ class ConcreteColorModule implements IColorModule {
 		
 		myColumn = new VBox();
 		myColorModuleBox.getChildren().add(myColumn);
-		
-		myDefaultBundle = ResourceBundle.getBundle(INIT_FILE + FILENAME);
-		
-		setDefault();
+
 		setColumn();
 	}
 	
 	private void setDefault() {
 		myColorRowList.clear();
 		
-		int i = 0;
-		
-		for( String key : myDefaultBundle.keySet()){
-			myColorRowList.add(i, new ColorRow( i++, 
-					Color.web(myDefaultBundle.getString(key))
-					));
-			}
+		for( Integer i : myViewPalette.getPaletteColors()){
+			myColorRowList.add( new ColorRow( i, Color.web( myViewPalette.getHexadecimalColor(i) ) ) );
+		}
 	}
 	
 	private void setColumn() {
@@ -87,6 +78,20 @@ class ConcreteColorModule implements IColorModule {
 	@Override
 	public void newColorRow(Color aColor) {
 		myColorRowList.add(new ColorRow(getColorAmount(), aColor));
+	}
+
+	@Override
+	public void giveColorPalette(IViewableColorPalette aViewPalette) {
+		myViewPalette = aViewPalette;
+		myViewPalette.registerObserver(this);
+		setDefault();
+		setColumn();
+	}
+
+	@Override
+	public void update() {
+		setDefault();
+		setColumn();
 	}
 
 	
