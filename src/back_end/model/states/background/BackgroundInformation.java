@@ -17,7 +17,7 @@ public class BackgroundInformation extends Observable implements IViewableBackgr
 	
 	private ResourceBundle myDefaultValues;
 	private ResourceBundle myDefaultColors;
-	private int myBackgroundColor;
+	private String myBackgroundColor;
 	private Map<Integer, String> myPaletteColors;
 	private int myWidth;
 	private int myHeight; 
@@ -27,9 +27,9 @@ public class BackgroundInformation extends Observable implements IViewableBackgr
 		myDefaultColors = PropertyResourceBundle.getBundle(DEFAULT_PACKAGE + COLORS);
 		myWidth = Integer.parseInt(myDefaultValues.getString("Width"));
 		myHeight = Integer.parseInt(myDefaultValues.getString("Height")); 
-		myBackgroundColor = Integer.parseInt(myDefaultValues.getString("BackgroundColor")); 
 		myPaletteColors = new HashMap<Integer, String>();
 		initalizePaletteColors();
+		myBackgroundColor = myPaletteColors.get(Integer.parseInt(myDefaultValues.getString("BackgroundColor"))); 
 	}
 	
 	private void initalizePaletteColors() {
@@ -59,7 +59,7 @@ public class BackgroundInformation extends Observable implements IViewableBackgr
 	}
 	
 	public String getBackgroundColor() {
-		return myPaletteColors.get(myBackgroundColor);
+		return myBackgroundColor;
 	}
 	
 	/**SETTERS**/
@@ -71,8 +71,17 @@ public class BackgroundInformation extends Observable implements IViewableBackgr
 	}
 	
 	public void setBackgroundColor(int aColorIndex) {
-		myBackgroundColor = aColorIndex;
+		myBackgroundColor = myPaletteColors.get(myBackgroundColor);
 		notifyObservers();
+	}
+	
+	public void setPaletteColor(int aIndex, String aHex) {
+		myPaletteColors.put(aIndex, aHex);
+		notifyObservers();
+	}
+	
+	public void setBackgroundColor(String aHex) {
+		myBackgroundColor = aHex;
 	}
 
 }

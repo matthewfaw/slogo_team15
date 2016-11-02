@@ -18,6 +18,7 @@ import back_end.model.states.methodhistory.UserInputHistory;
 import back_end.model.syntax_tree.AbstractSyntaxTree;
 import back_end.model.syntax_tree.TreeEvaluator;
 import back_end.model.text_parser.TextParser;
+import integration.drawing.PenInformation;
 import integration.languages.ILanguageSwitcher.Languages;
 import integration.observe.IObserver;
 import integration.router.IRouter;
@@ -37,18 +38,19 @@ public class ModelController implements IObserver {
 	
 	public ModelController(IRouter aRobotRouter) {
 		myRouter = aRobotRouter;
-		myRobot = new RobotController();
-		myEnvironment = new Environment(myRobot);
-		myRobot.registerObserver(this);
-		myBackgroundInformation = myEnvironment.getBackgroundInformation();
-		myUserInputHistory = new UserInputHistory();
-		distributeRobot(myRobot.getMostRecentRobot());
-		distributeVariableState(myEnvironment);
-		distributeBackground(myBackgroundInformation);
-		distributeColorPalette(myBackgroundInformation);
-		distributeHistory(myUserInputHistory);
-		myScopeController = new ScopeController(myEnvironment, myRobot);
-		myParser = new TextParser(myScopeController, myEnvironment, myRobot);
+		//myRobot = new RobotController();
+		//myEnvironment = new Environment(myRobot);
+		//myRobot.registerObserver(this);
+		//myBackgroundInformation = myEnvironment.getBackgroundInformation();
+		//myUserInputHistory = new UserInputHistory();
+		//distributeRobot(myRobot.getMostRecentRobot());
+		//distributeVariableState(myEnvironment);
+		//distributeBackground(myBackgroundInformation);
+		//distributeColorPalette(myBackgroundInformation);
+		//distributeHistory(myUserInputHistory);
+		//myScopeController = new ScopeController(myEnvironment, myRobot);
+		//myParser = new TextParser(myScopeController, myEnvironment, myRobot);
+		reset();
 	}
 	
 	public void inputAll(String aString) {
@@ -95,6 +97,52 @@ public class ModelController implements IObserver {
 			myRouter.distributeError(e);
 		}
 	}
+	
+	/**SETTERS TO TALK TO FRONT **/
+	
+	public void setPenInformation(int aTurtleID, PenInformation aPenInfo) {
+		myRobot.setTurtleAsCurrentlyActive(aTurtleID);
+		myRobot.setPenInformation(aPenInfo);
+	}
+	
+	public void setColor(int aColorID) {
+		myBackgroundInformation.setBackgroundColor(aColorID);
+	}
+	
+	public void newColor(int aColorID, String aHexadecimal) {
+		myBackgroundInformation.setPaletteColor(aColorID, aHexadecimal);
+	}
+	
+	public void setVisible(int aID, boolean aVisibility) {
+		myRobot.setTurtleAsCurrentlyActive(aID);
+		myRobot.setVisible(aVisibility);
+	}
+	
+	public void setBackground(int aColorID) {
+		myBackgroundInformation.setBackgroundColor(aColorID);
+	}
+	
+	public void setBackground(String aHexadecimal) {
+		myBackgroundInformation.setBackgroundColor(aHexadecimal);
+	}
+	
+	public void reset() {
+		myRobot = new RobotController();
+		myEnvironment = new Environment(myRobot);
+		myRobot.registerObserver(this);
+		myBackgroundInformation = myEnvironment.getBackgroundInformation();
+		myUserInputHistory = new UserInputHistory();
+		distributeRobot(myRobot.getMostRecentRobot());
+		distributeVariableState(myEnvironment);
+		distributeBackground(myBackgroundInformation);
+		distributeColorPalette(myBackgroundInformation);
+		distributeHistory(myUserInputHistory);
+		myScopeController = new ScopeController(myEnvironment, myRobot);
+		myParser = new TextParser(myScopeController, myEnvironment, myRobot);
+	}
+
+	
+	/** DISTRIBUTE TO ROUTER **/
 	
 	private void distributeHistory( IViewableUserInputHistory aUserInputHistory ) {
 		myRouter.distributeHistory(aUserInputHistory);
