@@ -2,6 +2,7 @@ package front_end.view_modules.turtleBox.turtleMovement;
 
 import back_end.model.robot.IViewableRobot;
 import front_end.view_modules.image_color_module.interfaces.IImageColorModule;
+import front_end.view_modules.turtleBox.TurtleBoxToolbar;
 import integration.observe.IObserver;
 import javafx.animation.Animation;
 import javafx.animation.SequentialTransition;
@@ -12,6 +13,7 @@ import javafx.scene.canvas.Canvas;
 public class TurtleDrawer implements IObserver {
 
     private Canvas myCanvas;
+    private TurtleBoxToolbar myTurtleBoxToolbar;
     private int myWidth, myHeight;
 
     private IViewableRobot myRobot;
@@ -42,11 +44,13 @@ public class TurtleDrawer implements IObserver {
     public TurtleDrawer (IViewableRobot aRobot,
                          IImageColorModule aImageColorMap,
                          int aWidth,
-                         int aHeight) {
+                         int aHeight,
+                         TurtleBoxToolbar aTurtleBoxToolbar) {
         this(aWidth, aHeight);
         myRobot = aRobot;
         myRobot.registerObserver(this);
         myImageColorMap = aImageColorMap;
+        myTurtleBoxToolbar = aTurtleBoxToolbar;
 
         myImageMover = new ImageMover(myRobot, myImageColorMap, myMoveCalc);
         myLineDrawer = new LineDrawer(myRobot, myMoveCalc, myImageColorMap,
@@ -57,8 +61,10 @@ public class TurtleDrawer implements IObserver {
 
     @Override
     public void update () {
+        double animationSpeed = myTurtleBoxToolbar.getMyAnimationSliderValue();
+        double maxAnimationSpeed = myTurtleBoxToolbar.getMaxSliderValue();
         myLineDrawer.draw();
-        myAnimation = myImageMover.move();
+        myAnimation = myImageMover.move(animationSpeed, maxAnimationSpeed);
         myAnimation.play();
     }
     

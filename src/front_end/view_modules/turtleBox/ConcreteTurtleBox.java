@@ -1,4 +1,5 @@
 package front_end.view_modules.turtleBox;
+
 import back_end.model.robot.IViewableRobot;
 import back_end.model.states.background.IViewableBackground;
 import front_end.view_modules.image_color_module.interfaces.IImageColorModule;
@@ -7,12 +8,17 @@ import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.control.ColorPicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Slider;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+
+
 /**
  * 
  * @author George Bernard
@@ -23,22 +29,26 @@ class ConcreteTurtleBox implements ITurtleBox {
     ScrollPane myScroller;
     Pane mySandbox;
     ColorPicker myBackgroundColorPicker;
-    
+
     BackgroundUpdator myBU;
-    
+    TurtleBoxToolbar myBoxToolbar;
+
     IImageColorModule myShapeColorMap;
-    
+
     IViewableRobot myRobot;
     ImageView myImage;
     Group root;
     private int myWidth;
     private int myHeight;
+
     TurtleDrawer myTurtleDrawer;
+
+
     ConcreteTurtleBox (int width, int height, IImageColorModule aShapeColorMap) {
         myWidth = width;
         myHeight = height;
         myShapeColorMap = aShapeColorMap;
-        
+
         root = new Group();
         myScroller = new ScrollPane();
         myScroller.setPrefSize(width, height);
@@ -49,23 +59,28 @@ class ConcreteTurtleBox implements ITurtleBox {
         mySandbox.setMinSize(width, height);
         mySandbox.setMaxSize(width, height);
         myScroller.setContent(mySandbox);
+        //Probably need to move this
+        myBackgroundColorPicker = new ColorPicker();
+        myBoxToolbar = new TurtleBoxToolbar(myBackgroundColorPicker);
     }
+
     @Override
     public void reset () {
-        mySandbox.setBackground(new Background(new BackgroundFill(myBackgroundColorPicker.getValue(),
-                        CornerRadii.EMPTY, Insets.EMPTY)));
+        mySandbox
+                .setBackground(new Background(new BackgroundFill(myBackgroundColorPicker.getValue(),
+                                                                 CornerRadii.EMPTY, Insets.EMPTY)));
     }
-    
+
     @Override
     public Node getInstanceAsNode () {
         return myScroller;
     }
-    
+
     @Override
     public void giveRobot (IViewableRobot aRobot) {
         myRobot = aRobot;
-        myTurtleDrawer = new TurtleDrawer(aRobot, myShapeColorMap, myWidth, myHeight);
-        mySandbox.getChildren().addAll( myTurtleDrawer.getCanvas(), myTurtleDrawer.getImage() );
+        myTurtleDrawer = new TurtleDrawer(aRobot, myShapeColorMap, myWidth, myHeight, myBoxToolbar);
+        mySandbox.getChildren().addAll(myTurtleDrawer.getCanvas(), myTurtleDrawer.getImage());
     }
 
     private void initColorPicker () {
@@ -77,13 +92,14 @@ class ConcreteTurtleBox implements ITurtleBox {
                                                                                                              .getValue(),
                                                                                                      CornerRadii.EMPTY,
                                                                                                      Insets.EMPTY))));
-}
+    }
 
-	@Override
-	public void giveBackground(IViewableBackground aViewBackground) {
-		myBU = new BackgroundUpdator(aViewBackground, mySandbox);
-		mySandbox.setBackground(myBU.getBackground());
-		myBackgroundColorPicker = myBU.getColorPicker();
-        mySandbox.getChildren().add(myBackgroundColorPicker);
-	}
+    @Override
+    public void giveBackground (IViewableBackground aViewBackground) {
+        myBU = new BackgroundUpdator(aViewBackground, mySandbox);
+        mySandbox.setBackground(myBU.getBackground());
+        myBackgroundColorPicker = myBU.getColorPicker();
+        //mySandbox.getChildren().add(myBackgroundColorPicker);
+        mySandbox.getChildren().add(myBoxToolbar.createBoxToolbar());
+    }
 }

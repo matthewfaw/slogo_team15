@@ -43,20 +43,23 @@ public class ImageMover implements IDrawer {
         loadImage();
     }
 
-    public SequentialTransition move () {
+    public SequentialTransition move (double animationSpeed, double maxAnimationSpeed) {
         loadImage();
         checkVisibility();
-        System.out.println("xprev " + previousXCoordinate());
-        System.out.println("yprev " + previousYCoordinate());
-        System.out.println("xcur " + currentXCoordinate());
-        System.out.println("ycur " + currentYCoordinate());
-        if (previousXCoordinate() == currentXCoordinate() &&
-            previousYCoordinate() == currentYCoordinate()) {
-            System.out.println("Haha you suck");
-            return new SequentialTransition(myImageView, rotate());
+        if(animationSpeed == maxAnimationSpeed) {
+            myImageView.setX(currentXCoordinate()-myImageView.getFitWidth() / 2);
+            myImageView.setY(currentYCoordinate()-myImageView.getFitHeight() / 2);
+            myImageView.setRotate(-myRobot.getCurrentRotation());
+            return new SequentialTransition(myImageView);
         }
         else {
-            return new SequentialTransition(myImageView, translate(), rotate());
+            if (previousXCoordinate() == currentXCoordinate() &&
+                    previousYCoordinate() == currentYCoordinate()) {
+                return new SequentialTransition(myImageView, rotate(animationSpeed, maxAnimationSpeed));
+            }
+            else {
+                return new SequentialTransition(myImageView, translate(animationSpeed, maxAnimationSpeed), rotate(animationSpeed, maxAnimationSpeed));
+            }
         }
     }
 
@@ -72,17 +75,28 @@ public class ImageMover implements IDrawer {
             myImageView.setImage(null);
     }
 
-    private PathTransition translate () {
+    private PathTransition translate (double animationSpeed, double maxAnimationSpeed) {
         Path path = new Path();
         PathTransition pt = new PathTransition();
-
+        
         MoveTo myMove = new MoveTo(previousXCoordinate(), previousYCoordinate());
         LineTo myLine = new LineTo(currentXCoordinate(), currentYCoordinate());
         path.getElements().addAll(myMove, myLine);
-        pt = new PathTransition(Duration.millis(800), path, myImageView);
-
+        pt = new PathTransition(Duration.seconds(1/animationSpeed), path, myImageView);
 
         return pt;
+    }
+    
+    private RotateTransition rotate (double animationSpeed, double maxAnimationSpeed) {
+        RotateTransition rt = new RotateTransition();
+        if (myRobot.getCurrentRotation() != myRobot.getPreviousRotation()) {
+            rt = new RotateTransition(Duration.seconds(1/animationSpeed));
+            rt.setByAngle(-myRobot.getCurrentRotation() + myRobot.getPreviousRotation());
+        }
+        else {
+            rt = new RotateTransition(Duration.seconds(0));
+        }
+        return rt;
     }
 
     private double previousXCoordinate () {
@@ -99,18 +113,6 @@ public class ImageMover implements IDrawer {
 
     private double currentYCoordinate () {
         return myMoveCalc.translateYCoordinate(myRobot.getCurrentCoordinate().getY());
-    }
-
-    private RotateTransition rotate () {
-        RotateTransition rt = new RotateTransition();
-        if (myRobot.getCurrentRotation() != myRobot.getPreviousRotation()) {
-            rt = new RotateTransition(Duration.seconds(3));
-            rt.setByAngle(-myRobot.getCurrentRotation() + myRobot.getPreviousRotation());
-        }
-        else {
-            rt = new RotateTransition(Duration.seconds(0));
-        }
-        return rt;
     }
 
     @Override
