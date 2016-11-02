@@ -4,6 +4,7 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
+import java.util.Stack;
 import java.util.Collection;
 import java.util.Collections;
 
@@ -19,10 +20,15 @@ public class RobotController extends Observable implements IRobot {
 	private HashMap<Integer, Turtle> myActiveTurtles;
 	private Turtle myMostRecentlyCreatedTurtle;
 	
+	private Stack<HashMap<Integer, Turtle>> myActiveTurtleStack;
+	private Stack<Turtle> myCurrentActiveTurtleStack;
+	
 	public RobotController() {
-		System.out.println("derp");
+		myActiveTurtleStack = new Stack<HashMap<Integer, Turtle>>();
+		myActiveTurtleStack.push(new HashMap<Integer, Turtle>());
+
 		myTurtles = new HashMap<Integer, Turtle>();
-		myActiveTurtles = new HashMap<Integer, Turtle>();
+		myActiveTurtles = myActiveTurtleStack.peek();
 		addTurtle(INITIAL_TURTLE_INDEX);
 		addActiveTurtle(INITIAL_TURTLE_INDEX);
 		setTurtleAsCurrentlyActive(INITIAL_TURTLE_INDEX);
@@ -187,4 +193,18 @@ public class RobotController extends Observable implements IRobot {
 	}
 
 
+	public void addTemporaryTurtleScope()
+	{
+		myCurrentActiveTurtleStack.push(myCurrentlyActiveTurtle);
+		
+		myActiveTurtleStack.push(new HashMap<Integer, Turtle>());
+		myActiveTurtles = myActiveTurtleStack.peek();
+	}
+	public void removeTemporaryTurtleScope()
+	{
+		myActiveTurtleStack.pop();
+		myActiveTurtles = myActiveTurtleStack.peek();
+
+		setTurtleAsCurrentlyActive(myCurrentActiveTurtleStack.pop().getTurtleID());
+	}
 }
