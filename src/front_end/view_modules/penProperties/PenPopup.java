@@ -5,6 +5,7 @@ import java.util.List;
 
 import front_end.view_modules.image_color_module.interfaces.IColorModule;
 import integration.drawing.LineStyleSpec;
+import integration.drawing.PenInformation;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
@@ -48,8 +49,13 @@ public class PenPopup implements IPenPopup {
     private int myPenThickness;
     private IColorModule myColorModule;
     private ComboBox<Object> paletteColor;
+    private boolean myPenUpStatus;
+    private PenInformation myInfo;
+    private int colorID;
     
     public PenPopup(IColorModule aColorModule){
+        myInfo = new PenInformation();
+        myPenUpStatus = myInfo.isPenUp();
         myOrder = new VBox(SPACING);
         layout = new BorderPane();
         layout.setStyle("-fx-background-color: paleturquoise;");
@@ -67,6 +73,7 @@ public class PenPopup implements IPenPopup {
         return myScene;
     }
 
+    
     private List<Object> penThicknessOptions () {
         List<Object> myList = new ArrayList<Object>();
         for (int i = 1; i < MAX_PEN_THICKNESS; i++) {
@@ -181,8 +188,15 @@ public class PenPopup implements IPenPopup {
                     setPenThickness(newvalue);
                 if (labelName.contains("Line"))
                     setLineStyle(newvalue);
+                if(labelName.contains("Palette"))
+                    setColorID(newvalue);
             }
         });
+    }
+    
+    private int setColorID(Object aColorID) {
+        colorID = (int) aColorID;
+        return (int) colorID;
     }
 
     private List<Object> myLineStyleOptions () {
@@ -248,7 +262,7 @@ public class PenPopup implements IPenPopup {
     public void clear () {
         // TODO: get pen to take its previous state
         myColorPicker.setValue(Color.WHITE);
-        myPenUpButton.setSelected(true);
+        myPenUpButton.setSelected(myInfo.isPenUp());
         paletteColor.setDisable(false);
         myColorPicker.setDisable(false);
     }
@@ -261,5 +275,21 @@ public class PenPopup implements IPenPopup {
     @Override
     public void onClearPress (EventHandler<MouseEvent> aEvent) {
         clearButton.setOnMouseClicked(aEvent);
+    }
+
+    @Override
+    public PenInformation buildPenInfo () {
+        myInfo.setColorID(colorID);
+        //myInfo.setLineStyle(aLineStyle);
+        myInfo.setPenThickness(myPenThickness);
+        myInfo.setPenUp(myPenUpStatus);
+        System.out.println(myInfo.getColorID());
+        return myInfo;
+    }
+
+    @Override
+    public int getTurtleID () {
+        // TODO Auto-generated method stub
+        return 0;
     }
 }
