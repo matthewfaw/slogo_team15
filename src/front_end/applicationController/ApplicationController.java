@@ -17,7 +17,6 @@ import front_end.view_modules.function_viewer.IFunctionViewer;
 import front_end.view_modules.helpPage.HelpPage;
 import front_end.view_modules.history.IHistoryModule;
 import front_end.view_modules.image_color_module.interfaces.IImageColorModule;
-import front_end.view_modules.penProperties.IPenPopup;
 import front_end.view_modules.penProperties.PenPopup;
 import front_end.view_modules.textEditor.ITextEditor;
 import front_end.view_modules.toolbar.IToolbar;
@@ -27,20 +26,11 @@ import front_end.view_modules.variableViewer.IVariableViewer;
 import integration.languages.ILanguageSwitcher.Languages;
 import integration.router.IRouter;
 import integration.router.RouterFactory;
-import javafx.animation.Animation;
-import javafx.animation.SequentialTransition;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javafx.scene.shape.Path;
-import javafx.animation.PathTransition;
-import javafx.scene.shape.MoveTo;
-import javafx.scene.shape.HLineTo;
-import javafx.animation.RotateTransition;
-import javafx.util.Duration;
 
 /**
  * 
@@ -69,15 +59,10 @@ public class ApplicationController {
     private IHistoryModule myHistoryModule;
     private PenPopup myPenPopup;
     
-    private int myWidth;
-    private int myHeight;
-    
     private String TITLE = "SLOGO";
 
     public ApplicationController (int aWidth, int aHeight) {
         init(aWidth, aHeight);
-        myWidth = aWidth;
-        myHeight = aHeight;
     }
 
     
@@ -89,7 +74,6 @@ public class ApplicationController {
        
         getFromScene();
         configureToolbar();
-        //myTurtleBox.getAnimation().play();
     }
 
     private void getFromScene () {
@@ -124,8 +108,6 @@ public class ApplicationController {
         try {
             myModel.userInputToModel(sb.toString());
             myHistoryModule.giveHistory(sb.toString());
-            //System.out.println(myTurtleBox.getAnimation());
-            //myTurtleBox.getAnimation().play();
         }
         catch (InstantiationException 
         		| IllegalAccessException 

@@ -66,6 +66,8 @@ public class ImageMover implements IDrawer {
 	        LineTo myLine = new LineTo(currentXCoordinate(),currentYCoordinate());
 	        path.getElements().addAll(myMove);
 	        path.getElements().add(myLine);
+	        System.out.println("x " + previousXCoordinate());
+	        System.out.println("y " + previousYCoordinate());
 	        PathTransition pt = new PathTransition(Duration.millis(distance()*50), path, myImageView);
 	        return pt;
 	}
