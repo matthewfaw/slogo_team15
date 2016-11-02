@@ -18,6 +18,7 @@ import back_end.model.states.methodhistory.UserInputHistory;
 import back_end.model.syntax_tree.AbstractSyntaxTree;
 import back_end.model.syntax_tree.TreeEvaluator;
 import back_end.model.text_parser.TextParser;
+import front_end.sender.IColorSender;
 import integration.languages.ILanguageSwitcher.Languages;
 import integration.observe.IObserver;
 import integration.router.IRouter;

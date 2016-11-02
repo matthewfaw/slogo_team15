@@ -1,6 +1,8 @@
 package front_end.view_modules.turtleBox;
 import back_end.model.robot.IViewableRobot;
 import back_end.model.states.background.IViewableBackground;
+import front_end.sender.IColorSender;
+import front_end.sender.IRobotSender;
 import front_end.view_modules.image_color_module.interfaces.IImageColorModule;
 import front_end.view_modules.turtleBox.turtleMovement.TurtleDrawer;
 import javafx.geometry.Insets;
@@ -72,5 +74,14 @@ class ConcreteTurtleBox implements ITurtleBox {
 		mySandbox.setBackground(myBU.getBackground());
 		myBackgroundColorPicker = myBU.getColorPicker();
         mySandbox.getChildren().add(myBackgroundColorPicker);
+	}
+	@Override
+	public void giveRobotSender(IRobotSender aRoboSender) {
+	}
+	
+	@Override
+	public void giveColorSender(IColorSender aColorSender){
+		myBU.giveColorSender(aColorSender);
+
 	}
 }
