@@ -13,13 +13,14 @@ import back_end.model.node.inner_nodes.list_nodes.ListNode;
 import back_end.model.node.leaf_nodes.VariableNode;
 import back_end.model.states.Environment;
 import back_end.model.states.ScopeController;
+import integration.observe.IObserver;
 
 public class CommandDefinitionNode extends AbstractInputCommandNode {
 	private static final int NAME_INDEX = 0;
 	private static final int INPUTS_INDEX = 1;
 	private static final int METHOD_BODY_INDEX = 2;
 	public CommandDefinitionNode (ICommand aCommand, int aNumberOfInputs, String aUserInput, ScopeController aScopeController) {
-		super(aCommand, aNumberOfInputs);
+		super(aCommand, aNumberOfInputs, aScopeController);
 	}
 	/**
 	 * This method assumes that the first INode that

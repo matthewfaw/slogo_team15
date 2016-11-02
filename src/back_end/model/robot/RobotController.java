@@ -13,6 +13,7 @@ public class RobotController extends Observable implements IRobot {
 	
 	private HashMap<Integer, Turtle> myTurtles;
 	private Turtle myCurrentlyActiveTurtle;
+	private int myCurrentlyActiveTurtleIndex;
 	private List<Turtle> myActiveTurtles;
 	private List<Turtle> myTellActiveTurtles;
 	private Turtle myMostRecentlyCreatedTurtle;
@@ -22,21 +23,43 @@ public class RobotController extends Observable implements IRobot {
 		myTellActiveTurtles = new ArrayList<Turtle>();
 		myActiveTurtles = new ArrayList<Turtle>();
 		addTurtle(INITIAL_TURTLE_INDEX);
-		setActiveTurtle(INITIAL_TURTLE_INDEX);
+		addActiveTurtle(INITIAL_TURTLE_INDEX);
+		setTurtleAsCurrentlyActive(INITIAL_TURTLE_INDEX);
 		//currentTurtle = 1;
 		//setActiveTurtles(new int[]{1}, true);
 	}
 	
-	public void setActiveTurtle(int aTurtleID)
+	public void addActiveTurtle(int aTotalTurtleListIndex)
 	{
-		Turtle turtle = myTurtles.get(aTurtleID);
+		Turtle turtle = myTurtles.get(aTotalTurtleListIndex);
 		
 		if (!myActiveTurtles.contains(turtle)) {
 			myActiveTurtles.add(turtle);
-			myCurrentlyActiveTurtle = turtle;
 		}
 	}
+	public void setTurtleAsCurrentlyActive(int aActiveTurtleIndex)
+	{
+		myCurrentlyActiveTurtleIndex = aActiveTurtleIndex;
+		myCurrentlyActiveTurtle = myActiveTurtles.get(aActiveTurtleIndex);
+	}
 	
+	public List<Turtle> getCurrentlyActiveTurtles()
+	{
+		return myActiveTurtles;
+	}
+	public Turtle getCurrentTurtle()
+	{
+		return myCurrentlyActiveTurtle;
+	}
+	public void setNextTurtleAsActive()
+	{
+		int newIndex = (myCurrentlyActiveTurtleIndex + 1) % myActiveTurtles.size();
+		setTurtleAsCurrentlyActive(newIndex);
+	}
+	public boolean activeTurtleIndexHasBeenSetToStart()
+	{
+		return myCurrentlyActiveTurtleIndex == 0;
+	}
 //	@Override
 //	public void setActiveTurtles(int[] aTurtleIDs, boolean aTellCommand) {
 //		for (int i = 0; i < aTurtleIDs.length; i++) {

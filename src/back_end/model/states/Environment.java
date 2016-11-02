@@ -26,19 +26,13 @@ import integration.observe.Observable;
 
 public class Environment extends Observable implements IModifiableEnvironmentState, IViewableVariableState, IModifiableBackground {
 
-	public static final Environment INSTANCE = new Environment();
-	
 	private FunctionScope myCurrentScope;
 	private Map<String, Method> myMethodMap;
 	private BackgroundInformation myBackgroundInformation;
 	
-	private Environment() {
+	public Environment() {
 		myMethodMap = new HashMap<String, Method>();
 		myBackgroundInformation = new BackgroundInformation();
-	}
-	
-	public static Environment getInstance() {
-		return INSTANCE;
 	}
 	
 	/**SCOPE CONTROLLING**/

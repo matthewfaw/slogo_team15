@@ -28,7 +28,7 @@ public class ModelController implements IObserver {
 	
 	private Environment myEnvironment; 
 	private ScopeController myScopeController;
-	private IRobot myRobot; 
+	private RobotController myRobot; 
 	private TextParser myParser;
 	private IRouter myRouter;
 	private IViewableBackground myBackgroundInformation;
@@ -68,7 +68,7 @@ public class ModelController implements IObserver {
 
 	public ModelController(IRouter aRobotRouter) {
 		myRouter = aRobotRouter;
-		myEnvironment = Environment.getInstance();
+		myEnvironment = new Environment();
 		myRobot = new RobotController();
 		myRobot.registerObserver(this);
 		myBackgroundInformation = myEnvironment.getBackgroundInformation();
@@ -77,8 +77,8 @@ public class ModelController implements IObserver {
 		distributeVariableState(myEnvironment);
 		distributeBackgroundInformation(myBackgroundInformation);
 		distributeUserInputHistory(myUserInputHistory);
-		myScopeController = new ScopeController();
-		myParser = new TextParser(myScopeController, myEnvironment, (IRobot) myRobot);
+		myScopeController = new ScopeController(myEnvironment, myRobot);
+		myParser = new TextParser(myScopeController, myEnvironment, myRobot);
 	}
 	
 	public void userInputToModel(String aString) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException, UnexpectedCharacterException, UnexpectedCommandException, EmptyInputException, InvalidNodeUsageException {

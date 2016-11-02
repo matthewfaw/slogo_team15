@@ -20,15 +20,21 @@ public abstract class AbstractInputCommandNode extends AbstractCommandNode {
 	private double myValue;
 	private EvaluationState myEvaluationState;
 
-	public AbstractInputCommandNode(ICommand aCommand, int aNumberOfInputs) 
+	public AbstractInputCommandNode(ICommand aCommand, int aNumberOfInputs, ScopeController aScopeController) 
 	{
-		super(aNumberOfInputs);
+		super(aNumberOfInputs, aScopeController);
 		
 		myChildren = new ArrayList<INode>();
 		myEvaluationState = EvaluationState.UNEVALUATED;
 		myCommand = aCommand;
 	}
-
+	
+	@Override
+	protected ICommand getCommand()
+	{
+		return myCommand;
+	}
+	
 	@Override
 	public List<INode> getChildren() throws InvalidNodeUsageException
 	{
@@ -50,6 +56,8 @@ public abstract class AbstractInputCommandNode extends AbstractCommandNode {
         myValue = myCommand.eval(inputList);
         myEvaluationState = EvaluationState.EVALUATED;
         super.setState(NodeState.VISITED);
+        
+        resetStatesForNewTurtle();
 	}
 
 	@Override
@@ -60,4 +68,12 @@ public abstract class AbstractInputCommandNode extends AbstractCommandNode {
 		return myValue;
 	}
 
+	@Override
+    public void resetStatesForNewTurtle() throws InvalidNodeUsageException
+    {
+		if (myCommand instanceof ICommandTurtle) {
+			super.setState(NodeState.AVAILABLE);
+			myEvaluationState = EvaluationState.UNEVALUATED;
+		}
+    }
 }

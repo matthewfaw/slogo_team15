@@ -23,7 +23,11 @@ public class SetTowardsCommand implements ICommand {
     	}
     	
     	double angleDisplacement = newAngle - (myRobot.getRotation() + Math.PI/2);
-    	myRobot.setRotation(newAngle - Math.toDegrees(Math.PI/2));
+    	
+    	newAngle -= Math.toDegrees(Math.PI/2);
+    	if (!Double.isNaN(newAngle)) {
+    		myRobot.setRotation(newAngle);
+    	}
 
         return angleDisplacement;
     }

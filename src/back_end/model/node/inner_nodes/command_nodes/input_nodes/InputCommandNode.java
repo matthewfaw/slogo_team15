@@ -11,7 +11,7 @@ public class InputCommandNode extends AbstractInputCommandNode {
 
 	public InputCommandNode(ICommand aCommand, int aNumberOfInputs, String aUserInput, ScopeController aScopeController) 
 	{
-		super(aCommand, aNumberOfInputs);
+		super(aCommand, aNumberOfInputs, aScopeController);
 	}
 
 	@Override

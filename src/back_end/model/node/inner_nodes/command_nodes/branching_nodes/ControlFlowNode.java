@@ -16,11 +16,17 @@ public class ControlFlowNode extends AbstractBranchNode {
 	
 	public ControlFlowNode(ICommand aCommand, int aNumberOfInputs, String aUserInput,
 			ScopeController aScopeController) {
-		super(aNumberOfInputs);
+		super(aNumberOfInputs, aScopeController);
 
 		myCommand = (ICommandBranch) aCommand;
 	}
-    
+	
+	@Override
+	protected ICommand getCommand()
+	{
+		return myCommand;
+	}
+	
 	@Override
 	public void eval() throws InvalidInputNumberException, InvalidNodeUsageException 
 	{

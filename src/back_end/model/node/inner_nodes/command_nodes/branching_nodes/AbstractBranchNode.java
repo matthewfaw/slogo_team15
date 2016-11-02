@@ -13,6 +13,7 @@ import back_end.model.node.INode;
 import back_end.model.node.NodeState;
 import back_end.model.node.inner_nodes.command_nodes.AbstractCommandNode;
 import back_end.model.node.inner_nodes.list_nodes.ListNode;
+import back_end.model.states.ScopeController;
 
 public abstract class AbstractBranchNode extends AbstractCommandNode {
     private EvaluationState myEvaluationState;
@@ -22,13 +23,14 @@ public abstract class AbstractBranchNode extends AbstractCommandNode {
 	private double myReturnValue;
 	private int myActiveBranchIndex;
 
-    protected AbstractBranchNode (int aNumberOfInputs) {
-        super(aNumberOfInputs);
+    protected AbstractBranchNode (int aNumberOfInputs, ScopeController aScopeController) {
+        super(aNumberOfInputs, aScopeController);
 
         myEvaluationState = EvaluationState.EVALUATING_INPUTS;
 
         myChildInputs = new ArrayList<INode>();
         myChildBranches = new HashMap<Integer, List<INode>>();
+        
     }
     
     protected EvaluationState getEvaluationState()
@@ -46,6 +48,10 @@ public abstract class AbstractBranchNode extends AbstractCommandNode {
 		} else {
 			myEvaluationState = EvaluationState.EVALUATED;
 			super.setState(NodeState.VISITED);
+			
+			resetStatesForNewTurtle();
+//			super.register();
+//			super.triggerUpdatesToNodesForNewlyActiveTurtle();
 		}
 	}
 	protected void eval(ICommandBranch aCommand) throws InvalidInputNumberException, InvalidNodeUsageException
@@ -101,4 +107,12 @@ public abstract class AbstractBranchNode extends AbstractCommandNode {
     	myChildBranches.put(aBranchIndex, aInputs.getChildren());
     }
     	
+	@Override
+    public void resetStatesForNewTurtle() throws InvalidNodeUsageException
+    {
+		if (getCommand() instanceof ICommandTurtle) {
+			super.setState(NodeState.AVAILABLE);
+			myEvaluationState = EvaluationState.EVALUATING_BRANCH;
+		}
+    }
 }
