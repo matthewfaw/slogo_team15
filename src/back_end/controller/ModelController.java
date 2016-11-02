@@ -47,7 +47,8 @@ public class ModelController implements IObserver {
 //		String aString = "to :derp [ :a :b ] [ make :c :a make :d :b ] derp [ 13 56 ]";
 //		String aString = "showturtle";
 //		String aString = "fd 50";
-		String aString = "ask [ 2 ] [ fd 30 ] bk 40";
+//		String aString = "ask [ 2 ] [ fd 30 ] bk 40";
+		String aString = "to :derp [ :x ] [ fd :x ] derp [ 44 ]";
 		
 		
 		AbstractSyntaxTree ast;

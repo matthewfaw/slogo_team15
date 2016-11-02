@@ -59,7 +59,7 @@ public class NodeFactory {
 	}
 	
 	public INode makeNode(Integer aLineNumber, String aUserInputWord) throws UnexpectedCharacterException, UnexpectedCommandException {
-			try {
+			//try {
 				String generalNodeCategory = translateInput(aUserInputWord, mySyntaxResources.getBaseBundleName());
 				String commandType = getCommandType(generalNodeCategory, aUserInputWord, aLineNumber);
 				ICommand commandClass = makeCommandClass(commandType, generalNodeCategory, aUserInputWord, aLineNumber);
@@ -72,6 +72,7 @@ public class NodeFactory {
 				}
 				String packagePath = getPackagePath(generalNodeCategory);
 				aUserInputWord = aUserInputWord.replaceAll(":", "");
+				try{
 				return (INode) Class.forName(packagePath + generalNodeCategory + "Node").getConstructor(ICommand.class, int.class, String.class, ScopeController.class).
 						newInstance(commandClass, inputNumber, aUserInputWord, myScopeController);
 			} catch (Exception e) {
@@ -113,15 +114,15 @@ public class NodeFactory {
 		}
     }
     
-    private String getCommandType(String aGeneralNodeCategory, String aUserInputWord, int aLineNumber) throws UnexpectedCharacterException {
+    private String getCommandType(String aGeneralNodeCategory, String aUserInputWord, int aLineNumber) {//throws UnexpectedCharacterException {
 		if (aGeneralNodeCategory.equals("Command")) {
 			String commandName = translateInput(aUserInputWord, myLanguage.getFileLocation());
 			if (commandName.equals("NO MATCH")) {
-				if (myEnvironment.getAllMethodNames().contains(aUserInputWord)) {
+				//if (myEnvironment.getAllMethodNames().contains(aUserInputWord)) {
 					return "Custom";
-				} else {
-					throw new UnexpectedCharacterException(MessageFormat.format(myErrorMessageResources.getString("UnexpectedCharacter"), aUserInputWord, aLineNumber), aLineNumber);
-				}
+				//} else {
+					//throw new UnexpectedCharacterException(MessageFormat.format(myErrorMessageResources.getString("UnexpectedCharacter"), aUserInputWord, aLineNumber), aLineNumber);
+				//}
 			} else {
 				return translateInput(aUserInputWord, myLanguage.getFileLocation());
 			}
