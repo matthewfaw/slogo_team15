@@ -22,6 +22,7 @@ import integration.languages.ILanguageSwitcher.Languages;
  * @author Hannah Fuchshuber
  *
  */
+
 public class NodeFactory {
 
     private static final String PACKAGE_RESOURCE = "resources.";
@@ -74,8 +75,8 @@ public class NodeFactory {
 				return (INode) Class.forName(packagePath + generalNodeCategory + "Node").getConstructor(ICommand.class, int.class, String.class, ScopeController.class).
 						newInstance(commandClass, inputNumber, aUserInputWord, myScopeController);
 			} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | 
-					InvocationTargetException | NoSuchMethodException | SecurityException | ClassNotFoundException e) {
-				throw new UnexpectedCharacterException(MessageFormat.format(myErrorMessageResources.getString("UnexpectedCharacter"), aUserInputWord, aLineNumber));
+					InvocationTargetException | NoSuchMethodException | SecurityException | ClassNotFoundException | MissingResourceException e) {
+				throw new UnexpectedCharacterException(MessageFormat.format(myErrorMessageResources.getString("UnexpectedCharacter"), aUserInputWord, aLineNumber), aLineNumber);
 			}
 	}
 	

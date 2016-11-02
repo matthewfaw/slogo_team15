@@ -2,6 +2,7 @@ package back_end.model.text_parser;
 
 import java.lang.reflect.InvocationTargetException;
 import java.text.MessageFormat;
+import java.util.MissingResourceException;
 import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
 
@@ -34,8 +35,8 @@ public class CommandFactory {
 				newInstance(myRobot, myEnvironment, aUserInputWord);
 		} catch (InstantiationException | IllegalAccessException | 
 				IllegalArgumentException | InvocationTargetException | 
-				NoSuchMethodException | SecurityException | ClassNotFoundException e) {
-			throw new UnexpectedCommandException(MessageFormat.format(myErrorMessageResources.getString("UnexpectedCommand"), aUserInputWord, aLineNumber, aCommandType));
+				NoSuchMethodException | SecurityException | ClassNotFoundException | MissingResourceException e) {
+			throw new UnexpectedCommandException(MessageFormat.format(myErrorMessageResources.getString("UnexpectedCommand"), aUserInputWord, aLineNumber, aCommandType), aLineNumber);
 		}
 	}
 

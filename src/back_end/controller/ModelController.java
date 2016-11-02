@@ -34,7 +34,7 @@ public class ModelController implements IObserver {
 	private IViewableBackground myBackgroundInformation;
 	private IViewableUserInputHistory myUserInputHistory; 
 	
-	public static void main(String[] args) throws InvalidNodeUsageException
+/*	public static void main(String[] args) throws InvalidNodeUsageException
 	{
 		Environment environment = Environment.getInstance();
 		IRobot robot = new RobotController();
@@ -43,7 +43,7 @@ public class ModelController implements IObserver {
 
 //		String aString = "if [ make :x 5 ] [ to :haha [ :a ] [ fd :a ] ] haha [ fd 50 ]";
 //		String aString = "to :derp [ :a :b ] [ make :c :a make :d :b ] derp [ 13 56 ]";
-		String aString = "fd 50 rt 30 fd 10 lt 60 bk 20";
+		String aString = "showturtle";
 		
 		
 		AbstractSyntaxTree ast;
@@ -64,7 +64,7 @@ public class ModelController implements IObserver {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-	}
+	}*/
 
 	public ModelController(IRouter aRobotRouter) {
 		myRouter = aRobotRouter;
