@@ -24,7 +24,7 @@ class LineDrawer implements IDrawer {
         }
         
         void drawDefault() {
-                myGC.setStroke( myColorMap.getColor(myRobot.getPenInformation().getColorID()) ); //myColorMap.getColor(myRobot.getPenInformation().getColorID()));
+                myGC.setStroke( myColorMap.getColor(myRobot.getPenInformation().getColorID()) );
                 myGC.setLineWidth(myRobot.getPenInformation().getPenThickness());
                 myGC.strokeLine(
                                 myMoveCalc.translateXCoordinate(myRobot.getPreviousCoordinate().getX()),
