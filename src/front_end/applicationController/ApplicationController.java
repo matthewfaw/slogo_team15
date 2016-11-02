@@ -186,7 +186,7 @@ public class ApplicationController {
     private void runSingleLine(){
     	if(myIndex >= myTextEditor.getInstructionList().size()) return;
     	myModel.inputAll(myTextEditor.getInstructionList().get(myIndex));
-    	myTextEditor.highlightLine(Color.GREEN, myIndex + 1);
+    	myTextEditor.highlightLine(Color.GREEN, myIndex+1);
     	myIndex++;
     }
     
