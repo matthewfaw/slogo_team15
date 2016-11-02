@@ -23,6 +23,7 @@ class ConcreteToolbar implements IToolbar {
     private Button myStepInstr;
     private Button myStepLine;
     private Button myReset;
+    private Button myPenFunctions;
 
     private ResourceBundle myGUIResources;
 
@@ -39,7 +40,7 @@ class ConcreteToolbar implements IToolbar {
         myToolbar.setPrefSize(aWidth, aHeight);
         myToolbar.setPadding(new Insets(SPACING, SPACING, SPACING, SPACING));
         myToolbar.setStyle("-fx-background-color: #336699;");
-        myToolbar.getChildren().addAll(myRun, myStepLine, myBuild, myStepInstr, myHelp, myReset, myLanguage);
+        myToolbar.getChildren().addAll(myRun, myStepLine, myBuild, myStepInstr, myPenFunctions, myHelp, myReset, myLanguage);
 
 
         myIsBuilt = false;
@@ -53,9 +54,13 @@ class ConcreteToolbar implements IToolbar {
         myStepInstr = new Button(myGUIResources.getString("StepInstrButton"));
         myStepLine = new Button(myGUIResources.getString("StepLineButton"));
         myReset = new Button(myGUIResources.getString("ClearButton"));
+        myPenFunctions = new Button(myGUIResources.getString("PenButton"));
     }
 
-    
+    @Override
+    public void onPenPress (EventHandler<MouseEvent> aEvent) {
+        myPenFunctions.setOnMouseClicked(aEvent);
+    }
     
     @Override
     public void onBuildPress (EventHandler<MouseEvent> event) {

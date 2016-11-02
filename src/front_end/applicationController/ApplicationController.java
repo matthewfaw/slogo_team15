@@ -12,6 +12,8 @@ import front_end.view_modules.function_viewer.IFunctionViewer;
 import front_end.view_modules.helpPage.HelpPage;
 import front_end.view_modules.history.IHistoryModule;
 import front_end.view_modules.image_color_module.interfaces.IImageColorModule;
+import front_end.view_modules.penProperties.IPenPopup;
+import front_end.view_modules.penProperties.PenPopup;
 import front_end.view_modules.textEditor.ITextEditor;
 import front_end.view_modules.toolbar.IToolbar;
 import front_end.view_modules.toolbar.IToolbar.ButtonTypes;
@@ -51,6 +53,7 @@ public class ApplicationController {
     private IImageColorModule myImageColorModule;
     private IAllRobotsStateBox myStatesBox;
     private IHistoryModule myHistoryModule;
+    private PenPopup myPenPopup;
     
     private String TITLE = "SLOGO";
 	private int myIndex;
@@ -83,6 +86,7 @@ public class ApplicationController {
         myImageColorModule = myAppScene.getMyShapeColorModule();
         myStatesBox = myAppScene.getMyStatesBox();        
         myHistoryModule = myAppScene.getMyHistoryModule();
+        myPenPopup = new PenPopup(myImageColorModule);
     }
 
     public Scene getScene () {
@@ -143,7 +147,7 @@ public class ApplicationController {
         myToolbar.onRunPress(e -> runAll());
         myToolbar.onHelpPress(e -> loadHelp());
         myToolbar.onLanguageSelect(makeLanguageMap());
-
+        myToolbar.onPenPress(e -> popupPenSelector());
         myToolbar.onBuildPress(e -> buildTree());
         myToolbar.onStepInstrPress(e -> runSingleInstruction());
         myToolbar.onStepLinePress(e -> runSingleLine());
@@ -167,7 +171,27 @@ public class ApplicationController {
     	myModel.inputAll(myTextEditor.getInstructionList().get(myIndex));
     	myTextEditor.highlightLine(Color.GREEN, myIndex+1);
     	myIndex++;       
-    }        
+    }     
+    
+    private void configurePenPopup (Stage stage) {
+        myPenPopup.onApplyPress(e -> collectPenInfo(stage));
+        myPenPopup.onClearPress(e -> clearPenSettings());
+    }
+    private void clearPenSettings () {
+        myPenPopup.clear();
+    }
+    private void collectPenInfo (Stage stage) {
+        stage.hide();
+    }
+    
+    private void popupPenSelector () {
+        Stage stage = new Stage();
+        //myPenPopup.initPopup(myImageColorModule);
+        Scene myScene = myPenPopup.getScene();
+        stage.setScene(myScene);
+        stage.show();
+        configurePenPopup(stage);
+    }
     
     /**
      * Returns the title of the SLOGO project
