@@ -33,11 +33,12 @@ class ConcreteErrorViewer implements IErrorViewer {
         myErrorScroller.setMaxSize(aWidth, aHeight);
 
         myErrorLabel = new Label("No errors... yet!");
+        myErrorLabel.setWrapText(true);
 
-        VBox columnBox = initErrorColumn();
-        columnBox.getChildren().add(myErrorLabel);
+        HBox box = new HBox(0);
+        box.getChildren().add(myErrorLabel);
 
-        myErrorScroller.setContent(columnBox);
+        myErrorScroller.setContent(box);
 
     }
 
@@ -56,11 +57,6 @@ class ConcreteErrorViewer implements IErrorViewer {
         myError =  aError;
         myErrorLabel.setText(aError.getErrorMessage());
         myTextEditor.highlightLine(Color.RED, aError.getErrorLineNumber());
-    }
-
-    private VBox initErrorColumn () {
-        VBox columnBox = new VBox(0);
-        return columnBox;
     }
 
 }
