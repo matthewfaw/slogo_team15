@@ -19,6 +19,7 @@ public abstract class AbstractInnerNode implements INode {
 	
 	public boolean allChildrenAreEvaluated() throws InvalidNodeUsageException
 	{
+		if (getChildren() == null) return true;
 		for (INode child: getChildren()) {
 			if (!child.isVisited()) {
 				return false;

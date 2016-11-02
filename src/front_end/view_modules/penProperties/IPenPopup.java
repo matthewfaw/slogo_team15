@@ -1,6 +1,5 @@
 package front_end.view_modules.penProperties;
 
-import front_end.view_modules.image_color_module.interfaces.IColorModule;
 import integration.drawing.PenInformation;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
