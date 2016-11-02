@@ -1,6 +1,5 @@
 
 import front_end.applicationController.ApplicationController;
-import javafx.animation.Animation;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;

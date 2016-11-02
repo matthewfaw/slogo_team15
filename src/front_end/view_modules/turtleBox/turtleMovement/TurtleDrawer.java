@@ -4,15 +4,9 @@ import back_end.model.robot.IViewableRobot;
 import front_end.view_modules.image_color_module.interfaces.IImageColorModule;
 import integration.observe.IObserver;
 import javafx.animation.Animation;
-import javafx.animation.PathTransition;
-import javafx.animation.RotateTransition;
 import javafx.animation.SequentialTransition;
 import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.shape.HLineTo;
-import javafx.scene.shape.MoveTo;
-import javafx.scene.shape.Path;
-import javafx.util.Duration;
 
 
 public class TurtleDrawer implements IObserver {
@@ -66,15 +60,6 @@ public class TurtleDrawer implements IObserver {
         myLineDrawer.draw();
         myAnimation = myImageMover.move();
         myAnimation.play();
-       /* Path path = new Path();
-        path.getElements().addAll(new MoveTo(500, 500));
-        // create an animation where the shape follows a path
-        PathTransition pt = new PathTransition(Duration.millis(4000), path, myImageMover.getInstanceAsNode());
-        // create an animation that rotates the shape
-        RotateTransition rt = new RotateTransition(Duration.seconds(3));
-        rt.setByAngle(90);
-        myAnimation = new SequentialTransition(myImageMover.getInstanceAsNode(), pt, rt);
-        myAnimation.play();*/
     }
     
     public Animation returnAnimation() {

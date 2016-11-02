@@ -8,7 +8,6 @@ import javafx.animation.SequentialTransition;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.shape.HLineTo;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
@@ -20,7 +19,6 @@ public class ImageMover implements IDrawer {
 	private IViewableRobot myRobot;
 	private IImageModule myImageMap;
 	private MovementCalculator myMoveCalc;
-	private Path myPath;
 	
     private final int CHARACTER_SIZE = 50;
 	
@@ -47,9 +45,7 @@ public class ImageMover implements IDrawer {
 	public SequentialTransition move() {
 		loadImage();
 		checkVisibility();
-		//translate();
-		//rotate();
-		return new SequentialTransition(myImageView, rotate(), translate());
+		return new SequentialTransition(myImageView, translate(), rotate());
 	}
 	
 	private void loadImage() {
@@ -66,21 +62,38 @@ public class ImageMover implements IDrawer {
 	
 	private PathTransition translate(){
 	        Path path = new Path();
-	        MoveTo myMove = new MoveTo(myMoveCalc.translateXCoordinate(myRobot.getPreviousCoordinate().getX()),myMoveCalc.translateYCoordinate(myRobot.getPreviousCoordinate().getY()));
-	        LineTo myLine = new LineTo(myMoveCalc.translateXCoordinate(myRobot.getCurrentCoordinate().getX()),myMoveCalc.translateYCoordinate(myRobot.getCurrentCoordinate().getY()));
+	        MoveTo myMove = new MoveTo(previousXCoordinate(),previousYCoordinate());
+	        LineTo myLine = new LineTo(currentXCoordinate(),currentYCoordinate());
 	        path.getElements().addAll(myMove);
 	        path.getElements().add(myLine);
-	        PathTransition pt = new PathTransition(Duration.millis(4000), path, myImageView);
-	        //myImageView.setX(myMoveCalc.translateXCoordinate(myRobot.getCurrentCoordinate().getX()));
-		//myImageView.setY(myMoveCalc.translateYCoordinate(myRobot.getCurrentCoordinate().getY()));
+	        PathTransition pt = new PathTransition(Duration.millis(distance()*50), path, myImageView);
 	        return pt;
+	}
+	
+	private double previousXCoordinate() {
+	    return myMoveCalc.translateXCoordinate(myRobot.getPreviousCoordinate().getX());
+	}
+	
+	private double previousYCoordinate() {
+	    return myMoveCalc.translateYCoordinate(myRobot.getPreviousCoordinate().getY());
+	}
+	
+	private double currentXCoordinate() {
+	    return myMoveCalc.translateXCoordinate(myRobot.getCurrentCoordinate().getX());
+	}
+	
+	private double currentYCoordinate() {
+	    return myMoveCalc.translateYCoordinate(myRobot.getCurrentCoordinate().getY());
+	}
+	
+	private double distance() {
+	    return Math.sqrt(Math.pow(currentYCoordinate() -previousYCoordinate(),2) - Math.pow(currentXCoordinate() -previousXCoordinate(),2));
 	}
 	
 	private RotateTransition rotate(){
 	    
 	    RotateTransition rt = new RotateTransition(Duration.seconds(3));
 	    rt.setByAngle(-myRobot.getRotation());
-	    //myImageView.setRotate(-myRobot.getRotation);
 	    return rt;
 	}
 
