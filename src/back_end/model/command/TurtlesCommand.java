@@ -4,7 +4,7 @@ import back_end.model.node.IReadableInput;
 import back_end.model.robot.IRobot;
 import back_end.model.states.IModifiableEnvironmentState;
 
-public class TurtlesCommand implements ICommand, ICommandTurtle {
+public class TurtlesCommand implements ICommand {
 	
 	private IRobot myRobot;
 	

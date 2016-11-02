@@ -8,6 +8,7 @@ import java.util.Map;
 import back_end.model.exception.InvalidNodeUsageException;
 import back_end.model.node.IReadableInput;
 import back_end.model.robot.RobotController;
+import back_end.model.robot.Turtle;
 import back_end.model.states.background.BackgroundInformation;
 import back_end.model.states.background.IModifiableBackground;
 import integration.observe.Observable;
@@ -136,6 +137,25 @@ public class Environment extends Observable implements IModifiableEnvironmentSta
 	public void addTurtle(int aTurtleID) {
 		myRobotController.addTurtle(aTurtleID);
 	}
-
+	
+	public Turtle getCurrentTurtle() {
+		return myRobotController.getCurrentTurtle();
+	}
+	
+	public Collection<Turtle> getCurrentlyActiveTurtles() {
+		return myRobotController.getCurrentlyActiveTurtles();
+	}
+	
+	public void setTurtleAsCurrentlyActive(int aActiveTurtleIndex) {
+		myRobotController.setTurtleAsCurrentlyActive(aActiveTurtleIndex);
+	}
+	
+	public boolean containsTurtle(int aTurtleIndex) {
+		return myRobotController.containsTurtles(aTurtleIndex);
+	}
+	
+	public int numberOfTurtlesCreated() {
+		return myRobotController.numberOfTurtlesCreated();
+	}
 
 }

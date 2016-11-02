@@ -3,23 +3,26 @@ package back_end.model.robot;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
+import java.util.Set;
+import java.util.Collection;
+import java.util.Collections;
 
 import integration.drawing.PenInformation;
 import integration.observe.Observable;
 
 public class RobotController extends Observable implements IRobot {
-	private static final int INITIAL_TURTLE_INDEX = 0;
+	private static final int INITIAL_TURTLE_INDEX = 1;
 	
 	private HashMap<Integer, Turtle> myTurtles;
 	private Turtle myCurrentlyActiveTurtle;
 	private int myCurrentlyActiveTurtleIndex;
-	private List<Turtle> myActiveTurtles;
+	private HashMap<Integer, Turtle> myActiveTurtles;
 	private Turtle myMostRecentlyCreatedTurtle;
 	
 	public RobotController() {
+		System.out.println("derp");
 		myTurtles = new HashMap<Integer, Turtle>();
-		myActiveTurtles = new ArrayList<Turtle>();
+		myActiveTurtles = new HashMap<Integer, Turtle>();
 		addTurtle(INITIAL_TURTLE_INDEX);
 		addActiveTurtle(INITIAL_TURTLE_INDEX);
 		setTurtleAsCurrentlyActive(INITIAL_TURTLE_INDEX);
@@ -29,13 +32,15 @@ public class RobotController extends Observable implements IRobot {
 	{
 		Turtle turtle = myTurtles.get(aTotalTurtleListIndex);
 		
-		if (!myActiveTurtles.contains(turtle)) {
-			myActiveTurtles.add(turtle);
+		if (!myActiveTurtles.containsKey(aTotalTurtleListIndex)) {
+			myActiveTurtles.put(aTotalTurtleListIndex,turtle);
 		}
 	}
 	
 	public void clearActiveTurtles() {
-		myActiveTurtles = new ArrayList<Turtle>();
+		myCurrentlyActiveTurtleIndex = -1;
+		myCurrentlyActiveTurtle = null;
+		myActiveTurtles.clear();
 	}
 	
 	public void setTurtleAsCurrentlyActive(int aActiveTurtleIndex)
@@ -44,24 +49,46 @@ public class RobotController extends Observable implements IRobot {
 		myCurrentlyActiveTurtle = myActiveTurtles.get(aActiveTurtleIndex);
 	}
 	
-	public List<Turtle> getCurrentlyActiveTurtles()
-	{
-		return myActiveTurtles;
+	public Collection<Turtle> getCurrentlyActiveTurtles() {
+		return myActiveTurtles.values();
 	}
-	public Turtle getCurrentTurtle()
-	{
+	
+	public Turtle getCurrentTurtle() {
 		return myCurrentlyActiveTurtle;
 	}
 	
 	public void setNextTurtleAsActive()
 	{
-		int newIndex = (myCurrentlyActiveTurtleIndex + 1) % myActiveTurtles.size();
+		Integer[] indices = myActiveTurtles.keySet().toArray(new Integer[myActiveTurtles.keySet().size()]);
+		int newIndex = findNextIndexInArray(indices, myCurrentlyActiveTurtleIndex);
+		
 		setTurtleAsCurrentlyActive(newIndex);
+	}
+	
+	private int findNextIndexInArray(Integer[] indices, int indexToFind)
+	{
+		for (int i=0; i<indices.length; ++i) {
+			if (indices[i] == indexToFind) {
+				return indices[(i+1) % indices.length];
+			}
+		}
+		return -2;
+	}
+	
+	public int numberOfTurtlesCreated() {
+		return myTurtles.keySet().size();
 	}
 	
 	public boolean activeTurtleIndexHasBeenSetToStart()
 	{
-		return myCurrentlyActiveTurtleIndex == 0;
+		ArrayList<Integer> indices = new ArrayList<Integer>(myActiveTurtles.keySet());
+		int firstIndex = indices.get(0);
+		return myCurrentlyActiveTurtleIndex == firstIndex;
+//		return myCurrentlyActiveTurtleIndex == INITIAL_TURTLE_INDEX;
+	}
+	
+	public boolean containsTurtles(int aIndex) {
+		return myTurtles.containsKey(aIndex);
 	}
 	
 	
@@ -73,8 +100,8 @@ public class RobotController extends Observable implements IRobot {
 	{
 		Turtle turtle = new Turtle(aIndex);
 		myMostRecentlyCreatedTurtle = turtle;
-		notifyObservers();
 		myTurtles.put(aIndex, turtle);
+		notifyObservers();
 	}
 	
 	/**GETTERS**/

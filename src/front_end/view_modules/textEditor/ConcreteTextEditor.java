@@ -65,7 +65,7 @@ class ConcreteTextEditor implements ITextEditor {
                                                                  CornerRadii.EMPTY,
                                                                  Insets.EMPTY));
 
-        myRows.get(line-1).setBackground(highlight);
+        //myRows.get(line-1).setBackground(highlight);
     }
 
     @Override
