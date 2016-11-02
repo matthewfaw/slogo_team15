@@ -95,7 +95,7 @@ public class PenPopup implements IPenPopup {
     private void penUpOrDown () {
         myPenDownButton = new RadioButton("Pen Down");
         myPenUpButton = new RadioButton("Pen Up");
-        myPenUpButton.setSelected(true);
+        myPenUpButton.setSelected(myInfo.isPenUp());
         myPenDownButton.setUserData("Pen Down");
         myPenUpButton.setUserData("Pen Up");
         
@@ -306,6 +306,12 @@ public class PenPopup implements IPenPopup {
 
     @Override
     public int getTurtleID () {
+        try{
+            Integer.parseInt(myField.getText().toString());
+            System.out.println(Integer.parseInt(myField.getText().toString()));
+        }catch(NumberFormatException e){
+            return 0;
+        }
         return Integer.parseInt(myField.getText().toString());
     }
     
