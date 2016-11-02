@@ -142,7 +142,7 @@ public class Environment extends Observable implements IModifiableEnvironmentSta
 		return myRobotController.getCurrentTurtle();
 	}
 	
-	public List<Turtle> getCurrentlyActiveTurtles() {
+	public Collection<Turtle> getCurrentlyActiveTurtles() {
 		return myRobotController.getCurrentlyActiveTurtles();
 	}
 	

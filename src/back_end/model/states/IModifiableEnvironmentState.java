@@ -1,5 +1,6 @@
 package back_end.model.states;
 
+import java.util.Collection;
 import java.util.List;
 
 import back_end.model.exception.InvalidNodeUsageException;
@@ -25,11 +26,13 @@ public interface IModifiableEnvironmentState extends IViewableVariableState, IMo
 	
 	public Turtle getCurrentTurtle();
 	
-	public List<Turtle> getCurrentlyActiveTurtles();
+	public Collection<Turtle> getCurrentlyActiveTurtles();
 	
 	public void setTurtleAsCurrentlyActive(int aActiveTurtleIndex);
 	
 	public boolean containsTurtle(int aTurtleIndex);
+	
+	public int numberOfTurtlesCreated();
 	
 	
 	

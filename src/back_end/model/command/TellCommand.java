@@ -18,9 +18,9 @@ public class TellCommand implements ICommand {
 		myEnvironment.clearActiveTurtles();
 		for (int i = 0; i < aList.length; i++) {
 			int currentTurtleID = (int) aList[i].getValue();
-			for (int j = 0; j < currentTurtleID; j++) {
-				if (!myEnvironment.containsTurtle(currentTurtleID)) {
-					myEnvironment.addTurtle(currentTurtleID);
+			for (int j = 1; j <= currentTurtleID; j++) {
+				if (!myEnvironment.containsTurtle(j)) {
+					myEnvironment.addTurtle(j);
 				}
 			}
 			myEnvironment.addActiveTurtle(currentTurtleID);

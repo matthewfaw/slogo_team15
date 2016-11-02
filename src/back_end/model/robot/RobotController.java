@@ -3,23 +3,24 @@ package back_end.model.robot;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
+import java.util.Collection;
 
 import integration.drawing.PenInformation;
 import integration.observe.Observable;
 
 public class RobotController extends Observable implements IRobot {
-	private static final int INITIAL_TURTLE_INDEX = 0;
+	private static final int INITIAL_TURTLE_INDEX = 1;
 	
 	private HashMap<Integer, Turtle> myTurtles;
 	private Turtle myCurrentlyActiveTurtle;
 	private int myCurrentlyActiveTurtleIndex;
-	private List<Turtle> myActiveTurtles;
+	private HashMap<Integer, Turtle> myActiveTurtles;
 	private Turtle myMostRecentlyCreatedTurtle;
 	
 	public RobotController() {
+		System.out.println("derp");
 		myTurtles = new HashMap<Integer, Turtle>();
-		myActiveTurtles = new ArrayList<Turtle>();
+		myActiveTurtles = new HashMap<Integer, Turtle>();
 		addTurtle(INITIAL_TURTLE_INDEX);
 		addActiveTurtle(INITIAL_TURTLE_INDEX);
 		setTurtleAsCurrentlyActive(INITIAL_TURTLE_INDEX);
@@ -29,13 +30,15 @@ public class RobotController extends Observable implements IRobot {
 	{
 		Turtle turtle = myTurtles.get(aTotalTurtleListIndex);
 		
-		if (!myActiveTurtles.contains(turtle)) {
-			myActiveTurtles.add(turtle);
+		if (!myActiveTurtles.containsKey(aTotalTurtleListIndex)) {
+			myActiveTurtles.put(aTotalTurtleListIndex,turtle);
 		}
 	}
 	
 	public void clearActiveTurtles() {
-		myActiveTurtles = new ArrayList<Turtle>();
+		myCurrentlyActiveTurtleIndex = -1;
+		myCurrentlyActiveTurtle = null;
+		myActiveTurtles.clear();
 	}
 	
 	public void setTurtleAsCurrentlyActive(int aActiveTurtleIndex)
@@ -44,8 +47,8 @@ public class RobotController extends Observable implements IRobot {
 		myCurrentlyActiveTurtle = myActiveTurtles.get(aActiveTurtleIndex);
 	}
 	
-	public List<Turtle> getCurrentlyActiveTurtles() {
-		return myActiveTurtles;
+	public Collection<Turtle> getCurrentlyActiveTurtles() {
+		return myActiveTurtles.values();
 	}
 	
 	public Turtle getCurrentTurtle() {
@@ -80,8 +83,8 @@ public class RobotController extends Observable implements IRobot {
 	{
 		Turtle turtle = new Turtle(aIndex);
 		myMostRecentlyCreatedTurtle = turtle;
-		notifyObservers();
 		myTurtles.put(aIndex, turtle);
+		notifyObservers();
 	}
 	
 	/**GETTERS**/
