@@ -5,6 +5,7 @@ import java.util.Collection;
 
 import back_end.model.exception.IExceptionDebugger;
 import back_end.model.robot.IViewableRobot;
+import back_end.model.states.IViewableMethodState;
 import back_end.model.states.IViewableVariableState;
 import back_end.model.states.background.IViewableBackground;
 import back_end.model.states.background.IViewableColorPalette;
@@ -105,6 +106,11 @@ class ConcreteRouter implements IRouter {
 		myRobotSendAcceptors = new ArrayList<>();
 		myRobotSendAcceptors.add(myAppScene.getMyStatesBox());
 	}
+
+	//private void setMethodAcceptors() {
+	//    myMethodAcceptors = new ArrayList<>();
+	//    myMethodAcceptors.add();
+	//}
 	
 	/******* API methods *********/
 	
@@ -125,8 +131,8 @@ class ConcreteRouter implements IRouter {
 	}
 	
 	@Override
-	public void distributeFunction() {
-		//myFunctionAcceptors.forEach( c -> c.giveFunction() );		
+	public void distributeFunction(IViewableMethodState aMethod) {
+		myFunctionAcceptors.forEach( c -> c.giveFunction(aMethod) );		
 	}
 
 		
@@ -153,5 +159,11 @@ class ConcreteRouter implements IRouter {
 	public void distributeColorSenders(IColorSender aColorSender) {
 		myColorSendAcceptors.forEach( c -> c.giveColorSender(aColorSender) );	
 	}
+
+	@Override
+    public void distributeMethods (IViewableMethodState aViewableMethods) {
+        //myMethodAcceptors.forEach(c -> c.giveMethodState(aViewableMethods));
+        
+    }
 
 }

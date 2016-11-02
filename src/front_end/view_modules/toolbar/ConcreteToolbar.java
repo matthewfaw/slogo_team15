@@ -23,7 +23,7 @@ class ConcreteToolbar implements IToolbar {
     private Button myStepInstr;
     private Button myStepLine;
     private Button myReset;
-    private Button myPenFunctions;
+
     private ResourceBundle myGUIResources;
 
     private boolean myIsBuilt;
@@ -39,7 +39,8 @@ class ConcreteToolbar implements IToolbar {
         myToolbar.setPrefSize(aWidth, aHeight);
         myToolbar.setPadding(new Insets(SPACING, SPACING, SPACING, SPACING));
         myToolbar.setStyle("-fx-background-color: #336699;");
-        myToolbar.getChildren().addAll(myRun, myStepLine, myBuild, myStepInstr, myHelp, myPenFunctions, myReset, myLanguage);
+        myToolbar.getChildren().addAll(myRun, myStepLine, myBuild, myStepInstr, myHelp, myReset, myLanguage);
+
 
         myIsBuilt = false;
     }
@@ -52,7 +53,6 @@ class ConcreteToolbar implements IToolbar {
         myStepInstr = new Button(myGUIResources.getString("StepInstrButton"));
         myStepLine = new Button(myGUIResources.getString("StepLineButton"));
         myReset = new Button(myGUIResources.getString("ClearButton"));
-        myPenFunctions = new Button(myGUIResources.getString("PenButton"));
     }
 
     
@@ -118,10 +118,6 @@ class ConcreteToolbar implements IToolbar {
                 .setText(myGUIResources.getString("LanguageDropDown") + ": " + aLanguage.getName());
     }
 
-    @Override
-    public void onPenPress (EventHandler<MouseEvent> aEvent) {
-        myPenFunctions.setOnMouseClicked(aEvent);
-    }
 
 	@Override
 	public Button getButton(ButtonTypes aButton) {
@@ -132,7 +128,6 @@ class ConcreteToolbar implements IToolbar {
 		case STEP_LINE:			return myStepLine;
 		case HELP:				return myHelp;	
 		case RESET:				return myReset;
-		case PEN:				return myPenFunctions;
 		default:				return null;
 		}
 	}

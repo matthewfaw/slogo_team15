@@ -1,5 +1,7 @@
 package front_end.acceptor;
 
+import back_end.model.states.IViewableMethodState;
+
 /**
  * Defines the FunctionAcceptor Property. 
  * 
@@ -10,6 +12,6 @@ package front_end.acceptor;
  */
 public interface IFunctionAcceptor {
 
-	public void giveFunction(String myFunction);
+	public void giveFunction(IViewableMethodState aMethod);
 		
 }

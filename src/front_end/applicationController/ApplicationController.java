@@ -12,7 +12,6 @@ import front_end.view_modules.function_viewer.IFunctionViewer;
 import front_end.view_modules.helpPage.HelpPage;
 import front_end.view_modules.history.IHistoryModule;
 import front_end.view_modules.image_color_module.interfaces.IImageColorModule;
-import front_end.view_modules.penProperties.PenPopup;
 import front_end.view_modules.textEditor.ITextEditor;
 import front_end.view_modules.toolbar.IToolbar;
 import front_end.view_modules.toolbar.IToolbar.ButtonTypes;
@@ -28,7 +27,6 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-
 
 /**
  * 
@@ -53,23 +51,19 @@ public class ApplicationController {
     private IImageColorModule myImageColorModule;
     private IAllRobotsStateBox myStatesBox;
     private IHistoryModule myHistoryModule;
-    private PenPopup myPenPopup;
-    
-    private int myWidth;
-    private int myHeight;
     
     private String TITLE = "SLOGO";
 	private int myIndex;
 
     public ApplicationController (int aWidth, int aHeight) {
         init(aWidth, aHeight);
-        myWidth = aWidth;
-        myHeight = aHeight;
         myIndex = 0;
     }
+
     
     private void init(int aWidth, int aHeight) {
         myAppScene = new ApplicationScene(aWidth, aHeight);
+
         IRouter router = RouterFactory.build(myAppScene);
         myModel = new ModelController(router);
        
@@ -89,7 +83,6 @@ public class ApplicationController {
         myImageColorModule = myAppScene.getMyShapeColorModule();
         myStatesBox = myAppScene.getMyStatesBox();        
         myHistoryModule = myAppScene.getMyHistoryModule();
-        myPenPopup = new PenPopup();
     }
 
     public Scene getScene () {
@@ -150,25 +143,11 @@ public class ApplicationController {
         myToolbar.onRunPress(e -> runAll());
         myToolbar.onHelpPress(e -> loadHelp());
         myToolbar.onLanguageSelect(makeLanguageMap());
-        myToolbar.onPenPress(e -> popupPenSelector());
+
         myToolbar.onBuildPress(e -> buildTree());
         myToolbar.onStepInstrPress(e -> runSingleInstruction());
         myToolbar.onStepLinePress(e -> runSingleLine());
         myToolbar.getButton(ButtonTypes.STEP_INSTRUCTION).setDisable(true);
-    }
-
-    private void configurePenPopup (Stage stage) {
-        myPenPopup.onApplyPress(e -> collectPenInfo(stage));
-        myPenPopup.onClearPress(e -> clearPenSettings());
-    }
-
-    private void clearPenSettings () {
-        myPenPopup.clear();
-    }
-
-    private void collectPenInfo (Stage stage) {
-        stage.hide();
-        myPenPopup.getPenThickness();
     }
 
     private void buildTree() {
@@ -187,19 +166,8 @@ public class ApplicationController {
     	if(myIndex >= myTextEditor.getInstructionList().size()) return;
     	myModel.inputAll(myTextEditor.getInstructionList().get(myIndex));
     	myTextEditor.highlightLine(Color.GREEN, myIndex+1);
-    	myIndex++;
-    }
-    
-    private void popupPenSelector () {
-        Stage stage = new Stage();
-        myPenPopup.initPopup(myImageColorModule);
-        Scene myScene = myPenPopup.getScene();
-        stage.setScene(myScene);
-        stage.show();
-        configurePenPopup(stage);
-    }
-
-        
+    	myIndex++;       
+    }        
     
     /**
      * Returns the title of the SLOGO project

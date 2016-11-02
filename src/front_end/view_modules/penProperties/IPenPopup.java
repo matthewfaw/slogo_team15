@@ -7,8 +7,6 @@ import javafx.scene.input.MouseEvent;
 
 
 public interface IPenPopup {
-
-    public void initPopup (IColorModule aColorModule);
     
     public Scene getScene();
     

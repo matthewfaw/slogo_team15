@@ -5,8 +5,7 @@ import java.util.List;
 
 import back_end.model.robot.IViewableRobot;
 import front_end.sender.IRobotSender;
-import front_end.view_modules.image_color_module.interfaces.IColorModule;
-import front_end.view_modules.image_color_module.interfaces.IImageModule;
+import front_end.view_modules.image_color_module.interfaces.IImageColorModule;
 import javafx.collections.FXCollections;
 import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
@@ -24,13 +23,13 @@ public class ConcreteAllRobotsStateBox implements IAllRobotsStateBox{
 	private ComboBox<String> mySwitchMenu;
 	private List<MenuItem> mySwitchList;
 	
-	private IImageModule myImageMap;
 	private IRobotSender myRoboSender;
-	
+	private IImageColorModule myImageColorMap;
+
 	private static final String TAB_TEXT = "Turtle ID: ";
 	
-	public ConcreteAllRobotsStateBox(IImageModule aImageMap){
-		myImageMap = aImageMap;
+	public ConcreteAllRobotsStateBox(IImageColorModule aImageColorMap){
+		myImageColorMap = aImageColorMap;
 		
 		myModule = new VBox(0);		
 		myStateBox = new VBox(0);
@@ -49,8 +48,8 @@ public class ConcreteAllRobotsStateBox implements IAllRobotsStateBox{
 		buildMenu();
 	}
 	
-	public ConcreteAllRobotsStateBox( int aWidth, int aHeight, IImageModule aImageMap){
-		this(aImageMap);
+	public ConcreteAllRobotsStateBox( int aWidth, int aHeight, IImageColorModule aImageColorMap){
+		this(aImageColorMap);
 		myScroller.setMinSize(aWidth, aHeight);
 		myScroller.setMaxSize(aWidth, aHeight);
 	}
@@ -90,7 +89,7 @@ public class ConcreteAllRobotsStateBox implements IAllRobotsStateBox{
 
 	@Override
 	public void giveRobot(IViewableRobot aViewRobot) {
-		IRobotStateBox stateBox = new ConcreteRobotStateBox( myImageMap, aViewRobot , myRoboSender);
+		IRobotStateBox stateBox = new ConcreteRobotStateBox( myImageColorMap, aViewRobot , myRoboSender);
 		myStateBoxes.add(stateBox);
 		buildMenu();
 	}
@@ -105,7 +104,6 @@ public class ConcreteAllRobotsStateBox implements IAllRobotsStateBox{
 	public void giveRobotSender(IRobotSender aRoboSender) {
 		myRoboSender = aRoboSender;
 	}
-	
 	
 
 }

@@ -3,7 +3,6 @@ package front_end.view_modules.textEditor;
 import java.util.List;
 
 import front_end.view_modules.IViewModule;
-import integration.languages.ILanguageSwitcher;
 import javafx.scene.paint.Color;
 
 

@@ -8,6 +8,7 @@ import back_end.model.exception.UnexpectedCommandException;
 import back_end.model.robot.IViewableRobot;
 import back_end.model.robot.RobotController;
 import back_end.model.states.Environment;
+import back_end.model.states.IViewableMethodState;
 import back_end.model.states.IViewableVariableState;
 import back_end.model.states.ScopeController;
 import back_end.model.states.background.BackgroundInformation;
@@ -146,12 +147,17 @@ public class ModelController implements IObserver, IColorSender, IRobotSender {
 		distributeBackground(myBackgroundInformation);
 		distributeColorPalette(myBackgroundInformation);
 		distributeHistory(myUserInputHistory);
+		distributeMethods(myEnvironment);
 		myScopeController = new ScopeController(myEnvironment, myRobot);
 		myParser = new TextParser(myScopeController, myEnvironment, myRobot);
 	}
 
 	
 	/** DISTRIBUTE TO ROUTER **/
+	
+	private void distributeMethods( IViewableMethodState aMethodState ) {
+	    myRouter.distributeMethods(aMethodState);
+	}
 	
 	private void distributeHistory( IViewableUserInputHistory aUserInputHistory ) {
 		myRouter.distributeHistory(aUserInputHistory);

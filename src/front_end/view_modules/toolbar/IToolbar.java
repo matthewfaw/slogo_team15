@@ -45,5 +45,4 @@ public interface IToolbar extends IViewModule, ILanguageSwitcher {
 
     public void onResetPress (EventHandler<MouseEvent> aEvent);
     
-    public void onPenPress (EventHandler<MouseEvent> aEvent);
 }

@@ -5,8 +5,9 @@ import java.util.Arrays;
 import java.util.List;
 
 import back_end.model.node.IReadableInput;
+import integration.observe.Observable;
 
-public class Method {
+public class Method extends Observable {
 	
 	private IReadableInput myExecutionNode;
 	private ArrayList<IReadableInput> myVariables;

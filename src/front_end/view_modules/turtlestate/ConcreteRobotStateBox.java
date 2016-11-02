@@ -1,21 +1,30 @@
 package front_end.view_modules.turtlestate;
 
+import java.util.ResourceBundle;
+
 import back_end.model.robot.IViewableRobot;
 import front_end.sender.IRobotSender;
-import front_end.view_modules.image_color_module.interfaces.IImageModule;
+import front_end.view_modules.image_color_module.interfaces.IImageColorModule;
+import front_end.view_modules.penProperties.PenPopup;
+import javafx.event.EventHandler;
 import javafx.scene.Node;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+
 
 public class ConcreteRobotStateBox implements IRobotStateBox {
 
-	private IImageModule myImageMap;
+	private IImageColorModule myImageColorMap;
 	private IViewableRobot myRobot;
 	private IRobotSender myRoboSender;
 
@@ -36,11 +45,23 @@ public class ConcreteRobotStateBox implements IRobotStateBox {
 
 	private static final int CHARACTER_SIZE = 20;
 	
-	ConcreteRobotStateBox( IImageModule aImageMap, IViewableRobot aViewRobot, IRobotSender aRoboSender ){
-		myImageMap = aImageMap;
+    private ResourceBundle myGUIResources;
+
+    private Button myPenFunctions;
+    private PenPopup myPenPopup;
+	
+	ConcreteRobotStateBox( IImageColorModule aImageColorMap, IViewableRobot aViewRobot, IRobotSender aRoboSender ){
+		myImageColorMap = aImageColorMap;
 		myRobot = aViewRobot;
 		myRobot.registerObserver(this);
 		myRoboSender = aRoboSender;
+		
+		myPenPopup = new PenPopup( aImageColorMap );
+        myBox = new VBox(0);
+        
+        String initFile = "resources.frontend";
+        String fileName = "/EnglishToolbar";
+        myGUIResources = ResourceBundle.getBundle(initFile + fileName);
 		
 		myBox = new VBox(0);
 
@@ -51,6 +72,9 @@ public class ConcreteRobotStateBox implements IRobotStateBox {
 		myRobotImage.setFitHeight(CHARACTER_SIZE);
 		myRobotImage.setFitWidth(CHARACTER_SIZE);
 		
+		myPenFunctions = new Button(myGUIResources.getString("PenButton"));
+		onPenPress();
+		
 		initializePenToggle();
 		initializeVisibilityToggle();
 				
@@ -59,25 +83,9 @@ public class ConcreteRobotStateBox implements IRobotStateBox {
 			   	myBearingLabel,
 			   	myRobotImage,
 			   	new HBox(myPenDownButton, myPenUpButton),
-			   	new HBox(myVisibilityButton, myInvisibilityButton));
+			   	new HBox(myVisibilityButton, myInvisibilityButton), 
+			   	myPenFunctions);
 	
-		build();
-	}
-
-	@Override
-	public void reset() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public Node getInstanceAsNode() {
-		// TODO Auto-generated method stub
-		return myBox;
-	}
-
-	@Override
-	public void update() {
 		build();
 	}
 
@@ -126,7 +134,7 @@ public class ConcreteRobotStateBox implements IRobotStateBox {
 		else 
 			myVisibilityGroup.selectToggle(myInvisibilityButton);
 		
-		myRobotImage.setImage( new Image( myImageMap.getFile(0).toURI().toString() ) );
+		myRobotImage.setImage( new Image( myImageColorMap.getFile(0).toURI().toString() ) );
 	}
 
 	private String buildCoordinateString(Number aX, Number aY){
@@ -138,5 +146,47 @@ public class ConcreteRobotStateBox implements IRobotStateBox {
 		return myRobot.getTurtleID();
 	}
 
+    @Override
+    public void reset () {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public Node getInstanceAsNode () {
+        // TODO Auto-generated method stub
+        return myBox;
+    }
+
+    @Override
+    public void update () {
+        build();
+    }
+
+    public void onPenPress () {
+        myPenFunctions.setOnMouseClicked(e -> popupPenSelector());
+    }
+    
+    private void popupPenSelector () {
+        Stage stage = new Stage();
+        Scene myScene = myPenPopup.getScene();
+        stage.setScene(myScene);
+        stage.show();
+        configurePenPopup(stage);
+    }
+    
+    private void configurePenPopup (Stage stage) {
+        myPenPopup.onApplyPress(e -> collectPenInfo(stage));
+        myPenPopup.onClearPress(e -> clearPenSettings());
+    }
+    
+    private void clearPenSettings () {
+        myPenPopup.clear();
+    }
+
+    private void collectPenInfo (Stage stage) {
+        stage.hide();
+        myPenPopup.getPenThickness();
+    }
 
 }
