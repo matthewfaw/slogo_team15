@@ -58,7 +58,7 @@ class ConcreteTextEditor implements ITextEditor {
 
     @Override
     public void highlightLine (Color color, int line) {
-        if (line > myLastIndex && line <= 0) return;
+        if (line > myLastIndex || line < 1) return;
 
         Background highlight = new Background(new BackgroundFill(
                                                                  color,
@@ -87,6 +87,10 @@ class ConcreteTextEditor implements ITextEditor {
         }
     }
 
+    @Override
+    public void clearHighlights(){
+    	for(int i = 1; i <= getEditorSize(); i++) highlightLine(Color.TRANSPARENT, i);
+    }
     /******** Package Visible Methods *********/
 
     ConcreteTextEditor (int aWidth, int aHeight) {

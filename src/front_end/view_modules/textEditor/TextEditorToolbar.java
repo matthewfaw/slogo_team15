@@ -61,11 +61,7 @@ class TextEditorToolbar implements ILanguageSwitcher {
     
     private void initClearHighlightButton(){
 		Button clearHighlight = new Button(myTextToolbarResources.getString(CLEAR_HIGHLIGHT_KEY));
-		clearHighlight.setOnMouseClicked(e -> {
-			for(int i = 1; i <= myTextEditor.getEditorSize(); i++){
-				myTextEditor.highlightLine(Color.TRANSPARENT, i);
-			}
-		});
+		clearHighlight.setOnMouseClicked( e -> myTextEditor.clearHighlights() );
 		myBar.getChildren().add(clearHighlight);
 	}
 

@@ -1,26 +1,21 @@
 package front_end.applicationController;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
 import back_end.controller.ModelController;
-import back_end.model.exception.EmptyInputException;
-import back_end.model.exception.InvalidNodeUsageException;
-import back_end.model.exception.UnexpectedCharacterException;
-import back_end.model.exception.UnexpectedCommandException;
 import front_end.appScene.ApplicationScene;
 import front_end.view_modules.errorViewer.IErrorViewer;
 import front_end.view_modules.function_viewer.IFunctionViewer;
 import front_end.view_modules.helpPage.HelpPage;
 import front_end.view_modules.history.IHistoryModule;
 import front_end.view_modules.image_color_module.interfaces.IImageColorModule;
-import front_end.view_modules.penProperties.IPenPopup;
 import front_end.view_modules.penProperties.PenPopup;
 import front_end.view_modules.textEditor.ITextEditor;
 import front_end.view_modules.toolbar.IToolbar;
+import front_end.view_modules.toolbar.IToolbar.ButtonTypes;
 import front_end.view_modules.turtleBox.ITurtleBox;
 import front_end.view_modules.turtlestate.IAllRobotsStateBox;
 import front_end.view_modules.variableViewer.IVariableViewer;
@@ -31,6 +26,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 
@@ -63,11 +59,13 @@ public class ApplicationController {
     private int myHeight;
     
     private String TITLE = "SLOGO";
+	private int myIndex;
 
     public ApplicationController (int aWidth, int aHeight) {
         init(aWidth, aHeight);
         myWidth = aWidth;
         myHeight = aHeight;
+        myIndex = 0;
     }
     
     private void init(int aWidth, int aHeight) {
@@ -98,8 +96,8 @@ public class ApplicationController {
         return myAppScene.getScene();
     }
 
-    private void runAll () {
-        StringBuilder sb = new StringBuilder();
+    private String concatenateInstructions(){
+    	StringBuilder sb = new StringBuilder();
 
         String newLine = "\n";
 
@@ -107,10 +105,11 @@ public class ApplicationController {
             sb.append(myTextEditor.getInstructionList().get(i));
             sb.append(newLine);
         }
-
-       	myModel.userInputToModel(sb.toString());
-		
-
+        return sb.toString();
+    }
+    
+    private void runAll () {
+       	myModel.inputAll(concatenateInstructions());
     }
 
     private void loadHelp () {
@@ -148,17 +147,14 @@ public class ApplicationController {
 
     private void configureToolbar () {
         myToolbar.onResetPress(e -> resetAll());
-
         myToolbar.onRunPress(e -> runAll());
-
         myToolbar.onHelpPress(e -> loadHelp());
-
         myToolbar.onLanguageSelect(makeLanguageMap());
-
         myToolbar.onPenPress(e -> popupPenSelector());
-
-        myToolbar.onBuildPress(e -> buildCommands());
-        
+        myToolbar.onBuildPress(e -> buildTree());
+        myToolbar.onStepInstrPress(e -> runSingleInstruction());
+        myToolbar.onStepLinePress(e -> runSingleLine());
+        myToolbar.getButton(ButtonTypes.STEP_INSTRUCTION).setDisable(true);
     }
 
     private void configurePenPopup (Stage stage) {
@@ -175,8 +171,23 @@ public class ApplicationController {
         myPenPopup.getPenThickness();
     }
 
-    private void buildCommands () {
-        // TODO: Actually make this method
+    private void buildTree() {
+    	myModel.makeSyntaxTreeEvaluator(concatenateInstructions());
+    	myToolbar.getButton(ButtonTypes.STEP_INSTRUCTION).setDisable(false);
+    	myIndex = 0;
+    	myTextEditor.clearHighlights();
+    }
+    
+    private void runSingleInstruction(){
+    	if(myModel.canStep()) myModel.stepInstruction();
+    	else myToolbar.getButton(ButtonTypes.STEP_INSTRUCTION).setDisable(true);
+    }
+    
+    private void runSingleLine(){
+    	if(myIndex >= myTextEditor.getInstructionList().size()) return;
+    	myModel.inputAll(myTextEditor.getInstructionList().get(myIndex));
+    	myTextEditor.highlightLine(Color.GREEN, myIndex + 1);
+    	myIndex++;
     }
     
     private void popupPenSelector () {

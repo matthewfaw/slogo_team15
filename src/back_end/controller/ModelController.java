@@ -1,13 +1,10 @@
 package back_end.controller;
 
-import java.lang.reflect.InvocationTargetException;
-
 import back_end.model.exception.EmptyInputException;
 import back_end.model.exception.InvalidInputNumberException;
 import back_end.model.exception.InvalidNodeUsageException;
 import back_end.model.exception.UnexpectedCharacterException;
 import back_end.model.exception.UnexpectedCommandException;
-import back_end.model.robot.IRobot;
 import back_end.model.robot.IViewableRobot;
 import back_end.model.robot.RobotController;
 import back_end.model.states.Environment;
@@ -36,39 +33,8 @@ public class ModelController implements IObserver {
 	private BackgroundInformation myBackgroundInformation;
 	private UserInputHistory myUserInputHistory; 
 	
-	/*public static void main(String[] args) throws InvalidNodeUsageException
-	{
-		Environment environment = new Environment();
-		RobotController robot = new RobotController();
-		ScopeController scopeController = new ScopeController(environment, robot);
-		TextParser textParser = new TextParser(scopeController, environment, robot);
-
-//		String aString = "if [ make :x 5 ] [ to :haha [ :a ] [ fd :a ] ] haha [ fd 50 ]";
-//		String aString = "to :derp [ :a :b ] [ make :c :a make :d :b ] derp [ 13 56 ]";
-//		String aString = "showturtle";
-		String aString = "fd 50";
-		
-		
-		AbstractSyntaxTree ast;
-		try {
-			ast = new AbstractSyntaxTree(textParser.getNodeStack(aString));
-			TreeEvaluator treeEvaluator = new TreeEvaluator(ast);
-			try {
-				while (treeEvaluator.hasNextInstruction()) {
-					treeEvaluator.executeNextInstruction();
-				}
-			} catch (InvalidInputNumberException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
-				| NoSuchMethodException | SecurityException | ClassNotFoundException | UnexpectedCharacterException
-				| UnexpectedCommandException | EmptyInputException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-	}*/
-
+	private TreeEvaluator myTreeEval;
+	
 	public ModelController(IRouter aRobotRouter) {
 		myRouter = aRobotRouter;
 		myEnvironment = new Environment();
@@ -85,19 +51,49 @@ public class ModelController implements IObserver {
 		myParser = new TextParser(myScopeController, myEnvironment, myRobot);
 	}
 	
-	public void userInputToModel(String aString) {
+	public void inputAll(String aString) {
+		try {
+			makeSyntaxTreeEvaluator(aString);
+			if(myTreeEval == null) return;
+			while (myTreeEval.hasNextInstruction()) {
+				myTreeEval.executeNextInstruction();
+			}
+		} catch (InvalidNodeUsageException |  InvalidInputNumberException e) {
+				myRouter.distributeError(e);
+		}
+	}
+	
+	public void makeSyntaxTreeEvaluator(String aString) {
 		AbstractSyntaxTree ast;
 		try {
 			ast = new AbstractSyntaxTree(myParser.getNodeStack(aString));
-			TreeEvaluator treeEvaluator = new TreeEvaluator(ast);
-			while (treeEvaluator.hasNextInstruction()) {
-				treeEvaluator.executeNextInstruction();
-			}
+			myTreeEval = new TreeEvaluator(ast);
 		} catch (InvalidNodeUsageException | EmptyInputException | UnexpectedCharacterException
-				| UnexpectedCommandException | InvalidInputNumberException e) {
-				myRouter.distributeError(e);
+				| UnexpectedCommandException e) {
+			myRouter.distributeError(e);
 		}
 		myUserInputHistory.storeMethod(aString);
+	}
+	
+	public boolean canStep() {
+		if(myTreeEval == null) return false;
+		try {
+			return myTreeEval.hasNextInstruction();
+		} catch (InvalidNodeUsageException e) {
+			myRouter.distributeError(e);
+		}
+		return false;
+	}
+	
+	public void stepInstruction(){
+		if(myTreeEval == null) return;
+		try {
+			if(myTreeEval.hasNextInstruction()){
+				myTreeEval.executeNextInstruction();
+			}
+		} catch (InvalidNodeUsageException | InvalidInputNumberException e) {
+			myRouter.distributeError(e);
+		}
 	}
 	
 	private void distributeHistory( IViewableUserInputHistory aUserInputHistory ) {

@@ -33,4 +33,6 @@ public interface ITextEditor extends IViewModule {
      * @param list of instructions
      */
     public void setInstructionList (List<String> instructions);
+    
+    public void clearHighlights();
 }
