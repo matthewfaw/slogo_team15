@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import back_end.model.states.background.IViewableColorPalette;
+import front_end.sender.IColorSender;
 import front_end.view_modules.image_color_module.interfaces.IColorModule;
 import integration.observe.IObserver;
 import javafx.scene.Node;
@@ -15,6 +16,7 @@ class ConcreteColorModule implements IColorModule, IObserver {
 
 	private List<ColorRow> myColorRowList;
 	private IViewableColorPalette myViewPalette;
+	private IColorSender myColorSender;
 	private VBox myColorModuleBox;
 	private VBox myColumn;
 	
@@ -34,7 +36,7 @@ class ConcreteColorModule implements IColorModule, IObserver {
 		myColorRowList.clear();
 		
 		for( Integer i : myViewPalette.getPaletteColors()){
-			myColorRowList.add( new ColorRow( i, Color.web( myViewPalette.getHexadecimalColor(i) ) ) );
+			myColorRowList.add( new ColorRow( i, Color.web( myViewPalette.getHexadecimalColor(i)), myColorSender ) );
 		}
 	}
 	
@@ -50,7 +52,8 @@ class ConcreteColorModule implements IColorModule, IObserver {
 	}
 	
 	private void addColorRow(){
-		myColorRowList.add(new ColorRow(getColorAmount()));
+		myColorRowList.add(new ColorRow(getColorAmount(), Color.TRANSPARENT, myColorSender));
+		myColorSender.newColor( "#" + myColorRowList.get(myColorRowList.size()-1).getColor().toString().substring(2, 8));
 		setColumn();
 	}
 	
@@ -77,7 +80,7 @@ class ConcreteColorModule implements IColorModule, IObserver {
 
 	@Override
 	public void newColorRow(Color aColor) {
-		myColorRowList.add(new ColorRow(getColorAmount(), aColor));
+		myColorRowList.add(new ColorRow(getColorAmount(), aColor, myColorSender));
 	}
 
 	@Override
@@ -92,6 +95,11 @@ class ConcreteColorModule implements IColorModule, IObserver {
 	public void update() {
 		setDefault();
 		setColumn();
+	}
+
+	@Override
+	public void giveColorSender(IColorSender aColorSender) {
+		myColorSender = aColorSender;
 	}
 
 	

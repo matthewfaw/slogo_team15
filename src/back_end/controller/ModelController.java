@@ -109,8 +109,7 @@ public class ModelController implements IObserver, IColorSender, IRobotSender {
 	
 	@Override
 	public void newColor(String aRGB) {
-		// TODO Auto-generated method stub
-		
+		myBackgroundInformation.newPaletteColor(aRGB);
 	}
 
 	@Override

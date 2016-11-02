@@ -98,7 +98,8 @@ class ConcreteRouter implements IRouter {
 	private void setColorSenderAcceptors() {
 		myColorSendAcceptors = new ArrayList<>();
 		myColorSendAcceptors.add(myAppScene.getMyTurtleBox());
-	}
+		myColorSendAcceptors.add(myAppScene.getMyShapeColorModule());
+		}
 	
 	private void setRobotSenderAcceptors() {
 		myRobotSendAcceptors = new ArrayList<>();
@@ -122,8 +123,6 @@ class ConcreteRouter implements IRouter {
 	public void distributeHistory(IViewableUserInputHistory aHistory) {
 		myHistoryAcceptors.forEach( c -> c.giveHistory(aHistory) );
 	}
-
-	
 	
 	@Override
 	public void distributeFunction() {

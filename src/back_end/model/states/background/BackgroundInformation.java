@@ -18,6 +18,7 @@ public class BackgroundInformation extends Observable implements IViewableBackgr
 	private ResourceBundle myDefaultValues;
 	private ResourceBundle myDefaultColors;
 	private String myBackgroundColor;
+	private int myBackgroundColorID;
 	private Map<Integer, String> myPaletteColors;
 	private int myWidth;
 	private int myHeight; 
@@ -59,7 +60,7 @@ public class BackgroundInformation extends Observable implements IViewableBackgr
 	}
 	
 	public String getBackgroundColor() {
-		return myBackgroundColor;
+		return myPaletteColors.get(myBackgroundColorID);
 	}
 	
 	/**SETTERS**/
@@ -75,14 +76,21 @@ public class BackgroundInformation extends Observable implements IViewableBackgr
 		notifyObservers();
 	}
 	
+	public void newPaletteColor(String aHex) {
+		myPaletteColors.put(myPaletteColors.size(), aHex);
+		notifyObservers();
+	}
+	
 	public void setBackgroundColor(int aColorIndex) {
 		myBackgroundColor = myPaletteColors.get(aColorIndex);
+		myBackgroundColorID = aColorIndex;
 		notifyObservers();
 	}
 	
 	public void setBackgroundColor(String aHex) {
 		myBackgroundColor = aHex;
 		myPaletteColors.put(myPaletteColors.size(), aHex);
+		myBackgroundColorID = myPaletteColors.size() - 1;
 		notifyObservers();
 	}
 
