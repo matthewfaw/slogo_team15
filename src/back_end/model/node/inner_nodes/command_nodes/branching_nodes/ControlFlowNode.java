@@ -2,6 +2,7 @@ package back_end.model.node.inner_nodes.command_nodes.branching_nodes;
 
 import java.util.List;
 
+import back_end.model.command.AskCommand;
 import back_end.model.command.ICommand;
 import back_end.model.command.ICommandBranch;
 import back_end.model.exception.InvalidInputNumberException;
@@ -13,12 +14,15 @@ import back_end.model.states.ScopeController;
 public class ControlFlowNode extends AbstractBranchNode {
 	private static final int CONDITION_INDEX = 0;
 	private ICommandBranch myCommand;
+	private boolean myFirstTimeCalled;
 	
 	public ControlFlowNode(ICommand aCommand, int aNumberOfInputs, String aUserInput,
 			ScopeController aScopeController) {
 		super(aNumberOfInputs, aScopeController);
 
 		myCommand = (ICommandBranch) aCommand;
+
+		myFirstTimeCalled = true;
 	}
 	
 	@Override
@@ -32,6 +36,16 @@ public class ControlFlowNode extends AbstractBranchNode {
 	{
 		switch (getEvaluationState()) {
 			case EVALUATING_INPUTS:
+				//XXX: remove code call dependencies
+				if (myFirstTimeCalled) {
+					myFirstTimeCalled = false;
+
+					constructScope();
+				} else {
+					if (getCommand() instanceof AskCommand) {
+						super.getScopeController().removeTemporaryTurtleScope();
+					}
+				}
 				super.evalCondition(myCommand);
 				break;
 			case EVALUATING_BRANCH:
@@ -41,6 +55,13 @@ public class ControlFlowNode extends AbstractBranchNode {
 				// do nothing
 			default:
 				throw new InvalidNodeUsageException("Node state" + getEvaluationState() + "is invalid!");
+		}
+	}
+	private void constructScope()
+	{
+		super.getScopeController().addNestedScope();
+		if (myCommand instanceof AskCommand) {
+			super.getScopeController().addTemporaryTurtleScope();
 		}
 	}
 	/**

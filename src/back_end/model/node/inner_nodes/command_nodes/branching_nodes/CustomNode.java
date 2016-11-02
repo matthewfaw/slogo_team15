@@ -15,11 +15,13 @@ public class CustomNode extends AbstractBranchNode {
 	private static final int CONDITION_INDEX = 0;
 
 	private CustomCommand myCommand;
+	private boolean myFirstTimeCalled;
 
 	public CustomNode(ICommand aCommand, int aNumberOfInputs, String aUserInput, ScopeController aScopeController) {
 		super(aNumberOfInputs, aScopeController);
 		
 		myCommand = (CustomCommand) aCommand;
+		myFirstTimeCalled = true;
 	}
 	
 	@Override
@@ -33,6 +35,9 @@ public class CustomNode extends AbstractBranchNode {
 
 		switch (getEvaluationState()) {
 			case EVALUATING_INPUTS:
+				if (myFirstTimeCalled) {
+					super.getScopeController().addNewFunctionScope();
+				}
 				super.evalCondition(myCommand);
 				if (super.hasActiveBranch()) {
 					initializeBranch();
@@ -40,6 +45,7 @@ public class CustomNode extends AbstractBranchNode {
 				break;
 			case EVALUATING_BRANCH:
 				super.eval(myCommand);
+				super.getScopeController().removeCurrentFunctionScope();
 				break;
 			case EVALUATED:
 				// do nothing

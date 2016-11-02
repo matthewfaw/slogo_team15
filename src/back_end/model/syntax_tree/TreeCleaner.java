@@ -22,6 +22,9 @@ public class TreeCleaner {
 	
 	public void markAllChildrenAsAvailable(AbstractInnerNode aParentNode) throws InvalidNodeUsageException
 	{
+		if (aParentNode.getChildren() == null) {
+			return;
+		}
 		for (INode child: aParentNode.getChildren()) {
 			child.resetStates();
 
