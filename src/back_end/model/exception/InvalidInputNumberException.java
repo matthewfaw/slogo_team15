@@ -24,5 +24,9 @@ public class InvalidInputNumberException extends Exception implements IException
     public int getErrorLineNumber() {
     	return myLineNumber;
     }
+    
+    public String getErrorMessage() {
+		return super.getMessage();
+	}
 
 }

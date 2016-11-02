@@ -3,9 +3,14 @@ package integration.router;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import back_end.model.exception.IExceptionDebugger;
 import back_end.model.robot.IViewableRobot;
 import back_end.model.states.IViewableVariableState;
+import back_end.model.states.background.IViewableBackground;
+import back_end.model.states.background.IViewableColorPalette;
 import back_end.model.states.methodhistory.IViewableUserInputHistory;
+import front_end.acceptor.IBackgroundAcceptor;
+import front_end.acceptor.IColorPaletteAcceptor;
 import front_end.acceptor.IErrorAcceptor;
 import front_end.acceptor.IFunctionAcceptor;
 import front_end.acceptor.IHistoryAcceptor;
@@ -26,6 +31,8 @@ class ConcreteRouter implements IRouter {
 	private Collection<IErrorAcceptor> myErrorAcceptors;
 	private Collection<IFunctionAcceptor> myFunctionAcceptors;
 	private Collection<IHistoryAcceptor> myHistoryAcceptors;
+	private Collection<IBackgroundAcceptor> myBackgroundAcceptors;
+	private Collection<IColorPaletteAcceptor> myColorAcceptors;
 	ApplicationScene myAppScene;
 	
 	/******* Initializing methods *********/
@@ -38,7 +45,8 @@ class ConcreteRouter implements IRouter {
 		setVariableAcceptors();
 		setHistoryAcceptors();
 		setFunctionAcceptors();
-		
+		setBackgroundAcceptors();
+		setColorPaletteAcceptors();
 
 	}
 	
@@ -68,6 +76,16 @@ class ConcreteRouter implements IRouter {
 		myHistoryAcceptors.add( myAppScene.getMyHistoryModule() );
 	}
 	
+	private void setBackgroundAcceptors(){
+		myBackgroundAcceptors = new ArrayList<>();
+		myBackgroundAcceptors.add(myAppScene.getMyTurtleBox());
+	}
+	
+	private void setColorPaletteAcceptors() {
+		myColorAcceptors = new ArrayList<>();
+		myColorAcceptors.add(myAppScene.getMyShapeColorModule());
+	}
+	
 	/******* API methods *********/
 	
 	@Override
@@ -86,14 +104,26 @@ class ConcreteRouter implements IRouter {
 		myHistoryAcceptors.forEach( c -> c.giveHistory(aHistory) );
 	}
 
+	
+	
 	@Override
 	public void distributeFunction() {
 		//myFunctionAcceptors.forEach( c -> c.giveFunction() );		
 	}
 
 		
-	public void distributeError(Exception aException) {
+	public void distributeError(IExceptionDebugger aException) {
 		myErrorAcceptors.forEach( c -> c.giveError(aException) );
+	}
+
+	@Override
+	public void distributeBackground(IViewableBackground aViewBackground) {
+		myBackgroundAcceptors.forEach( c -> c.giveBackground(aViewBackground) );
+	}
+
+	@Override
+	public void distributeColorPalette(IViewableColorPalette aViewColorPalette) {
+		myColorAcceptors.forEach(c -> c.giveColorPalette(aViewColorPalette));
 	}
 
 }

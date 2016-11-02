@@ -1,5 +1,7 @@
 package front_end.acceptor;
 
+import back_end.model.exception.IExceptionDebugger;
+
 /**
  * Defines the ErrorAcceptor Property. 
  * 
@@ -10,6 +12,6 @@ package front_end.acceptor;
  */
 public interface IErrorAcceptor {
 
-	public void giveError(Exception aException);
+	public void giveError(IExceptionDebugger aException);
 	
 }

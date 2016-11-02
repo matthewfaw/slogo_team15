@@ -46,22 +46,22 @@ public class NodeFactory {
 	private CommandFactory myCommandFactory;
 	private Languages myLanguage;
 	private ScopeController myScopeController;
+	private Environment myEnvironment;
 	
 	public NodeFactory(ScopeController aScopeController, ResourceBundle aResource, Environment aEnvironment, IRobot aRobot) {
 		mySyntaxResources = aResource; 
 		myCommandTypeResources = PropertyResourceBundle.getBundle(PACKAGE_RESOURCE + PACKAGE_COMMAND + TYPE);
 		myCommandFactory = new CommandFactory(aEnvironment, aRobot);
 		myScopeController = aScopeController;
+		myEnvironment = aEnvironment;
 		myErrorMessageResources = PropertyResourceBundle.getBundle(PACKAGE_RESOURCE + PACKAGE_ERROR + ERROR);
 		myNumberOfInputsResources = PropertyResourceBundle.getBundle(PACKAGE_RESOURCE + NUMBER_OF_INPUTS);
 	}
 	
-	public INode makeNode(Integer aLineNumber, String aUserInputWord) throws UnexpectedCharacterException, UnexpectedCommandException, 
-														InstantiationException, IllegalAccessException, IllegalArgumentException, 
-														InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException {
+	public INode makeNode(Integer aLineNumber, String aUserInputWord) throws UnexpectedCharacterException, UnexpectedCommandException {
 			try {
 				String generalNodeCategory = translateInput(aUserInputWord, mySyntaxResources.getBaseBundleName());
-				String commandType = getCommandType(generalNodeCategory, aUserInputWord);
+				String commandType = getCommandType(generalNodeCategory, aUserInputWord, aLineNumber);
 				ICommand commandClass = makeCommandClass(commandType, generalNodeCategory, aUserInputWord, aLineNumber);
 				int inputNumber = 0;
 				if (generalNodeCategory.equals("Variable") || generalNodeCategory.equals("Command")) {
@@ -74,8 +74,7 @@ public class NodeFactory {
 				aUserInputWord = aUserInputWord.replaceAll(":", "");
 				return (INode) Class.forName(packagePath + generalNodeCategory + "Node").getConstructor(ICommand.class, int.class, String.class, ScopeController.class).
 						newInstance(commandClass, inputNumber, aUserInputWord, myScopeController);
-			} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | 
-					InvocationTargetException | NoSuchMethodException | SecurityException | ClassNotFoundException | MissingResourceException e) {
+			} catch (Exception e) {
 				throw new UnexpectedCharacterException(MessageFormat.format(myErrorMessageResources.getString("UnexpectedCharacter"), aUserInputWord, aLineNumber), aLineNumber);
 			}
 	}
@@ -90,10 +89,7 @@ public class NodeFactory {
 		return translator.getSymbol(aWord);
 	}
     
-    private ICommand makeCommandClass(String aCommandType, String aGeneralNodeCategory, String aUserInputWord, int aLineNumber) throws InstantiationException, 
-    																						IllegalAccessException, IllegalArgumentException, 
-    																						InvocationTargetException, NoSuchMethodException, 
-    																						SecurityException, ClassNotFoundException, UnexpectedCommandException {
+    private ICommand makeCommandClass(String aCommandType, String aGeneralNodeCategory, String aUserInputWord, int aLineNumber) throws UnexpectedCommandException {
     	if (aGeneralNodeCategory.equals("Command") || aGeneralNodeCategory.equals("Variable")) {
     		return myCommandFactory.makeCommand(aUserInputWord, aCommandType, aLineNumber);
     	}
@@ -117,11 +113,15 @@ public class NodeFactory {
 		}
     }
     
-    private String getCommandType(String aGeneralNodeCategory, String aUserInputWord) {
+    private String getCommandType(String aGeneralNodeCategory, String aUserInputWord, int aLineNumber) throws UnexpectedCharacterException {
 		if (aGeneralNodeCategory.equals("Command")) {
 			String commandName = translateInput(aUserInputWord, myLanguage.getFileLocation());
 			if (commandName.equals("NO MATCH")) {
-				return "Custom";
+				if (myEnvironment.getAllMethodNames().contains(aUserInputWord)) {
+					return "Custom";
+				} else {
+					throw new UnexpectedCharacterException(MessageFormat.format(myErrorMessageResources.getString("UnexpectedCharacter"), aUserInputWord, aLineNumber), aLineNumber);
+				}
 			} else {
 				return translateInput(aUserInputWord, myLanguage.getFileLocation());
 			}

@@ -27,5 +27,9 @@ public class UnexpectedCommandException extends Exception implements IExceptionD
 		return myLineNumber;
 	}
 	
+	public String getErrorMessage() {
+		return super.getMessage();
+	}
+	
 
 }

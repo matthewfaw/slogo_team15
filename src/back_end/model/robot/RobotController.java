@@ -117,8 +117,8 @@ public class RobotController extends Observable implements IRobot {
 	}
 
 	@Override
-	public double getRotation() {
-		return myCurrentlyActiveTurtle.getRotation();
+	public double getCurrentRotation() {
+		return myCurrentlyActiveTurtle.getCurrentRotation();
 	}
 
 	@Override
@@ -166,6 +166,11 @@ public class RobotController extends Observable implements IRobot {
 //			myActiveTurtles.get(i).setImageID(aImageID);
 //		}
 		myCurrentlyActiveTurtle.setImageID(aImageID);
+	}
+
+	@Override
+	public double getPreviousRotation() {
+		return myCurrentlyActiveTurtle.getPreviousRotation();
 	}
 
 

@@ -25,6 +25,10 @@ public class SameMethodNameException extends Exception implements IExceptionDebu
 	public int getErrorLineNumber() {
 		return myLineNumber;
 	}
+	
+	public String getErrorMessage() {
+		return super.getMessage();
+	}
 
 
 }

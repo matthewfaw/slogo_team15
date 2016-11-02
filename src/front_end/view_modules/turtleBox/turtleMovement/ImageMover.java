@@ -93,7 +93,7 @@ public class ImageMover implements IDrawer {
 	
 	private RotateTransition rotate() {
 	    RotateTransition rt = new RotateTransition(Duration.seconds(3));
-	    rt.setByAngle(-myRobot.getRotation());
+	    rt.setByAngle(-myRobot.getCurrentRotation());
 	    return rt;
 	}
 

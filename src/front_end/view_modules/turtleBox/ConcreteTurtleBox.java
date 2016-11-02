@@ -1,5 +1,6 @@
 package front_end.view_modules.turtleBox;
 import back_end.model.robot.IViewableRobot;
+import back_end.model.states.background.IViewableBackground;
 import front_end.view_modules.image_color_module.interfaces.IImageColorModule;
 import front_end.view_modules.turtleBox.turtleMovement.TurtleDrawer;
 import javafx.animation.Animation;
@@ -24,6 +25,8 @@ class ConcreteTurtleBox implements ITurtleBox {
     Pane mySandbox;
     ColorPicker myBackgroundColorPicker;
     
+    BackgroundUpdator myBU;
+    
     IImageColorModule myShapeColorMap;
     
     IViewableRobot myRobot;
@@ -47,7 +50,6 @@ class ConcreteTurtleBox implements ITurtleBox {
         mySandbox.setMinSize(width, height);
         mySandbox.setMaxSize(width, height);
         myScroller.setContent(mySandbox);
-        initColorPicker();
     }
     @Override
     public void reset () {
@@ -66,6 +68,7 @@ class ConcreteTurtleBox implements ITurtleBox {
         myTurtleDrawer = new TurtleDrawer(aRobot, myShapeColorMap, myWidth, myHeight);
         mySandbox.getChildren().addAll( myTurtleDrawer.getCanvas(), myTurtleDrawer.getImage() );
     }
+
     private void initColorPicker () {
         myBackgroundColorPicker = new ColorPicker();
         myBackgroundColorPicker.setOnAction(
@@ -75,6 +78,13 @@ class ConcreteTurtleBox implements ITurtleBox {
                                                                                                              .getValue(),
                                                                                                      CornerRadii.EMPTY,
                                                                                                      Insets.EMPTY))));
+}
+
+	@Override
+	public void giveBackground(IViewableBackground aViewBackground) {
+		myBU = new BackgroundUpdator(aViewBackground, mySandbox);
+		mySandbox.setBackground(myBU.getBackground());
+		myBackgroundColorPicker = myBU.getColorPicker();
         mySandbox.getChildren().add(myBackgroundColorPicker);
-    }
+	}
 }

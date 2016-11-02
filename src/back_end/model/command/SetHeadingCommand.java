@@ -18,7 +18,7 @@ public class SetHeadingCommand extends RotationCommand implements ICommandTurtle
     @Override
     public double eval (IReadableInput ... aList) throws InvalidNodeUsageException {
         double rotation = getRotation(aList);
-        double returnVal = Math.abs(myRobot.getRotation() - rotation);
+        double returnVal = Math.abs(myRobot.getCurrentRotation() - rotation);
         myRobot.setRotation(rotation);
         return returnVal;
     }

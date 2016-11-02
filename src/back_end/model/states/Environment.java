@@ -112,7 +112,7 @@ public class Environment extends Observable implements IModifiableEnvironmentSta
 	/**BACKGROUND INFORMATION**/
 	
 	@Override
-	public int getBackgroundColor() {
+	public String getBackgroundColor() {
 		return myBackgroundInformation.getBackgroundColor();
 	}
 	
