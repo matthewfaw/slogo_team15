@@ -55,30 +55,28 @@ public class NodeFactory {
 		myNumberOfInputsResources = PropertyResourceBundle.getBundle(PACKAGE_RESOURCE + NUMBER_OF_INPUTS);
 	}
 	
-	public INode makeNode(String aUserInputWord) throws UnexpectedCharacterException, UnexpectedCommandException, 
+	public INode makeNode(Integer aLineNumber, String aUserInputWord) throws UnexpectedCharacterException, UnexpectedCommandException, 
 														InstantiationException, IllegalAccessException, IllegalArgumentException, 
 														InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException {
 			try {
 				String generalNodeCategory = translateInput(aUserInputWord, mySyntaxResources.getBaseBundleName());
 				String commandType = getCommandType(generalNodeCategory, aUserInputWord);
-				ICommand commandClass = makeCommandClass(commandType, generalNodeCategory, aUserInputWord);
-				int inputNumber;
+				ICommand commandClass = makeCommandClass(commandType, generalNodeCategory, aUserInputWord, aLineNumber);
+				int inputNumber = 0;
 				if (generalNodeCategory.equals("Variable") || generalNodeCategory.equals("Command")) {
 					inputNumber = getInputNumber(generalNodeCategory, commandType);
-				} else {
-					inputNumber = 0;
-				}
-				if (generalNodeCategory.equals("Command")) {
-					generalNodeCategory = myCommandTypeResources.getString(commandType);
+					if (generalNodeCategory.equals("Command")) {
+						generalNodeCategory = myCommandTypeResources.getString(commandType);
+					}
 				}
 				String packagePath = getPackagePath(generalNodeCategory);
 				aUserInputWord = aUserInputWord.replaceAll(":", "");
 				return (INode) Class.forName(packagePath + generalNodeCategory + "Node").getConstructor(ICommand.class, int.class, String.class, ScopeController.class).
 						newInstance(commandClass, inputNumber, aUserInputWord, myScopeController);
-			} catch (MissingResourceException e) {
-				e.addSuppressed(new UnexpectedCharacterException(MessageFormat.format(myErrorMessageResources.getString("UnexpectedCharacter"), aUserInputWord)));
+			} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | 
+					InvocationTargetException | NoSuchMethodException | SecurityException | ClassNotFoundException e) {
+				throw new UnexpectedCharacterException(MessageFormat.format(myErrorMessageResources.getString("UnexpectedCharacter"), aUserInputWord, aLineNumber));
 			}
-		throw new UnexpectedCharacterException(MessageFormat.format(myErrorMessageResources.getString("UnexpectedCharacter"), aUserInputWord));
 	}
 	
     public void setLanguage (Languages aLanguage) {
@@ -91,12 +89,12 @@ public class NodeFactory {
 		return translator.getSymbol(aWord);
 	}
     
-    private ICommand makeCommandClass(String aCommandType, String aGeneralNodeCategory, String aUserInputWord) throws InstantiationException, 
+    private ICommand makeCommandClass(String aCommandType, String aGeneralNodeCategory, String aUserInputWord, int aLineNumber) throws InstantiationException, 
     																						IllegalAccessException, IllegalArgumentException, 
     																						InvocationTargetException, NoSuchMethodException, 
-    																						SecurityException, ClassNotFoundException {
+    																						SecurityException, ClassNotFoundException, UnexpectedCommandException {
     	if (aGeneralNodeCategory.equals("Command") || aGeneralNodeCategory.equals("Variable")) {
-    		return myCommandFactory.makeCommand(aUserInputWord, aCommandType);
+    		return myCommandFactory.makeCommand(aUserInputWord, aCommandType, aLineNumber);
     	}
     	return null; 
     }
