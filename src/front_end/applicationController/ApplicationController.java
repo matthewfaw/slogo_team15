@@ -46,8 +46,6 @@ public class ApplicationController {
     private ApplicationScene myAppScene;
     private HelpPage myHelpPage;
     private Group myRoot;
-
-    private IRouter myRobotRouter;
     
     /** View Modules **/
     private IToolbar myToolbar;
@@ -74,9 +72,8 @@ public class ApplicationController {
     
     private void init(int aWidth, int aHeight) {
         myAppScene = new ApplicationScene(aWidth, aHeight);
-        
-        myRobotRouter = RouterFactory.build(myAppScene);
-        myModel = new ModelController(myRobotRouter);
+        IRouter router = RouterFactory.build(myAppScene);
+        myModel = new ModelController(router);
        
         getFromScene();
         configureToolbar();
@@ -111,23 +108,8 @@ public class ApplicationController {
             sb.append(newLine);
         }
 
-        try {
-            myModel.userInputToModel(sb.toString());
-            myHistoryModule.giveHistory(sb.toString());
-        }
-        catch (InstantiationException 
-        		| IllegalAccessException 
-        		| IllegalArgumentException
-                | InvocationTargetException
-                | NoSuchMethodException 
-                | SecurityException 
-                | ClassNotFoundException
-                | UnexpectedCharacterException
-                | UnexpectedCommandException 
-                | EmptyInputException 
-                | InvalidNodeUsageException e) {
-            myErrorViewer.giveError(e);
-        }
+       	myModel.userInputToModel(sb.toString());
+		
 
     }
 

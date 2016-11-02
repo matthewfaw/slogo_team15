@@ -2,6 +2,7 @@ package front_end.view_modules.image_color_module;
 
 import java.io.File;
 
+import back_end.model.states.background.IViewableColorPalette;
 import front_end.view_modules.image_color_module.color.ColorModuleFactory;
 import front_end.view_modules.image_color_module.image.ImageModuleFactory;
 import front_end.view_modules.image_color_module.interfaces.IColorModule;
@@ -139,5 +140,10 @@ class ConcreteImageColorModule implements IImageColorModule {
 	@Override
 	public void newColorRow(Color aColor) {
 		myColorModule.newColorRow(aColor);
+	}
+
+	@Override
+	public void giveColorPalette(IViewableColorPalette aViewPalette) {
+		myColorModule.giveColorPalette(aViewPalette);		
 	}
 }

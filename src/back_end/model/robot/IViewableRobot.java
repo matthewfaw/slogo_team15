@@ -20,6 +20,8 @@ public interface IViewableRobot extends IObservable {
     public Point getCurrentCoordinate ();
 
     public Point getPreviousCoordinate ();
+    
+    public double getPreviousRotation ();
            
     public int getImageID ();
     
@@ -27,7 +29,7 @@ public interface IViewableRobot extends IObservable {
     
     public int getTurtleID ();
 
-    public double getRotation ();
+    public double getCurrentRotation ();
 
     public boolean isVisible ();
     

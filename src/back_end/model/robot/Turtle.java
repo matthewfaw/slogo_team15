@@ -14,7 +14,7 @@ public class Turtle extends Observable implements IViewableRobot {
 
 	private double myPreviousXPosition;
 	private double myPreviousYPosition;
-	
+	private double myPreviousRotation;
     private double myXpos;
     private double myYpos;
     private double myRotation;
@@ -50,6 +50,7 @@ public class Turtle extends Observable implements IViewableRobot {
     }
 
     public void setRotation (double r) {
+    	myPreviousRotation = myRotation;
         myRotation = r % 360;
         notifyObservers();
 
@@ -97,7 +98,7 @@ public class Turtle extends Observable implements IViewableRobot {
 		return myPenInformation;
 	}
 
-    public double getRotation () {
+    public double getCurrentRotation () {
         return myRotation;
     }
 
@@ -108,6 +109,11 @@ public class Turtle extends Observable implements IViewableRobot {
 	@Override
 	public int getTurtleID() {
 		return myTurtleID;
+	}
+
+	@Override
+	public double getPreviousRotation() {
+		return myPreviousRotation;
 	}
 
 

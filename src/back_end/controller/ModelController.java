@@ -13,7 +13,9 @@ import back_end.model.robot.RobotController;
 import back_end.model.states.Environment;
 import back_end.model.states.IViewableVariableState;
 import back_end.model.states.ScopeController;
+import back_end.model.states.background.BackgroundInformation;
 import back_end.model.states.background.IViewableBackground;
+import back_end.model.states.background.IViewableColorPalette;
 import back_end.model.states.methodhistory.IViewableUserInputHistory;
 import back_end.model.states.methodhistory.UserInputHistory;
 import back_end.model.syntax_tree.AbstractSyntaxTree;
@@ -31,8 +33,8 @@ public class ModelController implements IObserver {
 	private RobotController myRobot; 
 	private TextParser myParser;
 	private IRouter myRouter;
-	private IViewableBackground myBackgroundInformation;
-	private IViewableUserInputHistory myUserInputHistory; 
+	private BackgroundInformation myBackgroundInformation;
+	private UserInputHistory myUserInputHistory; 
 	
 	/*public static void main(String[] args) throws InvalidNodeUsageException
 	{
@@ -76,31 +78,38 @@ public class ModelController implements IObserver {
 		myUserInputHistory = new UserInputHistory();
 		distributeRobot(myRobot.getMostRecentRobot());
 		distributeVariableState(myEnvironment);
-		distributeBackgroundInformation(myBackgroundInformation);
-		distributeUserInputHistory(myUserInputHistory);
+		distributeBackground(myBackgroundInformation);
+		distributeColorPalette(myBackgroundInformation);
+		distributeHistory(myUserInputHistory);
 		myScopeController = new ScopeController(myEnvironment, myRobot);
 		myParser = new TextParser(myScopeController, myEnvironment, myRobot);
 	}
 	
-	public void userInputToModel(String aString) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException, UnexpectedCharacterException, UnexpectedCommandException, EmptyInputException, InvalidNodeUsageException {
-		AbstractSyntaxTree ast = new AbstractSyntaxTree(myParser.getNodeStack(aString));
-		TreeEvaluator treeEvaluator = new TreeEvaluator(ast);
+	public void userInputToModel(String aString) {
+		AbstractSyntaxTree ast;
 		try {
+			ast = new AbstractSyntaxTree(myParser.getNodeStack(aString));
+			TreeEvaluator treeEvaluator = new TreeEvaluator(ast);
 			while (treeEvaluator.hasNextInstruction()) {
 				treeEvaluator.executeNextInstruction();
 			}
-		} catch (InvalidInputNumberException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} catch (InvalidNodeUsageException | EmptyInputException | UnexpectedCharacterException
+				| UnexpectedCommandException | InvalidInputNumberException e) {
+				myRouter.distributeError(e);
 		}
+		myUserInputHistory.storeMethod(aString);
 	}
 	
-	private void distributeUserInputHistory( IViewableUserInputHistory aUserInputHistory ) {
-		//myRouter.distributeUserInputHistory(aUserInputHistory);
+	private void distributeHistory( IViewableUserInputHistory aUserInputHistory ) {
+		myRouter.distributeHistory(aUserInputHistory);
 	}
 	
-	private void distributeBackgroundInformation( IViewableBackground aBackgroundInformation ) {
-		//myRouter.distributeBackgroundInformation(aBackgroundInformation);
+	private void distributeBackground( IViewableBackground aBackgroundInformation ) {
+		myRouter.distributeBackground(aBackgroundInformation);
+	}
+	
+	private void distributeColorPalette( IViewableColorPalette aColorPalette ) {
+		myRouter.distributeColorPalette(aColorPalette);
 	}
 			
 	private void distributeRobot( IViewableRobot aRobot ){

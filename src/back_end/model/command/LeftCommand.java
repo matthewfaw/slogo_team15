@@ -18,7 +18,7 @@ public class LeftCommand extends RotationCommand implements ICommandTurtle {
     @Override
     public double eval (IReadableInput ... aList) throws InvalidNodeUsageException {
         double rotation = getRotation(aList);
-        myRobot.setRotation(myRobot.getRotation() + rotation);
+        myRobot.setRotation(myRobot.getCurrentRotation() + rotation);
         return aList[0].getValue();
     }
 

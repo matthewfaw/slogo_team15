@@ -58,17 +58,9 @@ public class TextParser {
      * @throws InstantiationException
      * @throws EmptyInputException
      */
-    public Stack<INode> getNodeStack (String aString) throws InstantiationException,
-                                                     IllegalAccessException,
-                                                     IllegalArgumentException,
-                                                     InvocationTargetException,
-                                                     NoSuchMethodException, SecurityException,
-                                                     ClassNotFoundException,
-                                                     UnexpectedCharacterException,
-                                                     UnexpectedCommandException,
-                                                     EmptyInputException {
+    public Stack<INode> getNodeStack (String aString) throws EmptyInputException, UnexpectedCharacterException, UnexpectedCommandException  {
         myNodes = new Stack<INode>();
-        createNodes(aString);
+		createNodes(aString);
         if (myNodes.isEmpty())
             throw new EmptyInputException("No input!");
         return myNodes;
@@ -91,11 +83,7 @@ public class TextParser {
      * @throws IllegalAccessException
      * @throws InstantiationException
      */
-    private void createNodes (String aText) throws InstantiationException, IllegalAccessException,
-                                            IllegalArgumentException, InvocationTargetException,
-                                            NoSuchMethodException, SecurityException,
-                                            ClassNotFoundException, UnexpectedCharacterException,
-                                            UnexpectedCommandException {
+    private void createNodes (String aText) throws UnexpectedCharacterException, UnexpectedCommandException {
         Map<Integer, List<String>> wordMap = makeExecutableList(aText);
         for (Integer lineNumber : wordMap.keySet()) {
         	for (String word : wordMap.get(lineNumber)) {
@@ -120,11 +108,7 @@ public class TextParser {
      * @throws IllegalAccessException
      * @throws InstantiationException
      */
-    private INode getNode (Integer aLineNumber, String aWord) throws InstantiationException, IllegalAccessException,
-                                        IllegalArgumentException, InvocationTargetException,
-                                        NoSuchMethodException, SecurityException,
-                                        ClassNotFoundException, UnexpectedCharacterException,
-                                        UnexpectedCommandException {
+    private INode getNode (Integer aLineNumber, String aWord) throws UnexpectedCharacterException, UnexpectedCommandException {
         return myFactory.makeNode(aLineNumber, aWord);
     }
 
@@ -145,7 +129,7 @@ public class TextParser {
                 for (int j = 0; j < temp.length; j++) {
                     temporaryStrings.add(temp[j]);
                 }
-                executableMap.put(i, temporaryStrings);
+                executableMap.put(i + 1, temporaryStrings);
             }
         }
         return executableMap;

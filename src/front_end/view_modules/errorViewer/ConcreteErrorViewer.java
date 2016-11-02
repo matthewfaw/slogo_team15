@@ -3,6 +3,7 @@ package front_end.view_modules.errorViewer;
 import java.util.ArrayList;
 import java.util.List;
 
+import back_end.model.exception.IExceptionDebugger;
 import front_end.view_modules.textEditor.ITextEditor;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -17,17 +18,13 @@ class ConcreteErrorViewer implements IErrorViewer {
 
     private ScrollPane myErrorScroller;
     private ITextEditor myTextEditor;
-    private List<Exception> myErrorList;
-    private List<Button> myErrorButtonList;
+    private IExceptionDebugger myError;
     private Label myErrorLabel;
 
     private static final int ErrorRowHeight = 30;
 
     ConcreteErrorViewer (int aWidth, int aHeight, ITextEditor aTextEditor) {
         myTextEditor = aTextEditor;
-
-        myErrorList = new ArrayList<>();
-        myErrorButtonList = new ArrayList<>();
 
         myErrorScroller = new ScrollPane();
         myErrorScroller.setHbarPolicy(ScrollBarPolicy.NEVER);
@@ -36,18 +33,18 @@ class ConcreteErrorViewer implements IErrorViewer {
         myErrorScroller.setMaxSize(aWidth, aHeight);
 
         myErrorLabel = new Label("No errors... yet!");
+        myErrorLabel.setWrapText(true);
 
-        VBox columnBox = initErrorColumn();
-        columnBox.getChildren().add(myErrorLabel);
+        HBox box = new HBox(0);
+        box.getChildren().add(myErrorLabel);
 
-        myErrorScroller.setContent(columnBox);
+        myErrorScroller.setContent(box);
 
     }
 
     @Override
     public void reset () {
-        // TODO Auto-generated method stub
-
+        // TODO Implement
     }
 
     @Override
@@ -56,36 +53,10 @@ class ConcreteErrorViewer implements IErrorViewer {
     }
 
     @Override
-    public void giveError (Exception aError) {
-        myErrorList.add(0, aError);
-        myErrorLabel.setText(aError.getMessage());
-    }
-
-    private void setErrorButtonEvents () {
-        for (Integer i = 0; i < myErrorButtonList.size(); i++) {
-            myErrorButtonList.get(i).setOnMouseClicked(event -> {
-                myTextEditor.highlightLine(Color.RED, 4);
-            });
-        }
-    }
-
-    private HBox createErrorRow (int width, String errorMsg) {
-        HBox currRowBox = new HBox(0);
-        currRowBox.setPrefSize(width, ErrorRowHeight);
-
-        Label label = new Label(errorMsg);
-
-        Button goToButton = new Button("Go To");
-        myErrorButtonList.add(goToButton);
-
-        label.setMinWidth(width / 2);
-        currRowBox.getChildren().addAll(label, goToButton);
-        return currRowBox;
-    }
-
-    private VBox initErrorColumn () {
-        VBox columnBox = new VBox(0);
-        return columnBox;
+    public void giveError (IExceptionDebugger aError) {
+        myError =  aError;
+        myErrorLabel.setText(aError.getErrorMessage());
+        myTextEditor.highlightLine(Color.RED, aError.getErrorLineNumber());
     }
 
 }

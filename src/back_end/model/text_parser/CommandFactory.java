@@ -27,15 +27,11 @@ public class CommandFactory {
 		myErrorMessageResources = PropertyResourceBundle.getBundle(ERROR);
 	}
 	
-	public ICommand makeCommand(String aUserInputWord, String aCommandType, int aLineNumber) throws InstantiationException, IllegalAccessException, 
-																			IllegalArgumentException, InvocationTargetException, 
-																			NoSuchMethodException, SecurityException, ClassNotFoundException, UnexpectedCommandException {
+	public ICommand makeCommand(String aUserInputWord, String aCommandType, int aLineNumber) throws UnexpectedCommandException {
 		try	{ 
 			return (ICommand) Class.forName(PACKAGE_COMMAND + aCommandType + "Command").getConstructor(IRobot.class, IModifiableEnvironmentState.class, String.class).
 				newInstance(myRobot, myEnvironment, aUserInputWord);
-		} catch (InstantiationException | IllegalAccessException | 
-				IllegalArgumentException | InvocationTargetException | 
-				NoSuchMethodException | SecurityException | ClassNotFoundException | MissingResourceException e) {
+		} catch (Exception e) {
 			throw new UnexpectedCommandException(MessageFormat.format(myErrorMessageResources.getString("UnexpectedCommand"), aUserInputWord, aLineNumber, aCommandType), aLineNumber);
 		}
 	}

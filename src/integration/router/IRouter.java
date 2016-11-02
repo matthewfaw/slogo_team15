@@ -1,7 +1,11 @@
 package integration.router;
 
+import back_end.model.exception.IExceptionDebugger;
 import back_end.model.robot.IViewableRobot;
 import back_end.model.states.IViewableVariableState;
+import back_end.model.states.background.IViewableBackground;
+import back_end.model.states.background.IViewableColorPalette;
+import back_end.model.states.methodhistory.IViewableUserInputHistory;
 
 
 /**
@@ -29,7 +33,7 @@ public interface IRouter {
 	/**
 	 * distributes History to modules decided upon inside Router
 	 */
-	public void distributeHistory(String aHistory);
+	public void distributeHistory(IViewableUserInputHistory aHistory);
 	
 	/**
 	 * distributes Function to modules decided upon inside Router
@@ -41,6 +45,9 @@ public interface IRouter {
 	 * 
 	 * @param passes in exception from back end
 	 */
-	public void distributeError( Exception aException );
+	public void distributeError( IExceptionDebugger aException );
+
+	public void distributeBackground( IViewableBackground aViewBackground );
 	
+	public void distributeColorPalette( IViewableColorPalette aViewColorPalette ); 
 }

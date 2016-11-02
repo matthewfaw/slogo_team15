@@ -59,7 +59,7 @@ public class ImageMover implements IDrawer {
 	}
 	
 	private void rotate(){
-		myImageView.setRotate(-myRobot.getRotation());
+		myImageView.setRotate(-myRobot.getCurrentRotation());
 	}
 
     @Override

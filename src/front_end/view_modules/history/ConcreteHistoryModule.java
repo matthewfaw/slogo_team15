@@ -5,6 +5,9 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+
+import back_end.model.states.methodhistory.IViewableUserInputHistory;
+import integration.observe.IObserver;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -13,11 +16,12 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 
-class ConcreteHistoryModule implements IHistoryModule {
+class ConcreteHistoryModule implements IHistoryModule, IObserver {
     private ScrollPane myScroller;
     private HBox myToolbar;
     private VBox myModule;
     private VBox myHistoryColumn;
+    private IViewableUserInputHistory myHistory;
 
     private static final String TITLE = "History Module";
 
@@ -97,12 +101,9 @@ class ConcreteHistoryModule implements IHistoryModule {
     }
 
     @Override
-    public void giveHistory (String aHistory) {
-        aHistory = aHistory.trim();
-        if (!myFunctions.contains(aHistory)) {
-            myFunctions.addFirst(aHistory);
-            getFiveFuncs();
-        }
+    public void giveHistory (IViewableUserInputHistory aHistory) {
+    	myHistory = aHistory;
+    	myHistory.registerObserver(this);
     }
 
     private HBox buildToolbar () {
@@ -111,5 +112,11 @@ class ConcreteHistoryModule implements IHistoryModule {
         toolbar.getChildren().add(title);
         return toolbar;
     }
+
+	@Override
+	public void update() {
+		myHistoryColumn.getChildren().clear();
+		myHistory.getHistoryOfUserInputStrings().forEach( s -> myHistoryColumn.getChildren().add(createHBox(s)));
+	}
 
 }
