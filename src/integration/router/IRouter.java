@@ -2,6 +2,7 @@ package integration.router;
 
 import back_end.model.robot.IViewableRobot;
 import back_end.model.states.IViewableVariableState;
+import back_end.model.states.background.IViewableBackground;
 import back_end.model.states.methodhistory.IViewableUserInputHistory;
 
 
@@ -43,5 +44,6 @@ public interface IRouter {
 	 * @param passes in exception from back end
 	 */
 	public void distributeError( Exception aException );
-	
+
+	public void distributeBackground( IViewableBackground aViewBackground );
 }

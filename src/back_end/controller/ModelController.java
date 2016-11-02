@@ -13,7 +13,9 @@ import back_end.model.robot.RobotController;
 import back_end.model.states.Environment;
 import back_end.model.states.IViewableVariableState;
 import back_end.model.states.ScopeController;
+import back_end.model.states.background.BackgroundInformation;
 import back_end.model.states.background.IViewableBackground;
+import back_end.model.states.background.IViewableColorPalette;
 import back_end.model.states.methodhistory.IViewableUserInputHistory;
 import back_end.model.states.methodhistory.UserInputHistory;
 import back_end.model.syntax_tree.AbstractSyntaxTree;
@@ -31,7 +33,7 @@ public class ModelController implements IObserver {
 	private IRobot myRobot; 
 	private TextParser myParser;
 	private IRouter myRouter;
-	private IViewableBackground myBackgroundInformation;
+	private BackgroundInformation myBackgroundInformation;
 	private UserInputHistory myUserInputHistory; 
 	
 /*	public static void main(String[] args) throws InvalidNodeUsageException
@@ -75,8 +77,9 @@ public class ModelController implements IObserver {
 		myUserInputHistory = new UserInputHistory();
 		distributeRobot(myRobot.getMostRecentRobot());
 		distributeVariableState(myEnvironment);
-		distributeBackgroundInformation(myBackgroundInformation);
-		distributeUserInputHistory(myUserInputHistory);
+		distributeBackground(myBackgroundInformation);
+		distributeColorPalette(myBackgroundInformation);
+		distributeHistory(myUserInputHistory);
 		myScopeController = new ScopeController();
 		myParser = new TextParser(myScopeController, myEnvironment, (IRobot) myRobot);
 	}
@@ -95,12 +98,16 @@ public class ModelController implements IObserver {
 		myUserInputHistory.storeMethod(aString);
 	}
 	
-	private void distributeUserInputHistory( IViewableUserInputHistory aUserInputHistory ) {
+	private void distributeHistory( IViewableUserInputHistory aUserInputHistory ) {
 		myRouter.distributeHistory(aUserInputHistory);
 	}
 	
-	private void distributeBackgroundInformation( IViewableBackground aBackgroundInformation ) {
-		//myRouter.distributeBackgroundInformation(aBackgroundInformation);
+	private void distributeBackground( IViewableBackground aBackgroundInformation ) {
+		myRouter.distributeBackground(aBackgroundInformation);
+	}
+	
+	private void distributeColorPalette( IViewableColorPalette aColorPalette ) {
+		//myRouter.distributeColorPalette(aColorPalette);
 	}
 			
 	private void distributeRobot( IViewableRobot aRobot ){
