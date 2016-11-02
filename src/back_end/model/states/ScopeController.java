@@ -1,9 +1,13 @@
 package back_end.model.states;
 
+import java.util.List;
 import java.util.Stack;
 
+import integration.observe.IObserver;
+import integration.observe.Observable;
 
-public class ScopeController  {
+
+public class ScopeController extends Observable {
 	
 	private Stack<FunctionScope> myScopes;
 	private Environment myEnvironment; 
@@ -33,6 +37,5 @@ public class ScopeController  {
 	public void removeNestedScope() {
 		myEnvironment.removeNestedScope();
 	}
-	
-	
+
 }
