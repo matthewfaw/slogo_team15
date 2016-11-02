@@ -27,8 +27,8 @@ public class Turtle extends Observable implements IViewableRobot {
     public Turtle (int aID) {
         myDefaultResource = PropertyResourceBundle.getBundle(DEFAULT);
         myVisibility = Boolean.parseBoolean(myDefaultResource.getString("TurtleVisibility"));
-        myPreviousXPosition = Double.parseDouble(myDefaultResource.getString("TurtleXpos"));
-        myPreviousYPosition = Double.parseDouble(myDefaultResource.getString("TurtleYpos"));
+        myPreviousXPosition = Double.parseDouble(myDefaultResource.getString("TurtleXPosPrev"));
+        myPreviousYPosition = Double.parseDouble(myDefaultResource.getString("TurtleYPosPrev"));
         myXpos = Double.parseDouble(myDefaultResource.getString("TurtleXpos"));
         myYpos = Double.parseDouble(myDefaultResource.getString("TurtleYpos"));
         myPenInformation = new PenInformation();
@@ -78,7 +78,7 @@ public class Turtle extends Observable implements IViewableRobot {
 
 	@Override
 	public Point getPreviousCoordinate() {
-		return getNewPoint(myPreviousXPosition, myPreviousYPosition);
+	    return getNewPoint(myPreviousXPosition, myPreviousYPosition);
 	}
 	
 	private Point getNewPoint(double aX, double aY)

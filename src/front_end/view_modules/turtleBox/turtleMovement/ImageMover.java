@@ -66,7 +66,6 @@ public class ImageMover implements IDrawer {
 	        LineTo myLine = new LineTo(currentXCoordinate(),currentYCoordinate());
 	        path.getElements().addAll(myMove);
 	        path.getElements().add(myLine);
-	        System.out.println("x " + previousXCoordinate());
 	        System.out.println("y " + previousYCoordinate());
 	        PathTransition pt = new PathTransition(Duration.millis(distance()*50), path, myImageView);
 	        return pt;
@@ -92,8 +91,7 @@ public class ImageMover implements IDrawer {
 	    return Math.sqrt(Math.pow(currentYCoordinate() -previousYCoordinate(),2) - Math.pow(currentXCoordinate() -previousXCoordinate(),2));
 	}
 	
-	private RotateTransition rotate(){
-	    
+	private RotateTransition rotate() {
 	    RotateTransition rt = new RotateTransition(Duration.seconds(3));
 	    rt.setByAngle(-myRobot.getRotation());
 	    return rt;

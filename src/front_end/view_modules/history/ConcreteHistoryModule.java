@@ -58,7 +58,7 @@ class ConcreteHistoryModule implements IHistoryModule, IObserver {
 
     private HBox createHBox (String myString) {
         HBox myHBox = new HBox(SPACING);
-        Label myLabel = new Label(myString);
+        Label myLabel = new Label(myString.trim());
         Button myButton = makeButton(myString);
         myButton.setOnMouseClicked(e -> load(myString));
         myHBox.getChildren().addAll(myLabel, myButton);
