@@ -46,12 +46,6 @@ public class ImageMover implements IDrawer {
     public SequentialTransition move (double animationSpeed, double maxAnimationSpeed) {
         loadImage();
         checkVisibility();
-        System.out.println("xprev: " + previousXCoordinate());
-        System.out.println("yprev: " + previousYCoordinate());
-        System.out.println("xcur: " + currentXCoordinate());
-        System.out.println("ycur: " + currentYCoordinate());
-        System.out.println("max: " + maxAnimationSpeed);
-        System.out.println("regspeed: " + animationSpeed);
         if(animationSpeed == maxAnimationSpeed) {
             myImageView.setX(currentXCoordinate()-myImageView.getFitWidth() / 2);
             myImageView.setY(currentYCoordinate()-myImageView.getFitHeight() / 2);
