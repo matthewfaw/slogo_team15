@@ -5,6 +5,7 @@ import java.util.List;
 
 import back_end.model.robot.IViewableRobot;
 import front_end.view_modules.image_color_module.interfaces.IColorModule;
+import front_end.view_modules.image_color_module.interfaces.IImageColorModule;
 import front_end.view_modules.image_color_module.interfaces.IImageModule;
 import javafx.collections.FXCollections;
 import javafx.scene.Node;
@@ -23,12 +24,12 @@ public class ConcreteAllRobotsStateBox implements IAllRobotsStateBox{
 	private ComboBox<String> mySwitchMenu;
 	private List<MenuItem> mySwitchList;
 	
-	private IImageModule myImageMap;
+	private IImageColorModule myImageColorMap;
 	
 	private static final String TAB_TEXT = "Turtle ID: ";
 	
-	public ConcreteAllRobotsStateBox(IImageModule aImageMap){
-		myImageMap = aImageMap;
+	public ConcreteAllRobotsStateBox(IImageColorModule aImageColorMap){
+		myImageColorMap = aImageColorMap;
 		
 		myModule = new VBox(0);		
 		myStateBox = new VBox(0);
@@ -47,8 +48,8 @@ public class ConcreteAllRobotsStateBox implements IAllRobotsStateBox{
 		buildMenu();
 	}
 	
-	public ConcreteAllRobotsStateBox( int aWidth, int aHeight, IImageModule aImageMap){
-		this(aImageMap);
+	public ConcreteAllRobotsStateBox( int aWidth, int aHeight, IImageColorModule aImageColorMap){
+		this(aImageColorMap);
 		myScroller.setMinSize(aWidth, aHeight);
 		myScroller.setMaxSize(aWidth, aHeight);
 	}
@@ -88,7 +89,7 @@ public class ConcreteAllRobotsStateBox implements IAllRobotsStateBox{
 
 	@Override
 	public void giveRobot(IViewableRobot aViewRobot) {
-		IRobotStateBox stateBox = new ConcreteRobotStateBox( myImageMap, aViewRobot );
+		IRobotStateBox stateBox = new ConcreteRobotStateBox( myImageColorMap, aViewRobot );
 		myStateBoxes.add(stateBox);
 		buildMenu();
 	}
@@ -98,7 +99,6 @@ public class ConcreteAllRobotsStateBox implements IAllRobotsStateBox{
 		if(aRobotID >= myStateBoxes.size()) return;
 		switchStateBox(aRobotID);		
 	}
-	
 	
 
 }

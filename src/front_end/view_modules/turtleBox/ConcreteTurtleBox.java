@@ -3,7 +3,6 @@ import back_end.model.robot.IViewableRobot;
 import back_end.model.states.background.IViewableBackground;
 import front_end.view_modules.image_color_module.interfaces.IImageColorModule;
 import front_end.view_modules.turtleBox.turtleMovement.TurtleDrawer;
-import javafx.animation.Animation;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Node;

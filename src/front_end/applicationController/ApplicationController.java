@@ -1,16 +1,11 @@
 package front_end.applicationController;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
 import back_end.controller.ModelController;
-import back_end.model.exception.EmptyInputException;
-import back_end.model.exception.InvalidNodeUsageException;
-import back_end.model.exception.UnexpectedCharacterException;
-import back_end.model.exception.UnexpectedCommandException;
 import front_end.appScene.ApplicationScene;
 import front_end.view_modules.errorViewer.IErrorViewer;
 import front_end.view_modules.function_viewer.IFunctionViewer;
@@ -55,7 +50,6 @@ public class ApplicationController {
     private IImageColorModule myImageColorModule;
     private IAllRobotsStateBox myStatesBox;
     private IHistoryModule myHistoryModule;
-    private PenPopup myPenPopup;
     
     private String TITLE = "SLOGO";
 
@@ -86,7 +80,6 @@ public class ApplicationController {
         myImageColorModule = myAppScene.getMyShapeColorModule();
         myStatesBox = myAppScene.getMyStatesBox();
         myHistoryModule = myAppScene.getMyHistoryModule();
-        myPenPopup = new PenPopup();
     }
 
     public Scene getScene () {
@@ -150,37 +143,12 @@ public class ApplicationController {
 
         myToolbar.onLanguageSelect(makeLanguageMap());
 
-        myToolbar.onPenPress(e -> popupPenSelector());
-
         myToolbar.onBuildPress(e -> buildCommands());
         
     }
 
-    private void configurePenPopup (Stage stage) {
-        myPenPopup.onApplyPress(e -> collectPenInfo(stage));
-        myPenPopup.onClearPress(e -> clearPenSettings());
-    }
-
-    private void clearPenSettings () {
-        myPenPopup.clear();
-    }
-
-    private void collectPenInfo (Stage stage) {
-        stage.hide();
-        myPenPopup.getPenThickness();
-    }
-
     private void buildCommands () {
         // TODO: Actually make this method
-    }
-    
-    private void popupPenSelector () {
-        Stage stage = new Stage();
-        myPenPopup.initPopup(myImageColorModule);
-        Scene myScene = myPenPopup.getScene();
-        stage.setScene(myScene);
-        stage.show();
-        configurePenPopup(stage);
     }
 
     /**

@@ -22,7 +22,7 @@ class ConcreteToolbar implements IToolbar {
     private MenuButton myLanguage;
     private Button myStep;
     private Button myReset;
-    private Button myPenFunctions;
+
     private ResourceBundle myGUIResources;
 
     private static final int SPACING = 5;
@@ -36,7 +36,7 @@ class ConcreteToolbar implements IToolbar {
         myToolbar.setPrefSize(aWidth, aHeight);
         myToolbar.setPadding(new Insets(SPACING, SPACING, SPACING, SPACING));
         myToolbar.setStyle("-fx-background-color: #336699;");
-        myToolbar.getChildren().addAll(myRun, myHelp, myStep, myBuild, myPenFunctions, myReset, myLanguage);
+        myToolbar.getChildren().addAll(myRun, myHelp, myStep, myBuild, myReset, myLanguage);
 
     }
 
@@ -49,7 +49,6 @@ class ConcreteToolbar implements IToolbar {
                                Languages.DEFAULT.getName());
         myStep = new Button(myGUIResources.getString("StepButton"));
         myReset = new Button(myGUIResources.getString("ClearButton"));
-        myPenFunctions = new Button(myGUIResources.getString("PenButton"));
     }
 
     @Override
@@ -107,9 +106,5 @@ class ConcreteToolbar implements IToolbar {
                 .setText(myGUIResources.getString("LanguageDropDown") + ": " + aLanguage.getName());
     }
 
-    @Override
-    public void onPenPress (EventHandler<MouseEvent> aEvent) {
-        myPenFunctions.setOnMouseClicked(aEvent);
-    }
 
 }
