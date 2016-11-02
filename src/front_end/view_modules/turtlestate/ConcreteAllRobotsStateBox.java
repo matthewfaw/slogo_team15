@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import back_end.model.robot.IViewableRobot;
+import front_end.sender.IRobotSender;
 import front_end.view_modules.image_color_module.interfaces.IColorModule;
 import front_end.view_modules.image_color_module.interfaces.IImageModule;
 import javafx.collections.FXCollections;
@@ -24,6 +25,7 @@ public class ConcreteAllRobotsStateBox implements IAllRobotsStateBox{
 	private List<MenuItem> mySwitchList;
 	
 	private IImageModule myImageMap;
+	private IRobotSender myRoboSender;
 	
 	private static final String TAB_TEXT = "Turtle ID: ";
 	
@@ -88,7 +90,7 @@ public class ConcreteAllRobotsStateBox implements IAllRobotsStateBox{
 
 	@Override
 	public void giveRobot(IViewableRobot aViewRobot) {
-		IRobotStateBox stateBox = new ConcreteRobotStateBox( myImageMap, aViewRobot );
+		IRobotStateBox stateBox = new ConcreteRobotStateBox( myImageMap, aViewRobot , myRoboSender);
 		myStateBoxes.add(stateBox);
 		buildMenu();
 	}
@@ -97,6 +99,11 @@ public class ConcreteAllRobotsStateBox implements IAllRobotsStateBox{
 	public void switchRobotTabs(int aRobotID) {
 		if(aRobotID >= myStateBoxes.size()) return;
 		switchStateBox(aRobotID);		
+	}
+
+	@Override
+	public void giveRobotSender(IRobotSender aRoboSender) {
+		myRoboSender = aRoboSender;
 	}
 	
 	

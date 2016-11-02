@@ -140,6 +140,8 @@ public class ModelController implements IObserver, IColorSender, IRobotSender {
 		myRobot.registerObserver(this);
 		myBackgroundInformation = myEnvironment.getBackgroundInformation();
 		myUserInputHistory = new UserInputHistory();
+		myRouter.distributeColorSenders(this);
+		myRouter.distributeRobotSenders(this); // MUST HAPPEN BEFORE ROBOT DISTRIBUTION
 		distributeRobot(myRobot.getMostRecentRobot());
 		distributeVariableState(myEnvironment);
 		distributeBackground(myBackgroundInformation);

@@ -6,6 +6,8 @@ import back_end.model.states.IViewableVariableState;
 import back_end.model.states.background.IViewableBackground;
 import back_end.model.states.background.IViewableColorPalette;
 import back_end.model.states.methodhistory.IViewableUserInputHistory;
+import front_end.sender.IColorSender;
+import front_end.sender.IRobotSender;
 
 
 /**
@@ -18,6 +20,10 @@ import back_end.model.states.methodhistory.IViewableUserInputHistory;
  */
 public interface IRouter {
 
+	public void distributeRobotSenders(IRobotSender aRoboSender);
+	
+	public void distributeColorSenders(IColorSender aColorSender);
+	
 	/**
 	 * distributes Robot to modules decided upon inside Router
 	 * 

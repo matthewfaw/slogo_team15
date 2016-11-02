@@ -11,11 +11,15 @@ import back_end.model.states.background.IViewableColorPalette;
 import back_end.model.states.methodhistory.IViewableUserInputHistory;
 import front_end.acceptor.IBackgroundAcceptor;
 import front_end.acceptor.IColorPaletteAcceptor;
+import front_end.acceptor.IColorSenderAcceptor;
 import front_end.acceptor.IErrorAcceptor;
 import front_end.acceptor.IFunctionAcceptor;
 import front_end.acceptor.IHistoryAcceptor;
+import front_end.acceptor.IRobotSenderAcceptor;
 import front_end.acceptor.IVariableAcceptor;
 import front_end.appScene.ApplicationScene;
+import front_end.sender.IColorSender;
+import front_end.sender.IRobotSender;
 import front_end.view_modules.IRobotAcceptor;
 
 /**
@@ -33,6 +37,10 @@ class ConcreteRouter implements IRouter {
 	private Collection<IHistoryAcceptor> myHistoryAcceptors;
 	private Collection<IBackgroundAcceptor> myBackgroundAcceptors;
 	private Collection<IColorPaletteAcceptor> myColorAcceptors;
+	
+	private Collection<IColorSenderAcceptor> myColorSendAcceptors;
+	private Collection<IRobotSenderAcceptor> myRobotSendAcceptors;
+
 	ApplicationScene myAppScene;
 	
 	/******* Initializing methods *********/
@@ -47,7 +55,8 @@ class ConcreteRouter implements IRouter {
 		setFunctionAcceptors();
 		setBackgroundAcceptors();
 		setColorPaletteAcceptors();
-
+		setColorSenderAcceptors();
+		setRobotSenderAcceptors();
 	}
 	
 	private void setRobotAcceptors(){
@@ -84,6 +93,16 @@ class ConcreteRouter implements IRouter {
 	private void setColorPaletteAcceptors() {
 		myColorAcceptors = new ArrayList<>();
 		myColorAcceptors.add(myAppScene.getMyShapeColorModule());
+	}
+	
+	private void setColorSenderAcceptors() {
+		myColorSendAcceptors = new ArrayList<>();
+		myColorSendAcceptors.add(myAppScene.getMyTurtleBox());
+	}
+	
+	private void setRobotSenderAcceptors() {
+		myRobotSendAcceptors = new ArrayList<>();
+		myRobotSendAcceptors.add(myAppScene.getMyStatesBox());
 	}
 	
 	/******* API methods *********/
@@ -124,6 +143,16 @@ class ConcreteRouter implements IRouter {
 	@Override
 	public void distributeColorPalette(IViewableColorPalette aViewColorPalette) {
 		myColorAcceptors.forEach(c -> c.giveColorPalette(aViewColorPalette));
+	}
+
+	@Override
+	public void distributeRobotSenders(IRobotSender aRoboSender) {
+		myRobotSendAcceptors.forEach( c -> c.giveRobotSender(aRoboSender));
+	}
+
+	@Override
+	public void distributeColorSenders(IColorSender aColorSender) {
+		myColorSendAcceptors.forEach( c -> c.giveColorSender(aColorSender) );	
 	}
 
 }

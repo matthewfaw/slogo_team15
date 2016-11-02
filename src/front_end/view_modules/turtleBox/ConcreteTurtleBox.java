@@ -36,6 +36,7 @@ class ConcreteTurtleBox implements ITurtleBox {
     private int myWidth;
     private int myHeight;
     TurtleDrawer myTurtleDrawer;
+	private IColorSender myColorSender;
     ConcreteTurtleBox (int width, int height, IImageColorModule aShapeColorMap) {
         myWidth = width;
         myHeight = height;
@@ -71,18 +72,14 @@ class ConcreteTurtleBox implements ITurtleBox {
 	@Override
 	public void giveBackground(IViewableBackground aViewBackground) {
 		myBU = new BackgroundUpdator(aViewBackground, mySandbox);
+		myBU.giveColorSender(myColorSender);
 		mySandbox.setBackground(myBU.getBackground());
 		myBackgroundColorPicker = myBU.getColorPicker();
         mySandbox.getChildren().add(myBackgroundColorPicker);
 	}
 	
 	@Override
-	public void giveRobotSender(IRobotSender aRoboSender) {
-	}
-	
-	@Override
 	public void giveColorSender(IColorSender aColorSender){
-		myBU.giveColorSender(aColorSender);
-
+		myColorSender = aColorSender;
 	}
 }

@@ -2,6 +2,7 @@ package front_end.view_modules.turtleBox;
 
 
 import back_end.model.states.background.IViewableBackground;
+import front_end.acceptor.IColorSenderAcceptor;
 import front_end.sender.IColorSender;
 import integration.observe.IObserver;
 import javafx.geometry.Insets;
@@ -12,7 +13,7 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 
-class BackgroundUpdator implements IObserver {
+class BackgroundUpdator implements IObserver, IColorSenderAcceptor {
 
 	private IViewableBackground myObservableBackground;
 	private IColorSender myColorSender;
@@ -39,19 +40,17 @@ class BackgroundUpdator implements IObserver {
 		return myBG;
 	}
 	
-	void giveColorSender(IColorSender aColorSender) {
+	public void giveColorSender(IColorSender aColorSender) {
 		myColorSender = aColorSender;
 		
 		myColorPicker.setOnAction( event -> {
 			String rgb = "#" + myColorPicker.getValue().toString().substring(2, 8);
-			System.out.println(rgb);
 			myColorSender.setBackground( rgb );
 			});
 	}
 	
 	@Override
 	public void update() {
-		System.out.println(myObservableBackground.getBackgroundColor());
 		myColorPicker.setValue( Color.valueOf(myObservableBackground.getBackgroundColor()) );
 		myPane.setBackground(new Background(new BackgroundFill(myColorPicker.getValue(), CornerRadii.EMPTY, Insets.EMPTY)));
 	}

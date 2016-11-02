@@ -84,14 +84,10 @@ public class ApplicationController {
         myVariableViewer = myAppScene.getMyVariableViewer();
         myHelpPage = myAppScene.getMyHelpPage();
         myRoot = myAppScene.getMyRoot();
-        
         myTurtleBox = myAppScene.getMyTurtleBox();
-        myTurtleBox.giveColorSender(myModel);
-        myTurtleBox.giveRobotSender(myModel);
-        
         myScriptViewer = myAppScene.getMyFunctionViewer();
         myImageColorModule = myAppScene.getMyShapeColorModule();
-        myStatesBox = myAppScene.getMyStatesBox();
+        myStatesBox = myAppScene.getMyStatesBox();        
         myHistoryModule = myAppScene.getMyHistoryModule();
         myPenPopup = new PenPopup();
     }
