@@ -16,12 +16,12 @@ import front_end.acceptor.IColorSenderAcceptor;
 import front_end.acceptor.IErrorAcceptor;
 import front_end.acceptor.IFunctionAcceptor;
 import front_end.acceptor.IHistoryAcceptor;
+import front_end.acceptor.IRobotAcceptor;
 import front_end.acceptor.IRobotSenderAcceptor;
 import front_end.acceptor.IVariableAcceptor;
 import front_end.appScene.ApplicationScene;
 import front_end.sender.IColorSender;
 import front_end.sender.IRobotSender;
-import front_end.view_modules.IRobotAcceptor;
 
 /**
  * Middle Man to accommodate for multiple turtle/variable scenario
