@@ -17,6 +17,7 @@ import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.TextField;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.MouseEvent;
@@ -52,6 +53,7 @@ public class PenPopup implements IPenPopup {
     private boolean myPenUpStatus;
     private PenInformation myInfo;
     private int colorID;
+    private TextField myField;
     
     public PenPopup(IColorModule aColorModule){
         myInfo = new PenInformation();
@@ -113,6 +115,7 @@ public class PenPopup implements IPenPopup {
     }
 
     private void setBorderPane () {
+        setTurtlePicker();
         colorSelectorBox();
         setThicknessBox();
         setLineStyleBox();
@@ -124,6 +127,7 @@ public class PenPopup implements IPenPopup {
     private void setLineStyleBox () {
         String lineStyleLabel = "Line Style: ";
         ComboBox<Object> myLineCombo = createComboBox(lineStyleLabel, myLineStyleOptions());
+        myLineCombo.setValue(myInfo.getLineStyle());
         HBox myLineHBox = createComboHBox(lineStyleLabel);
         myLineHBox.getChildren().add(myLineCombo);
         myOrder.getChildren().add(myLineHBox);
@@ -131,9 +135,17 @@ public class PenPopup implements IPenPopup {
     
     private void setThicknessBox() {
         ComboBox<Object> penThickness = createComboBox("Pen thickness: ", penThicknessOptions());
+        penThickness.setValue(myInfo.getPenThickness());
         HBox penThickBox = createComboHBox("Pen thickness: ");
         penThickBox.getChildren().add(penThickness);
         myOrder.getChildren().add(penThickBox);
+    }
+    
+    private void setTurtlePicker() {
+        myField = myTurtleChooser();
+        HBox turtChoose = createComboHBox("Choose turtle: ");
+        turtChoose.getChildren().add(myField);
+        myOrder.getChildren().add(turtChoose);
     }
     
     private void setPenUpDownBox() {
@@ -154,6 +166,7 @@ public class PenPopup implements IPenPopup {
         
         String labelName = "Choose Palette Color: ";
         paletteColor = createComboBox(labelName, makeColorPaletteOptions());
+        paletteColor.setValue(myInfo.getColorID());
         setComboBoxListener(paletteColor, labelName);
         HBox paletteBox = createComboHBox(labelName);
         paletteBox.getChildren().add(paletteColor);
@@ -176,6 +189,11 @@ public class PenPopup implements IPenPopup {
             }
             
         });
+    }
+    
+    private TextField myTurtleChooser() {
+        TextField myField = new TextField();
+        return myField;
     }
     
     private void setComboBoxListener(ComboBox<Object> myComboBox, String labelName) {
@@ -283,13 +301,12 @@ public class PenPopup implements IPenPopup {
         //myInfo.setLineStyle(aLineStyle);
         myInfo.setPenThickness(myPenThickness);
         myInfo.setPenUp(myPenUpStatus);
-        System.out.println(myInfo.getColorID());
         return myInfo;
     }
 
     @Override
     public int getTurtleID () {
-        // TODO Auto-generated method stub
-        return 0;
+        return Integer.parseInt(myField.getText().toString());
     }
+    
 }
