@@ -8,25 +8,28 @@ import back_end.model.states.IModifiableEnvironmentState;
 
 public class AskCommand extends ICommandBranch {
 	
-	private IRobot myRobot;
+	private IModifiableEnvironmentState myEnvironment;
 	
 	public AskCommand(IRobot aRobot, IModifiableEnvironmentState aEnvironment, String aCommandName) {
-		myRobot = aRobot;
-	}
-	
-	@Override
-	public double eval(IReadableInput...aList) throws InvalidNodeUsageException {
-		//myRobot.endTemporaryActiveTurtles();
-		return super.eval(aList);
+		myEnvironment = aEnvironment;
 	}
 
+	//TODO: Refactor, since same code as Tell Method
 	@Override
 	public int evalConditionInNode (IReadableInput...aList) throws InvalidInputNumberException, InvalidNodeUsageException {
-		int[] array = new int[aList.length];
+		myEnvironment.clearActiveTurtles();
 		for (int i = 0; i < aList.length; i++) {
-			array[i] = (int) aList[i].getValue();
+			int currentTurtleID = (int) aList[i].getValue();
+			for (int j = 1; j <= currentTurtleID; j++) {
+				if (!myEnvironment.containsTurtle(j)) {
+					myEnvironment.addTurtle(j);
+				}
+			}
+			myEnvironment.addActiveTurtle(currentTurtleID);
+			if (i == 0) {
+				myEnvironment.setTurtleAsCurrentlyActive(currentTurtleID);
+			}
 		}
-		//myRobot.setActiveTurtles(array, false);
 		return 1;
 	}
 
