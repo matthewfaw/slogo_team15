@@ -2,6 +2,7 @@ package front_end.view_modules.turtleBox;
 import back_end.model.robot.IViewableRobot;
 import front_end.view_modules.image_color_module.interfaces.IImageColorModule;
 import front_end.view_modules.turtleBox.turtleMovement.TurtleDrawer;
+import javafx.animation.Animation;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -58,6 +59,7 @@ class ConcreteTurtleBox implements ITurtleBox {
     public Node getInstanceAsNode () {
         return myScroller;
     }
+    
     @Override
     public void giveRobot (IViewableRobot aRobot) {
         myRobot = aRobot;

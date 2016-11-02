@@ -27,12 +27,20 @@ import front_end.view_modules.variableViewer.IVariableViewer;
 import integration.languages.ILanguageSwitcher.Languages;
 import integration.router.IRouter;
 import integration.router.RouterFactory;
+import javafx.animation.Animation;
+import javafx.animation.SequentialTransition;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
+import javafx.scene.shape.Path;
+import javafx.animation.PathTransition;
+import javafx.scene.shape.MoveTo;
+import javafx.scene.shape.HLineTo;
+import javafx.animation.RotateTransition;
+import javafx.util.Duration;
 
 /**
  * 
@@ -71,6 +79,7 @@ public class ApplicationController {
         myWidth = aWidth;
         myHeight = aHeight;
     }
+
     
     private void init(int aWidth, int aHeight) {
         myAppScene = new ApplicationScene(aWidth, aHeight);
@@ -80,6 +89,7 @@ public class ApplicationController {
        
         getFromScene();
         configureToolbar();
+        //myTurtleBox.getAnimation().play();
     }
 
     private void getFromScene () {
@@ -114,6 +124,8 @@ public class ApplicationController {
         try {
             myModel.userInputToModel(sb.toString());
             myHistoryModule.giveHistory(sb.toString());
+            //System.out.println(myTurtleBox.getAnimation());
+            //myTurtleBox.getAnimation().play();
         }
         catch (InstantiationException 
         		| IllegalAccessException 
