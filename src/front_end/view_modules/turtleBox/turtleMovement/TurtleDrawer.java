@@ -57,6 +57,6 @@ public class TurtleDrawer implements IObserver {
 	}
 
 	public Node getImage(){
-		return myImageMover.getImage();
+		return myImageMover.getInstanceAsNode();
 	}
 }

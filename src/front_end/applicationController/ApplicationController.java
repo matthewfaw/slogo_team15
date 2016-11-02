@@ -59,12 +59,22 @@ public class ApplicationController {
     private IImageColorModule myImageColorModule;
     private IAllRobotsStateBox myStatesBox;
     private IHistoryModule myHistoryModule;
-    private IPenPopup myPenPopup;
+    private PenPopup myPenPopup;
+    
+    private int myWidth;
+    private int myHeight;
     
     private String TITLE = "SLOGO";
 
     public ApplicationController (int aWidth, int aHeight) {
+        init(aWidth, aHeight);
+        myWidth = aWidth;
+        myHeight = aHeight;
+    }
+    
+    private void init(int aWidth, int aHeight) {
         myAppScene = new ApplicationScene(aWidth, aHeight);
+        
         myRobotRouter = RouterFactory.build(myAppScene);
         myModel = new ModelController(myRobotRouter);
        
@@ -84,7 +94,6 @@ public class ApplicationController {
         myImageColorModule = myAppScene.getMyShapeColorModule();
         myStatesBox = myAppScene.getMyStatesBox();
         myHistoryModule = myAppScene.getMyHistoryModule();
-        // TODO: Change this to interface - Kayla
         myPenPopup = new PenPopup();
     }
 
@@ -181,6 +190,7 @@ public class ApplicationController {
 
     private void collectPenInfo (Stage stage) {
         stage.hide();
+        myPenPopup.getPenThickness();
     }
 
     private void buildCommands () {

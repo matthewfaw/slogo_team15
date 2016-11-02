@@ -6,7 +6,7 @@ import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-public class ImageMover {
+public class ImageMover implements IDrawer {
 	private ImageView myImageView;
 	private Image myImage;
 	private IViewableRobot myRobot;
@@ -42,10 +42,6 @@ public class ImageMover {
 		rotate();
 	}
 	
-	public Node getImage() {
-		return myImageView;
-	};
-	
 	private void loadImage() {
 		myImage = new Image(myImageMap.getFile(myRobot.getImageID()).toURI().toString());
 		myImageView.setImage( myImage );
@@ -53,7 +49,8 @@ public class ImageMover {
 	
 	private void checkVisibility() {
 		if(myRobot.isVisible()) myImageView.setImage(myImage);
-		else 					myImageView.setImage(null);
+		else
+		    myImageView.setImage(null);
 	}
 	
 	private void translate(){
@@ -64,4 +61,15 @@ public class ImageMover {
 	private void rotate(){
 		myImageView.setRotate(-myRobot.getRotation());
 	}
+
+    @Override
+    public void reset () {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public Node getInstanceAsNode () {
+        return myImageView;
+    }
 }

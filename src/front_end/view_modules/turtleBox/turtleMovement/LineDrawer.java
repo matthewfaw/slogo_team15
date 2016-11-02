@@ -1,9 +1,10 @@
 package front_end.view_modules.turtleBox.turtleMovement;
 import back_end.model.robot.IViewableRobot;
 import front_end.view_modules.image_color_module.interfaces.IColorModule;
+import javafx.scene.Node;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
-class LineDrawer {
+
+class LineDrawer implements IDrawer {
         
         private IViewableRobot myRobot;
         private MovementCalculator myMoveCalc;
@@ -23,13 +24,24 @@ class LineDrawer {
         }
         
         void drawDefault() {
-                myGC.setStroke( Color.BLACK ); //myColorMap.getColor(myRobot.getPenInformation().getColorID()));
-                myGC.setLineWidth(5);
+                myGC.setStroke( myColorMap.getColor(myRobot.getPenInformation().getColorID()) ); //myColorMap.getColor(myRobot.getPenInformation().getColorID()));
+                myGC.setLineWidth(myRobot.getPenInformation().getPenThickness());
                 myGC.strokeLine(
                                 myMoveCalc.translateXCoordinate(myRobot.getPreviousCoordinate().getX()),
                                 myMoveCalc.translateYCoordinate(myRobot.getPreviousCoordinate().getY()),
                                 myMoveCalc.translateXCoordinate(myRobot.getCurrentCoordinate().getX()), 
                                 myMoveCalc.translateYCoordinate(myRobot.getCurrentCoordinate().getY()));
+        }
+
+        @Override
+        public void reset () {
+            // TODO Auto-generated method stub
+            myGC.clearRect(0, 0, myGC.getCanvas().getWidth(), myGC.getCanvas().getHeight());
+        }
+
+        @Override
+        public Node getInstanceAsNode () {
+            return myGC.getCanvas();
         }
         
         
