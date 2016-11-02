@@ -1,17 +1,12 @@
 package front_end.view_modules.errorViewer;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import back_end.model.exception.IExceptionDebugger;
 import front_end.view_modules.textEditor.ITextEditor;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
 class ConcreteErrorViewer implements IErrorViewer {
