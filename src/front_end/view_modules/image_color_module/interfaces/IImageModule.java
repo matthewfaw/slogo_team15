@@ -3,7 +3,6 @@ package front_end.view_modules.image_color_module.interfaces;
 import java.io.File;
 
 import front_end.view_modules.IViewModule;
-import integration.languages.ILanguageSwitcher;
 
 public interface IImageModule extends IViewModule {
 

@@ -12,7 +12,6 @@ import front_end.view_modules.function_viewer.IFunctionViewer;
 import front_end.view_modules.helpPage.HelpPage;
 import front_end.view_modules.history.IHistoryModule;
 import front_end.view_modules.image_color_module.interfaces.IImageColorModule;
-import front_end.view_modules.penProperties.PenPopup;
 import front_end.view_modules.textEditor.ITextEditor;
 import front_end.view_modules.toolbar.IToolbar;
 import front_end.view_modules.turtleBox.ITurtleBox;

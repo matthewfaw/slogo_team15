@@ -2,10 +2,8 @@ package front_end.view_modules.history;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
-
+import java.util.ResourceBundle;
 import back_end.model.states.methodhistory.IViewableUserInputHistory;
 import integration.observe.IObserver;
 import javafx.scene.Node;
@@ -24,9 +22,9 @@ class ConcreteHistoryModule implements IHistoryModule, IObserver {
     private IViewableUserInputHistory myHistory;
 
     private static final String TITLE = "History Module";
+    private ResourceBundle myGUIResources;
 
     private final int SPACING = 10;
-    private LinkedList<String> myFunctions;
     private List<String> myCurFunction;
 
     ConcreteHistoryModule () {
@@ -34,7 +32,6 @@ class ConcreteHistoryModule implements IHistoryModule, IObserver {
         myScroller.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
         myScroller.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
 
-        myFunctions = new LinkedList<String>();
         myCurFunction = new ArrayList<String>();
 
         myModule = new VBox(5);
@@ -44,11 +41,9 @@ class ConcreteHistoryModule implements IHistoryModule, IObserver {
         myModule.getChildren().addAll(myToolbar, myHistoryColumn);
         myScroller.setContent(myModule);
 
-        // Test Code - Visualize without backend sending stuff
-        // ArrayList<String> test = new ArrayList<String>(Arrays.asList(new String[]{"History", "So
-        // much History", "NewLine \n Test \n so \n love me senpai"}));
-        // test.forEach( s -> giveHistory(s));
-
+        String initFile = "resources.frontend";
+        String fileName = "/EnglishButtonState";
+        myGUIResources = ResourceBundle.getBundle(initFile + fileName);
     }
 
     public ConcreteHistoryModule (int aWidth, int aHeight) {
@@ -73,20 +68,8 @@ class ConcreteHistoryModule implements IHistoryModule, IObserver {
         return myCurFunction;
     }
 
-    private void getFiveFuncs () {
-        int i = 0;
-        Iterator<String> myIterator = myFunctions.iterator();
-        myHistoryColumn.getChildren().clear();
-        while (myIterator.hasNext() && i < 5) {
-            String temp = myIterator.next();
-            HBox myHBox = createHBox(temp);
-            myHistoryColumn.getChildren().add(myHBox);
-            i++;
-        }
-    }
-
     private Button makeButton (String myFunctionString) {
-        Button myButton = new Button("Press for Function");
+        Button myButton = new Button(myGUIResources.getString("HistoryButton"));
         return myButton;
     }
 
