@@ -41,7 +41,7 @@ class ConcreteTextEditor implements ITextEditor {
     private boolean myRowsAdded;
 
     private static final int NUM_START_ROWS = 10;
-    private static final int NEW_ROW_BURST = 100;
+    private static final int NEW_ROW_BURST = 10;
     private static final int SPACING = 20;
 
     /******* API Defined Methods ********/
