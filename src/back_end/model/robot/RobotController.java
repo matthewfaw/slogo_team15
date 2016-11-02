@@ -3,10 +3,8 @@ package back_end.model.robot;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Set;
 import java.util.Stack;
 import java.util.Collection;
-import java.util.Collections;
 
 import integration.drawing.PenInformation;
 import integration.observe.Observable;
@@ -180,7 +178,11 @@ public class RobotController extends Observable implements IRobot {
 
 	@Override
 	public void setPenInformation(PenInformation aPenInformation) {
-		myCurrentlyActiveTurtle.setPenInformation(aPenInformation);
+	    if(myCurrentlyActiveTurtle != null)
+	        myCurrentlyActiveTurtle.setPenInformation(aPenInformation);
+	    else {
+	        myActiveTurtles.get(0).setPenInformation(aPenInformation);
+	    }
 	}
 
 	@Override
