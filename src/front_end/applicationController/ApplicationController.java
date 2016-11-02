@@ -199,6 +199,8 @@ public class ApplicationController {
         configurePenPopup(stage);
     }
 
+        
+    
     /**
      * Returns the title of the SLOGO project
      * 
