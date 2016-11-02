@@ -1,21 +1,22 @@
 package back_end.model.states.methodhistory;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import integration.observe.Observable;
 
 public class UserInputHistory extends Observable implements IViewableUserInputHistory {
 	
-	private List<String> myUserHistory; 
+	private Set<String> myUserHistory; 
 	
 	public UserInputHistory() { 
-		myUserHistory = new ArrayList<String>();
+		myUserHistory = new HashSet<String>();
 	}
 	
 	public void storeMethod(String aUserInputString) {
 		myUserHistory.add(aUserInputString);
+		notifyObservers();
 	}
 	
 	public Collection<String> getHistoryOfUserInputStrings() {

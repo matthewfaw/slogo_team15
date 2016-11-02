@@ -32,7 +32,7 @@ public class ModelController implements IObserver {
 	private TextParser myParser;
 	private IRouter myRouter;
 	private IViewableBackground myBackgroundInformation;
-	private IViewableUserInputHistory myUserInputHistory; 
+	private UserInputHistory myUserInputHistory; 
 	
 /*	public static void main(String[] args) throws InvalidNodeUsageException
 	{
@@ -92,10 +92,11 @@ public class ModelController implements IObserver {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		myUserInputHistory.storeMethod(aString);
 	}
 	
 	private void distributeUserInputHistory( IViewableUserInputHistory aUserInputHistory ) {
-		//myRouter.distributeUserInputHistory(aUserInputHistory);
+		myRouter.distributeHistory(aUserInputHistory);
 	}
 	
 	private void distributeBackgroundInformation( IViewableBackground aBackgroundInformation ) {

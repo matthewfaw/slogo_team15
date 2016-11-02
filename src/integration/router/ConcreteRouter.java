@@ -5,6 +5,7 @@ import java.util.Collection;
 
 import back_end.model.robot.IViewableRobot;
 import back_end.model.states.IViewableVariableState;
+import back_end.model.states.methodhistory.IViewableUserInputHistory;
 import front_end.acceptor.IErrorAcceptor;
 import front_end.acceptor.IFunctionAcceptor;
 import front_end.acceptor.IHistoryAcceptor;
@@ -81,7 +82,7 @@ class ConcreteRouter implements IRouter {
 	}
 
 	@Override
-	public void distributeHistory(String aHistory) {
+	public void distributeHistory(IViewableUserInputHistory aHistory) {
 		myHistoryAcceptors.forEach( c -> c.giveHistory(aHistory) );
 	}
 

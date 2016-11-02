@@ -1,5 +1,6 @@
 package front_end.acceptor;
 
+import back_end.model.states.methodhistory.IViewableUserInputHistory;
 
 /**
  * Defines the HistoryAcceptor Property. 
@@ -15,6 +16,6 @@ public interface IHistoryAcceptor {
 	 * Pushes specified History to robots
 	 */
 
-	public void giveHistory(String aHistory);
+	public void giveHistory(IViewableUserInputHistory aHistory);
 	
 }
