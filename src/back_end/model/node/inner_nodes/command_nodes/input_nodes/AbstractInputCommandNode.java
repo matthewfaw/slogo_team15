@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import back_end.model.command.ICommand;
+import back_end.model.command.ICommandTurtle;
 import back_end.model.exception.InvalidInputNumberException;
 import back_end.model.exception.InvalidNodeUsageException;
 import back_end.model.node.EvaluationState;
@@ -72,8 +73,17 @@ public abstract class AbstractInputCommandNode extends AbstractCommandNode {
     public void resetStatesForNewTurtle() throws InvalidNodeUsageException
     {
 		if (myCommand instanceof ICommandTurtle) {
-			super.setState(NodeState.AVAILABLE);
-			myEvaluationState = EvaluationState.UNEVALUATED;
+			getScopeController().setNextTurtleAsActive();
+			if (!getScopeController().activeTurtleIndexHasBeenSetToStart()) {
+				resetStates();
+			}
 		}
     }
+	
+	@Override
+	public void resetStates() throws InvalidNodeUsageException
+	{
+		super.setState(NodeState.AVAILABLE);
+		myEvaluationState = EvaluationState.UNEVALUATED;
+	}
 }

@@ -43,4 +43,13 @@ public class ScopeController {
 	public void removeNestedScope() {
 		myEnvironment.removeNestedScope();
 	}
+	
+	public void setNextTurtleAsActive()
+	{
+		myRobotController.setNextTurtleAsActive();
+	}
+	public boolean activeTurtleIndexHasBeenSetToStart()
+	{
+		return myRobotController.activeTurtleIndexHasBeenSetToStart();
+	}
 }

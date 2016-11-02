@@ -14,4 +14,5 @@ public interface INode extends IReadableInput {
 
     public abstract void eval () throws InvalidInputNumberException, InvalidNodeUsageException;
 
+	public abstract void resetStates() throws InvalidNodeUsageException;
 }

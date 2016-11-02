@@ -34,16 +34,17 @@ public class ModelController implements IObserver {
 	private IViewableBackground myBackgroundInformation;
 	private IViewableUserInputHistory myUserInputHistory; 
 	
-/*	public static void main(String[] args) throws InvalidNodeUsageException
+	/*public static void main(String[] args) throws InvalidNodeUsageException
 	{
-		Environment environment = Environment.getInstance();
-		IRobot robot = new RobotController();
-		ScopeController scopeController = new ScopeController();
+		Environment environment = new Environment();
+		RobotController robot = new RobotController();
+		ScopeController scopeController = new ScopeController(environment, robot);
 		TextParser textParser = new TextParser(scopeController, environment, robot);
 
 //		String aString = "if [ make :x 5 ] [ to :haha [ :a ] [ fd :a ] ] haha [ fd 50 ]";
 //		String aString = "to :derp [ :a :b ] [ make :c :a make :d :b ] derp [ 13 56 ]";
-		String aString = "showturtle";
+//		String aString = "showturtle";
+		String aString = "fd 50";
 		
 		
 		AbstractSyntaxTree ast;

@@ -48,5 +48,4 @@ public abstract class AbstractInnerNode implements INode {
 	public String getName() throws InvalidNodeUsageException {
 		throw new InvalidNodeUsageException("InnerNodes nodes do not have a name");
 	}
-
 }

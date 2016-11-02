@@ -52,5 +52,8 @@ public abstract class AbstractDummyNode implements INode {
     	return DEFAULT_RETURN_VALUE;
 	}
 
-
+	public void resetStates() throws InvalidNodeUsageException
+	{
+		throw new InvalidNodeUsageException("You shouldn't be accessing dummy node states you dummy");
+	}
 }
