@@ -7,6 +7,7 @@ import java.util.Map;
 
 import back_end.model.exception.InvalidNodeUsageException;
 import back_end.model.node.IReadableInput;
+import back_end.model.robot.RobotController;
 import back_end.model.states.background.BackgroundInformation;
 import back_end.model.states.background.IModifiableBackground;
 import integration.observe.Observable;
@@ -29,10 +30,12 @@ public class Environment extends Observable implements IModifiableEnvironmentSta
 	private FunctionScope myCurrentScope;
 	private Map<String, Method> myMethodMap;
 	private BackgroundInformation myBackgroundInformation;
+	private RobotController myRobotController;
 	
-	public Environment() {
+	public Environment(RobotController aRobot) {
 		myMethodMap = new HashMap<String, Method>();
 		myBackgroundInformation = new BackgroundInformation();
+		myRobotController = aRobot;
 	}
 	
 	/**SCOPE CONTROLLING**/
@@ -118,6 +121,20 @@ public class Environment extends Observable implements IModifiableEnvironmentSta
 	@Override
 	public BackgroundInformation getBackgroundInformation() {
 		return myBackgroundInformation;
+	}
+	
+	/**TURTLE INFORMATION**/
+	
+	public void clearActiveTurtles() {
+		myRobotController.clearActiveTurtles();
+	}
+	
+	public void addActiveTurtle(int aTurtleID) {
+		myRobotController.addActiveTurtle(aTurtleID);
+	}
+	
+	public void addTurtle(int aTurtleID) {
+		myRobotController.addTurtle(aTurtleID);
 	}
 
 
