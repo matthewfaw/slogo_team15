@@ -41,18 +41,7 @@ public class ModelController implements IObserver, IColorSender, IRobotSender {
 	
 	public ModelController(IRouter aRobotRouter) {
 		myRouter = aRobotRouter;
-		//myRobot = new RobotController();
-		//myEnvironment = new Environment(myRobot);
-		//myRobot.registerObserver(this);
-		//myBackgroundInformation = myEnvironment.getBackgroundInformation();
-		//myUserInputHistory = new UserInputHistory();
-		//distributeRobot(myRobot.getMostRecentRobot());
-		//distributeVariableState(myEnvironment);
-		//distributeBackground(myBackgroundInformation);
-		//distributeColorPalette(myBackgroundInformation);
-		//distributeHistory(myUserInputHistory);
-		//myScopeController = new ScopeController(myEnvironment, myRobot);
-		//myParser = new TextParser(myScopeController, myEnvironment, myRobot);
+
 		reset();
 	}
 	

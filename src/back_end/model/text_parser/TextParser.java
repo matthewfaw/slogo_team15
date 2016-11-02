@@ -35,10 +35,12 @@ public class TextParser {
     private ResourceBundle mySyntaxResources;
     private NodeFactory myFactory;
     private Languages myLanguage;
+    private Environment myEnvironment;
 
     public TextParser (ScopeController aScopeController, Environment aEnvironment, IRobot aRobot) {
         mySyntaxResources = PropertyResourceBundle.getBundle(PACKAGE + SYNTAX);
         myLanguage = Languages.DEFAULT;
+        myEnvironment = aEnvironment;
         myFactory = new NodeFactory(aScopeController, mySyntaxResources, aEnvironment, aRobot);
         setLanguage(myLanguage);
     }
@@ -86,10 +88,14 @@ public class TextParser {
     private void createNodes (String aText) throws UnexpectedCharacterException, UnexpectedCommandException {
         Map<Integer, List<String>> wordMap = makeExecutableList(aText);
         for (Integer lineNumber : wordMap.keySet()) {
+        	INode previousNode = null;
         	for (String word : wordMap.get(lineNumber)) {
-        		myNodes.push(getNode(lineNumber, word));
+
+        		if (!myNodes.isEmpty()) previousNode = myNodes.peek();
+        		myNodes.push(getNode(lineNumber, word, previousNode));
         	}
         }
+        myEnvironment.clearMethods();
     }
 
     /**
@@ -108,8 +114,8 @@ public class TextParser {
      * @throws IllegalAccessException
      * @throws InstantiationException
      */
-    private INode getNode (Integer aLineNumber, String aWord) throws UnexpectedCharacterException, UnexpectedCommandException {
-        return myFactory.makeNode(aLineNumber, aWord);
+    private INode getNode (Integer aLineNumber, String aWord, INode aPreviousNode) throws UnexpectedCharacterException, UnexpectedCommandException {
+        return myFactory.makeNode(aLineNumber, aWord, aPreviousNode);
     }
 
     /**
