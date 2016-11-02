@@ -5,7 +5,7 @@ import back_end.model.node.IReadableInput;
 import back_end.model.robot.IRobot;
 import back_end.model.states.IModifiableEnvironmentState;
 
-public class TellCommand implements ICommand {
+public class TellCommand implements ICommand, ICommandTurtle {
 	
 	private IRobot myRobot;
 	
@@ -19,7 +19,7 @@ public class TellCommand implements ICommand {
 		for (int i = 0; i < aList.length; i++) {
 			array[i] = (int) aList[i].getValue();
 		}
-		myRobot.setActiveTurtles(array, true);
+		//myRobot.setActiveTurtles(array, true);
 		return aList[0].getValue();
 	}
 

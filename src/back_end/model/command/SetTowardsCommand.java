@@ -6,7 +6,7 @@ import back_end.model.states.IModifiableEnvironmentState;
 
 import back_end.model.exception.InvalidNodeUsageException;
 
-public class SetTowardsCommand implements ICommand {
+public class SetTowardsCommand implements ICommand, ICommandTurtle {
     private IRobot myRobot;
 
     public SetTowardsCommand(IRobot aRobot, IModifiableEnvironmentState aEnvironment, String aCommandName) {
@@ -28,3 +28,4 @@ public class SetTowardsCommand implements ICommand {
         return angleDisplacement;
     }
 }
+ 

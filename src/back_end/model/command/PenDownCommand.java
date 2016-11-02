@@ -5,7 +5,7 @@ import back_end.model.robot.IRobot;
 import back_end.model.states.IModifiableEnvironmentState;
 
 import back_end.model.exception.InvalidNodeUsageException;
-public class PenDownCommand implements ICommand {
+public class PenDownCommand implements ICommand, ICommandTurtle {
 
     private IRobot myRobot;
 

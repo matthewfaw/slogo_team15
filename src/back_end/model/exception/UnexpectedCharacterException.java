@@ -1,25 +1,30 @@
 package back_end.model.exception;
 
-public class UnexpectedCharacterException extends Exception {
+public class UnexpectedCharacterException extends Exception implements IExceptionDebugger {
 
     /**
      * 
      */
     private static final long serialVersionUID = 1L;
+    
+    private int myLineNumber;
 
     public UnexpectedCharacterException () {
     }
 
-    public UnexpectedCharacterException (String message) {
-        super(message);
+    public UnexpectedCharacterException (String aMessage) {
+        super(aMessage);
     }
 
-    public UnexpectedCharacterException (Throwable cause) {
-        super(cause);
+    public UnexpectedCharacterException (String aMessage, int aLineNumber) {
+    	super(aMessage);
+    	myLineNumber = aLineNumber;
     }
+    
 
-    public UnexpectedCharacterException (String message, Throwable cause) {
-        super(message, cause);
-    }
-
+	@Override
+	public int getErrorLineNumber() {
+		return myLineNumber;
+	}
+	
 }
