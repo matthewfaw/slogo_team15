@@ -87,7 +87,9 @@ public class TextParser {
         Map<Integer, List<String>> wordMap = makeExecutableList(aText);
         for (Integer lineNumber : wordMap.keySet()) {
         	for (String word : wordMap.get(lineNumber)) {
-        		myNodes.push(getNode(lineNumber, word));
+        		INode previousNode = null;
+        		if (!myNodes.isEmpty()) previousNode = myNodes.peek();
+        		myNodes.push(getNode(lineNumber, word, previousNode));
         	}
         }
     }
@@ -108,8 +110,8 @@ public class TextParser {
      * @throws IllegalAccessException
      * @throws InstantiationException
      */
-    private INode getNode (Integer aLineNumber, String aWord) throws UnexpectedCharacterException, UnexpectedCommandException {
-        return myFactory.makeNode(aLineNumber, aWord);
+    private INode getNode (Integer aLineNumber, String aWord, INode aPreviousNode) throws UnexpectedCharacterException, UnexpectedCommandException {
+        return myFactory.makeNode(aLineNumber, aWord, aPreviousNode);
     }
 
     /**
