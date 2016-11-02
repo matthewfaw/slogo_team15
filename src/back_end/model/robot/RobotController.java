@@ -3,7 +3,9 @@ package back_end.model.robot;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Set;
 import java.util.Collection;
+import java.util.Collections;
 
 import integration.drawing.PenInformation;
 import integration.observe.Observable;
@@ -57,8 +59,20 @@ public class RobotController extends Observable implements IRobot {
 	
 	public void setNextTurtleAsActive()
 	{
-		int newIndex = (myCurrentlyActiveTurtleIndex + 1) % myActiveTurtles.size();
+		Integer[] indices = myActiveTurtles.keySet().toArray(new Integer[myActiveTurtles.keySet().size()]);
+		int newIndex = findNextIndexInArray(indices, myCurrentlyActiveTurtleIndex);
+		
 		setTurtleAsCurrentlyActive(newIndex);
+	}
+	
+	private int findNextIndexInArray(Integer[] indices, int indexToFind)
+	{
+		for (int i=0; i<indices.length; ++i) {
+			if (indices[i] == indexToFind) {
+				return indices[(i+1) % indices.length];
+			}
+		}
+		return -2;
 	}
 	
 	public int numberOfTurtlesCreated() {
@@ -67,7 +81,10 @@ public class RobotController extends Observable implements IRobot {
 	
 	public boolean activeTurtleIndexHasBeenSetToStart()
 	{
-		return myCurrentlyActiveTurtleIndex == 0;
+		ArrayList<Integer> indices = new ArrayList<Integer>(myActiveTurtles.keySet());
+		int firstIndex = indices.get(0);
+		return myCurrentlyActiveTurtleIndex == firstIndex;
+//		return myCurrentlyActiveTurtleIndex == INITIAL_TURTLE_INDEX;
 	}
 	
 	public boolean containsTurtles(int aIndex) {

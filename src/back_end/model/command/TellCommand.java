@@ -24,7 +24,9 @@ public class TellCommand implements ICommand {
 				}
 			}
 			myEnvironment.addActiveTurtle(currentTurtleID);
-			myEnvironment.setTurtleAsCurrentlyActive(currentTurtleID);
+			if (i == 0) {
+				myEnvironment.setTurtleAsCurrentlyActive(currentTurtleID);
+			}
 		}
 		return aList[aList.length - 1].getValue();
 	}
