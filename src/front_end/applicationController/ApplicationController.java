@@ -182,6 +182,7 @@ public class ApplicationController {
     }
     private void collectPenInfo (Stage stage) {
         stage.hide();
+        myPenPopup.buildPenInfo();
     }
     
     private void popupPenSelector () {
