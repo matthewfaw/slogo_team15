@@ -34,6 +34,8 @@ public interface IModifiableEnvironmentState extends IViewableVariableState, IMo
 	
 	public int numberOfTurtlesCreated();
 	
+	public void setPaletteColors(int aIndex, int aRed, int aBlue, int aGreen);
+	
 	
 	
 }

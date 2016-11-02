@@ -27,18 +27,22 @@ public class PenInformation extends Observable {
 	
 	public void setLineStyle(LineStyleSpec aLineStyle) {
 		myLineStyle = aLineStyle;
+		notifyObservers();
 	}
 	
 	public void setPenThickness(int aPenThickness) {
 		myPenThickness = aPenThickness;
+		notifyObservers();
 	}
 	
 	public void setColorID(int aColorID) {
 		myColorID = aColorID;
+		notifyObservers();
 	}
 	
 	public void setPenUp(boolean aPenUp) {
 		myPenUp = aPenUp;
+		notifyObservers();
 	}
 	
 	
