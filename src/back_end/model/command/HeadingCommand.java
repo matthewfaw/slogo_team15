@@ -16,7 +16,7 @@ public class HeadingCommand implements ICommand, ICommandTurtle {
 
     @Override
     public double eval (IReadableInput ... aList) throws InvalidNodeUsageException {
-        return myRobot.getRotation();
+        return myRobot.getCurrentRotation();
     }
 
 }

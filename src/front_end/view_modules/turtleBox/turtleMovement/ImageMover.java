@@ -62,6 +62,6 @@ public class ImageMover {
 	}
 	
 	private void rotate(){
-		myImageView.setRotate(-myRobot.getRotation());
+		myImageView.setRotate(-myRobot.getCurrentRotation());
 	}
 }

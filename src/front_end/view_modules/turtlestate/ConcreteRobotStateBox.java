@@ -94,7 +94,7 @@ public class ConcreteRobotStateBox implements IRobotStateBox {
 	private void build(){
 		myIDLabel.setText( "ID: " + Integer.toString( myRobot.getTurtleID() ) ); 
 		myCoordinatesLabel.setText( buildCoordinateString(myRobot.getCurrentCoordinate().getX(), myRobot.getCurrentCoordinate().getY()) );
-		myBearingLabel.setText("Angle: " + myRobot.getRotation() + " deg");
+		myBearingLabel.setText("Angle: " + myRobot.getCurrentRotation() + " deg");
 		
 		if(myRobot.getPenInformation().isPenUp())
 			myPenGroup.selectToggle(myPenUpButton);

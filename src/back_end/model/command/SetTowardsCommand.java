@@ -22,7 +22,7 @@ public class SetTowardsCommand implements ICommand, ICommandTurtle {
     		newAngle += Math.toDegrees(Math.PI);
     	}
     	
-    	double angleDisplacement = newAngle - (myRobot.getRotation() + Math.PI/2);
+    	double angleDisplacement = newAngle - (myRobot.getCurrentRotation() + Math.PI/2);
     	myRobot.setRotation(newAngle - Math.toDegrees(Math.PI/2));
 
         return angleDisplacement;
