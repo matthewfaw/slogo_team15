@@ -2,6 +2,7 @@ package integration.router;
 
 import back_end.model.robot.IViewableRobot;
 import back_end.model.states.IViewableVariableState;
+import back_end.model.states.methodhistory.IViewableUserInputHistory;
 
 
 /**
@@ -29,7 +30,7 @@ public interface IRouter {
 	/**
 	 * distributes History to modules decided upon inside Router
 	 */
-	public void distributeHistory(String aHistory);
+	public void distributeHistory(IViewableUserInputHistory aHistory);
 	
 	/**
 	 * distributes Function to modules decided upon inside Router

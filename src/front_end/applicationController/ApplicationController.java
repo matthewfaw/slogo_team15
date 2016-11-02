@@ -104,7 +104,6 @@ public class ApplicationController {
 
         try {
             myModel.userInputToModel(sb.toString());
-            myHistoryModule.giveHistory(sb.toString());
         }
         catch (InstantiationException 
         		| IllegalAccessException 
