@@ -49,8 +49,7 @@ public class PenPopup implements IPenPopup {
     private IColorModule myColorModule;
     private ComboBox<Object> paletteColor;
     
-    @Override
-    public void initPopup (IColorModule aColorModule) {
+    public PenPopup(IColorModule aColorModule){
         myOrder = new VBox(SPACING);
         layout = new BorderPane();
         layout.setStyle("-fx-background-color: paleturquoise;");

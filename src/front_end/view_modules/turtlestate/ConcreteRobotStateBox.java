@@ -3,7 +3,6 @@ package front_end.view_modules.turtlestate;
 import java.util.ResourceBundle;
 import back_end.model.robot.IViewableRobot;
 import front_end.view_modules.image_color_module.interfaces.IImageColorModule;
-import front_end.view_modules.image_color_module.interfaces.IImageModule;
 import front_end.view_modules.penProperties.PenPopup;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
@@ -49,7 +48,7 @@ public class ConcreteRobotStateBox implements IRobotStateBox {
         myRobot = aViewRobot;
         myRobot.registerObserver(this);
         
-        myPenPopup = new PenPopup();
+        myPenPopup = new PenPopup( aImageMap );
 
         myBox = new VBox(0);
         
@@ -134,7 +133,6 @@ public class ConcreteRobotStateBox implements IRobotStateBox {
     
     private void popupPenSelector () {
         Stage stage = new Stage();
-        myPenPopup.initPopup(myImageMap);
         Scene myScene = myPenPopup.getScene();
         stage.setScene(myScene);
         stage.show();
