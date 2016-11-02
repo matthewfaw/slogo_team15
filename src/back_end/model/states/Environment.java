@@ -159,5 +159,9 @@ public class Environment extends Observable implements IModifiableEnvironmentSta
 	public int numberOfTurtlesCreated() {
 		return myRobotController.numberOfTurtlesCreated();
 	}
+	
+	public void setPaletteColors(int aIndex, int aRed, int aBlue, int aGreen) {
+		myBackgroundInformation.setPaletteColor(aIndex, aRed, aBlue, aGreen);
+	}
 
 }

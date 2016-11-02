@@ -7,15 +7,15 @@ import back_end.model.states.IModifiableEnvironmentState;
 
 public class SetPaletteCommand implements ICommand, ICommandTurtle {
 	
-	private IRobot myRobot;
+	private IModifiableEnvironmentState myEnvironment;
 	
 	public SetPaletteCommand(IRobot aRobot, IModifiableEnvironmentState aEnvironment, String aCommandName) {
-		myRobot = aRobot;
+		myEnvironment = aEnvironment;
 	}
 
 	@Override
 	public double eval(IReadableInput... aList) throws InvalidNodeUsageException {
-		myRobot.getPenInformation().setPenThickness((int) aList[0].getValue());
+		myEnvironment.setPaletteColors((int) aList[0].getValue(), (int) aList[1].getValue(), (int) aList[2].getValue(), (int) aList[3].getValue()); 
 		return aList[0].getValue();
 	}
 
