@@ -16,7 +16,7 @@ public class SetBackgroundCommand implements ICommand {
 	@Override
 	public double eval(IReadableInput... aList) throws InvalidNodeUsageException {
 		myEnvironment.setBackgroundColor((int) aList[0].getValue());
-		return (double) aList[0].getValue();
+		return aList[0].getValue();
 	}
 	
 	

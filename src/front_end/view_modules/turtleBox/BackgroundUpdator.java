@@ -43,14 +43,16 @@ class BackgroundUpdator implements IObserver {
 		myColorSender = aColorSender;
 		
 		myColorPicker.setOnAction( event -> {
-			String rgb = "#" + myColorPicker.getValue().toString().substring(2);			
+			String rgb = "#" + myColorPicker.getValue().toString().substring(2, 8);
+			System.out.println(rgb);
 			myColorSender.setBackground( rgb );
 			});
 	}
 	
 	@Override
 	public void update() {
-		myColorPicker.setValue( Color.web(myObservableBackground.getBackgroundColor()) );
+		System.out.println(myObservableBackground.getBackgroundColor());
+		myColorPicker.setValue( Color.valueOf(myObservableBackground.getBackgroundColor()) );
 		myPane.setBackground(new Background(new BackgroundFill(myColorPicker.getValue(), CornerRadii.EMPTY, Insets.EMPTY)));
 	}
 

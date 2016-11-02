@@ -84,7 +84,11 @@ public class ApplicationController {
         myVariableViewer = myAppScene.getMyVariableViewer();
         myHelpPage = myAppScene.getMyHelpPage();
         myRoot = myAppScene.getMyRoot();
+        
         myTurtleBox = myAppScene.getMyTurtleBox();
+        myTurtleBox.giveColorSender(myModel);
+        myTurtleBox.giveRobotSender(myModel);
+        
         myScriptViewer = myAppScene.getMyFunctionViewer();
         myImageColorModule = myAppScene.getMyShapeColorModule();
         myStatesBox = myAppScene.getMyStatesBox();

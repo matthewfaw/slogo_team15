@@ -75,6 +75,7 @@ class ConcreteTurtleBox implements ITurtleBox {
 		myBackgroundColorPicker = myBU.getColorPicker();
         mySandbox.getChildren().add(myBackgroundColorPicker);
 	}
+	
 	@Override
 	public void giveRobotSender(IRobotSender aRoboSender) {
 	}
