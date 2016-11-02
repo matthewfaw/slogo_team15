@@ -26,6 +26,7 @@ class AvailableNodeFinder {
 	}
 	private INode getNextUnvisitedChild(AbstractInnerNode aNode) throws InvalidNodeUsageException 
 	{
+		if (aNode.getChildren() == null) return new NullNode();
 		for (INode child: aNode.getChildren()) {
 			if (!child.isVisited()) {
 				return child;
