@@ -27,7 +27,8 @@ public class Main extends Application {
         s.setTitle(myApplicationController.getTitle());
 
         Scene scene = myApplicationController.getScene();
-
+        s.setResizable(false);
+        
         s.setScene(scene);
         s.show();
 

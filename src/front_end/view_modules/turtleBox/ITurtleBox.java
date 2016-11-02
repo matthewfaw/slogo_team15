@@ -7,7 +7,7 @@ import integration.observe.IObserver;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.ImageView;
 
-public interface ITurtleBox extends IViewModule, IObserver, IRobotAcceptor {
+public interface ITurtleBox extends IViewModule, IRobotAcceptor {
 
     public void initBox (int aWidth, int aHeight);
 

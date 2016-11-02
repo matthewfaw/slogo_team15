@@ -61,7 +61,6 @@ public class ApplicationController {
     private IHistoryModule myHistoryModule;
     private IPenPopup myPenPopup;
     
-    
     private String TITLE = "SLOGO";
 
     public ApplicationController (int aWidth, int aHeight) {
