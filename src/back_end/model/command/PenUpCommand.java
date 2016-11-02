@@ -6,7 +6,7 @@ import back_end.model.states.IModifiableEnvironmentState;
 
 import back_end.model.exception.InvalidNodeUsageException;
 
-public class PenUpCommand implements ICommand {
+public class PenUpCommand implements ICommand, ICommandTurtle {
 
     private IRobot myRobot;
 

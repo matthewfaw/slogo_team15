@@ -1,26 +1,30 @@
 package back_end.model.exception;
 
-public class SameMethodNameException extends Exception {
+public class SameMethodNameException extends Exception implements IExceptionDebugger {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	private int myLineNumber;
 
     public SameMethodNameException () {
     }
 
-    public SameMethodNameException (String message) {
-        super(message);
+    public SameMethodNameException (String aMessage) {
+        super(aMessage);
     }
 
-    public SameMethodNameException (Throwable cause) {
-        super(cause);
-    }
+	public SameMethodNameException (String aMessage, int aLineNumber) {
+		super(aMessage);
+		myLineNumber = aLineNumber;
+	}
 
-    public SameMethodNameException (String message, Throwable cause) {
-        super(message, cause);
-    }
+	@Override
+	public int getErrorLineNumber() {
+		return myLineNumber;
+	}
 
 
 }

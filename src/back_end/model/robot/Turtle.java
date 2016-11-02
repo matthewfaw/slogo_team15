@@ -80,6 +80,7 @@ public class Turtle extends Observable implements IViewableRobot {
 	public Point getPreviousCoordinate() {
 		return getNewPoint(myPreviousXPosition, myPreviousYPosition);
 	}
+	
 	private Point getNewPoint(double aX, double aY)
 	{
     	Point coordinates = new Point(); 

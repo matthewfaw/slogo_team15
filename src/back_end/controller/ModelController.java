@@ -43,7 +43,7 @@ public class ModelController implements IObserver {
 
 //		String aString = "if [ make :x 5 ] [ to :haha [ :a ] [ fd :a ] ] haha [ fd 50 ]";
 //		String aString = "to :derp [ :a :b ] [ make :c :a make :d :b ] derp [ 13 56 ]";
-		String aString = "towards 0 0";
+		String aString = "showturtle";
 		
 		
 		AbstractSyntaxTree ast;
