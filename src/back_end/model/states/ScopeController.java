@@ -55,11 +55,11 @@ public class ScopeController {
 	public void addTemporaryTurtleScope()
 	{
 		myRobotController.addTemporaryTurtleScope();
-		myEnvironment.notifyObservers();
+//		myEnvironment.notifyObservers();
 	}
 	public void removeTemporaryTurtleScope()
 	{
 		myRobotController.removeTemporaryTurtleScope();
-		myEnvironment.notifyObservers();
+//		myEnvironment.notifyObservers();
 	}
 }

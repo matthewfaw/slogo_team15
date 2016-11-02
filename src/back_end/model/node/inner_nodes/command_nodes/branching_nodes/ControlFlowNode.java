@@ -41,6 +41,10 @@ public class ControlFlowNode extends AbstractBranchNode {
 					myFirstTimeCalled = false;
 
 					constructScope();
+				} else {
+					if (getCommand() instanceof AskCommand) {
+						super.getScopeController().removeTemporaryTurtleScope();
+					}
 				}
 				super.evalCondition(myCommand);
 				break;

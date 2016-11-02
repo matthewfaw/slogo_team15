@@ -38,15 +38,16 @@ public class ModelController implements IObserver {
 	
 	/*public static void main(String[] args) throws InvalidNodeUsageException
 	{
-		Environment environment = new Environment();
 		RobotController robot = new RobotController();
+		Environment environment = new Environment(robot);
 		ScopeController scopeController = new ScopeController(environment, robot);
 		TextParser textParser = new TextParser(scopeController, environment, robot);
 
 //		String aString = "if [ make :x 5 ] [ to :haha [ :a ] [ fd :a ] ] haha [ fd 50 ]";
 //		String aString = "to :derp [ :a :b ] [ make :c :a make :d :b ] derp [ 13 56 ]";
 //		String aString = "showturtle";
-		String aString = "fd 50";
+//		String aString = "fd 50";
+		String aString = "ask [ 2 ] [ fd 30 ] bk 40";
 		
 		
 		AbstractSyntaxTree ast;
@@ -61,8 +62,7 @@ public class ModelController implements IObserver {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
-				| NoSuchMethodException | SecurityException | ClassNotFoundException | UnexpectedCharacterException
+		} catch (IllegalArgumentException | SecurityException | UnexpectedCharacterException
 				| UnexpectedCommandException | EmptyInputException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();

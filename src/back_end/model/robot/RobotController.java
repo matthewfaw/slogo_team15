@@ -26,6 +26,7 @@ public class RobotController extends Observable implements IRobot {
 	public RobotController() {
 		myActiveTurtleStack = new Stack<HashMap<Integer, Turtle>>();
 		myActiveTurtleStack.push(new HashMap<Integer, Turtle>());
+		myCurrentActiveTurtleStack = new Stack<Turtle>();
 
 		myTurtles = new HashMap<Integer, Turtle>();
 		myActiveTurtles = myActiveTurtleStack.peek();
