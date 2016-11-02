@@ -9,6 +9,14 @@ class MovementCalculator {
 		myHeight = aHeight;
 	}
 	
+	int getWidth() {
+		return myWidth;
+	}
+	
+	int getHeight() {
+		return myHeight;
+	}
+	
 	double translateXCoordinate(double aX) {
     	return aX + myWidth / 2;
     }

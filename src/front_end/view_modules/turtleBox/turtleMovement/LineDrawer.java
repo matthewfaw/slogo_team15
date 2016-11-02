@@ -21,6 +21,10 @@ class LineDrawer {
 	}
 	
 	void draw() {
+		if(!myRobot.getPenInformation().isPenUp()) drawDefault();
+	}
+	
+	void drawDefault() {
 		myGC.setStroke( Color.BLACK ); //myColorMap.getColor(myRobot.getPenInformation().getColorID()));
 		myGC.setLineWidth(5);
 		myGC.strokeLine(
@@ -29,8 +33,6 @@ class LineDrawer {
 				myMoveCalc.translateXCoordinate(myRobot.getCurrentCoordinate().getX()), 
 				myMoveCalc.translateYCoordinate(myRobot.getCurrentCoordinate().getY()));
 	}
-	
-	
 	
 	
 }
