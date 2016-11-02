@@ -1,13 +1,10 @@
 package front_end.view_modules.history;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.ResourceBundle;
 import back_end.model.states.methodhistory.IViewableUserInputHistory;
 import integration.observe.IObserver;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
@@ -22,7 +19,6 @@ class ConcreteHistoryModule implements IHistoryModule, IObserver {
     private IViewableUserInputHistory myHistory;
 
     private static final String TITLE = "History Module";
-    private ResourceBundle myGUIResources;
 
     private final int SPACING = 10;
     private List<String> myCurFunction;
@@ -40,10 +36,6 @@ class ConcreteHistoryModule implements IHistoryModule, IObserver {
 
         myModule.getChildren().addAll(myToolbar, myHistoryColumn);
         myScroller.setContent(myModule);
-
-        String initFile = "resources.frontend";
-        String fileName = "/EnglishButtonState";
-        myGUIResources = ResourceBundle.getBundle(initFile + fileName);
     }
 
     public ConcreteHistoryModule (int aWidth, int aHeight) {
@@ -54,23 +46,12 @@ class ConcreteHistoryModule implements IHistoryModule, IObserver {
     private HBox createHBox (String myString) {
         HBox myHBox = new HBox(SPACING);
         Label myLabel = new Label(myString.trim());
-        Button myButton = makeButton(myString);
-        myButton.setOnMouseClicked(e -> load(myString));
-        myHBox.getChildren().addAll(myLabel, myButton);
+        myHBox.getChildren().addAll(myLabel);
         return myHBox;
-    }
-
-    private void load (String myString) {
-        myCurFunction = Arrays.asList(myString.split("\n"));
     }
 
     public List<String> getCurFunction () {
         return myCurFunction;
-    }
-
-    private Button makeButton (String myFunctionString) {
-        Button myButton = new Button(myGUIResources.getString("HistoryButton"));
-        return myButton;
     }
 
     @Override
