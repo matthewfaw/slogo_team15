@@ -58,15 +58,14 @@ class ConcreteTextEditor implements ITextEditor {
 
     @Override
     public void highlightLine (Color color, int line) {
-        if (line >= myLastIndex)
-            return;
+        if (line > myLastIndex && line <= 0) return;
 
         Background highlight = new Background(new BackgroundFill(
                                                                  color,
                                                                  CornerRadii.EMPTY,
                                                                  Insets.EMPTY));
 
-        myRows.get(line).setBackground(highlight);
+        myRows.get(line-1).setBackground(highlight);
     }
 
     @Override

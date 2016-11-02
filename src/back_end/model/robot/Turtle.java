@@ -50,6 +50,7 @@ public class Turtle extends Observable implements IViewableRobot {
     }
 
     public void setRotation (double r) {
+    	myPreviousRotation = myRotation;
         myRotation = r % 360;
         notifyObservers();
 
