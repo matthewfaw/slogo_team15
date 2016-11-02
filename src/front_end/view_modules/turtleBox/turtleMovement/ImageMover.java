@@ -46,7 +46,13 @@ public class ImageMover implements IDrawer {
     public SequentialTransition move () {
         loadImage();
         checkVisibility();
-        return new SequentialTransition(myImageView, translate(), rotate());
+        if (previousXCoordinate() == currentXCoordinate() &&
+                previousYCoordinate() == currentYCoordinate()) {
+            return new SequentialTransition(myImageView, rotate());
+            }
+        else {
+            return new SequentialTransition(myImageView, translate(), rotate());
+        }
     }
 
     private void loadImage () {
@@ -64,17 +70,14 @@ public class ImageMover implements IDrawer {
     private PathTransition translate () {
         Path path = new Path();
         PathTransition pt = new PathTransition();
-        if (previousXCoordinate() == currentXCoordinate() &&
-            previousYCoordinate() == currentYCoordinate()) {
-        }
-        else {
+
             MoveTo myMove = new MoveTo(previousXCoordinate(), previousYCoordinate());
             LineTo myLine = new LineTo(currentXCoordinate(), currentYCoordinate());
             path.getElements().addAll(myMove);
             path.getElements().add(myLine);
             System.out.println("y " + previousYCoordinate());
             pt = new PathTransition(Duration.millis(distance() * 50), path, myImageView);
-        }
+
         System.out.println("xprev " + previousXCoordinate());
         System.out.println("yprev " + previousYCoordinate());
         System.out.println("xcur " + currentXCoordinate());
@@ -107,7 +110,7 @@ public class ImageMover implements IDrawer {
         RotateTransition rt = new RotateTransition();
         if (myRobot.getCurrentRotation() != myRobot.getPreviousRotation()) {
             rt = new RotateTransition(Duration.seconds(3));
-            rt.setByAngle(-myRobot.getCurrentRotation());
+            rt.setByAngle(-myRobot.getCurrentRotation()+myRobot.getPreviousRotation());
         }
         else {
             rt = new RotateTransition(Duration.seconds(0));
