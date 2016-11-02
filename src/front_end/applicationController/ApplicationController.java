@@ -174,7 +174,7 @@ public class ApplicationController {
     }     
     
     private void configurePenPopup (Stage stage) {
-        //myPenPopup.onApplyPress(e -> myModel.setPenInformation(myPenPopUp.getTurtleID(), myPenPopUp.buildPenInfo()));
+        myPenPopup.onApplyPress(e -> myModel.setPenInformation(myPenPopup.getTurtleID(), myPenPopup.buildPenInfo()));
         myPenPopup.onClearPress(e -> clearPenSettings());
     }
     private void clearPenSettings () {
