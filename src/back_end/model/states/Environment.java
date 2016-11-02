@@ -43,11 +43,13 @@ public class Environment extends Observable implements IModifiableEnvironmentSta
 	
 	void addNestedScope() {
 		myCurrentScope.addNestedScope();
+		notifyObservers();
 	}
 	
 	
 	void removeNestedScope() {
 		myCurrentScope.removeNestedScope();
+		notifyObservers();
 	}
 	
 	public void setCurrentScope(FunctionScope aCurrentScope) {

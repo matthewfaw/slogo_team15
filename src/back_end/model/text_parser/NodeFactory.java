@@ -1,8 +1,6 @@
 package back_end.model.text_parser;
 
-import java.lang.reflect.InvocationTargetException;
 import java.text.MessageFormat;
-import java.util.MissingResourceException;
 import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
 
