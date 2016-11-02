@@ -100,6 +100,8 @@ public class NodeFactory {
     private String getPackagePath(String aGeneralNodeCategory) {
     	String packagePath = PACKAGE_NODE;
 		switch (aGeneralNodeCategory) {
+		case "DynamicReturnValue":
+			return packagePath + PACKAGE_INNER_NODE;
 			case "InputCommand": 
 			case "CommandDefinition":
 				return packagePath + PACKAGE_INNER_NODE + PACKAGE_INPUT_NODE;

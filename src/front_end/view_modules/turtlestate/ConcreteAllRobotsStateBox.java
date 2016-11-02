@@ -73,6 +73,7 @@ public class ConcreteAllRobotsStateBox implements IAllRobotsStateBox{
 	}
 	
 	private void switchStateBox(int aIndex){
+		if (!myStateBoxes.contains(aIndex)) return;
 		myStateBox.getChildren().clear();
 		myStateBox.getChildren().add(myStateBoxes.get(aIndex).getInstanceAsNode());
 	}
