@@ -1,7 +1,7 @@
 package back_end.model.command;
 
 import back_end.model.node.IReadableInput;
-import back_end.model.node.inner_nodes.list_nodes.ListNode;
+import back_end.model.node.dummy_nodes.NullNode;
 import back_end.model.robot.IRobot;
 import back_end.model.states.IModifiableEnvironmentState;
 

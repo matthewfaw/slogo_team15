@@ -14,7 +14,6 @@ public class ScopeController {
 	
 	private Stack<FunctionScope> myScopes;
 	private Environment myEnvironment; 
-	private List<IObserver> myObservers;
 	private RobotController myRobotController;
 	
 	public ScopeController(Environment aEnvironment, RobotController aRobotController) {	
@@ -51,5 +50,16 @@ public class ScopeController {
 	public boolean activeTurtleIndexHasBeenSetToStart()
 	{
 		return myRobotController.activeTurtleIndexHasBeenSetToStart();
+	}
+	
+	public void addTemporaryTurtleScope()
+	{
+		myRobotController.addTemporaryTurtleScope();
+//		myEnvironment.notifyObservers();
+	}
+	public void removeTemporaryTurtleScope()
+	{
+		myRobotController.removeTemporaryTurtleScope();
+//		myEnvironment.notifyObservers();
 	}
 }

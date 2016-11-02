@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import back_end.model.command.AskCommand;
 import back_end.model.command.ICommand;
 import back_end.model.command.ICommandBranch;
 import back_end.model.command.ICommandTurtle;
@@ -121,9 +122,20 @@ public abstract class AbstractBranchNode extends AbstractCommandNode {
 			getScopeController().setNextTurtleAsActive();
 			if (!getScopeController().activeTurtleIndexHasBeenSetToStart()) {
 				resetStates();
+			} else {
+				destructScope();
 			}
+		} else {
+			super.getScopeController().removeNestedScope();
 		}
     }
+	private void destructScope()
+	{
+		super.getScopeController().removeNestedScope();
+		if (getCommand() instanceof AskCommand) {
+			super.getScopeController().removeTemporaryTurtleScope();
+		}
+	}
 	
 	@Override
 	public void resetStates() throws InvalidNodeUsageException

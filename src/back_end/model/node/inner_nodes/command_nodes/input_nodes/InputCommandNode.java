@@ -18,6 +18,7 @@ public class InputCommandNode extends AbstractInputCommandNode {
 	@Override
 	public void setChildren(List<INode> aChildren) throws InvalidNodeUsageException 
 	{
+		if (aChildren.size() == 0) return;
 		//XXX: kinda hacky, should remove this
 		if (aChildren.get(0) instanceof ListNode) {
 			ListNode listNode = (ListNode) aChildren.get(0);

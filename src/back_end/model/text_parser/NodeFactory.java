@@ -1,8 +1,6 @@
 package back_end.model.text_parser;
 
-import java.lang.reflect.InvocationTargetException;
 import java.text.MessageFormat;
-import java.util.MissingResourceException;
 import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
 
@@ -10,6 +8,9 @@ import back_end.model.command.ICommand;
 import back_end.model.exception.UnexpectedCharacterException;
 import back_end.model.exception.UnexpectedCommandException;
 import back_end.model.node.INode;
+import back_end.model.node.IReadableInput;
+import back_end.model.node.dummy_nodes.NullNode;
+import back_end.model.node.inner_nodes.command_nodes.input_nodes.CommandDefinitionNode;
 import back_end.model.robot.IRobot;
 import back_end.model.states.Environment;
 import back_end.model.states.ScopeController;
@@ -58,10 +59,10 @@ public class NodeFactory {
 		myNumberOfInputsResources = PropertyResourceBundle.getBundle(PACKAGE_RESOURCE + NUMBER_OF_INPUTS);
 	}
 	
-	public INode makeNode(Integer aLineNumber, String aUserInputWord) throws UnexpectedCharacterException, UnexpectedCommandException {
+	public INode makeNode(Integer aLineNumber, String aUserInputWord, INode aPreviousNode) throws UnexpectedCharacterException, UnexpectedCommandException {
 			try {
 				String generalNodeCategory = translateInput(aUserInputWord, mySyntaxResources.getBaseBundleName());
-				String commandType = getCommandType(generalNodeCategory, aUserInputWord, aLineNumber);
+				String commandType = getCommandType(generalNodeCategory, aUserInputWord, aLineNumber, aPreviousNode);
 				ICommand commandClass = makeCommandClass(commandType, generalNodeCategory, aUserInputWord, aLineNumber);
 				int inputNumber = 0;
 				if (generalNodeCategory.equals("Variable") || generalNodeCategory.equals("Command")) {
@@ -113,8 +114,13 @@ public class NodeFactory {
 		}
     }
     
-    private String getCommandType(String aGeneralNodeCategory, String aUserInputWord, int aLineNumber) throws UnexpectedCharacterException {
-		if (aGeneralNodeCategory.equals("Command")) {
+    private String getCommandType(String aGeneralNodeCategory, String aUserInputWord, int aLineNumber, INode aPreviousNode) throws UnexpectedCharacterException {
+    	if ((aPreviousNode instanceof CommandDefinitionNode)) {
+    		String aWord = String.copyValueOf(aUserInputWord.toCharArray());
+    		aWord = aWord.replace(":", "");
+    		myEnvironment.assignMethod(aWord, new IReadableInput[0], (IReadableInput) new NullNode());
+    	}
+    	if (aGeneralNodeCategory.equals("Command")) {
 			String commandName = translateInput(aUserInputWord, myLanguage.getFileLocation());
 			if (commandName.equals("NO MATCH")) {
 				if (myEnvironment.getAllMethodNames().contains(aUserInputWord)) {
@@ -122,9 +128,8 @@ public class NodeFactory {
 				} else {
 					throw new UnexpectedCharacterException(MessageFormat.format(myErrorMessageResources.getString("UnexpectedCharacter"), aUserInputWord, aLineNumber), aLineNumber);
 				}
-			} else {
-				return translateInput(aUserInputWord, myLanguage.getFileLocation());
 			}
+			return translateInput(aUserInputWord, myLanguage.getFileLocation());
 		}
 		else if (aGeneralNodeCategory.equals("Variable")) {
 			return "RetrieveValue";

@@ -5,31 +5,30 @@ import back_end.model.node.IReadableInput;
 import back_end.model.robot.IRobot;
 import back_end.model.states.IModifiableEnvironmentState;
 
-public class TellCommand implements ICommand, ICommandTurtle {
+public class TellCommand implements ICommand {
 	
-	private IRobot myRobot;
 	private IModifiableEnvironmentState myEnvironment;
 	
 	public TellCommand(IRobot aRobot, IModifiableEnvironmentState aEnvironment, String aCommandName) {
-		myRobot = aRobot;
 		myEnvironment = aEnvironment;
 	}
 
 	@Override
 	public double eval(IReadableInput... aList) throws InvalidNodeUsageException {
-		return 0;
-		//for (int i = 0; i < aList.length; i++) {
-			//if (aList[i] >= //) {
-//				addTurtle(aTurtleIDs[i]);
-//			}
-//		}
-//		for (int i = 0; i < aTurtleIDs.length; i++) {
-//			myActiveTurtles.add(myTurtles.get(aTurtleIDs[i]));
-//		}
-//		myTellActiveTurtles.clear();
-//		myTellActiveTurtles.addAll(myActiveTurtles);
-//		currentTurtle = aTurtleIDs[aTurtleIDs.length - 1];
-//		}
+		myEnvironment.clearActiveTurtles();
+		for (int i = 0; i < aList.length; i++) {
+			int currentTurtleID = (int) aList[i].getValue();
+			for (int j = 1; j <= currentTurtleID; j++) {
+				if (!myEnvironment.containsTurtle(j)) {
+					myEnvironment.addTurtle(j);
+				}
+			}
+			myEnvironment.addActiveTurtle(currentTurtleID);
+			if (i == 0) {
+				myEnvironment.setTurtleAsCurrentlyActive(currentTurtleID);
+			}
+		}
+		return aList[aList.length - 1].getValue();
 	}
 
 }
