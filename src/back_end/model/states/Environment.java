@@ -11,7 +11,7 @@ import back_end.model.robot.RobotController;
 import back_end.model.robot.Turtle;
 import back_end.model.states.background.BackgroundInformation;
 import back_end.model.states.background.IModifiableBackground;
-import integration.observe.Observable;
+import integration.observe.AbstractObservable;
 
 /**
  * A singleton class that keeps track of current variables and methods associated with evaluation
@@ -26,7 +26,7 @@ import integration.observe.Observable;
  */
 
 
-public class Environment extends Observable implements IModifiableEnvironmentState, IViewableVariableState, IModifiableBackground {
+public class Environment extends AbstractObservable implements IModifiableEnvironmentState, IViewableVariableState, IModifiableBackground {
 
 	private FunctionScope myCurrentScope;
 	private Map<String, Method> myMethodMap;

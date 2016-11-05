@@ -2,15 +2,13 @@ package integration.observe;
 
 /**
  * This interface specifies the Observable property
- * 
- * Design Pattern - Observer:
- * http://www.oodesign.com/observer-pattern.html
- * 
- * It must keep a registry of observers to add and remove from
- * 
+ * <p>
+ * IMPLEMENTATION NOTE:
+ * It must keep a registry of observers to add and remove Observers. 
  * Every time this object changes state relevant to observers
  * it must notify its observers.
  * 
+ * @see integration.observe;
  * @author George Bernard, Hannah Fuchshuber
  */
 public interface IObservable {
@@ -18,6 +16,7 @@ public interface IObservable {
     /**
      * adds the specified observer to the registry
      * 
+     * @see IObserver
      * @param aObserver
      */
     public void registerObserver (IObserver aObserver);
@@ -25,6 +24,7 @@ public interface IObservable {
     /**
      * removes the specified observer from the registry
      * 
+     * @see IObserver
      * @param aObserver
      */
     public void removeObserver (IObserver aObserver);

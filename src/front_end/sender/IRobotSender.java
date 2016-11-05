@@ -9,6 +9,7 @@ import integration.drawing.PenInformation;
  * 
  * @see front_end.sender
  * @author George Bernard
+ * @author Hannah Fuchsuber
  */
 public interface IRobotSender {
 	

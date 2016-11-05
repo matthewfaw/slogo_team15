@@ -7,6 +7,7 @@ package front_end.sender;
  * 
  * @see front_end.sender
  * @author George Bernard
+ * @author Hannah Fuchsuber
  */
 public interface IColorSender {
 

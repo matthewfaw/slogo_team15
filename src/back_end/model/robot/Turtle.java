@@ -5,10 +5,10 @@ import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
 
 import integration.drawing.PenInformation;
-import integration.observe.Observable;
+import integration.observe.AbstractObservable;
 
 
-public class Turtle extends Observable implements IViewableRobot {
+public class Turtle extends AbstractObservable implements IViewableRobot {
 	
 	private static final String DEFAULT = "resources.defaultvalues.DefaultValues";
 

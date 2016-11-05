@@ -7,7 +7,7 @@ import back_end.model.robot.RobotController;
 import back_end.model.robot.Turtle;
 import integration.observe.IObservable;
 import integration.observe.IObserver;
-import integration.observe.Observable;
+import integration.observe.AbstractObservable;
 
 
 public class ScopeController {

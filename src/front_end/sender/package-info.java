@@ -20,5 +20,6 @@
  * package as a necessary step.
  * 
  * @author George Bernard
+ * @author Hannah Fuchsuber
  */
 package front_end.sender;
