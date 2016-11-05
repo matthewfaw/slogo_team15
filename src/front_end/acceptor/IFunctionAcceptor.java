@@ -6,7 +6,7 @@ import back_end.model.states.IViewableMethodState;
  * Defines the FunctionAcceptor Property. 
  * 
  * Implemented by any module that needs to have 
- * Functions pushed to it. 
+ * updating Functions pushed to it. 
  *  
  * @author George Bernard
  */

@@ -6,7 +6,7 @@ import back_end.model.exception.IExceptionDebugger;
  * Defines the ErrorAcceptor Property. 
  * 
  * Implemented by any module that needs to have 
- * Error Objects pushed to it. 
+ * updating Error Objects pushed to it. 
  *  
  * @author George Bernard
  */

@@ -6,7 +6,7 @@ import back_end.model.states.IViewableVariableState;
  * Defines the VariableAcceptor Property. 
  * 
  * Implemented by any module that needs to have 
- * variable state pushed to it. 
+ * updating variable state pushed to it. 
  * 
  * @author George Bernard
  */

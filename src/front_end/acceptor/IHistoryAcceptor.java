@@ -6,7 +6,7 @@ import back_end.model.states.methodhistory.IViewableUserInputHistory;
  * Defines the HistoryAcceptor Property. 
  * 
  * Implemented by any module that needs to have 
- * History pushed to it. 
+ * updating History pushed to it. 
  * 
  * @author George Bernard
  */
