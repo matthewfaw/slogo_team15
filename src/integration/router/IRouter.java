@@ -12,52 +12,93 @@ import front_end.sender.IRobotSender;
 
 
 /**
- *  Routes the relevant state objects from the back end to the front end
- *   
- *   Router must make final decision upon instantiation of which front end 
- *   modules set as destinations for distributions 
+ *  Routes the relevant state objects from the back end to the front end.
+ *  Middle Man to accommodate for multiple turtle/variable scenario.
+ *  <P>
+ *  IMPLEMENTATION NOTE:
+ *  Router must make final decision upon instantiation of which front end 
+ *  modules set as destinations for distributions.
  *   
  * @author George Bernard
  */
 public interface IRouter {
 
+	/**
+	 * distributes RobotSenders to front end elements
+	 * 
+	 * @see IRobotSender
+	 * @param aRoboSender
+	 */
 	public void distributeRobotSenders(IRobotSender aRoboSender);
 	
+	/**
+	 * distributes ColorSenders to front end elements
+	 * 
+	 * @see IColorSender
+	 * @param aColorSender
+	 */
 	public void distributeColorSenders(IColorSender aColorSender);
 	
 	/**
 	 * distributes Robot to modules decided upon inside Router
 	 * 
+	 * @see IViewableRobot
 	 * @param aViewRobot
 	 */
 	public void distributeRobot(IViewableRobot aViewRobot);
 	
 	/**
 	 * distributes VariableMap to modules decided upon inside Router
+	 * 
+	 * @see IViewableVariableState
+	 * @param aViewVariableState
 	 */
 	public void distributeVariableMap(IViewableVariableState aViewVariableState);
 	
 	/**
 	 * distributes History to modules decided upon inside Router
+	 * 
+	 * @see IViewableUserInputHistory
+	 * @see aHistory
 	 */
 	public void distributeHistory(IViewableUserInputHistory aHistory);
 	
 	/**
 	 * distributes Function to modules decided upon inside Router
+	 * 
+	 * @see IViewableMethodState
+	 * @see aMethod
 	 */
 	public void distributeFunction(IViewableMethodState aMethod);
 	
 	/**
 	 * distributes Error to modules decided upon inside Router
 	 * 
-	 * @param passes in exception from back end
+	 * @see IExceptionDebugger
+	 * @param aExceptionDebugger
 	 */
-	public void distributeError( IExceptionDebugger aException );
+	public void distributeError( IExceptionDebugger aExceptionDebugger );
 
+	
+	/**
+	 * 
+	 * @see IViewableBackground
+	 * @param aViewBackground
+	 */
 	public void distributeBackground( IViewableBackground aViewBackground );
 	
+	/**
+	 * 
+	 * @see IViewableColorPalette
+	 * @param aViewColorPalette
+	 */
 	public void distributeColorPalette( IViewableColorPalette aViewColorPalette ); 
 	
+	/**
+	 * 
+	 * @see IViewableMethodState
+	 * @param aViewableMethods
+	 */
 	public void distributeMethods ( IViewableMethodState aViewableMethods ); 
 	
 }
