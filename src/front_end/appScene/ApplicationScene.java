@@ -15,8 +15,8 @@ import front_end.view_modules.toolbar.IToolbar;
 import front_end.view_modules.toolbar.ToolbarFactory;
 import front_end.view_modules.turtleBox.ITurtleBox;
 import front_end.view_modules.turtleBox.TurtleBoxFactory;
-import front_end.view_modules.turtlestate.ConcreteAllRobotsStateBox;
 import front_end.view_modules.turtlestate.IAllRobotsStateBox;
+import front_end.view_modules.turtlestate.RobotStateBoxFactory;
 import front_end.view_modules.variableViewer.IVariableViewer;
 import front_end.view_modules.variableViewer.VariableViewerFactory;
 import javafx.collections.FXCollections;
@@ -58,7 +58,7 @@ public class ApplicationScene {
         myFunctionViewer = FunctionViewerFactory.build(aWidth / 4, aHeight / 2 - aHeight / 20);
         myShapeColorModule = ImageColorModuleFactory.build(aWidth / 4, aHeight / 4);
         myTurtleBox = TurtleBoxFactory.build(aWidth / 2, aHeight / 2, myShapeColorModule);
-        myStatesBox = new ConcreteAllRobotsStateBox(myShapeColorModule);
+        myStatesBox = RobotStateBoxFactory.build(myShapeColorModule);
         myHelpPage = new HelpPage();
 
         myRoot = new Group();

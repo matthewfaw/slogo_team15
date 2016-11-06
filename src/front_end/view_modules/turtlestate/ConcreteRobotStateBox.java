@@ -13,7 +13,12 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-
+/**
+ * Concrete Implementation of IRobotStateBox
+ * 
+ * @see IRobotStateBox
+ * @author George Bernard
+ */
 public class ConcreteRobotStateBox implements IRobotStateBox {
 
     private IImageColorModule myImageColorMap;
