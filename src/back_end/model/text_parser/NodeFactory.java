@@ -49,6 +49,16 @@ public class NodeFactory {
 	private ScopeController myScopeController;
 	private Environment myEnvironment;
 	
+	
+	/**
+	 * This is a method that creates the constructor for the Node Factory, it should only be called once in the Model Controller, and 
+	 * it makes an instance of all ResourceBundles and Controllers (such as Environment and Scope Controller) and a CommandFactory
+	 * 
+	 * @param aScopeController
+	 * @param aResource
+	 * @param aEnvironment
+	 * @param aRobot
+	 */
 	public NodeFactory(ScopeController aScopeController, ResourceBundle aResource, Environment aEnvironment, IRobot aRobot) {
 		mySyntaxResources = aResource; 
 		myCommandTypeResources = PropertyResourceBundle.getBundle(PACKAGE_RESOURCE + PACKAGE_COMMAND + TYPE);
@@ -59,6 +69,17 @@ public class NodeFactory {
 		myNumberOfInputsResources = PropertyResourceBundle.getBundle(PACKAGE_RESOURCE + NUMBER_OF_INPUTS);
 	}
 	
+	/**
+	 * This is the central method that is called for this class, it makes a Node. We have many different Node classes so it creates the correct
+	 * type of Node using reflection. 
+	 * 
+	 * @param aLineNumber
+	 * @param aUserInputWord
+	 * @param aPreviousNode
+	 * @return
+	 * @throws UnexpectedCharacterException
+	 * @throws UnexpectedCommandException
+	 */
 	public INode makeNode(Integer aLineNumber, String aUserInputWord, INode aPreviousNode) throws UnexpectedCharacterException, UnexpectedCommandException {
 			try {
 				String generalNodeCategory = translateInput(aUserInputWord, mySyntaxResources.getBaseBundleName());
@@ -80,16 +101,38 @@ public class NodeFactory {
 			}
 	}
 	
+	/**
+	 * Setter for the language types, allows communication with front-end.
+	 * 
+	 * @param aLanguage
+	 */
     public void setLanguage (Languages aLanguage) {
         myLanguage = aLanguage;
     }
 	
+    /**
+     * Private method that assists the makeNode() method by using the translator class to translate regular expressions.
+     * 
+     * @param aWord
+     * @param aInputFileLocation
+     * @return
+     */
 	private String translateInput(String aWord, String aInputFileLocation) { 
 		Translator translator = new Translator();
 		translator.addPatterns(aInputFileLocation);
 		return translator.getSymbol(aWord);
 	}
     
+	/**
+	 * Private method that assists the makeNode() method by making a using the CommandFactory to make a command class.
+	 * 
+	 * @param aCommandType
+	 * @param aGeneralNodeCategory
+	 * @param aUserInputWord
+	 * @param aLineNumber
+	 * @return
+	 * @throws UnexpectedCommandException
+	 */
     private ICommand makeCommandClass(String aCommandType, String aGeneralNodeCategory, String aUserInputWord, int aLineNumber) throws UnexpectedCommandException {
     	if (aGeneralNodeCategory.equals("Command") || aGeneralNodeCategory.equals("Variable")) {
     		return myCommandFactory.makeCommand(aUserInputWord, aCommandType, aLineNumber);
@@ -97,6 +140,12 @@ public class NodeFactory {
     	return null; 
     }
     
+    /**
+     * Private method that assists the makeNode() method by getting the file path to use in reflection.
+     * 
+     * @param aGeneralNodeCategory
+     * @return
+     */
     private String getPackagePath(String aGeneralNodeCategory) {
     	String packagePath = PACKAGE_NODE;
 		switch (aGeneralNodeCategory) {
@@ -116,6 +165,16 @@ public class NodeFactory {
 		}
     }
     
+    /**
+     * Private method that assists the makeNode() method by getting the type of command that will be used in the command factory.
+     * 
+     * @param aGeneralNodeCategory
+     * @param aUserInputWord
+     * @param aLineNumber
+     * @param aPreviousNode
+     * @return
+     * @throws UnexpectedCharacterException
+     */
     private String getCommandType(String aGeneralNodeCategory, String aUserInputWord, int aLineNumber, INode aPreviousNode) throws UnexpectedCharacterException {
     	if ((aPreviousNode instanceof CommandDefinitionNode)) {
     		String aWord = String.copyValueOf(aUserInputWord.toCharArray());
@@ -139,6 +198,14 @@ public class NodeFactory {
 		return ""; 
     }
     
+    
+    /**
+     * Private method that assists the makeNode() method by getting the number of inputs to pass into the constructor of the node.
+     * 
+     * @param aGeneralNodeCategory
+     * @param aCommandType
+     * @return
+     */
     private int getInputNumber(String aGeneralNodeCategory, String aCommandType) {
     	if (aGeneralNodeCategory.equals("Command")) {
     		return Integer.parseInt(myNumberOfInputsResources.getString(aCommandType));
