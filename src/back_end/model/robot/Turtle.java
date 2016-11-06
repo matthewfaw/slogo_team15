@@ -7,6 +7,10 @@ import java.util.ResourceBundle;
 import integration.drawing.PenInformation;
 import integration.observe.Observable;
 
+/** 
+ * The information class for a single turtle - holds all the data of a Turtle
+ *
+ */
 
 public class Turtle extends Observable implements IViewableRobot {
 	

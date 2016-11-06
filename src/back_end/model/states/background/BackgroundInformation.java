@@ -9,6 +9,13 @@ import java.util.ResourceBundle;
 
 import integration.observe.Observable;
 
+/**
+ * Information class the contains all the current info about background information
+ * 
+ * @author hannahfuchshuber
+ *
+ */
+
 public class BackgroundInformation extends Observable implements IViewableBackground, IModifiableBackground, IViewableColorPalette {
 	
 	private static final String DEFAULT_PACKAGE = "resources.defaultvalues.";

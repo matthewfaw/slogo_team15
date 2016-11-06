@@ -23,6 +23,8 @@ public interface IRobot extends IViewableRobot {
         
     public void setImageID (int aImageID);
     
+    /**GETTERS**/
+    
     public IViewableRobot getMostRecentRobot();
 	
 	public int getNumberOfTurtles();

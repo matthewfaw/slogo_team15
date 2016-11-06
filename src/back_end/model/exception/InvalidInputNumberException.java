@@ -1,10 +1,12 @@
 package back_end.model.exception;
 
+/**
+ * Error thrown when there is an invalid number of inputs
+ *
+ */
+
 public class InvalidInputNumberException extends Exception implements IExceptionDebugger {
 
-    /**
-     * 
-     */
     private static final long serialVersionUID = 1L;
     
     private int myLineNumber;

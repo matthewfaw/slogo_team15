@@ -1,5 +1,13 @@
 package back_end.model.exception;
 
+
+/**
+ * This error is thrown in there is a command name that is not valid
+ * 
+ * @author hannahfuchshuber
+ *
+ */
+
 public class UnexpectedCommandException extends Exception implements IExceptionDebugger {
 
     /**

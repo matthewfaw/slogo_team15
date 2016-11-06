@@ -9,6 +9,13 @@ import java.util.Collection;
 import integration.drawing.PenInformation;
 import integration.observe.Observable;
 
+
+/**
+ * Uses composite pattern through using the IRobot interface to be able to update the current robot without any other classes
+ * having to change
+ *
+ */
+
 public class RobotController extends Observable implements IRobot {
 	private static final int INITIAL_TURTLE_INDEX = 1;
 	
@@ -33,6 +40,10 @@ public class RobotController extends Observable implements IRobot {
 		setTurtleAsCurrentlyActive(INITIAL_TURTLE_INDEX);
 	}
 	
+	/**
+	 * Adds an active Turtle to the list 
+	 * @param aTotalTurtleListIndex
+	 */
 	public void addActiveTurtle(int aTotalTurtleListIndex)
 	{
 		Turtle turtle = myTurtles.get(aTotalTurtleListIndex);
@@ -42,26 +53,44 @@ public class RobotController extends Observable implements IRobot {
 		}
 	}
 	
+	/**
+	 * Clears the list of active turtles
+	 */
 	public void clearActiveTurtles() {
 		myCurrentlyActiveTurtleIndex = -1;
 		myCurrentlyActiveTurtle = null;
 		myActiveTurtles.clear();
 	}
 	
+	/**
+	 * Sets the currently active turtle
+	 * @param aActiveTurtleIndex
+	 */
 	public void setTurtleAsCurrentlyActive(int aActiveTurtleIndex)
 	{
 		myCurrentlyActiveTurtleIndex = aActiveTurtleIndex;
 		myCurrentlyActiveTurtle = myActiveTurtles.get(aActiveTurtleIndex);
 	}
 	
+	/**
+	 * Gets the currently active turtles
+	 * @return
+	 */
 	public Collection<Turtle> getCurrentlyActiveTurtles() {
 		return myActiveTurtles.values();
 	}
 	
+	/**
+	 * Gets the current turtle
+	 * @return
+	 */
 	public Turtle getCurrentTurtle() {
 		return myCurrentlyActiveTurtle;
 	}
 	
+	/**
+	 * Sets the next turtle as active
+	 */
 	public void setNextTurtleAsActive()
 	{
 		Integer[] indices = myActiveTurtles.keySet().toArray(new Integer[myActiveTurtles.keySet().size()]);
@@ -69,7 +98,7 @@ public class RobotController extends Observable implements IRobot {
 		
 		setTurtleAsCurrentlyActive(newIndex);
 	}
-	
+
 	private int findNextIndexInArray(Integer[] indices, int indexToFind)
 	{
 		for (int i=0; i<indices.length; ++i) {
@@ -80,27 +109,46 @@ public class RobotController extends Observable implements IRobot {
 		return -2;
 	}
 	
+	/**
+	 * Number of turtles that are on the screen
+	 * @return
+	 */
 	public int numberOfTurtlesCreated() {
 		return myTurtles.keySet().size();
 	}
 	
+	/**
+	 * check to see if the the active turtle index
+	 * @return
+	 */
 	public boolean activeTurtleIndexHasBeenSetToStart()
 	{
 		ArrayList<Integer> indices = new ArrayList<Integer>(myActiveTurtles.keySet());
 		int firstIndex = indices.get(0);
 		return myCurrentlyActiveTurtleIndex == firstIndex;
-//		return myCurrentlyActiveTurtleIndex == INITIAL_TURTLE_INDEX;
 	}
 	
+	/**
+	 * Sees in the Turtle exists
+	 * 
+	 * @param aIndex
+	 * @return
+	 */
 	public boolean containsTurtles(int aIndex) {
 		return myTurtles.containsKey(aIndex);
 	}
 	
-	
+	/**
+	 * Get the most recent robot 
+	 */
 	public IViewableRobot getMostRecentRobot(){
 		return myMostRecentlyCreatedTurtle;
 	}
 	
+	/**
+	 * Add a turtle to the screen
+	 * @param aIndex
+	 */
 	public void addTurtle(int aIndex)
 	{
 		Turtle turtle = new Turtle(aIndex);
@@ -158,6 +206,11 @@ public class RobotController extends Observable implements IRobot {
 	public boolean isVisible() {
 		return myCurrentlyActiveTurtle.isVisible();
 	}
+	
+	@Override
+	public double getPreviousRotation() {
+		return myCurrentlyActiveTurtle.getPreviousRotation();
+	}
 
 	/**SETTERS**/ 
 	
@@ -190,12 +243,11 @@ public class RobotController extends Observable implements IRobot {
 		myCurrentlyActiveTurtle.setImageID(aImageID);
 	}
 
-	@Override
-	public double getPreviousRotation() {
-		return myCurrentlyActiveTurtle.getPreviousRotation();
-	}
 
-
+	/**
+	 * Added Turtles to a Scope 
+	 * 
+	 */
 	public void addTemporaryTurtleScope()
 	{
 		myCurrentActiveTurtleStack.push(myCurrentlyActiveTurtle);
@@ -203,6 +255,10 @@ public class RobotController extends Observable implements IRobot {
 		myActiveTurtleStack.push(new HashMap<Integer, Turtle>());
 		myActiveTurtles = myActiveTurtleStack.peek();
 	}
+	
+	/**
+	 * Removed Turtles from a Scope
+	 */
 	public void removeTemporaryTurtleScope()
 	{
 		myActiveTurtleStack.pop();

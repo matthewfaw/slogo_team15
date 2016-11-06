@@ -5,6 +5,11 @@ import back_end.model.command.ICommand;
 import back_end.model.exception.InvalidInputNumberException;
 import back_end.model.exception.InvalidNodeUsageException;
 
+/**
+ * This is the class for all instructions that have to evaluate some condition before they can run. All these commands implement 
+ * the ICommand interface, because they promise to implement the eval method as well  
+ *
+ */
 
 public abstract class ICommandBranch implements ICommand {
 	
