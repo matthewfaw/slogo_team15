@@ -13,6 +13,12 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 
+/**
+ * Implements the concrete basis for IToolbar
+ * 
+ * @see IToolbar
+ * @author George Bernard
+ */
 class ConcreteToolbar implements IToolbar {
 
     private HBox myToolbar;
@@ -27,8 +33,6 @@ class ConcreteToolbar implements IToolbar {
 
     private ResourceBundle myGUIResources;
 
-    private boolean myIsBuilt;
-    
     private static final int SPACING = 5;
     
     ConcreteToolbar (int aWidth, int aHeight) {
@@ -42,8 +46,6 @@ class ConcreteToolbar implements IToolbar {
         myToolbar.setStyle("-fx-background-color: #336699;");
         myToolbar.getChildren().addAll(myRun, myStepLine, myBuild, myStepInstr, myPenFunctions, myHelp, myReset, myLanguage);
 
-
-        myIsBuilt = false;
     }
     
     private void setButtonText () {
