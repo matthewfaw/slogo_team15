@@ -52,7 +52,7 @@ public class ModelController implements IObserver, IColorSender, IRobotSender {
 	}
 	
 	/**
-	 * When the user inputs a String to be evaluted this function is called 
+	 * When the user inputs a String to be evaluated this function is called 
 	 * 
 	 * @param aString
 	 */
