@@ -7,16 +7,9 @@ import java.util.Map;
 import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
 
-import integration.observe.Observable;
+import integration.observe.AbstractObservable;
 
-/**
- * Information class the contains all the current info about background information
- * 
- * @author hannahfuchshuber
- *
- */
-
-public class BackgroundInformation extends Observable implements IViewableBackground, IModifiableBackground, IViewableColorPalette {
+public class BackgroundInformation extends AbstractObservable implements IViewableBackground, IModifiableBackground, IViewableColorPalette {
 	
 	private static final String DEFAULT_PACKAGE = "resources.defaultvalues.";
 	private static final String DEFAULT = "DefaultValues";

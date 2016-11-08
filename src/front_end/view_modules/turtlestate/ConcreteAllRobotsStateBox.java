@@ -14,7 +14,13 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.layout.VBox;
 
-public class ConcreteAllRobotsStateBox implements IAllRobotsStateBox{
+/**
+ * Concrete Implementation of IAllRobotStateBox
+ * 
+ * @see IAllRobotStateBox
+ * @author George Bernard
+ */
+class ConcreteAllRobotsStateBox implements IAllRobotsStateBox{
 
 	private ScrollPane myScroller;
 	private VBox myModule;
@@ -28,7 +34,7 @@ public class ConcreteAllRobotsStateBox implements IAllRobotsStateBox{
 
 	private static final String TAB_TEXT = "Turtle ID: ";
 	
-	public ConcreteAllRobotsStateBox(IImageColorModule aImageColorMap){
+	ConcreteAllRobotsStateBox(IImageColorModule aImageColorMap){
 		myImageColorMap = aImageColorMap;
 		
 		myModule = new VBox(0);		
@@ -48,7 +54,7 @@ public class ConcreteAllRobotsStateBox implements IAllRobotsStateBox{
 		buildMenu();
 	}
 	
-	public ConcreteAllRobotsStateBox( int aWidth, int aHeight, IImageColorModule aImageColorMap){
+	ConcreteAllRobotsStateBox( int aWidth, int aHeight, IImageColorModule aImageColorMap){
 		this(aImageColorMap);
 		myScroller.setMinSize(aWidth, aHeight);
 		myScroller.setMaxSize(aWidth, aHeight);

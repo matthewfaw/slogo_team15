@@ -5,6 +5,7 @@ import front_end.appScene.ApplicationScene;
 /**
  * Factory class for Router. Hides instantiation
  * 
+ * @see IRouter
  * @author George Bernard
  */
 public class RouterFactory {
@@ -17,6 +18,8 @@ public class RouterFactory {
 	 * 	Returns a new instance of IRouter
 	 *  
 	 * @param aAppScene - the application scene
+	 * @see ApplicationScene
+	 * @see IRouter
 	 * @return new instance of IRouter
 	 */
 	public static IRouter build(ApplicationScene aAppScene){

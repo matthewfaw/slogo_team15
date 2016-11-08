@@ -7,16 +7,9 @@ import java.util.Stack;
 import java.util.Collection;
 
 import integration.drawing.PenInformation;
-import integration.observe.Observable;
+import integration.observe.AbstractObservable;
 
-
-/**
- * Uses composite pattern through using the IRobot interface to be able to update the current robot without any other classes
- * having to change
- *
- */
-
-public class RobotController extends Observable implements IRobot {
+public class RobotController extends AbstractObservable implements IRobot {
 	private static final int INITIAL_TURTLE_INDEX = 1;
 	
 	private HashMap<Integer, Turtle> myTurtles;

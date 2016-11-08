@@ -3,6 +3,10 @@ package back_end.model.states;
 import java.util.Stack;
 
 import back_end.model.robot.RobotController;
+import back_end.model.robot.Turtle;
+import integration.observe.IObservable;
+import integration.observe.IObserver;
+import integration.observe.AbstractObservable;
 
 /**
  * Updates and keeps track of the current scope - aka the variables that are currently active and which variables can be 

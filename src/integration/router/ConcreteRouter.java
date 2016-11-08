@@ -23,14 +23,13 @@ import front_end.appScene.ApplicationScene;
 import front_end.sender.IColorSender;
 import front_end.sender.IRobotSender;
 
-/**
- * Middle Man to accommodate for multiple turtle/variable scenario
- * 
+/** 
+ * @see IRouter
  * @author George Bernard
  */
 class ConcreteRouter implements IRouter {
 
-
+	
 	private Collection<IRobotAcceptor> myRobotAcceptors;
 	private Collection<IVariableAcceptor> myVariableAcceptors;
 	private Collection<IErrorAcceptor> myErrorAcceptors;
