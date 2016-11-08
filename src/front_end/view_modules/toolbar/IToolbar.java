@@ -11,10 +11,9 @@ import javafx.scene.input.MouseEvent;
 
 
 /**
+ * This is the primary toolbar for 
+ * 
  * @author George Bernard
- *
- *         Mediator listens to many (but not all) of these buttons.
- *
  */
 public interface IToolbar extends IViewModule, ILanguageSwitcher {
 

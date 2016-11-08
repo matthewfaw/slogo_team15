@@ -4,13 +4,9 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-import integration.observe.Observable;
+import integration.observe.AbstractObservable;
 
-/**
- * Information class that stores all previously inputed user information
- */
-
-public class UserInputHistory extends Observable implements IViewableUserInputHistory {
+public class UserInputHistory extends AbstractObservable implements IViewableUserInputHistory {
 	
 	private Set<String> myUserHistory; 
 	

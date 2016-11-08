@@ -3,9 +3,9 @@ package integration.drawing;
 import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
 
-import integration.observe.Observable;
+import integration.observe.AbstractObservable;
 
-public class PenInformation extends Observable {
+public class PenInformation extends AbstractObservable {
 	
 	private static final String DEFAULT = "resources.defaultvalues.DefaultValues";
 

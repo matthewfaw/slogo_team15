@@ -9,7 +9,7 @@ package integration.languages;
 public interface ILanguageSwitcher {
 
 	/**
-	 * 	Enumerates the languages that ILanguageSwitcher can select between
+	 * Enumerates the languages that ILanguageSwitcher can select between
 	 *  
 	 * @author George Bernard
 	 */
@@ -23,6 +23,7 @@ public interface ILanguageSwitcher {
 		RUSSIAN("Russian"),
 		SPANISH("Spanish");
 
+		// File location of language resource files
 		private static final String INIT_FILE = "resources.languages.";
 		private final String myName;
 
@@ -31,6 +32,8 @@ public interface ILanguageSwitcher {
 		}
 
 		/**
+		 * Returns the name of the language
+		 * 
 		 * @return Language Name
 		 */
 		public String getName () {
@@ -38,6 +41,9 @@ public interface ILanguageSwitcher {
 		}
 
 		/**
+		 * Returns the file location of the resource file 
+		 * relating to this language
+		 * 
 		 * @return file location of language resource file
 		 */
 		public String getFileLocation () {
