@@ -5,14 +5,14 @@ import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
 
 import integration.drawing.PenInformation;
-import integration.observe.Observable;
+import integration.observe.AbstractObservable;
 
 /** 
  * The information class for a single turtle - holds all the data of a Turtle
  *
  */
 
-public class Turtle extends Observable implements IViewableRobot {
+public class Turtle extends AbstractObservable implements IViewableRobot {
 	
 	private static final String DEFAULT = "resources.defaultvalues.DefaultValues";
 

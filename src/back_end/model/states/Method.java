@@ -5,15 +5,9 @@ import java.util.Arrays;
 import java.util.List;
 
 import back_end.model.node.IReadableInput;
-import integration.observe.Observable;
+import integration.observe.AbstractObservable;
 
-/**
- * Stores an the body of the method in a Node that can be executed and stores a list of the variable argument associated to 
- * the name of the method
- *
- */
-
-public class Method extends Observable {
+public class Method extends AbstractObservable {
 	
 	private IReadableInput myExecutionNode;
 	private ArrayList<IReadableInput> myVariables;

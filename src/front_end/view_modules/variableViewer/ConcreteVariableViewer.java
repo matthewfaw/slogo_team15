@@ -1,7 +1,6 @@
 package front_end.view_modules.variableViewer;
 
 import back_end.model.states.IViewableVariableState;
-import integration.languages.ILanguageSwitcher.Languages;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -14,11 +13,14 @@ import javafx.util.Callback;
 
 
 /**
+ * Heavily References: http://docs.oracle.com/javafx/2/ui_controls/table-view.htm
+ * 
+ * @see IVariableViewer
+ * This class creates the concrete implementation of the variable viewer. It implements the
+ * variable viewer interface and sets the specifics for how the variable viewer will be laid out.
+ * 
  * @author George Bernard
  * @author Kayla Schulz
- *
- *         Heavily References: http://docs.oracle.com/javafx/2/ui_controls/table-view.htm
- *
  */
 class ConcreteVariableViewer implements IVariableViewer {
 
@@ -31,7 +33,15 @@ class ConcreteVariableViewer implements IVariableViewer {
 
     private ObservableList<Variable> myVariables;
 
-    ConcreteVariableViewer (int width, int height) {
+    /**
+     * Package specific constructor for Variable Viewer
+     * 
+     * @see IVariableViewer
+     * @param width
+     * @param height
+     */
+    @SuppressWarnings("unchecked")
+	ConcreteVariableViewer (int width, int height) {
         myVariables = FXCollections.observableArrayList();
         myVariableTable = new TableView<>();
         myVariableTable.setPrefSize(width, height);

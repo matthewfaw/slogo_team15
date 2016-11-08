@@ -11,6 +11,13 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 
+/**
+ * This class creates the concrete implementation of the history module. It implements the
+ * history module interface and sets the specifics for how the history module will be laid out.
+ * 
+ * @author Kayla Schulz
+ *
+ */
 class ConcreteHistoryModule implements IHistoryModule, IObserver {
     private ScrollPane myScroller;
     private HBox myToolbar;
@@ -66,8 +73,8 @@ class ConcreteHistoryModule implements IHistoryModule, IObserver {
 
     @Override
     public void giveHistory (IViewableUserInputHistory aHistory) {
-    	myHistory = aHistory;
-    	myHistory.registerObserver(this);
+        myHistory = aHistory;
+        myHistory.registerObserver(this);
     }
 
     private HBox buildToolbar () {
@@ -77,10 +84,11 @@ class ConcreteHistoryModule implements IHistoryModule, IObserver {
         return toolbar;
     }
 
-	@Override
-	public void update() {
-		myHistoryColumn.getChildren().clear();
-		myHistory.getHistoryOfUserInputStrings().forEach( s -> myHistoryColumn.getChildren().add(createHBox(s)));
-	}
+    @Override
+    public void update () {
+        myHistoryColumn.getChildren().clear();
+        myHistory.getHistoryOfUserInputStrings()
+                .forEach(s -> myHistoryColumn.getChildren().add(createHBox(s)));
+    }
 
 }

@@ -9,7 +9,10 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
+
 /**
+ * This class creates the concrete implementation of the function viewer. It implements the
+ * function viewer interface and sets the specifics for how the function viewer will be laid out.
  * 
  * @author Kayla Schulz
  *
@@ -24,14 +27,14 @@ class ConcreteFunctionViewer implements IFunctionViewer {
 
     ConcreteFunctionViewer (int aWidth, int aHeight) {
         myScriptViewer = new ScrollPane();
-        myScriptViewer.setHbarPolicy( ScrollPane.ScrollBarPolicy.NEVER  );
-        myScriptViewer.setVbarPolicy( ScrollPane.ScrollBarPolicy.ALWAYS );
-        
+        myScriptViewer.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        myScriptViewer.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+
         myScriptViewer.setPrefSize(aWidth, aHeight);
         myFunctionVBox = new VBox(SPACING);
         myScriptViewer.setContent(myFunctionVBox);
     }
-    
+
     @Override
     public void reset () {
         myFunctionVBox.getChildren().clear();
@@ -41,18 +44,18 @@ class ConcreteFunctionViewer implements IFunctionViewer {
     public Node getInstanceAsNode () {
         return myScriptViewer;
     }
-    
-    private HBox createHBox(String myString) {
+
+    private HBox createHBox (String myString) {
         HBox myHBox = new HBox(SPACING);
         Label myLabel = new Label(myString);
         myHBox.getChildren().addAll(myLabel);
         return myHBox;
     }
-    
-    private void displayMethods() {
+
+    private void displayMethods () {
         Iterator<String> myIterator = myMethods.iterator();
         myFunctionVBox.getChildren().clear();
-        while(myIterator.hasNext()) {
+        while (myIterator.hasNext()) {
             String temp = myIterator.next();
             HBox myHBox = createHBox(temp);
             myFunctionVBox.getChildren().add(myHBox);
