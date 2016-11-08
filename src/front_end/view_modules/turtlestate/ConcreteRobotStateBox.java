@@ -17,7 +17,11 @@ import javafx.scene.layout.VBox;
  * Concrete Implementation of IRobotStateBox
  * 
  * @see IRobotStateBox
+ * This class creates the concrete implementation of the robot state box. It implements the
+ * robot state box interface and sets the specifics for how the robot state box will be laid out.
  * @author George Bernard
+ * @author Kayla Schulz
+ *
  */
 public class ConcreteRobotStateBox implements IRobotStateBox {
 
@@ -140,7 +144,6 @@ public class ConcreteRobotStateBox implements IRobotStateBox {
 
     @Override
     public Node getInstanceAsNode () {
-        // TODO Auto-generated method stub
         return myBox;
     }
 

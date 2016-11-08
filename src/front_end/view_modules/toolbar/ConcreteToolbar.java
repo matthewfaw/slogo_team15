@@ -14,10 +14,11 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 
 /**
- * Implements the concrete basis for IToolbar
- * 
- * @see IToolbar
+ * This class creates the concrete implementation of the toolbar. It implements the
+ * toolbar interface and sets the specifics for how the toolbar will be laid out.
+ * @author Kayla Schulz
  * @author George Bernard
+ *
  */
 class ConcreteToolbar implements IToolbar {
 

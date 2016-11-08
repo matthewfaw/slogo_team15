@@ -9,6 +9,15 @@ import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 
+
+/**
+ * This class creates the concrete implementation of the error viewer. It implements the
+ * error viewer interface and sets the specifics for how the error viewer will be laid out.
+ * 
+ * @author George Bernard
+ * @author Kayla Schulz
+ *
+ */
 class ConcreteErrorViewer implements IErrorViewer {
 
     private ScrollPane myErrorScroller;

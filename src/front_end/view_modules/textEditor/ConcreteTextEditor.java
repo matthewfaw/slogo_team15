@@ -21,7 +21,8 @@ import javafx.scene.paint.Color;
 
 
 /**
- * 
+ * This class creates the concrete implementation of the text editor. It implements the
+ * text editor interface and sets the specifics for how the text editor will be laid out.
  * @author George Bernard
  * @author Kayla Schulz
  *

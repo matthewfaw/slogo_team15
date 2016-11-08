@@ -3,26 +3,23 @@ package front_end.view_modules.turtleBox;
 import back_end.model.robot.IViewableRobot;
 import back_end.model.states.background.IViewableBackground;
 import front_end.sender.IColorSender;
-import front_end.sender.IRobotSender;
 import front_end.view_modules.image_color_module.interfaces.IImageColorModule;
 import front_end.view_modules.turtleBox.turtleMovement.TurtleDrawer;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.control.ColorPicker;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.Slider;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 
 
 /**
- * 
+ * This class creates the concrete implementation of the turtle box. It implements the
+ * turtle box interface and sets the specifics for how the turtle box will be laid out.
  * @author George Bernard
  * @author Kayla Schulz
  *

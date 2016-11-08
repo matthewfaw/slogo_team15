@@ -16,6 +16,9 @@ import javafx.util.Callback;
  * Heavily References: http://docs.oracle.com/javafx/2/ui_controls/table-view.htm
  * 
  * @see IVariableViewer
+ * This class creates the concrete implementation of the variable viewer. It implements the
+ * variable viewer interface and sets the specifics for how the variable viewer will be laid out.
+ * 
  * @author George Bernard
  * @author Kayla Schulz
  */
