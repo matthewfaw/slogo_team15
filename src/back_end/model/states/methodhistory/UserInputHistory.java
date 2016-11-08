@@ -14,10 +14,14 @@ public class UserInputHistory extends AbstractObservable implements IViewableUse
 		myUserHistory = new HashSet<String>();
 	}
 	
+	/**SETTER**/
+	
 	public void storeMethod(String aUserInputString) {
 		myUserHistory.add(aUserInputString);
 		notifyObservers();
 	}
+	
+	/**GETTER**/
 	
 	public Collection<String> getHistoryOfUserInputStrings() {
 		return myUserHistory;

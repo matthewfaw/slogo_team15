@@ -15,16 +15,32 @@ public class Method extends AbstractObservable {
 	public Method() {
 	}
 	
+	/**
+	 * Adds a node to be the "body" of the method - aka the execution
+	 * Creates an arraylist with all the variables that are input arguments 
+	 * @param aMethodName
+	 * @param aNode
+	 * @param aVariableList
+	 */
 	public void assignMethod(String aMethodName, IReadableInput aNode, IReadableInput...aVariableList) {
 		myExecutionNode = aNode; 
 		ArrayList<IReadableInput> variableArrayList = new ArrayList<IReadableInput>(Arrays.asList(aVariableList)); 
 		myVariables = variableArrayList;
 	}
 
+	/**
+	 * Returns the variables that are the input arguments
+	 * 
+	 * @return
+	 */
 	public List<IReadableInput> getVariables() {
 		return myVariables;
 	}
 	
+	/**
+	 * Returns the execution node (body of the method)
+	 * @return
+	 */
 	public IReadableInput getExecutionNode() {
 		return myExecutionNode;
 	}

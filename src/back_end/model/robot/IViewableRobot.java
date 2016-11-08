@@ -7,7 +7,7 @@ import integration.drawing.PenInformation;
 import integration.observe.IObservable;
 
 /**
- * Allows for the view to get the values set by the back-end
+ * Allows for the front-end to get the values set by the back-end
  * 
  * @author Hannah Fuchshuber
  *

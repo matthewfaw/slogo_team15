@@ -1,5 +1,10 @@
 package back_end.model.exception;
 
+/**
+ * This error is thrown in Text Parsing if the user inputs a command / word that is not known in this language
+ *
+ */
+
 public class UnexpectedCharacterException extends Exception implements IExceptionDebugger {
 
     /**

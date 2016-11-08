@@ -14,12 +14,12 @@ import back_end.model.states.background.IModifiableBackground;
 import integration.observe.AbstractObservable;
 
 /**
- * A singleton class that keeps track of current variables and methods associated with evaluation
+ * A class that keeps track of current variables and methods associated with evaluation also general background information
  * 
- * From http://www.oodesign.com/singleton-pattern.html:
- * Usually singletons are used for centralized management of internal or external resources and they provide a global point of access to themselves
+ * This class can be thought of as a class the houses information that needs to be kept even after the end of the running 
+ * the command
  * 
- * Making this class a singleton guarantees that everyone has the same instance of the current scope, so everything is consistent
+ * More commenting on the specific methods can be found inside each of the classes that this class calls from.
  * 
  * @author hannahfuchshuber && matthewfaw
  *
@@ -41,6 +41,9 @@ public class Environment extends AbstractObservable implements IModifiableEnviro
 	
 	/**SCOPE CONTROLLING**/
 	
+	/**
+	 * The following methods use the FunctionScope class - and keep track of the current FunctionScope
+	 */
 	void addNestedScope() {
 		myCurrentScope.addNestedScope();
 		notifyObservers();
@@ -57,6 +60,10 @@ public class Environment extends AbstractObservable implements IModifiableEnviro
 	}
 	
 	/**VARIABLES**/
+	
+	/**
+	 * The following methods use the FunctionScope class to keep track of the variables currently in the Scope.
+	 */
 	
 	public boolean containsVariable(String name) {
 		return myCurrentScope.containsVariable(name);
@@ -78,6 +85,10 @@ public class Environment extends AbstractObservable implements IModifiableEnviro
 	}
 	
 	/**METHOD**/
+	
+	/**
+	 * The following methods use the method map to keep track of the current methods
+	 */
 	
 	public void assignMethod(String aMethodName, IReadableInput[] aVariableInputs, IReadableInput aNode) {
 		Method methodState = new Method();
@@ -111,6 +122,10 @@ public class Environment extends AbstractObservable implements IModifiableEnviro
 	
 	/**BACKGROUND INFORMATION**/
 	
+	/**
+	 * The following methods call the BackgroundInformation class to get information on the current background information
+	 */
+	
 	@Override
 	public String getBackgroundColor() {
 		return myBackgroundInformation.getBackgroundColor();
@@ -127,6 +142,10 @@ public class Environment extends AbstractObservable implements IModifiableEnviro
 	}
 	
 	/**TURTLE INFORMATION**/
+	
+	/**
+	 * The following methods use the RobotController class to get information on the current Turtle
+	 */
 	
 	public void clearActiveTurtles() {
 		myRobotController.clearActiveTurtles();

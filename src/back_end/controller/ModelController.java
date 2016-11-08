@@ -27,6 +27,11 @@ import integration.languages.ILanguageSwitcher.Languages;
 import integration.observe.IObserver;
 import integration.router.IRouter;
 
+/**
+ * The Controller for the back-end. Provides a centralized class for all creation of objects that persist through the program 
+ * and also allows for easy distribution of all backend information to the frontend and vice versa. 
+ *
+ */
 
 public class ModelController implements IObserver, IColorSender, IRobotSender {
 	
@@ -46,6 +51,11 @@ public class ModelController implements IObserver, IColorSender, IRobotSender {
 		reset();
 	}
 	
+	/**
+	 * When the user inputs a String to be evaluted this function is called 
+	 * 
+	 * @param aString
+	 */
 	public void inputAll(String aString) {
 		try {
 			makeSyntaxTreeEvaluator(aString);
@@ -58,6 +68,10 @@ public class ModelController implements IObserver, IColorSender, IRobotSender {
 		}
 	}
 	
+	/**
+	 * Creates the evaluator for the AST
+	 * @param aString
+	 */
 	public void makeSyntaxTreeEvaluator(String aString) {
 		AbstractSyntaxTree ast;
 		try {
@@ -70,6 +84,10 @@ public class ModelController implements IObserver, IColorSender, IRobotSender {
 		myUserInputHistory.storeMethod(aString);
 	}
 	
+	/**
+	 * Checks if there is a valid next instruction in the tree
+	 * @return
+	 */
 	public boolean canStep() {
 		if(myTreeEval == null) return false;
 		try {
@@ -80,6 +98,9 @@ public class ModelController implements IObserver, IColorSender, IRobotSender {
 		return false;
 	}
 	
+	/**
+	 * Steps through the AST instruction by instruction
+	 */
 	public void stepInstruction(){
 		if(myTreeEval == null) return;
 		try {
@@ -124,6 +145,9 @@ public class ModelController implements IObserver, IColorSender, IRobotSender {
 		myBackgroundInformation.setBackgroundColor(aHexadecimal);
 	}
 	
+	/**
+	 * This method distributes the different backend components to the front through the Router 
+	 */
 	public void reset() {
 		myRobot = new RobotController();
 		myEnvironment = new Environment(myRobot);
