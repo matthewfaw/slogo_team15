@@ -9,6 +9,11 @@ import java.util.Collection;
 import integration.drawing.PenInformation;
 import integration.observe.AbstractObservable;
 
+/**
+ * 
+ * @author Hannah Fuchshuber and matthewfaw
+ *
+ */
 public class RobotController extends AbstractObservable implements IRobot {
 	private static final int INITIAL_TURTLE_INDEX = 1;
 	

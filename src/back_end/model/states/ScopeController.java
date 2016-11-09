@@ -9,6 +9,8 @@ import integration.observe.IObserver;
 import integration.observe.AbstractObservable;
 
 /**
+ * @author matthewfaw
+ * 
  * Updates and keeps track of the current scope - aka the variables that are currently active and which variables can be 
  * "popped off"
  *
