@@ -1,3 +1,6 @@
+// This entire file is part of my masterpiece.
+// Matthew Faw
+
 package back_end.model.node.inner_nodes;
 
 import java.util.List;
@@ -9,6 +12,20 @@ import back_end.model.node.NodeState;
 /**
  * This class represents the default functionality of Inner nodes of the AST
  * Thus, it is assumed that inner nodes have children
+ * 
+ * Note that forcing the setChildren and getChildren methods to be abstract means
+ * that each subclass can have a different interpretation of what its current children
+ * are.  For example, during evaluation of a control flow node, 
+ * node.getChildren() can return the input children when the node is in the EvaluationState
+ * EVALUATING_INPUTS, and can return the proper branch children when the node is 
+ * EVALUATING_BRANCH.  If the node is just a regular input node, then node.getChildren()
+ * can return the same result every time, or throw an error if the node is being accessed
+ * after it has been evaluated.  This flexibility in design takes very strong advantage of the
+ * benefits the polymorphism brings in the tree evaluation.  Thus, the TreeEvaluator does not need
+ * to be concerned with the evaluation of any node at any point... it just works.
+ * 
+ * Note that uncommented overridden methods are commented in the parent classes
+ * 
  * @author matthewfaw
  *
  */

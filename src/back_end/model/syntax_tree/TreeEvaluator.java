@@ -1,3 +1,6 @@
+// This entire file is part of my masterpiece.
+// Matthew Faw
+
 package back_end.model.syntax_tree;
 
 import back_end.model.exception.InvalidNodeUsageException;
@@ -11,7 +14,17 @@ import back_end.model.node.inner_nodes.command_nodes.AbstractCommandNode;
  * The purpose of this class is to evaluate the instructions coded into the AST
  * This class is an interpretation of the visitor design pattern, with the purpose
  * of separating the evaluation of the tree from the construction and structure of
- * the tree
+ * the tree.  By separating the construction and evaluation of the AST, the code becomes
+ * far more modular and maintainable.  Additionally, the tree is not restricted to being 
+ * evaluated in a specific way.  This makes adding new features quite easy, and makes the
+ * AST closed, but open to different forms of traversal and evaluation
+ * 
+ * Note that during this traversal, the complexity of considering which inputs to choose
+ * when evaluating a given node is completely abstracted away from the evaluator, since
+ * this is the responsibility of the Node classes.  Additionally, the evaluator does not
+ * need to know about the environment variables, since those are abstracted away by the 
+ * Command classes
+ * 
  * This class assumes that it is passed a non-null AST
  * This class depends on The AbstractSyntaxTree class to construct a tree which this
  * class can evaluate. It also depends on the Node classes to for instruction evaluation
