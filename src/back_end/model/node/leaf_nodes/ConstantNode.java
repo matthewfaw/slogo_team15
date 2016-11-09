@@ -7,6 +7,12 @@ import back_end.model.node.NodeState;
 import back_end.model.states.ScopeController;
 
 
+/**
+ * This class represents a node that simply contains a constant value
+ * This class assumes that there is no name associated with a value
+ * @author matthewfaw
+ *
+ */
 public class ConstantNode extends AbstractLeafNode {
 
     private double myValue;

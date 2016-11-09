@@ -9,6 +9,14 @@ import back_end.model.node.INode;
 import back_end.model.node.NodeState;
 import back_end.model.states.ScopeController;
 
+/**
+ * A node that represents the nodes containing values that are turtle-dependent
+ * This class assumes that the node should re-call eval each time the node value is
+ * requested.  This is to ensure that the most up-to-date value is always being 
+ * retrieved for the currently active turtle
+ * @author matthewfaw
+ *
+ */
 public class DynamicReturnValueNode extends AbstractCommandNode {
 	private ICommand myCommand;
 
@@ -18,7 +26,7 @@ public class DynamicReturnValueNode extends AbstractCommandNode {
 		
 		myCommand = aCommand;
 	}
-
+	
 	@Override
 	public void eval() throws InvalidInputNumberException, InvalidNodeUsageException {
         myCommand.eval();

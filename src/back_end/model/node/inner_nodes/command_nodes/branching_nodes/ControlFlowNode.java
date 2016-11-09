@@ -11,6 +11,13 @@ import back_end.model.node.INode;
 import back_end.model.node.inner_nodes.list_nodes.ListNode;
 import back_end.model.states.ScopeController;
 
+/**
+ * The purpose of this class is to provide the functionality for every node
+ * which is involved in control flow (for, repeat, ect)
+ * This class depends on the ICommandBranch interface to perform command evaluation
+ * @author matthewfaw
+ *
+ */
 public class ControlFlowNode extends AbstractBranchNode {
 	private static final int CONDITION_INDEX = 0;
 	private ICommandBranch myCommand;
@@ -57,6 +64,9 @@ public class ControlFlowNode extends AbstractBranchNode {
 				throw new InvalidNodeUsageException("Node state" + getEvaluationState() + "is invalid!");
 		}
 	}
+	/**
+	 * A method to build the inner scope when entering a block of code
+	 */
 	private void constructScope()
 	{
 		super.getScopeController().addNestedScope();

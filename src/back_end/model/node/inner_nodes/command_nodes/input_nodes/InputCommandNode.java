@@ -8,6 +8,12 @@ import back_end.model.node.INode;
 import back_end.model.node.inner_nodes.list_nodes.ListNode;
 import back_end.model.states.ScopeController;
 
+/**
+ * The purpose of this class is to provide a default way of managing
+ * children for command nodes
+ * @author matthewfaw
+ *
+ */
 public class InputCommandNode extends AbstractInputCommandNode {
 
 	public InputCommandNode(ICommand aCommand, int aNumberOfInputs, String aUserInput, ScopeController aScopeController) 

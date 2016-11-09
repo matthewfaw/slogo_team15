@@ -11,7 +11,14 @@ import back_end.model.node.inner_nodes.AbstractInnerNode;
 import back_end.model.states.ScopeController;
 import integration.observe.IObserver;
 
-
+/**
+ * A class that represents the default behavior of nodes which contain commands
+ * It is assumed that these nodes all have commands.
+ * 
+ * This class depends on the scope controller to control entering and exiting scope 
+ * @author matthewfaw
+ *
+ */
 public abstract class AbstractCommandNode extends AbstractInnerNode {
 
     private int myNumberOfInputs;
@@ -23,22 +30,24 @@ public abstract class AbstractCommandNode extends AbstractInnerNode {
         myScopeController = aScopeController;
     }
     
+    /**
+     * Assumes that the superclass is constructed with a Command object
+     * @return the command owned by this class
+     */
     protected abstract ICommand getCommand();
     /**
-     * COMMENT THIS METHOD WELL
-     * It's purpose is to allow multiple turtles to work!
+     * 
+     * @return the scope controller object owned by this object
      */
-//    protected void register()
-//    {
-//    	if (getCommand() instanceof ICommandTurtle) {
-//    		myScopeController.registerObserver(this);
-//    	}
-//    }
     protected ScopeController getScopeController()
     {
     	return myScopeController;
     }
 
+    /**
+     * Returns the number of function inputs corresponding to this node's command object
+     * @return
+     */
     public int getNumberOfInputs () {
         return myNumberOfInputs;
     }

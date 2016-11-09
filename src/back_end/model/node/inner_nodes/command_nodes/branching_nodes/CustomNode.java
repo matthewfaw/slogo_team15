@@ -11,6 +11,18 @@ import back_end.model.node.NodeState;
 import back_end.model.node.inner_nodes.list_nodes.ListNode;
 import back_end.model.states.ScopeController;
 
+/**
+ * A class that represents the behavior necessary in a custom node
+ * Once constructed, this class assumes that it's CustomCommand class
+ * provides a valid subtree to evaluate
+ * This class depends on the CustomCommand class to retrieve the branch
+ * corresponding to things to be evaluated by the function
+ * It also depends on the scope controller to properly change scopes 
+ * when entering and exiting function calls
+ * 
+ * @author matthewfaw
+ *
+ */
 public class CustomNode extends AbstractBranchNode {
 	private static final int CONDITION_INDEX = 0;
 
@@ -61,6 +73,11 @@ public class CustomNode extends AbstractBranchNode {
 		//Note that the actual method body doesn't get set until the method's evalCondition is called
 	}
 	
+	/**
+	 * A method used to retrieve the function body and add it to the AST
+	 * assumes that the command.getFunction returns a list node
+	 * @throws InvalidNodeUsageException
+	 */
 	private void initializeBranch() throws InvalidNodeUsageException
 	{
 		if (super.hasActiveBranch()) {

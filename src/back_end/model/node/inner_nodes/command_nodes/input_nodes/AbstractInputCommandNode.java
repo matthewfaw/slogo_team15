@@ -14,6 +14,13 @@ import back_end.model.node.inner_nodes.command_nodes.AbstractCommandNode;
 import back_end.model.node.inner_nodes.list_nodes.ListNode;
 import back_end.model.states.ScopeController;
 
+/**
+ * A class that represents "normal" commands
+ * It is assumed that each of these nodes will be evaluated only once
+ * 
+ * @author matthewfaw
+ *
+ */
 public abstract class AbstractInputCommandNode extends AbstractCommandNode {
 
 	private List<INode> myChildren;
@@ -41,10 +48,19 @@ public abstract class AbstractInputCommandNode extends AbstractCommandNode {
 	{
 		return myChildren;
 	}
+	/**
+	 * Defines a default way to add a child to the list of children
+	 * @param aChild
+	 * @throws InvalidNodeUsageException
+	 */
 	protected void addChild(INode aChild) throws InvalidNodeUsageException
 	{
 		myChildren.add(aChild);
 	}
+	/**
+	 * Defines a way to add a list of children to the node's children
+	 * @param aChildren
+	 */
 	protected void addChildren(List<INode> aChildren)
 	{
 		myChildren.addAll(aChildren);

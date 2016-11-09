@@ -4,6 +4,11 @@ import back_end.model.exception.InvalidNodeUsageException;
 import back_end.model.node.INode;
 import back_end.model.node.NodeState;
 
+/**
+ * A class that represents the default functionality of value nodes
+ * @author matthewfaw
+ *
+ */
 public abstract class AbstractLeafNode implements INode {
 	private NodeState myNodeState;
 

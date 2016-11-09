@@ -7,6 +7,11 @@ import back_end.model.node.NodeState;
 import back_end.model.states.ScopeController;
 
 
+/**
+ * This class represents a node containing information corresponding to a variable
+ * @author matthewfaw
+ *
+ */
 public class VariableNode extends AbstractLeafNode {
 
     private String myName;

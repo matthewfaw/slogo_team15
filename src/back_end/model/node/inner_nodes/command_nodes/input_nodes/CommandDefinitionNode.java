@@ -1,20 +1,20 @@
 package back_end.model.node.inner_nodes.command_nodes.input_nodes;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import back_end.model.command.ICommand;
-import back_end.model.exception.InvalidInputNumberException;
 import back_end.model.exception.InvalidNodeUsageException;
 import back_end.model.node.INode;
 import back_end.model.node.NodeState;
-import back_end.model.node.inner_nodes.command_nodes.branching_nodes.AbstractBranchNode;
 import back_end.model.node.inner_nodes.list_nodes.ListNode;
-import back_end.model.node.leaf_nodes.VariableNode;
-import back_end.model.states.Environment;
 import back_end.model.states.ScopeController;
-import integration.observe.IObserver;
 
+/**
+ * The purpose of this class is to provide a way to manage the construction and 
+ * retrieval of child nodes that is specific to the command definition nodes
+ * @author matthewfaw
+ *
+ */
 public class CommandDefinitionNode extends AbstractInputCommandNode {
 	private static final int NAME_INDEX = 0;
 	private static final int INPUTS_INDEX = 1;

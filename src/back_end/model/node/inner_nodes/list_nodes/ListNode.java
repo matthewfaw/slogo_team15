@@ -11,12 +11,14 @@ import back_end.model.node.NodeState;
 import back_end.model.node.inner_nodes.AbstractInnerNode;
 import back_end.model.states.ScopeController;
 
-
-// XXX: Add stuff
+/**
+ * A class that represents a node whose children are expressions contained within the brackets
+ * It is assumed that there is no value associated with these nodes
+ * @author matthewfaw
+ *
+ */
 public class ListNode extends AbstractInnerNode {
 
-	//    public ListNode (ICommand aCommand, int aNumberOfInputs, String aUserInput, ScopeController aScopeController) {
-	//    }
 	private List<INode> myChildren;
 
 	public ListNode()

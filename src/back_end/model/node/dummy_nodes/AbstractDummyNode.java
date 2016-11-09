@@ -1,12 +1,18 @@
 package back_end.model.node.dummy_nodes;
 
-import back_end.model.command.ICommand;
 import back_end.model.exception.InvalidInputNumberException;
 import back_end.model.exception.InvalidNodeUsageException;
 import back_end.model.node.INode;
 import back_end.model.node.NodeState;
-import back_end.model.states.ScopeController;
 
+/**
+ * Abstract class to represent the functionality of nodes which do nothing
+ * It is assumed that these classes will not be operated on, and as such,
+ * calling these methods results in an error being thrown
+ * 
+ * @author matthewfaw
+ *
+ */
 public abstract class AbstractDummyNode implements INode {
 	//XXX: Pull this value from resource file, perhaps?
 	private static final double DEFAULT_RETURN_VALUE = 0.0;

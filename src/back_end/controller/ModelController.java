@@ -31,6 +31,7 @@ import integration.router.IRouter;
  * The Controller for the back-end. Provides a centralized class for all creation of objects that persist through the program 
  * and also allows for easy distribution of all backend information to the frontend and vice versa. 
  *
+ * @author Hannah Fuchshuber and matthewfaw
  */
 
 public class ModelController implements IObserver, IColorSender, IRobotSender {
