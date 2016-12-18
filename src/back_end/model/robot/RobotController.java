@@ -4,6 +4,9 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Stack;
+
+import back_end.model.exception.ReflectionException;
+
 import java.util.Collection;
 
 import integration.drawing.PenInformation;
@@ -266,9 +269,9 @@ public class RobotController extends AbstractObservable implements IRobot {
 	}
 	
 	@Override
-	public IRobot clone()
+	public IRobot cloneThis() throws ReflectionException
 	{
-		return myCurrentlyActiveTurtle.clone();
+		return myCurrentlyActiveTurtle.cloneThis();
 	}
 
 	@Override

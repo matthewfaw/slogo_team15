@@ -16,6 +16,7 @@ import back_end.model.states.background.IModifiableBackground;
 import back_end.model.states.stamps.RobotStampManager;
 import integration.observe.AbstractObservable;
 import integration.router.IRobotRouter;
+import integration.router.IRouter;
 
 /**
  * A class that keeps track of current variables and methods associated with evaluation also general background information
@@ -38,11 +39,11 @@ public class Environment extends AbstractObservable implements IModifiableEnviro
 	private RobotController myRobotController;
 	private RobotStampManager myStampManager;
 	
-	public Environment(RobotController aRobot, IRobotRouter aRouter) {
+	public Environment(RobotController aRobot, IRouter aRouter) {
 		myMethodMap = new HashMap<String, Method>();
 		myBackgroundInformation = new BackgroundInformation();
 		myRobotController = aRobot;
-		myStampManager = new RobotStampManager(aRouter);
+		myStampManager = new RobotStampManager(aRouter, aRouter);
 	}
 	
 	/**Stamp Controlling**/

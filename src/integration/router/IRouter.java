@@ -1,7 +1,5 @@
 package integration.router;
 
-import back_end.model.exception.IExceptionDebugger;
-import back_end.model.robot.IViewableRobot;
 import back_end.model.states.IViewableMethodState;
 import back_end.model.states.IViewableVariableState;
 import back_end.model.states.background.IViewableBackground;
@@ -21,7 +19,7 @@ import front_end.sender.IRobotSender;
  *   
  * @author George Bernard
  */
-public interface IRouter extends IRobotRouter {
+public interface IRouter extends IRobotRouter, IErrorRouter {
 
 	/**
 	 * distributes RobotSenders to front end elements
@@ -62,14 +60,6 @@ public interface IRouter extends IRobotRouter {
 	 * @see aMethod
 	 */
 	public void distributeFunction(IViewableMethodState aMethod);
-	
-	/**
-	 * distributes Error to modules decided upon inside Router
-	 * 
-	 * @see IExceptionDebugger
-	 * @param aExceptionDebugger
-	 */
-	public void distributeError( IExceptionDebugger aExceptionDebugger );
 
 	
 	/**

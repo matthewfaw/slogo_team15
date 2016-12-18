@@ -3,27 +3,37 @@ package back_end.model.states.stamps;
 import java.util.ArrayList;
 import java.util.List;
 
+import back_end.model.exception.ReflectionException;
 import back_end.model.robot.ICloneable;
 import back_end.model.robot.IRobot;
+import integration.router.IErrorRouter;
 import integration.router.IRobotRouter;
 
 public class RobotStampManager implements IStampable<IRobot> {
 	private List<IRobot> myStamps;
-	private IRobotRouter myRouter;
+	private IRobotRouter myRobotRouter;
+	private IErrorRouter myErrorRouter;
 	
-	public RobotStampManager(IRobotRouter aRouter)
+	public RobotStampManager(IRobotRouter aRobotRouter, IErrorRouter aErrorRouter)
 	{
 		myStamps = new ArrayList<IRobot>();
-		myRouter = aRouter;
+		myRobotRouter = aRobotRouter;
+		myErrorRouter = aErrorRouter;
 	}
 
 	@Override
 	public int stamp(ICloneable<IRobot> aCloneableObject) {
-		IRobot clone = aCloneableObject.clone();
-		myStamps.add(clone);
-		myRouter.distributeRobot(clone);
-		clone.notifyObservers();
-		return clone.getImageID();
+		IRobot clone;
+		try {
+			clone = aCloneableObject.cloneThis();
+			myStamps.add(clone);
+			myRobotRouter.distributeRobot(clone);
+			clone.notifyObservers();
+			return clone.getImageID();
+		} catch (ReflectionException e) {
+			myErrorRouter.distributeError(e);
+			return -1;
+		}
 	}
 
 	@Override

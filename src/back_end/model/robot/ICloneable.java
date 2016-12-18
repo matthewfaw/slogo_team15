@@ -1,5 +1,7 @@
 package back_end.model.robot;
 
+import back_end.model.exception.ReflectionException;
+
 public interface ICloneable<T> {
 	
 	/**
@@ -7,6 +9,6 @@ public interface ICloneable<T> {
 	 * 
 	 * @return a new instance of the object of type T, with the same field values
 	 */
-	public T clone();
+	public T cloneThis() throws ReflectionException;
 
 }
