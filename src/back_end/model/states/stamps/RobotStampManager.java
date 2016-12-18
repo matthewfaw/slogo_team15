@@ -22,12 +22,14 @@ public class RobotStampManager implements IStampable<IRobot> {
 		IRobot clone = aCloneableObject.clone();
 		myStamps.add(clone);
 		myRouter.distributeRobot(clone);
+		clone.notifyObservers();
 		return clone.getImageID();
 	}
 
 	@Override
 	public int clearAll() {
 		myStamps.forEach(stamp -> stamp.destroy());
+		myStamps = new ArrayList<IRobot>();
 		return Math.min(1, myStamps.size());
 	}
 }
