@@ -16,6 +16,13 @@ public interface IObserver {
     /**
      * this method is called whenever the observer must be updated
      */
-    void update ();
+    public void update ();
+    
+    /**
+     * A method used to detach from an observable
+     * this method is used whenever an observable disappears
+     * @param aObservable
+     */
+//    public void detach(IObservable aObservable);
 
 }

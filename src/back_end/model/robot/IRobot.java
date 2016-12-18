@@ -9,7 +9,12 @@ import integration.drawing.PenInformation;
  *
  */
 
-public interface IRobot extends IViewableRobot {
+public interface IRobot extends IViewableRobot, ICloneable<IRobot> {
+	
+	/**
+	 * A method to destroy all references to the current object
+	 */
+	public void destroy();
 
     /** SETTERS **/
 

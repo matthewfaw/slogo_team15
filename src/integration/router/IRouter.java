@@ -21,7 +21,7 @@ import front_end.sender.IRobotSender;
  *   
  * @author George Bernard
  */
-public interface IRouter {
+public interface IRouter extends IRobotRouter {
 
 	/**
 	 * distributes RobotSenders to front end elements
@@ -38,14 +38,6 @@ public interface IRouter {
 	 * @param aColorSender
 	 */
 	public void distributeColorSenders(IColorSender aColorSender);
-	
-	/**
-	 * distributes Robot to modules decided upon inside Router
-	 * 
-	 * @see IViewableRobot
-	 * @param aViewRobot
-	 */
-	public void distributeRobot(IViewableRobot aViewRobot);
 	
 	/**
 	 * distributes VariableMap to modules decided upon inside Router

@@ -151,7 +151,7 @@ public class ModelController implements IObserver, IColorSender, IRobotSender {
 	 */
 	public void reset() {
 		myRobot = new RobotController();
-		myEnvironment = new Environment(myRobot);
+		myEnvironment = new Environment(myRobot, myRouter);
 		myRobot.registerObserver(this);
 		myBackgroundInformation = myEnvironment.getBackgroundInformation();
 		myUserInputHistory = new UserInputHistory();

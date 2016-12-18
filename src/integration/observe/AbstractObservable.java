@@ -2,6 +2,7 @@ package integration.observe;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 
 /**
  * Abstract class that others can extend to reduce code reuse in Observer pattern
@@ -33,6 +34,15 @@ public abstract class AbstractObservable implements IObservable{
 
 	public void removeObserver(IObserver o) {
 		myObservers.remove(o);
+	}
+	
+	public void removeAllObservers()
+	{
+		for (Iterator<IObserver> iter = myObservers.iterator(); iter.hasNext();) {
+			IObserver observer = iter.next();
+//			observer.detach(this);
+			iter.remove();
+		}
 	}
 
 	public void notifyObservers() {

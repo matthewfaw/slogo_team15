@@ -1,18 +1,21 @@
 package back_end.model.robot;
 
 import java.awt.Point;
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
 
 import integration.drawing.PenInformation;
 import integration.observe.AbstractObservable;
+import integration.observe.IObserver;
 
 /** 
  * The information class for a single turtle - holds all the data of a Turtle
  *
  */
 
-public class Turtle extends AbstractObservable implements IViewableRobot {
+public class Turtle extends AbstractObservable implements IRobot, IViewableRobot {
 	
 	private static final String DEFAULT = "resources.defaultvalues.DefaultValues";
 
@@ -40,7 +43,7 @@ public class Turtle extends AbstractObservable implements IViewableRobot {
         myTurtleID = aID;
         myRotation = Double.parseDouble(myDefaultResource.getString("TurtleRotation"));
     }
-
+    
     /** SETTERS **/
 
     public void setCoordinates (double x, double y) {
@@ -122,7 +125,60 @@ public class Turtle extends AbstractObservable implements IViewableRobot {
 		return myPreviousRotation;
 	}
 
+	@Override
+	public IRobot clone() {
+//		Field[] f = getClass().getDeclaredFields();
+//		for (Field field: f) {
+//			if (!Modifier.isStatic(field.getModifiers())) {
+//				field.
+//				System.out.printf("%s %s %s\n", Modifier.toString(field.getModifiers()), field.getType().getSimpleName(), field.getName());
+//			}
+//		}
+		Turtle turtle = new Turtle(this.myTurtleID);
+		turtle.myPreviousXPosition = this.myPreviousXPosition;
+		turtle.myPreviousYPosition = this.myPreviousYPosition;
+		turtle.myPreviousRotation = this.myPreviousRotation;
+    	turtle.myXpos = this.myXpos;
+    	turtle.myYpos = this.myYpos;
+    	turtle.myRotation = this.myRotation;
+    	turtle.myVisibility = this.myVisibility;
+    	turtle.myTurtleID = this.myTurtleID;
+    	turtle.myImageID = this.myImageID;
+    	turtle.myPenInformation = this.myPenInformation;
+    	turtle.myDefaultResource = this.myDefaultResource;
+    	
+    	return turtle;
+	}
+
+	@Override
+	//TODO: This method should not be part of IRobot
+	public IViewableRobot getMostRecentRobot() {
+		return null;
+	}
+
+	@Override
+	//TODO: This method should not be part of IRobot
+	public int getNumberOfTurtles() {
+		return 0;
+	}
+
+	@Override
+	//TODO: This method should not be part of the IRobot interface
+	public Turtle getTurtle(int aTurtleID) {
+		return null;
+	}
 
 
+
+	public static void main(String[] args)
+	{
+		Turtle t = new Turtle(1);
+		t.clone();
+	}
+
+	@Override
+	public void destroy() {
+		removeAllObservers();
+	}
 
 }

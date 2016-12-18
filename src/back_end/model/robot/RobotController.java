@@ -264,4 +264,19 @@ public class RobotController extends AbstractObservable implements IRobot {
 
 		setTurtleAsCurrentlyActive(myCurrentActiveTurtleStack.pop().getTurtleID());
 	}
+	
+	@Override
+	public IRobot clone()
+	{
+		return myCurrentlyActiveTurtle.clone();
+	}
+
+	@Override
+	/**
+	 * NOTE: This method assumes that when destroy is called on the controller,
+	 * only the currently active turtle should be destroyed 
+	 */
+	public void destroy() {
+		myCurrentlyActiveTurtle.removeAllObservers();
+	}
 }

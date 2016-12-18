@@ -7,11 +7,15 @@ import java.util.Map;
 
 import back_end.model.exception.InvalidNodeUsageException;
 import back_end.model.node.IReadableInput;
+import back_end.model.robot.ICloneable;
+import back_end.model.robot.IRobot;
 import back_end.model.robot.RobotController;
 import back_end.model.robot.Turtle;
 import back_end.model.states.background.BackgroundInformation;
 import back_end.model.states.background.IModifiableBackground;
+import back_end.model.states.stamps.RobotStampManager;
 import integration.observe.AbstractObservable;
+import integration.router.IRobotRouter;
 
 /**
  * A class that keeps track of current variables and methods associated with evaluation also general background information
@@ -32,12 +36,16 @@ public class Environment extends AbstractObservable implements IModifiableEnviro
 	private Map<String, Method> myMethodMap;
 	private BackgroundInformation myBackgroundInformation;
 	private RobotController myRobotController;
+	private RobotStampManager myStampManager;
 	
-	public Environment(RobotController aRobot) {
+	public Environment(RobotController aRobot, IRobotRouter aRouter) {
 		myMethodMap = new HashMap<String, Method>();
 		myBackgroundInformation = new BackgroundInformation();
 		myRobotController = aRobot;
+		myStampManager = new RobotStampManager(aRouter);
 	}
+	
+	/**Stamp Controlling**/
 	
 	/**SCOPE CONTROLLING**/
 	
@@ -180,6 +188,16 @@ public class Environment extends AbstractObservable implements IModifiableEnviro
 	
 	public void setPaletteColors(int aIndex, int aRed, int aBlue, int aGreen) {
 		myBackgroundInformation.setPaletteColor(aIndex, aRed, aBlue, aGreen);
+	}
+
+	@Override
+	public int stamp(ICloneable<IRobot> aCloneableRobot) {
+		return myStampManager.stamp(aCloneableRobot);
+	}
+
+	@Override
+	public int clearAllStamps() {
+		return myStampManager.clearAll();
 	}
 
 }

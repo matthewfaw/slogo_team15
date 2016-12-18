@@ -3,6 +3,8 @@ package back_end.model.states;
 import java.util.Collection;
 
 import back_end.model.exception.InvalidNodeUsageException;
+import back_end.model.robot.ICloneable;
+import back_end.model.robot.IRobot;
 import back_end.model.robot.Turtle;
 import back_end.model.states.background.BackgroundInformation;
 import back_end.model.states.background.IModifiableBackground;
@@ -111,6 +113,18 @@ public interface IModifiableEnvironmentState extends IViewableVariableState, IMo
 	 */
 	public void setPaletteColors(int aIndex, int aRed, int aBlue, int aGreen);
 	
+	/**
+	 * A method to make a stamp of the robot
+	 * @param aCloneableRobot -- the robot to stamp
+	 * @return the image id of the stamped robot
+	 */
+	public int stamp(ICloneable<IRobot> aCloneableRobot);
+	
+	/**
+	 * A method to clear all currently placed stamps
+	 * @return 1 if at least one stamp was placed, 0 otherwise
+	 */
+	public int clearAllStamps();
 	
 	
 }
